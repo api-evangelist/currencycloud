@@ -1,0 +1,32 @@
+generated: '2026-07-18'
+method: searched
+source: openapi/currencycloud-onboarding-openapi-original.yml
+docs: https://developer.currencycloud.com/guides/integration-guides/authentication/
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+  style: login-token
+schemes:
+- name: AuthToken
+  type: apiKey
+  in: header
+  parameter: X-Auth-Token
+  sources:
+  - openapi/currencycloud-onboarding-openapi-original.yml
+flow:
+  description: >-
+    All endpoints require authentication. Exchange long-lived credentials for a
+    short-lived session token, then pass the token on every request.
+  steps:
+    - Call POST /v2/authenticate/api with form-data login_id (usually your email)
+      and api_key (64-char key from the developer portal).
+    - Extract auth_token from the JSON response.
+    - Send the token as the X-Auth-Token header on all subsequent calls.
+    - Call POST /v2/authenticate/close_session to terminate the session.
+  token_expiry: 30 minutes of inactivity (then HTTP 401 auth_failed)
+  api_key_length: 64 characters
+  on_behalf_of: >-
+    House accounts can act for sub-accounts by passing on_behalf_of (a
+    sub-account contact id) on supported operations.
