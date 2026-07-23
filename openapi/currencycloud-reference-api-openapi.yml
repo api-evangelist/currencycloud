@@ -1,0 +1,2137 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Reference API
+  version: v1
+  description: Easy access to view important data relevant to your Currencycloud account including beneficiary details, conversion dates, available currencies, payer required details, payment dates and settlement details.
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Reference
+  description: Easy access to view important data relevant to your Currencycloud account including beneficiary details, conversion dates, available currencies, payer required details, payment dates and settlement details.
+paths:
+  /reference/bank_details/find:
+    post:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Find Bank Details
+      description: Returns the related bank details for the given account reference.
+      operationId: FinfBankDetailsPost
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: identifier_type
+        in: formData
+        required: true
+        type: string
+        enum:
+        - aba
+        - bic_swift
+        - bsb_code
+        - cnaps
+        - iban
+        - ifsc
+        - routing_number
+        - sort_code
+        description: The type of code used to identify the account (e.g. IBAN).
+      - name: identifier_value
+        in: formData
+        required: true
+        type: string
+        description: The value of the account identifier specified in identifier_type (e.g. the IBAN code).
+        minLength: 1
+        maxLength: 255
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/BankDetails'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: identifier_type_is_required
+            category: identifier_type
+            message: identifier_type is required
+            params: ''
+          - code: identifier_type_not_in_range
+            category: identifier_type
+            message: 'identifier_type should be in range: iban, bic_swift, sort_code, aba, bsb_code, routing_number, cnaps, ifsc'
+            params: '{ "range" => "iban, bic_swift, sort_code, aba, bsb_code, routing_number, cnaps, ifsc" }'
+          - code: identifier_value_is_required
+            category: identifier_value
+            message: identifier_value is required
+            params: ''
+          - code: identifier_value_is_empty
+            category: identifier_value
+            message: identifier_value should not be empty
+            params: '{ "type" => "not_empty_string" }'
+          - code: invalid_iban
+            category: base
+            message: IBAN is invalid
+            params: ''
+          - code: invalid_bic
+            category: base
+            message: BIC_Swift is invalid
+            params: ''
+          - code: invalid_aba
+            category: base
+            message: ABA is invalid
+            params: ''
+          - code: invalid_sort_code
+            category: base
+            message: SORT_CODE is invalid
+            params: ''
+          - code: invalid_bsb
+            category: base
+            message: BSB_CODE is invalid
+            params: ''
+          - code: invalid_routing_number
+            category: base
+            message: ROUTING_NUMBER is invalid
+            params: ''
+          - code: invalid_cnaps
+            category: base
+            message: CNAPS is invalid
+            params: ''
+          - code: cannot_retrieve_bank_data
+            category: base
+            message: Bank Details service is temporarily unavailable
+            params: ''
+          schema:
+            $ref: '#/definitions/GetBankDetailsError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error s
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable.
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/beneficiary_required_details:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Beneficiary Requirements
+      description: Returns the information that is required to make payments to beneficiaries in specified currencies and countries.
+      operationId: GetBeneficiaryRequirements
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: currency
+        in: query
+        required: true
+        type: string
+        description: Currency in which money is held in the beneficiary's bank account. Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: bank_account_country
+        in: query
+        required: true
+        type: string
+        description: Two-letter ISO country code.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: beneficiary_country
+        in: query
+        required: true
+        type: string
+        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which they are based.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              details:
+                type: array
+                items:
+                  $ref: '#/definitions/BeneficiaryRequirements'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: bank_account_country_is_in_invalid_format
+            category: bank_account_country
+            message: Bank account country is not a valid ISO 3166-1 Alpha-2 country code
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: Currency is not a valid ISO 4217 currency code
+            params: ''
+          - code: beneficiary_country_is_in_invalid_format
+            category: beneficiary_country
+            message: Beneficiary country is not a valid ISO 3166-1 Alpha-2 country code
+            params: ''
+          schema:
+            $ref: '#/definitions/GetBeneficiaryRequirementsError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/conversion_dates:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Conversion Dates
+      description: Provides a list of upcoming non-trading dates, such as weekends or public holidays, for a specified currency pair. Common use cases include situations where this information needs to be provided, or for planning upcoming conversion bookings. <br><br> Many currencies are triangulated; this means that holidays affecting the intermediary currency, as well as the sale and purchase currencies, will impact transactions. Find out more at our <a href="https://support.currencycloud.com/hc/en-gb/articles/5223342659484-Currency-Triangulation">support article.</a>
+      operationId: GetConversionDates
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: conversion_pair
+        in: query
+        required: true
+        type: string
+        description: Concatenated string of the currency codes for the two currencies involved, e.g. "USDEUR".
+        pattern: ^[A-Z]{6}$
+      - name: start_date
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Start date of conversion. ISO 8601 format YYYY-MM-DD.
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/ConversionDates'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: conversion_pair_is_required
+            category: conversion_pair
+            message: conversion_pair is required
+            params: ''
+          - code: invalid_conversion_pair
+            category: conversion_pair
+            message: The conversion pair specified was invalid
+            params: ''
+          - code: conversion_pair_is_too_short
+            category: conversion_pair
+            message: conversion_pair can not be shorter than 6 character(s)
+            params: '{ "minlength" => 6 }'
+          - code: conversion_pair_is_too_long
+            category: conversion_pair
+            message: conversion_pair can not be longer than 6 character(s)
+            params: '{ "maxlength" => 6 }'
+          - code: start_date_is_too_far_in_future
+            category: start_date
+            message: Date is too far in the future (more than 1 year)
+            params: '{ "maxdate" => "2015-04-04T00:00:00Z", "period" => "1 year" }'
+          - code: start_date_is_in_invalid_format
+            category: start_date
+            message: start_date should be in ISO 8601 format
+            params: '{ "type" => "date" }'
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You can not act on behalf of your own Contact
+            params: ''
+          schema:
+            $ref: '#/definitions/GetConversionDatesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/currencies:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Available Currencies
+      description: Gets a list of all currencies that can be traded on the Currencycloud platform.
+      operationId: GetAvailableCurrencies
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/AvailableCurrencies'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          schema:
+            $ref: '#/definitions/GetAvailableCurrenciesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/payer_required_details:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Payer Requirements
+      description: Returns the payer information you need to provide to create a payment. Requirements vary depending on the location of the payer, the type of payment to be made (priority or regular), and other factors.
+      operationId: GetPayerRequirements
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: payer_country
+        in: query
+        required: true
+        type: string
+        description: Two-letter ISO country code.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: payer_entity_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity type - company or individual.
+      - name: payment_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - priority
+        - regular
+        description: 'Currencycloud supports two types of payments: "priority" (Swift), made using the Swift network; and "regular" (local), made using the local bank network.'
+      - name: currency
+        in: query
+        required: false
+        type: string
+        description: Three-letter ISO 4217 currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PayerRequirements'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: payer_country_is_required
+            category: payer_country
+            message: payer_country is required
+            params: ''
+          - code: payer_country_is_in_invalid_format
+            category: payer_country
+            message: payer_country is not a valid ISO 3166-1 Alpha-2 country code
+            params: '{ "type" => "country_code" }'
+          - code: payment_type_not_in_range
+            category: payment_type
+            message: 'payment_type should be in range: priority, regular'
+            params: '{ "range" => "priority, regular" }'
+          - code: payer_entity_type_not_in_range
+            category: payer_entity_type
+            message: 'payer_entity_type should be in range: company, individual'
+            params: '{ "range" => "company, individual" }'
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is not a valid ISO 4217 currency code
+            params: ''
+          schema:
+            $ref: '#/definitions/GetPayerRequirementsError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/payment_dates:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Payment Dates
+      description: Gets a list of invalid payment dates for a given currency covering a two months period from the start_date specified. A payment date is when a payment will be executed by Currencycloud. Payments cannot be made on some days, for example when banks are closed.
+      operationId: GetPaymentDates
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: currency
+        in: query
+        required: true
+        type: string
+        description: Currency in which payment made. Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: start_date
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Payment start date, defaults to today's date. ISO 8601 format YYYY-MM-DD.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentDates'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: currency_is_required
+            category: currency
+            message: currency is required
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is not a valid ISO 4217 currency code
+            params: ''
+          - code: start_date_is_too_far_in_future
+            category: start_date
+            message: Date is too far in the future (more than 1 year)
+            params: '{ "maxdate" => "2015-04-04T00:00:00Z", "period" => "1 year" }'
+          - code: start_date_is_in_invalid_format
+            category: start_date
+            message: start_date should be in ISO 8601 format
+            params: '{ "type" => "datetime" }'
+          schema:
+            $ref: '#/definitions/GetPaymentDatesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/payment_fee_rules:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Payment Fee Rules
+      description: Gets the <a href="https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ">payment fee</a> information set up for the account / payment type provided.
+      operationId: GetPaymentFeeRules
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: account_id
+        in: query
+        required: false
+        type: string
+        description: Account UUID
+        format: uuid
+      - name: payment_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - priority
+        - regular
+        description: Payment type value. Limits the search results to payments of the specified payment type - 'priority'(Swift) or 'regular'(local).
+      - name: charge_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - ours
+        - shared
+        description: Payment charge value. Limits the search results to payments of the specified <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430820-Selecting-payment-charges-for-SWIFT-payments-FAQ">charge type</a> - 'ours' or 'shared'.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              payment_fee_rules:
+                type: array
+                items:
+                  $ref: '#/definitions/PaymentFeeRule'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: account_id_is_not_valid_uuid
+            category: account_id
+            message: account_id should be in UUID format
+            params: ''
+          - code: charge_type_not_in_range
+            category: charge_type
+            message: 'charge_type should be in range: shared, ours'
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: payment_type_not_in_range
+            category: payment_type
+            message: 'payment_type should be in range: priority, regular'
+            params: '{ "payment_type" => "priority, regular" }'
+          schema:
+            $ref: '#/definitions/GetPaymentFeeRulesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/payment_purpose_codes:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Payment Purpose Codes
+      description: Gets a list of payment purpose codes for a given currency and entity type. When initiating cross-border payments, the central bank of the country may require a purpose to be included with your transaction in order for your payment to be accepted and processed. If a payment purpose code is required but not provided, your payment may be delayed or rejected by the beneficiary bank.
+      operationId: GetPaymentPurposeCodes
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: currency
+        in: query
+        required: true
+        type: string
+        description: Three-letter ISO currency code for the currency in which payment will be made. No purpose codes will be returned if an invalid currency code is given.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: entity_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity type - company or individual.
+      - name: bank_account_country
+        in: query
+        required: true
+        type: string
+        description: Two-letter ISO country code of the bank account.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              purpose_codes:
+                type: array
+                items:
+                  $ref: '#/definitions/PaymentPurposeCodes'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: currency_is_required
+            category: currency
+            message: currency is required
+            params: ''
+          schema:
+            $ref: '#/definitions/GetPaymentPurposeCodesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          - code: missing_translation
+            category: base
+            message: Internal server error. Currency value was not specified
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reference/settlement_accounts:
+    get:
+      tags:
+      - Reference
+      x-api-group: manage
+      summary: Get Settlement Accounts
+      description: Gets settlement account information - a list of accounts that require funding in order to allow for outstanding transactions to be processed.
+      operationId: GetSettlementAccounts
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: currency
+        in: query
+        required: false
+        type: string
+        description: Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: account_id
+        in: query
+        required: false
+        type: string
+        description: Account UUID
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              settlement_accounts:
+                type: array
+                items:
+                  $ref: '#/definitions/SettlementAccount'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: account_id_is_not_valid_uuid
+            category: id
+            message: account_id should be in UUID format
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is not a valid ISO 4217 currency code.
+            params: ''
+          schema:
+            $ref: '#/definitions/GetSettlementAccountsError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          x-errors:
+          - code: account_not_found
+            category: base
+            message: Account was not found for this id
+            params: ''
+          - code: settlement_accounts_not_found
+            category: base
+            message: Settlement Account details not found
+            params: ''
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+definitions:
+  BankDetails:
+    type: object
+    description: Bank Details
+    required:
+    - identifier_type
+    - identifier_value
+    additionalProperties: false
+    properties:
+      identifier_type:
+        type: string
+        description: The type of identifier used to identify the account (e.g. IBAN).
+      identifier_value:
+        type: string
+        description: The value of the identifier of the account in the format of the identifier_type (e.g. IBAN code).
+      account_number:
+        type: string
+        description: Account number
+      bic_swift:
+        type: string
+        description: BIC/Swift code.
+      bank_name:
+        type: string
+        description: Bank name
+      bank_branch:
+        type: string
+        description: Bank branch
+      bank_address:
+        type: string
+        description: Bank address
+      bank_city:
+        type: string
+        description: City of the bank.
+      bank_state:
+        type: string
+        description: State the bank is situated in. Available in all countries using states.
+      bank_post_code:
+        type: string
+        description: The bank's post code or the zip code for USA banks.
+      bank_country:
+        type: string
+        description: Full country name.
+      bank_country_ISO:
+        type: string
+        description: Two-letter ISO country code.
+      currency:
+        type: string
+        description: Three-letter ISO currency code.
+    example:
+      identifier_type: iban
+      identifier_value: FR7530002002460000012345X12
+      account_number: FR7530002002460000012345X12
+      bic_swift: CRLYFRPPXXX
+      bank_name: CREDIT LYONNAIS
+      bank_branch: AG STALINGRAD
+      bank_address: 212 BOULEVARD DE LA VILLETTE
+      bank_city: PARIS
+      bank_state: PARIS
+      bank_post_code: 75019
+      bank_country: FRANCE
+      bank_country_ISO: FR
+      currency: null
+  UnauthorizedError:
+    type: object
+    description: Authorization error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_failed
+      error_messages:
+        api_key:
+        - code: invalid_supplied_credentials
+          message: Authentication failed with the supplied credentials
+          params: {}
+  BeneficiaryRequirements:
+    type: object
+    description: Beneficiary requirements.
+    properties:
+      payment_type:
+        description: The type of payment - 'priority' (Swift) or 'regular' (local).
+        type: string
+        enum:
+        - priority
+        - regular
+      acct_number:
+        type: string
+        description: An account number is required.
+      bic_swift:
+        type: string
+        description: BIC / Swift code is required.
+      beneficiary_address:
+        type: string
+        description: Beneficiary's address
+      beneficiary_city:
+        type: string
+        description: Beneficiary's city
+      beneficiary_country:
+        type: string
+        description: Beneficiary's country
+      beneficiary_postcode:
+        type: string
+        description: Beneficiary's postcode
+      beneficiary_state_or_province:
+        type: string
+        description: Beneficiary's state or province
+      beneficiary_first_name:
+        type: string
+        description: Beneficiary's first name
+      beneficiary_last_name:
+        type: string
+        description: Beneficiary's last name
+      beneficiary_entity_type:
+        type: string
+        description: Type of entity
+        enum:
+        - company
+        - individual
+      sort_code:
+        type: string
+        description: A sort code is required.
+      aba:
+        type: string
+        description: An ABA (American Bankers Association) routing number is required.
+      bsb_code:
+        type: string
+        description: A BSB (Bank State Branch) number is required.
+      institution_no:
+        type: string
+        description: An institution number is required.
+      bank_code:
+        type: string
+        description: A bank code is required.
+      branch_code:
+        type: string
+        description: A branch code is required.
+      clabe:
+        type: string
+        description: A CLABE (Clave Bancaria Estandarizada) code is required.
+      cnaps:
+        type: string
+        description: A CNAPS (China National Advanced Payment System) code is required.
+    example:
+      payment_type: regular
+      acct_number: ^\\d{1,17}$
+      aba: ^[0-9A-Z]{9}$
+      beneficiary_address: ^.{1,255}
+      beneficiary_city: ^.{1,255}
+      beneficiary_country: ^[A-z]{2}$
+      beneficiary_postcode: ^.{1,255}
+      beneficiary_state_or_province: ^.{1,255}
+      beneficiary_first_name: ^.{1,255}
+      beneficiary_last_name: ^.{1,255}
+      beneficiary_entity_type: individual
+  AvailableCurrencies:
+    type: object
+    description: Available currencies
+    properties:
+      code:
+        description: Three-letter ISO currency code.
+        type: string
+      decimal_places:
+        description: The number of decimal places used by the currency.
+        type: integer
+      name:
+        description: The name of the currency.
+        type: string
+      online_trading:
+        description: Can the currency be traded online?
+        type: boolean
+        enum:
+        - true
+        - false
+      can_buy:
+        description: Can the currency be bought?
+        type: boolean
+        enum:
+        - true
+        - false
+      can_sell:
+        description: Can the currency be sold?
+        type: boolean
+        enum:
+        - true
+        - false
+    example:
+      code: AED
+      decimal_places: 2
+      name: United Arab Emirates Dirham
+      online_trading: true
+      can_buy: true
+      can_sell: true
+  GetBankDetailsError:
+    type: object
+    description: 'Client error information for the Get Bank Details endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  ConversionDates:
+    type: object
+    description: Conversion dates.
+    properties:
+      first_conversion_cutoff_datetime:
+        type: string
+        format: date-time
+        description: The first conversion date and cutoff time by when conversions can be created.
+      first_conversion_date:
+        type: string
+        format: date
+        description: The first available date that a trade can be made on, in the format YYYY-MM-DD.
+      next_day_conversion_date:
+        type: string
+        format: date
+        description: The next available date that a trade can be made on, in the format YYYY-MM-DD.
+      default_conversion_date:
+        type: string
+        format: date
+        description: The default available date that a trade can be made on, in the format YYYY-MM-DD.
+      optimize_liquidity_conversion_date:
+        type: string
+        format: date
+        description: Optimal conversion date for maximizing chances of getting a successful rate.
+      invalid_conversion_dates:
+        type: object
+        additionalProperties:
+          type: string
+          description: Maps dates (eg. "2020-12-27") to string values that explain why trading is not available on the date (eg. "No trading on Sunday").
+      offline_conversion_dates:
+        type: array
+        items:
+          type: string
+          description: The list of available offline conversion dates.
+    example:
+      first_conversion_cutoff_datetime: '2020-11-18T15:50:00+00:00'
+      first_conversion_date: '2020-11-18'
+      next_day_conversion_date: '2020-11-19'
+      default_conversion_date: '2020-11-20'
+      optimize_liquidity_conversion_date: '2020-11-23'
+      invalid_conversion_dates:
+        '2020-11-21': No trading on Saturday
+        '2020-11-22': No trading on Sunday
+        '2020-11-28': No trading on Saturday
+        '2020-11-29': No trading on Sunday
+        '2020-12-05': No trading on Saturday
+        '2020-12-06': No trading on Sunday
+        '2020-12-12': No trading on Saturday
+        '2020-12-13': No trading on Sunday
+        '2020-12-19': No trading on Saturday
+        '2020-12-20': No trading on Sunday
+        '2020-12-25': Christmas Day
+        '2020-12-26': No trading on Saturday
+        '2020-12-27': No trading on Sunday
+        '2020-12-28': Boxing Day OBS
+        '2021-01-01': New Year's Day
+        '2021-01-02': No trading on Saturday
+        '2021-01-03': No trading on Sunday
+      offline_conversion_dates:
+      - '2020-11-23'
+  NotFoundError:
+    type: object
+    description: Resource not found.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentFeeRule:
+    type: object
+    description: Payment fee rule.
+    required:
+    - payment_type
+    - charge_type
+    - fee_amount
+    - fee_currency
+    - payment_fee_id
+    - payment_fee_name
+    additionalProperties: false
+    properties:
+      payment_type:
+        type: string
+        description: The payment type the fee is applicable to, priority(Swift) or regular(local).
+      charge_type:
+        type: string
+        description: The charge type the fee is applicable to.
+      fee_amount:
+        type: string
+        description: The fee amount.
+      fee_currency:
+        type: string
+        description: The fee currency.
+      payment_fee_id:
+        type: string
+        format: uuid
+        description: The ID of payment level rule.
+      payment_fee_name:
+        type: string
+        description: The name of payment level fee table.
+    example:
+      payment_type: priority
+      charge_type: shared
+      fee_amount: '2.00'
+      fee_currency: AED
+      payment_fee_id: 5c3b8754-406d-4e7e-a80e-606fa273ab80
+      payment_fee_name: fee_table_AED
+  GetSettlementAccountsError:
+    type: object
+    description: 'Client error information for the Get Settlement Accounts endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetPaymentPurposeCodesError:
+    type: object
+    description: 'Client error information for the Get Payment Purpose Codes endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  RateLimitError:
+    type: object
+    description: Too many requests.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this validation/error.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetPayerRequirementsError:
+    type: object
+    description: 'Client error information for the Get Payer Requirements endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetConversionDatesError:
+    type: object
+    description: 'Client error information for the Get Conversion Dates endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentPurposeCodes:
+    type: object
+    description: Payment purpose codes.
+    properties:
+      currency:
+        type: string
+        description: Payment currency
+      entity_type:
+        type: string
+        description: Legal entity type - 'company' or 'individual'.
+      purpose_code:
+        type: string
+        description: Purpose code
+      purpose_description:
+        type: string
+        description: A description of the purpose code.
+      bank_account_country:
+        type: string
+        description: Two-letter country code for the country of the bank account.
+    example:
+      currency: INR
+      entity_type: Company
+      purpose_code: delivery
+      purpose_description: Delivery fees for goods
+      bank_account_country: IN
+  PaymentDates:
+    type: object
+    description: Payment dates.
+    properties:
+      invalid_payment_dates:
+        type: object
+        description: Invalid payment dates with reason.
+        additionalProperties:
+          type: string
+          description: Maps dates (eg. "2023-12-31") to string values that explains why payments cannot be made on this date (eg. "No trading on Sunday").
+      first_payment_date:
+        description: Frist possible payment date.
+        type: string
+    example:
+      invalid_payment_dates:
+        '2013-04-18': Good Friday
+        '2013-04-19': No trading on Saturday
+        '2013-04-20': No trading on Sunday
+        '2013-04-21': Easter Monday
+        '2013-04-26': No trading on Saturday
+        '2013-04-27': No trading on Sunday
+        '2013-05-03': No trading on Saturday
+        '2013-05-04': No trading on Sunday
+        '2013-05-05': Early May Bank Holiday
+        '2013-05-10': No trading on Saturday
+        '2013-05-11': No trading on Sunday
+        '2013-05-17': No trading on Saturday
+        '2013-05-18': No trading on Sunday
+        '2013-05-24': No trading on Saturday
+        '2013-05-25': No trading on Sunday
+        '2013-05-26': Spring Bank Holiday
+        '2013-05-31': No trading on Saturday
+        '2013-06-01': No trading on Sunday
+        '2013-06-07': No trading on Saturday
+        '2013-06-08': No trading on Sunday
+        '2013-06-14': No trading on Saturday
+      first_payment_date: '2013-04-15T00:00:00.000Z'
+  SettlementAccount:
+    type: object
+    description: Settlement accounts.
+    properties:
+      bank_account_holder_name:
+        type: string
+        description: The bank account holder's name.
+      beneficiary_address:
+        type: array
+        description: The beneficiary's address.
+        items:
+          type: string
+          description: Line of address.
+      beneficiary_country:
+        description: Beneficiary's country.
+        type: string
+      bank_name:
+        description: The name of the bank.
+        type: string
+      bank_address:
+        description: The bank's address.
+        type: array
+        items:
+          type: string
+          description: Line of address
+      bank_country:
+        type: string
+        description: Two-letter ISO country code for the bank's country.
+      currency:
+        description: Payment currency
+        type: string
+      bic_swift:
+        description: BIC / Swift code
+        type: string
+      iban:
+        description: IBAN number
+        type: string
+      account_number:
+        description: Account number
+        type: string
+      routing_code_type_1:
+        description: Routing system for regular (local) payments.
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+      routing_code_value_1:
+        type: string
+        description: Value for routing system 'routing_code_type_1'.
+      routing_code_type_2:
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system.
+      routing_code_value_2:
+        type: string
+        description: Value for routing system 'routing_code_type_2'.
+    example:
+      bank_account_holder_name: The Currency Cloud GBP - Client Seg A/C
+      beneficiary_address:
+      - 1 Churchill Place London E14 5HP
+      beneficiary_country: GB
+      bank_name: Barclays Bank Plc.
+      bank_address:
+      - 164 Bishopsgate London EC2M 4LX
+      bank_country: GB
+      currency: GBP
+      bic_swift: BARCGB22
+      iban: GB33 BUKB 2020 1555 5555 55
+      account_number: '13071472'
+      routing_code_type_1: sort_code
+      routing_code_value_1: '200605'
+      routing_code_type_2: ''
+      routing_code_value_2: ''
+  PayerRequirements:
+    type: object
+    description: Payer requirements.
+    properties:
+      payer_entity_type:
+        description: Legal entity type - company or individual.
+        enum:
+        - company
+        - individual
+        type: string
+      payment_type:
+        description: Type of payment - regular (local) or priority (Swift).
+        enum:
+        - priority
+        - regular
+        type: string
+      required_fields:
+        description: The required payer fields for the payment.
+        type: array
+        items:
+          type: object
+          properties:
+            name:
+              type: string
+            validation_rule:
+              type: string
+    example:
+      payer_entity_type: company
+      payment_type: priority
+      required_fields:
+      - name: payer_country
+        validation_rule: ^[A-z]{2}$
+      - name: payer_city
+        validation_rule: ^.{1,255}
+      - name: payer_address
+        validation_rule: ^.{1,255}
+      - name: payer_postcode
+        validation_rule: ^.{1,255}
+      - name: payer_company_name
+        validation_rule: ^.{1,255}
+  GetPaymentDatesError:
+    type: object
+    description: 'Client error information for the Get Payment Dates endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetPaymentFeeRulesError:
+    type: object
+    description: 'Client error information for the Get Payment Fee Rules endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetBeneficiaryRequirementsError:
+    type: object
+    description: 'Client error information for the Get Beneficiary Requirements endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetAvailableCurrenciesError:
+    type: object
+    description: 'Client error information for the Get Available Currencies endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255

@@ -1,0 +1,806 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Transactions API
+  version: v1
+  description: View balances and all pending and completed transactions in your Currencycloud account, as well as associated sub-account balances and transactions.
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Transactions
+  description: View balances and all pending and completed transactions in your Currencycloud account, as well as associated sub-account balances and transactions.
+paths:
+  /transactions/find:
+    get:
+      tags:
+      - Transactions
+      x-api-group: manage
+      summary: Find Transactions
+      description: Search for transactions.
+      operationId: FindTransactions
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: currency
+        in: query
+        required: false
+        type: string
+        description: Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: amount
+        in: query
+        required: false
+        type: string
+        description: Amount the transaction is for.
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: amount_from
+        in: query
+        required: false
+        type: string
+        description: Minimum amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: amount_to
+        in: query
+        required: false
+        type: string
+        description: Maximum amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: action
+        in: query
+        required: false
+        type: string
+        enum:
+        - conversion
+        - conversion_deposit
+        - deposit_refund
+        - funding
+        - margin
+        - manual_transaction
+        - payment
+        - payment_failure
+        - payment_fee
+        - payment_unrelease
+        - transfer
+        description: The action that triggered the transaction.
+      - name: related_entity_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - conversion
+        - deposit
+        - inbound_funds
+        - payment
+        - transfer
+        description: The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the ‘action’ field and may be included in the response.
+      - name: related_entity_id
+        in: query
+        required: false
+        type: string
+        description: UUID of the related entity.
+        format: uuid
+      - name: related_entity_short_reference
+        in: query
+        required: false
+        type: string
+        description: Short reference code.
+        minLength: 1
+        maxLength: 25
+      - name: status
+        in: query
+        required: false
+        type: string
+        enum:
+        - completed
+        - deleted
+        - pending
+        description: Transaction status.
+      - name: type
+        in: query
+        required: false
+        type: string
+        enum:
+        - credit
+        - debit
+        description: Whether the transaction debits or credits the account balance.
+      - name: settles_at_from
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Earliest processing date. Any valid ISO 8601 format, e.g. "e.g. "2023-12-31T23:59:59Z".
+      - name: settles_at_to
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Latest processing date. Any valid ISO 8601 format, e.g. "e.g. "2023-12-31T23:59:59Z".
+      - name: created_at_from
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59Z".
+      - name: created_at_to
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59Z".
+      - name: updated_at_from
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59Z".
+      - name: updated_at_to
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59Z".
+      - name: completed_at_from
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59Z".
+      - name: completed_at_to
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59Z".
+      - name: beneficiary_id
+        in: query
+        required: false
+        type: string
+        description: Beneficiary UUID. Required if "related_entity_type" is "payment".
+        format: uuid
+      - name: currency_pair
+        in: query
+        required: false
+        type: string
+        description: Concatenated string of the two currencies traded, e.g. "USDEUR". Required if "related_entity_type" is "conversion".
+        pattern: ^[A-Z]{6}$
+      - name: scope
+        in: query
+        required: false
+        type: string
+        enum:
+        - all
+        - clients
+        - own
+        default: own
+        description: '"Own" account, "clients" sub-accounts, or "all" accounts.'
+      - name: page
+        in: query
+        required: false
+        type: integer
+        description: Page number
+        pattern: ^\d+$
+      - name: per_page
+        in: query
+        required: false
+        type: integer
+        description: Number of results per page.
+        pattern: ^\d+$
+      - name: order
+        in: query
+        required: false
+        type: string
+        default: created_at
+        description: The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.
+        minLength: 1
+        maxLength: 255
+      - name: order_asc_desc
+        in: query
+        required: false
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Sort results in ascending or descending order.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              transactions:
+                type: array
+                items:
+                  $ref: '#/definitions/Transaction'
+              pagination:
+                $ref: '#/definitions/Pagination'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: transaction_not_found
+            category: id
+            message: No Transaction found for 21b552e0-d97c-612d-2335-34203ab3f267
+            params: ''
+          - code: status_not_in_range
+            category: status
+            message: 'status should be in range: completed, pending, deleted'
+            params: '{"range": "completed, pending, deleted" }'
+          - code: amount_type_is_wrong
+            category: amount
+            message: amount should be of numeric type
+            params: ''
+          - code: amount_from_type_is_wrong
+            category: amount_from
+            message: amount_from should be of numeric type
+            params: ''
+          - code: amount_to_type_is_wrong
+            category: amount_to
+            message: amount_to should be of numeric type
+            params: ''
+          - code: created_at_to_type_is_wrong
+            category: created_as_to
+            message: created_at_to should be of date type
+            params: '{"type": "date"}'
+          - code: completed_at_to_type_is_wrong
+            category: completed_at_to
+            message: completed_at_to should be of date type
+            params: '{"type": "date"}'
+          - code: related_entity_id_is_not_valid_uuid
+            category: related_entity
+            message: related_entity_id should be in UUID format
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: related_entity_type_not_in_range
+            category: related_entity_type
+            message: 'related_entity_type should be in range: conversion, payment, inbound_funds, deposit, transfer'
+            params: '{ "range" => "conversion, payment, inbound_funds, deposit, transfer" }'
+          - code: action_not_in_range
+            category: action
+            message: 'action should be in range: funding, conversion, payment, payment_failure, manual_transaction, transfer, conversion_deposit, deposit_refund, payment_unrelease, payment_fee, margin'
+            params: '{ "range" => "funding, conversion, payment, payment_failure, manual_transaction,  transfer, conversion_deposit, deposit_refund, payment_unrelease, payment_fee, margin" }'
+          - code: scope_not_in_range
+            category: scope
+            message: 'scope should be in range: own, all, clients'
+            params: '{ "range" => "own, all, clients" }'
+          schema:
+            $ref: '#/definitions/FindTransactionsError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+  /transactions/{id}:
+    get:
+      tags:
+      - Transactions
+      x-api-group: manage
+      summary: Get Transaction
+      description: Gets a transaction record.
+      operationId: GetTransaction
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Transaction UUID
+        format: uuid
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Transaction'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '400':
+          description: Client error.
+          x-errors:
+          - code: transaction_not_found
+            category: id
+            message: No Transaction found for 38f7ca23-8090-403b-bc4a-eb1ba2ac9f29
+            params: '{"id": "38f7ca23-8090-403b-bc4a-eb1ba2ac9f29"}'
+          - code: id_is_not_valid_uuid
+            category: id
+            message: id should be in UUID format
+            params: ''
+          schema:
+            $ref: '#/definitions/GetTransactionError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+definitions:
+  Transaction:
+    type: object
+    description: Transaction.
+    properties:
+      id:
+        type: string
+        description: Transaction ID
+      balance_id:
+        type: string
+        description: Balance ID
+      account_id:
+        type: string
+        description: Account ID
+      currency:
+        type: string
+        description: Three-letter ISO currency code.
+      amount:
+        type: string
+        description: Transaction amount
+      balance_amount:
+        type: string
+        description: Balance amount
+      type:
+        type: string
+        description: Type (debit or credit).
+        enum:
+        - credit
+        - debit
+      action:
+        type: string
+        description: The action that triggered the transaction.
+        enum:
+        - conversion
+        - conversion_deposit
+        - deposit_refund
+        - funding
+        - margin
+        - manual_transaction
+        - payment
+        - payment_failure
+        - payment_fee
+        - payment_unrelease
+        - transfer
+      related_entity_type:
+        type: string
+        description: The related entity type.
+        enum:
+        - balance_transfer
+        - conversion
+        - deposit
+        - inbound_funds
+        - margin_transaction
+        - payment
+      related_entity_id:
+        type: string
+      related_entity_short_reference:
+        type: string
+        description: Releated entity short reference.
+      status:
+        type: string
+        description: Transaction status
+        enum:
+        - completed
+        - deleted
+        - pending
+      reason:
+        description: Reason
+        type: string
+      settles_at:
+        description: Settlement date
+        type: string
+        format: date-time
+      created_at:
+        type: string
+        description: Date the transaction record was created.
+        format: date-time
+      updated_at:
+        type: string
+        format: date-time
+      completed_at:
+        type: string
+        description: Date the transaction record was last updated.
+        format: date-time
+    example:
+      id: c5a990eb-d4d7-482f-bfb1-695261fb1e4d
+      balance_id: c5f1f54e-d6d8-4140-8110-f5b99bbc80c3
+      account_id: 7b9757a8-eee9-4572-86e6-77f4d711eaa6
+      currency: USD
+      amount: '1000.00'
+      balance_amount: '2000.00'
+      type: credit
+      action: conversion
+      related_entity_type: conversion
+      related_entity_id: e93e322f-93aa-4d31-b050-449da723db0b
+      related_entity_short_reference: 140416-GGJBNQ001
+      status: completed
+      reason: Reason for Transaction
+      settles_at: '2023-12-31T23:59:59.000Z'
+      created_at: '2023-12-31T23:59:59.000Z'
+      updated_at: '2023-12-31T23:59:59.000Z'
+      completed_at: '2023-12-31T23:59:59.000Z'
+  RateLimitError:
+    type: object
+    description: Too many requests.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this validation/error.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  UnauthorizedError:
+    type: object
+    description: Authorization error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_failed
+      error_messages:
+        api_key:
+        - code: invalid_supplied_credentials
+          message: Authentication failed with the supplied credentials
+          params: {}
+  GetTransactionError:
+    type: object
+    description: 'Client error information for the Get Transaction endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  NotFoundError:
+    type: object
+    description: Resource not found.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  FindTransactionsError:
+    type: object
+    description: 'Client error information for the Find Transactions endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  Pagination:
+    type: object
+    description: Pagination.
+    properties:
+      total_entries:
+        type: integer
+      total_pages:
+        type: integer
+      current_page:
+        type: integer
+      per_page:
+        type: integer
+        description: Number of results per page.
+      previous_page:
+        type: integer
+      next_page:
+        type: integer
+      order:
+        type: string
+        description: The field name by which the results are sorted.
+      order_asc_desc:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Whether results are sorted in ascending or descending order.
+    example:
+      total_entries: 1
+      total_pages: 1
+      current_page: 1
+      per_page: 25
+      previous_page: -1
+      next_page: 2
+      order: created_at
+      order_asc_desc: asc

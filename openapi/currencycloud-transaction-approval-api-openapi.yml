@@ -1,0 +1,221 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Transaction Approval API
+  version: v1
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Transaction Approval
+paths:
+  /collections_screening/{transactionId}/complete:
+    put:
+      tags:
+      - Transaction Approval
+      x-api-group: collect
+      summary: Accept or Reject Inbound Transaction
+      description: '
+
+        Allows you to accept or reject an inbound transaction before the funds are credited to the beneficiary’s account.'
+      operationId: CompleteCollectionsScreening
+      consumes:
+      - application/x-www-form-urlencoded
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token.
+        minLength: 32
+      - name: transactionId
+        in: path
+        required: true
+        type: string
+        description: The related_entity_id from the Cash Manager notification.
+        format: uuid
+      - name: accepted
+        in: formData
+        required: true
+        type: boolean
+        description: Should the transaction be accepted - true or false.
+        enum:
+        - true
+        - false
+      - name: reason
+        in: formData
+        required: true
+        type: string
+        description: 'Reason for acceptance or rejection. If "accepted" is true, the value should be "accepted". If "accepted" is false, the value should be one of the other values.
+
+          '
+        enum:
+        - accepted
+        - sanctioned_match
+        - unsupported_currency
+        - insufficient_transaction_information
+        - suspected_fraud
+        - internal_watchlist_match
+        - suspected_money_laundering_activity
+        minLength: 1
+        maxLength: 255
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              transaction_id:
+                description: The transaction UUID
+                type: string
+                example: bdcca5e6-32fe-45f6-9476-6f8f518e6270
+              account_id:
+                type: string
+                description: Account UUID
+                example: 7a116d7d-6310-40ae-8d54-0ffbe41dc1c9
+              house_account_id:
+                description: House Account UUID
+                type: string
+                example: 7a116d7d-6310-40ae-8d54-0ffbe41dc1c9
+              result:
+                type: object
+                properties:
+                  reason:
+                    description: The reason why the transaction was accepted or rejected.
+                    type: string
+                    example: Accepted
+                  accepted:
+                    description: Was the transaction accepted? True or false.
+                    type: boolean
+                    example: true
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: screening_already_expired
+            category: base
+            message: Screening is already expired.
+            params: ''
+          - code: transaction_id_is_not_valid_uuid
+            category: base
+            message: transaction_id should be in UUID format
+            params: ''
+          - code: accepted_type_is_wrong
+            category: base
+            message: accepted should be of boolean type
+            params: ''
+          - code: invalid_request
+            category: base
+            message: 'Invalid reason provided, expected one of: sanctioned_match, unsupported_currency, insufficient_transaction_information, suspected_fraud, internal_watchlist_match, suspected_money_laundering_activity'
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                example: '400'
+              error_messages:
+                type: object
+                properties:
+                  base:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: '400'
+                      message:
+                        type: string
+                        example: Screening is already expired.
+                      params:
+                        type: object
+                        example: {}
+        '401':
+          description: Authentication failed.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: base
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                example: auth_failed
+              error_messages:
+                type: object
+                properties:
+                  username:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        code:
+                          type: string
+                          example: invalid_supplied_credentials
+                        message:
+                          type: string
+                          example: Authentication failed with the supplied credentials
+                        params:
+                          type: object
+                          example: {}
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          x-errors:
+          - code: resource_not_found
+            category: base
+            message: Unable to find the resource.
+            params: ''
+          schema:
+            type: object
+            properties:
+              error_code:
+                type: string
+                example: '404'
+              error_messages:
+                type: object
+                properties:
+                  base:
+                    type: object
+                    properties:
+                      code:
+                        type: string
+                        example: '404'
+                      message:
+                        type: string
+                        example: Unable to find the resource.
+                      params:
+                        type: object
+                        example: {}
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token

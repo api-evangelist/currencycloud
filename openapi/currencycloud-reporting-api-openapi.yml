@@ -1,0 +1,1186 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Reporting API
+  version: v1
+  description: Ability to create and retrieve reports.
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Reporting
+  description: Ability to create and retrieve reports.
+paths:
+  /reports/conversions/create:
+    post:
+      tags:
+      - Reporting
+      x-api-group: manage
+      summary: Generate Conversion Report
+      description: Returns a JSON structure with details of the conversion report requested.
+      operationId: GenerateConversionReport
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: description
+        in: formData
+        required: false
+        type: string
+        description: Description that will be applied to the report.
+        minLength: 1
+        maxLength: 255
+      - name: buy_currency
+        in: formData
+        required: false
+        type: string
+        description: Three-letter ISO 4217 currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: sell_currency
+        in: formData
+        required: false
+        type: string
+        description: Three-letter ISO 4217 currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: client_buy_amount_from
+        in: formData
+        required: false
+        type: string
+        description: Minimum client buy amount.
+        format: numeric
+      - name: client_buy_amount_to
+        in: formData
+        required: false
+        type: string
+        description: Maximum client buy amount.
+        format: numeric
+      - name: client_sell_amount_from
+        in: formData
+        required: false
+        type: string
+        description: Minimum client sell amount.
+        format: numeric
+      - name: client_sell_amount_to
+        in: formData
+        required: false
+        type: string
+        description: Maximum client sell amount.
+        format: numeric
+      - name: partner_buy_amount_from
+        in: formData
+        required: false
+        type: string
+        description: Minimum buy amount (sub-accounts).
+        format: numeric
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: partner_buy_amount_to
+        in: formData
+        required: false
+        type: string
+        description: Maximum buy amount (sub-accounts).
+        format: numeric
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: partner_sell_amount_from
+        in: formData
+        required: false
+        type: string
+        description: Minimum sell amount (sub-accounts).
+        format: numeric
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: partner_sell_amount_to
+        in: formData
+        required: false
+        type: string
+        description: Maximum sell amount (sub-accounts).
+        format: numeric
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: client_status
+        in: formData
+        required: false
+        type: string
+        enum:
+        - awaiting_funds
+        - funds_sent
+        - funds_arrived
+        - trade_settled
+        - awaiting_authorisation
+        - funds_being_processed
+        - trade_settling
+        - closed
+        description: The current status of the conversion.
+      - name: conversion_date_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 Date/time for start of range for when buy currency was delivered.
+      - name: conversion_date_to
+        in: formData
+        required: false
+        format: date
+        type: string
+        description: ISO 8601 Date/time for end of range for when buy currency was delivered.
+      - name: settlement_date_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 Date/time for start of date range for when the sell_currency was debited.
+      - name: settlement_date_to
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 Date/time for end of date range for when the sell_currency was debited.
+      - name: created_at_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 Date/time for start of date range for when the conversion was created.
+      - name: created_at_to
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 Date/time for end of date range for when the conversion was created.
+      - name: updated_at_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 Date/time for start of date range for when the conversion was updated.
+      - name: updated_at_to
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 Date/time for end of date range for when the conversion was updated.
+      - name: unique_request_id
+        in: formData
+        required: false
+        type: string
+        description: Unique request ID of conversion.
+        minLength: 1
+        maxLength: 255
+      - name: scope
+        in: formData
+        required: false
+        type: string
+        enum:
+        - all
+        - clients
+        - own
+        description: Specify which account level will be used - 'own' is the default.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/ReportRequest'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: description_is_too_long
+            category: description
+            message: description can not be longer than 255 character(s)
+            params: '{"maxlength": 255}'
+          - code: buy_currency_is_in_invalid_format
+            category: currency
+            message: sell_currency is not a valid ISO 4217 currency code
+            params: '{"type": "currency"}'
+          - code: sell_currency_is_in_invalid_format
+            category: currency
+            message: sell_currency is not a valid ISO 4217 currency code
+            params: '{"type": "currency"}'
+          - code: partner_sell_amount_to_type_is_wrong
+            category: currency
+            message: partner_sell_amount_to should be of numeric type
+            params: '{"type": "numeric" }'
+          - code: scope_not_in_range
+            category: currency
+            message: 'scope should be in range: own, all, clients'
+            params: '{"range": "own, all, clients"}'
+          - code: client_status_not_in_range
+            category: client
+            message: 'client_status should be in range: awaiting_funds, funds_sent, funds_arrived, trade_settled, closed, awaiting_authorisation, funds_being_processed, trade_settling'
+            params: '{"range": "awaiting_funds, funds_sent, funds_arrived, trade_settled, closed, awaiting_authorisation, funds_being_processed, trade_settling"}'
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          schema:
+            $ref: '#/definitions/GenerateReportError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reports/payments/create:
+    post:
+      tags:
+      - Reporting
+      x-api-group: manage
+      summary: Generate Payment Report
+      description: Returns a JSON structure with details of the payments report requested.
+      operationId: GeneratePaymentReport
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: description
+        in: formData
+        required: false
+        type: string
+        description: Description that will be applied to report.
+        minLength: 1
+        maxLength: 255
+      - name: currency
+        in: formData
+        required: false
+        type: string
+        description: Three-letter ISO 4217 currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: amount_from
+        in: formData
+        required: false
+        type: number
+        description: Minimum payment amount to 2 decimal places.
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: amount_to
+        in: formData
+        required: false
+        type: number
+        description: Maximum payment amount to 2 decimal places.
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: bulk_upload_reference
+        in: formData
+        required: false
+        type: string
+        description: Reference to Bulk Upload.
+        minLength: 1
+        maxLength: 255
+      - name: status
+        in: formData
+        required: false
+        type: string
+        description: Status of the payment.
+      - name: payment_date_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for earliest payment date to include.
+      - name: payment_date_to
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for latest payment date to include.
+      - name: transferred_at_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for earliest payment transfer date.
+      - name: transferred_at_to
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for latest payment transfer date.
+      - name: created_at_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for earliest payment creation to include.
+      - name: created_at_to
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for latest payment creation to include.
+      - name: updated_at_from
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for earliest payment updated to include.
+      - name: updated_at_to
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: ISO 8601 format date for latest payment updated to include.
+      - name: beneficiary_id
+        in: formData
+        required: false
+        type: string
+        description: ID of the beneficiary.
+        format: uuid
+      - name: conversion_id
+        in: formData
+        required: false
+        type: string
+        description: Conversion unique ID.
+        format: uuid
+      - name: with_deleted
+        in: formData
+        required: false
+        type: boolean
+        description: Include deleted payments?
+      - name: payment_group_id
+        in: formData
+        required: false
+        type: string
+        description: ID of the payment group.
+        minLength: 1
+        maxLength: 255
+      - name: unique_request_id
+        in: formData
+        required: false
+        type: string
+        description: Unique request ID of payment.
+        minLength: 1
+        maxLength: 255
+      - name: scope
+        in: formData
+        required: false
+        type: string
+        description: Specify which account level will be used - 'own' is the default value.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/ReportRequest'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: description_is_too_long
+            category: description
+            message: description can not be longer than 255 character(s)
+            params: '{"maxlength": 255}'
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: buy_currency is not a valid ISO 4217 currency code
+            params: '{"type": "currency"}'
+          - code: amount_from_type_is_wrong
+            category: amount_from
+            message: amount_from should be of numeric type
+            params: '{"type": "numeric"}'
+          - code: updated_at_to_is_in_invalid_format
+            category: update_at_to
+            message: updated_at_to should be in ISO 8601 format
+            params: '{"type": "datetime"}'
+          - code: conversion_id_is_not_valid_uuid
+            category: conversion_id
+            message: conversion_id should be in UUID format
+            params: '{"type": "datetime"}'
+          - code: with_deleted_type_is_wrong
+            category: with_deleted
+            message: with_deleted should be of boolean type
+            params: '{"type": "boolean"}'
+          - code: field_contains_invalid_characters
+            category: base
+            message: Field contains invalid characters
+            params: '{ ${field_name}: ${character_range} }'
+          - code: field_is_too_long
+            category: base
+            message: The information provided for this request exceeds our field length limits
+            params: '{ ${field_name}: ${max_field_length} }'
+          - code: request_contains_blocked_fields
+            category: base
+            message: This request contains fields that are not permitted for this route
+            params: '{ "blocked fields": [Fields that are not permitted for this route] }'
+          schema:
+            $ref: '#/definitions/GenerateReportError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reports/report_requests/find:
+    get:
+      tags:
+      - Reporting
+      x-api-group: manage
+      summary: Find Report Requests
+      description: Searches for report requests made. Returns a JSON structure with details of matching report requests.
+      operationId: Find Report Requests
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: short_reference
+        in: query
+        required: false
+        type: string
+        description: Your unique short reference.
+        minLength: 1
+        maxLength: 25
+      - name: description
+        in: query
+        required: false
+        type: string
+        description: Description that was provided during the report creation process.
+        minLength: 1
+        maxLength: 255
+      - name: created_at_from
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Start date (for range), in ISO 8601 format, for when the reports were created.
+      - name: created_at_to
+        in: query
+        required: false
+        type: string
+        format: date
+        description: End date (for range), in ISO 8601 format, for when the reports were created.
+      - name: updated_at_from
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Start date (for range), in ISO 8601 format, for when the reports were updated.
+      - name: updated_at_to
+        in: query
+        required: false
+        type: string
+        format: date
+        description: End date (for range), in ISO 8601 format, for when the reports were updated.
+      - name: expiration_date_from
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Start date (for range), in ISO 8601 format, for when the report will be (was) expired.
+      - name: expiration_date_to
+        in: query
+        required: false
+        type: string
+        format: date
+        description: End date (for range), in ISO 8601 format, for when the report will be (was) expired.
+      - name: status
+        in: query
+        required: false
+        type: string
+        description: Status of the report.
+        enum:
+        - completed
+        - expired
+        - failed
+        - processing
+      - name: report_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - beneficiary
+        - conversion
+        - payment
+        - transaction
+        description: Type of reports, that we expect to receive in search results.
+      - name: page
+        in: query
+        required: false
+        type: integer
+        description: Page number.
+        pattern: ^\d+$
+      - name: per_page
+        in: query
+        required: false
+        type: integer
+        description: Number of results per page.
+        pattern: ^\d+$
+      - name: order
+        in: query
+        required: false
+        type: string
+        default: created_at
+        description: Any field name to change the sort order.
+        minLength: 1
+        maxLength: 255
+      - name: order_asc_desc
+        in: query
+        required: false
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Sort records in ascending or descending order.
+      - name: scope
+        in: query
+        required: false
+        type: string
+        enum:
+        - all
+        - clients
+        - own
+        description: Specify which account level will be used; 'own' is the default value.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              report_requests:
+                type: array
+                items:
+                  $ref: '#/definitions/ReportRequest'
+              pagination:
+                $ref: '#/definitions/Pagination'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: account_not_found
+            category: id
+            message: Account was not found for this id
+            params: ''
+          - code: updated_at_to_is_in_invalid_format
+            category: updated_at_to
+            message: updated_at_to should be in ISO 8601 format
+            params: '{"type": "datetime"}'
+          - code: status_not_in_range
+            category: status
+            message: 'status should be in range: processing, completed, expired, failed'
+            params: '{"range": "processing, completed, expired, failed"}'
+          - code: report_type_not_in_range
+            category: report_type
+            message: 'report_type should be in range: conversion, payment, beneficiary, transaction'
+            params: '{ "range": "conversion, payment, beneficiary, transaction" }'
+          - code: short_reference_is_too_long
+            category: short_reference
+            message: short_reference can not be longer than 25 character(s)
+          schema:
+            $ref: '#/definitions/GetReportRequestError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /reports/report_requests/{id}:
+    get:
+      tags:
+      - Reporting
+      x-api-group: manage
+      summary: Retrieves a Report Request with the given ID
+      description: Searches for a report by ID. Returns a JSON structure with details of the specified report request.
+      operationId: Retrieve a Report Request
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: ID of the report.
+        format: uuid
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/ReportRequest'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: account_not_found
+            category: id
+            message: Account was not found for this id
+            params: ''
+          - code: id_is_not_valid_uuid
+            category: id
+            message: id should be in UUID format
+            params: ''
+          schema:
+            $ref: '#/definitions/GetReportRequestError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+definitions:
+  GenerateReportError:
+    type: object
+    description: 'Client error information for the Generate Report endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  RateLimitError:
+    type: object
+    description: Too many requests.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this validation/error.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  UnauthorizedError:
+    type: object
+    description: Authorization error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_failed
+      error_messages:
+        api_key:
+        - code: invalid_supplied_credentials
+          message: Authentication failed with the supplied credentials
+          params: {}
+  GetReportRequestError:
+    type: object
+    description: 'Client error information for the Get Report Request endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  ReportRequest:
+    type: object
+    description: Report record
+    properties:
+      id:
+        type: string
+        description: Unique ID for the report.
+      short_reference:
+        type: string
+        description: Human readable unique ID.
+      description:
+        type: string
+        description: Description provided when the report was created.
+      search_params:
+        type: object
+        default: {}
+        description: Parameters to select specific range of items that we want to see in the report.
+      report_type:
+        type: string
+        description: The type of report - conversion or payment.
+        enum:
+        - conversion
+        - payment
+      status:
+        type: string
+        description: The status of the report
+        enum:
+        - completed
+        - expired
+        - failed
+        - processing
+      expiration_date:
+        type: string
+        format: date
+        description: ISO 8601 Date of report expiration.
+      report_url:
+        type: string
+        description: URL used to download the CSV report. This link will expire approximately 15 minutes after it is generated. The report can be fetched again at any time to generate a new download link until the report’s expiration_date, after which it must be created again.
+      account_id:
+        type: string
+        description: ID of the account.
+      contact_id:
+        type: string
+        description: ID of the contact.
+      created_at:
+        type: string
+        format: date
+        description: ISO 8601 date when the report was created.
+      updated_at:
+        type: string
+        format: date
+        description: ISO 8601 date when the report was last updated.
+    example:
+      id: 950dac23-c4af-4a6a-ba19-344560abe2a9
+      short_reference: RP-30250607-VDTMFA
+      description: Description, which was provided during the report creation process
+      search_params:
+        short_reference: RP-30250607-VDTMFA
+        description: Description, which was provided during the report creation process
+        account_id: 9a7ba866-56d1-39c6-8ca2-12cb4141213a
+        contact_id: 543a7716c-816e-01af-3214-2e0030f6f25a
+        created_at_from: '2014-01-12'
+        created_at_to: '2014-01-17'
+        expiration_date_from: '2014-01-12'
+        expiration_date_to: '2014-01-17'
+        status: completed
+        report_type: Payment
+      report_type: payment
+      status: completed
+      expiration_date: '2023-03-23T00:00:00.000Z'
+      report_url: https://tcc.s3.amazonaws.com/reports/transaction_reports/000/000/011/transaction_report_23_03_2020.csv?1471682433
+      account_id: B7DE235A-FF5D-4252-83C2-06A605267FEA
+      contact_id: 543477161-91de-012f-e284-1e0030c7f352
+      created_at: '2023-03-16T23:59:59.000Z'
+      updated_at: '2023-03-16T23:59:59.000Z'
+  Pagination:
+    type: object
+    description: Pagination.
+    properties:
+      total_entries:
+        type: integer
+      total_pages:
+        type: integer
+      current_page:
+        type: integer
+      per_page:
+        type: integer
+        description: Number of results per page.
+      previous_page:
+        type: integer
+      next_page:
+        type: integer
+      order:
+        type: string
+        description: The field name by which the results are sorted.
+      order_asc_desc:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Whether results are sorted in ascending or descending order.
+    example:
+      total_entries: 1
+      total_pages: 1
+      current_page: 1
+      per_page: 25
+      previous_page: -1
+      next_page: 2
+      order: created_at
+      order_asc_desc: asc

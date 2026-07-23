@@ -1,0 +1,4788 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Payments API
+  version: v1
+  description: Create, search, manage and action all of your domestic and international payments through this API.
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Payments
+  description: Create, search, manage and action all of your domestic and international payments through this API.
+paths:
+  /payments/create:
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Create Payment
+      description: Submits a payment. On success, returns the new payment record. Use the <a href="/api-reference/#get-payer-requirements">Get Payer Requirements</a> endpoint to find out what payer information needs to be provided.<br><br> Clients who are implementing Strong Customer Authentication (SCA) for payments should refer to our <a href="../guides/integration-guides/sca_sponsored_api_payments">integration guide</a>.
+      operationId: CreatePayment
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: x-sca-id
+        in: header
+        required: false
+        type: string
+        description: UUID to correlate to the SCA request generated when Validate Payment was called.
+        format: uuid
+      - name: x-sca-token
+        in: header
+        required: false
+        type: string
+        description: The OTP received following the Validate Payment request when SCA was required.
+        pattern: ^\d{6}$
+      - name: currency
+        in: formData
+        required: true
+        type: string
+        description: Currency in which payment is made. Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: beneficiary_id
+        in: formData
+        required: true
+        type: string
+        description: Beneficiary UUID
+        format: uuid
+      - name: amount
+        in: formData
+        required: true
+        type: string
+        description: Amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: reason
+        in: formData
+        required: true
+        type: string
+        description: User-generated reason for payment - freeform text.
+        minLength: 1
+        maxLength: 255
+      - name: reference
+        in: formData
+        required: true
+        type: string
+        description: User-generated reference code.
+        minLength: 1
+        maxLength: 255
+      - name: unique_request_id
+        in: formData
+        required: true
+        type: string
+        description: User-generated idempotency key.
+        minLength: 1
+        maxLength: 255
+      - name: payment_date
+        in: formData
+        required: false
+        type: string
+        description: Instructed date of payment - on this date we will attempt to debit funds on the account and submit the payment to the scheme. If the payment cannot be submitted before the cut-off (i.e. due to lack of funding), we will re-attempt on the next working day. Defaults to the earliest possible date if not passed as parameter. Any valid ISO 8601 format, e.g. "2023-12-31.
+        format: date
+      - name: payment_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - priority
+        - regular
+        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+      - name: conversion_id
+        in: formData
+        required: false
+        type: string
+        description: Conversion UUID
+        format: uuid
+      - name: payer_entity_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity
+      - name: payer_company_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "company".
+        minLength: 1
+        maxLength: 255
+      - name: payer_first_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: payer_last_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "individual". Cannot contain any numbers or company signifiers.
+        minLength: 1
+        maxLength: 255
+      - name: payer_city
+        in: formData
+        required: false
+        type: string
+        description: City name, should not consist of only numbers.
+        minLength: 1
+        maxLength: 255
+      - name: payer_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 255
+      - name: payer_postcode
+        in: formData
+        required: false
+        type: string
+        description: Postal code
+        minLength: 1
+        maxLength: 255
+      - name: payer_state_or_province
+        in: formData
+        required: false
+        type: string
+        description: State or province.
+        minLength: 1
+        maxLength: 255
+      - name: payer_country
+        in: formData
+        required: false
+        type: string
+        description: Two-letter ISO country code.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: payer_date_of_birth
+        in: formData
+        required: false
+        type: string
+        description: If "payer_entity_type" is "company", this is the company registration date. If "payer_entity_type" is "individual", this is date of birth. ISO 8601 format YYYY-MM-DD.
+        format: date
+      - name: payer_identification_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - citizenship_papers
+        - credential_de_elector
+        - drivers_license
+        - drivers_license_canadian
+        - employer_identification_number
+        - existing_credit_card_details
+        - green_card
+        - incorporation_number
+        - matricula_consular
+        - national_id
+        - none
+        - others
+        - passport
+        - registro_federal_de_contribuyentes
+        - social_insurance_number
+        - social_security_number
+        - visa
+        description: A legal document that verifies the identity of the payer. Required documentation will vary depending on the nationality or registered address of the payer.
+      - name: payer_identification_value
+        in: formData
+        required: false
+        type: string
+        description: A unique reference code for the identification document, such as a passport number.
+        minLength: 1
+        maxLength: 255
+      - name: ultimate_beneficiary_name
+        in: formData
+        required: false
+        type: string
+        description: The name of the ultimate beneficiary if different.
+        minLength: 1
+        maxLength: 255
+      - name: purpose_code
+        in: formData
+        required: false
+        type: string
+        description: <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430000-Payment-Purpose-Codes">Payment Purpose Code</a> (Mandatory for all local INR and MYR payments, Swift CNY payments, and Swift payments in any currency to banks in Bahrain or the United Arab Emirates).
+        minLength: 1
+        maxLength: 255
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of. Payer details parameters should not be sent if using on_behalf_of, they will be populated using the details from the sub-account.
+        format: uuid
+      - name: charge_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - ours
+        - shared
+        description: Payment Charges Setting value (only applicable to Swift payments). If this is left empty, the account's default value is used. Do not specify for regular (local) payments.
+      - name: fee_amount
+        in: formData
+        required: false
+        type: string
+        description: Fee amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: fee_currency
+        in: formData
+        required: false
+        type: string
+        description: Currency fee is paid in.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: invoice_number
+        in: formData
+        required: false
+        type: string
+        description: The invoice number related to the payment. Necessary when making business-related INR payments, check our <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430000-Payment-Purpose-Codes">support article</a> to see if this applies to your purpose code. Can be up to 30 characters. Mandatory if supplying `invoice_date`.<br> For NOK payments, this field can optionally be used to provide the KID (Kundle ID). If supplied, the KID should be 2-25 digits.
+        pattern: ^[a-zA-Z0-9]{1,30}$
+      - name: invoice_date
+        in: formData
+        required: false
+        type: string
+        description: The date of the invoice related to the payment. Necessary when making business-related INR payments, check our <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430000-Payment-Purpose-Codes">support article</a> to see if this applies to your purpose code. ISO 8601 format YYYY-MM-DD. Mandatory if supplying `invoice_number`.
+        format: date
+      - name: payer_ultimate_account_number
+        in: formData
+        required: false
+        type: string
+        maxLength: 35
+        description: The payer's payment account number.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Payment'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: invalid_type
+            category: type
+            message: Invalid Payment type
+            params: ''
+          - code: currency_length_is_invalid
+            category: currency
+            message: currency should be 3 character(s) long
+            params: ''
+          - code: currency_is_required
+            category: currency
+            message: currency is required
+            params: ''
+          - code: invalid_currency
+            category: currency
+            message: You cannot make payments with this currency
+            params: ''
+          - code: beneficiary_id_is_not_valid_uuid
+            category: beneficiary_id
+            message: beneficiary_id should be in UUID format
+            params: ''
+          - code: beneficiary_id_is_required
+            category: beneficiary_id
+            message: beneficiary_id is required
+            params: ''
+          - code: beneficiary_date_of_birth_type_is_wrong
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: beneficiary_date_of_birth_is_incorrect
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth is incorrect
+            params: ''
+          - code: beneficiary_date_of_birth_is_earlier
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be later
+            params: ''
+          - code: beneficiary_date_of_birth_is_after
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be earlier
+            params: ''
+          - code: invalid_beneficiary_id
+            category: beneficiary_id
+            message: Unknown beneficiary_id
+            params: ''
+          - code: payment_above_limit
+            category: amount
+            message: ${amount} ${currency} exceeds the maximum amount of ${limit} ${currency} for a local payment
+            params: ''
+          - code: payer_entity_type_not_in_range
+            category: payer_entity_type
+            message: 'payer_entity_type should be in range: individual, company'
+            params: ''
+          - code: payer_details_are_missing
+            category: payer_entity_type
+            message: 'Following payer details are missing: payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_city, payer_address, payer_state_or_province, payer_postcode, payer_country, payer_date_of_birth, payer_identification_type, payer_identification_value, payer_ultimate_account_number'
+            params: '{"missing_details" => "payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_city, payer_address, payer_state_or_province, payer_postcode, payer_country, payer_date_of_birth, payer_identification_type, payer_identification_value, payer_ultimate_account_number"}'
+          - code: payer_entity_type_is_missing
+            category: payer_entity_type
+            message: Payer entity type is missing
+            params: ''
+          - code: payer_company_name_is_missing
+            category: payer_company_name
+            message: Payer company name is missing
+            params: ''
+          - code: payer_first_name_is_missing
+            category: payer_first_name
+            message: Payer first name is missing
+            params: ''
+          - code: payer_last_name_is_missing
+            category: payer_last_name
+            message: Payer last name is missing
+            params: ''
+          - code: payer_city_is_missing
+            category: payer_city
+            message: Payer city is missing
+            params: ''
+          - code: unsupported_payer_country_code
+            category: payer_country_code
+            message: Payer country is not supported
+            params: ''
+          - code: payer_state_or_province_is_missing
+            category: payer_state_or_province
+            message: Payer state or province is missing
+            params: ''
+          - code: payer_postcode_is_missing
+            category: payer_postcode
+            message: Payer postcode is missing
+            params: ''
+          - code: payer_date_of_birth_type_is_wrong
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: payer_date_of_birth_is_incorrect
+            category: payer_date_of_birth
+            message: payer_date_of_birth is incorrect
+            params: ''
+          - code: payer_date_of_birth_is_earlier
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be later
+            params: ''
+          - code: payer_date_of_birth_is_after
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be earlier
+            params: ''
+          - code: identification_type_is_missing
+            category: payer_identification_type
+            message: identification_type is missing
+            params: ''
+          - code: identification_type_is_invalid
+            category: payer_identification_type
+            message: identification_type is invalid
+            params: ''
+          - code: identification_value_is_missing
+            category: payer_identification_value
+            message: identification_value is missing
+            params: ''
+          - code: identification_value_is_invalid
+            category: payer_identification_value
+            message: identification_value is invalid
+            params: ''
+          - code: invalid_conversion_id
+            category: conversion_id
+            message: Conversion could not be found
+            params: ''
+          - code: conversion_is_already_settled
+            category: conversion_id
+            message: The conversion is already settled
+            params: ''
+          - code: invalid_payment_date
+            category: payment_date
+            message: The payment date is invalid
+            params: ''
+          - code: payment_date_is_too_early
+            category: payment_date
+            message: The payment date cannot be sooner than the conversion date
+            params: ''
+          - code: reference_is_too_long
+            category: reference
+            message: reference can not be longer than 255 character(s)
+            params: ''
+          - code: charge_type_not_available
+            category: charge_type
+            message: Not available charge_type has been provided
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: invalid_charge_type
+            category: charge_type
+            message: Invalid banking_charges supplied, must be in range [ours, shared]
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: on_behalf_of_charge_type_not_available
+            category: on_behalf_of
+            message: Not available charge_type has been provided for on_behalf_of
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: duplicate_request
+            category: duplicate_request
+            message: The unique_request_id provided for this payment has already been used, please provide a new unique_request_id to successfully submit this payment
+            params: ''
+          - code: fee_amount_type_is_wrong
+            category: fee_amount
+            message: fee_amount should be of numeric type
+            params: '{ "type" => "numeric" }'
+          - code: fee_currency_is_in_invalid_format
+            category: fee_currency
+            message: fee_currency is not a valid ISO 4217 currency code
+            params: '{ "type" => "currency" }'
+          - code: unsupported_beneficiary_country_code
+            category: beneficiary_country_code
+            message: Beneficiary country is not supported
+            params: ''
+          - code: unsupported_account
+            category: account
+            message: The account is currently not permitted to create payments.
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          - code: invalid_fee_amount_format
+            category: fee_amount
+            message: ${FEE_CURRENCY} only supports up to ${CURRENCY_NUMBER_OF_DECIMAL_PLACES} decimal places
+            params: ''
+          - code: payer_details_not_allowed
+            category: payer_details
+            message: This account is not allowed to pass payer details
+            params: ''
+          - code: unique_request_id_is_required
+            category: unique_request_id_is_required
+            message: unique_request_id is required
+            params: ''
+          - code: invoice_number_parameter_invalid
+            category: invoice_number
+            message: Invoice number can only contain alphanumeric characters and must be 30 characters or less
+          - code: invoice_number_missing
+            category: invoice_number
+            message: Invoice number is missing for provided invoice date $invoiceDate
+          - code: invalid_invoice_date
+            category: invoice_date
+            message: Invoice date must follow YYYY-MM-DD format
+          - code: invoice_date_missing
+            category: invoice_date
+            message: Invoice date is missing for provided invoice number $invoiceNumber
+          - code: incorrect_purpose_code
+            category: purpose_code
+            message: Purpose code is invalid
+          - code: field_contains_invalid_characters
+            category: base
+            message: Field contains invalid characters
+            params: '{ ${field_name}: ${character_range} }'
+          - code: field_is_too_long
+            category: base
+            message: The information provided for this request exceeds our field length limits
+            params: '{ ${field_name}: ${max_field_length} }'
+          - code: request_contains_blocked_fields
+            category: base
+            message: This request contains fields that are not permitted for this route
+            params: '{ "blocked fields": [Fields that are not permitted for this route] }'
+          schema:
+            $ref: '#/definitions/CreatePaymentError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/find:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Find Payments
+      description: Searches for payment records.
+      operationId: FindPayments
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: short_reference
+        in: query
+        required: false
+        type: string
+        description: Short reference code.
+        minLength: 1
+        maxLength: 25
+      - name: currency
+        in: query
+        required: false
+        type: string
+        description: Currency in which payment was made. Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: amount
+        in: query
+        required: false
+        type: string
+        description: Exact amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: amount_from
+        in: query
+        required: false
+        type: string
+        description: Minimum amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: amount_to
+        in: query
+        required: false
+        type: string
+        description: Maximum amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: status
+        in: query
+        required: false
+        type: string
+        enum:
+        - awaiting_authorisation
+        - authorised
+        - completed
+        - deleted
+        - failed
+        - new
+        - ready_to_send
+        - released
+        - submitted
+        - suspended
+        description: Payment status
+      - name: reason
+        in: query
+        required: false
+        type: string
+        description: User-generated reason for payment. Freeform text.
+        minLength: 1
+        maxLength: 255
+      - name: payment_date_from
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Earliest instructed payment date. Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: payment_date_to
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Latest instructed payment date. Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: transferred_at_from
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Earliest date of payment processing. Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: transferred_at_to
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Latest date of payment processing. Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: created_at_from
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: created_at_to
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: updated_at_from
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: updated_at_to
+        in: query
+        required: false
+        type: string
+        format: date-time
+        description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
+      - name: beneficiary_id
+        in: query
+        required: false
+        type: string
+        description: Beneficiary UUID
+        format: uuid
+      - name: conversion_id
+        in: query
+        required: false
+        type: string
+        description: Conversion UUID
+        format: uuid
+      - name: with_deleted
+        in: query
+        required: false
+        type: boolean
+        default: false
+        description: Include deleted payments.
+      - name: payment_group_id
+        in: query
+        required: false
+        type: string
+        description: Payment group.
+        minLength: 1
+        maxLength: 255
+      - name: unique_request_id
+        in: query
+        required: false
+        type: string
+        description: User-generated idempotency key.
+        minLength: 1
+        maxLength: 255
+      - name: scope
+        in: query
+        required: false
+        type: string
+        enum:
+        - all
+        - clients
+        - own
+        default: own
+        description: '"Own" account, "clients" sub-accounts, or "all" accounts.'
+      - name: bulk_upload_id
+        in: query
+        required: false
+        type: string
+        description: Bulk upload reference code.
+        minLength: 1
+        maxLength: 255
+      - name: page
+        in: query
+        required: false
+        type: integer
+        description: Page number
+        pattern: ^\d+$
+      - name: per_page
+        in: query
+        required: false
+        type: integer
+        description: Number of results per page.
+        pattern: ^\d+$
+      - name: order
+        in: query
+        required: false
+        type: string
+        description: Any field name to change the sort order.
+        minLength: 1
+        maxLength: 255
+      - name: order_asc_desc
+        in: query
+        required: false
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Sort records in ascending or descending order.
+      - name: charge_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - ours
+        - shared
+        description: Payment Charges Setting value (only applicable to Swift payments). Limits the search results to payments of the specified <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430820-Selecting-payment-charges-for-SWIFT-payments-FAQ">charge type</a>.
+      - name: review_status
+        in: query
+        required: false
+        type: string
+        enum:
+        - in_review
+        - passed
+        - rejected
+        description: Compliance review status.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              payments:
+                type: array
+                items:
+                  $ref: '#/definitions/Payment'
+              pagination:
+                $ref: '#/definitions/Pagination'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: invalid_currency
+            category: id
+            message: currency has invalid format
+            params: ''
+          - code: charge_type_not_available
+            category: charge_type
+            message: Not available charge_type has been provided
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: invalid_charge_type
+            category: charge_type
+            message: Invalid banking_charges supplied, must be in range [ours, shared]
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: on_behalf_of_charge_type_not_available
+            category: on_behalf_of
+            message: Not available charge_type has been provided for on_behalf_of
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: status_not_in_range
+            category: status
+            message: 'status should be in range: new, ready_to_send, completed, failed, released, suspended, awaiting_authorisation, submitted, authorised, deleted"'
+            params: '{ "range" => "new, ready_to_send, completed, failed, released, suspended, awaiting_authorisation, submitted, authorised, deleted" }'
+          - code: review_status_not_in_range
+            category: review_status
+            message: 'review_status should be in range: passed, in_review, rejected'
+            params: '{ "range" => "passed, in_review, rejected" }'
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/FindPaymentsError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/{id}:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Get Payment
+      description: Gets a payment record.
+      operationId: GetPayment
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Payment UUID
+        format: uuid
+      - name: with_deleted
+        in: query
+        required: false
+        type: boolean
+        description: Include deleted payments.
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: review_status
+        in: query
+        required: false
+        type: string
+        enum:
+        - in_review
+        - passed
+        - rejected
+        description: Compliance review status.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Payment'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: invalid_id
+            category: id
+            message: ID has invalid format
+            params: ''
+          - code: with_deleted_type_is_wrong
+            category: id
+            message: with_deleted should be of boolean type
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: on_behalf_of_is_not_valid_UUID
+            category: on_behalf_of
+            message: on_behalf_of should be in UUID format
+            params: ''
+          - code: review_status_not_in_range
+            category: review_status
+            message: 'review_status should be in range: passed, in_review, rejected'
+            params: '{ "range" => "passed, in_review, rejected"}'
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/GetPaymentError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+          x-errors:
+          - code: payment_not_found
+            category: id
+            message: Payment was not found for this id
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Update Payment
+      description: Updates a payment. On success, returns the updated payment entity.
+      operationId: UpdatePayment
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Payment UUID
+        format: uuid
+      - name: currency
+        in: formData
+        required: false
+        type: string
+        description: Currency in which the payment is being made. Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: beneficiary_id
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary UUID
+        format: uuid
+      - name: amount
+        in: formData
+        required: false
+        type: string
+        description: Payment amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: payment_date
+        in: formData
+        required: false
+        type: string
+        description: Instructed date of payment. Any valid ISO 8601 format, e.g. "2023-12-31".
+        format: date
+      - name: reason
+        in: formData
+        required: false
+        type: string
+        description: User-generated reason for payment - freeform text.
+        minLength: 1
+        maxLength: 255
+      - name: payment_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - priority
+        - regular
+        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+      - name: reference
+        in: formData
+        required: false
+        type: string
+        description: User-generated reference code.
+        minLength: 1
+        maxLength: 255
+      - name: conversion_id
+        in: formData
+        required: false
+        type: string
+        description: Conversion UUID
+        format: uuid
+      - name: payer_entity_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity
+      - name: payer_company_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "company".
+        minLength: 1
+        maxLength: 255
+      - name: payer_first_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: payer_last_name
+        in: formData
+        required: false
+        type: string
+        description: Required if payer_entity_type is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: payer_city
+        in: formData
+        required: false
+        type: string
+        description: City
+        minLength: 1
+        maxLength: 255
+      - name: payer_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 255
+      - name: payer_postcode
+        in: formData
+        required: false
+        type: string
+        description: Postal code
+        minLength: 1
+        maxLength: 255
+      - name: payer_state_or_province
+        in: formData
+        required: false
+        type: string
+        description: State or province.
+        minLength: 1
+        maxLength: 255
+      - name: payer_country
+        in: formData
+        required: false
+        type: string
+        description: Two-letter ISO country code.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: payer_date_of_birth
+        in: formData
+        required: false
+        type: string
+        description: If the "payer_entity_type" is "company", this is the company registration date. If the "payer_entity_type" is "individual", this is the payer's date of birth. ISO 8601 format YYYY-MM-DD.
+        format: date
+      - name: payer_identification_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - citizenship_papers
+        - credential_de_elector
+        - drivers_license
+        - drivers_license_canadian
+        - employer_identification_number
+        - existing_credit_card_details
+        - green_card
+        - incorporation_number
+        - matricula_consular
+        - national_id
+        - none
+        - others
+        - passport
+        - registro_federal_de_contribuyentes
+        - social_insurance_number
+        - social_security_number
+        - visa
+        description: A legal document that verifies the identity of the payer. Required documentation will vary depending on the nationality or registered address of the payer.
+      - name: payer_identification_value
+        in: formData
+        required: false
+        type: string
+        description: A unique reference code for the identification document, such as a passport number.
+        minLength: 1
+        maxLength: 255
+      - name: ultimate_beneficiary_name
+        in: formData
+        required: false
+        type: string
+        description: The name of the ultimate beneficiary if different.
+        minLength: 1
+        maxLength: 255
+      - name: purpose_code
+        in: formData
+        required: false
+        type: string
+        description: Payment Purpose Code (Mandatory for all INR payments). See our <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430000-Payment-Purpose-Codes">support article</a> for more information.
+        minLength: 1
+        maxLength: 255
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: charge_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - ours
+        - shared
+        description: Payment Charges Setting value (only applicable to Swift payments). If empty, the account's default value is used. Do not specify for regular (local) payments.
+      - name: fee_amount
+        in: formData
+        required: false
+        type: string
+        description: Fee amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: fee_currency
+        in: formData
+        required: false
+        type: string
+        description: The currency the fee is paid in.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: invoice_number
+        in: formData
+        required: false
+        type: string
+        description: The invoice number related to the payment. Necessary when making business-related INR payments, check our <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430000-Payment-Purpose-Codes">support article</a> to see if this applies to your purpose code. Can be up to 30 characters. Mandatory if `invoice_date` is supplied.<br> For NOK payments, this field can optionally be used to provide the KID (Kundle ID). If supplied, the KID should be 2-25 digits.
+        pattern: ^[a-zA-Z0-9]{1,30}$
+      - name: invoice_date
+        in: formData
+        required: false
+        type: string
+        description: The date of the invoice related to the payment. Necessary when making business-related INR payments, check our <a href="https://support.currencycloud.com/hc/en-gb/articles/360017430000-Payment-Purpose-Codes">support article</a> to see if this applies to your purpose code. ISO 8601 format YYYY-MM-DD. Mandatory if `invoice_number` is supplied.
+        format: date
+      - name: payer_ultimate_account_number
+        in: formData
+        required: false
+        maxLength: 35
+        type: string
+        description: The payer's payment account number.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Payment'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error
+          x-errors:
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is not a valid ISO 4217 currency code
+            params: ''
+          - code: invalid_currency
+            category: currency
+            message: You cannot make payments with this currency
+            params: ''
+          - code: id_is_not_valid_uuid
+            category: id
+            message: id should be in UUID format
+            params: ''
+          - code: beneficiary_id_is_not_valid_uuid
+            category: beneficiary_id
+            message: beneficiary_id should be in UUID format
+            params: ''
+          - code: invalid_beneficiary_id
+            category: beneficiary_id
+            message: Unknown beneficiary_id
+            params: ''
+          - code: invalid_beneficiary_currency
+            category: beneficiary_currency
+            message: You cannot assign this Beneficiary to the Payment as it is the incorrect currency
+            params: ''
+          - code: amount_type_is_wrong
+            category: amount
+            message: amount should be of numeric type
+            params: '{ "type" => "numeric" }'
+          - code: payment_above_limit
+            category: amount
+            message: 3000.00 EUR exceeds the maximum amount of 2500.00 EUR for a local payment.
+            params: '{ "amount" => 3000.0, "ccy" => "EUR", "limit" => 2500.0 }'
+          - code: invalid_amount_for_order
+            category: amount_for_order
+            message: The payment amount is more than the value of the order
+            params: ''
+          - code: payment_type_not_in_range
+            category: payment_type
+            message: 'payment_type should be in range: priority, regular'
+            params: ''
+          - code: invalid_conversion_id
+            category: conversion_id
+            message: Conversion could not be found.
+            params: ''
+          - code: conversion_id_is_not_valid_uuid
+            category: conversion_id
+            message: conversion_id should be in UUID format
+            params: ''
+          - code: invalid_payment_date
+            category: payment_date
+            message: The payment date is invalid
+            params: ''
+          - code: payment_date_type_is_wrong
+            category: payment_date
+            message: payment_date should be of date type
+            params: ''
+          - code: payment_date_is_too_early
+            category: payment_date
+            message: The payment date cannot be sooner than the conversion date
+            params: ''
+          - code: reference_is_too_long
+            category: reference
+            message: reference can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: payment_can_not_be_edited
+            category: can_not_be_edited
+            message: Sorry this Payment has already been processed and you are unable to Edit it
+            params: ''
+          - code: extra_dependent_params
+            category: base
+            message: Parameters payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_address, payer_country, payer_postcode, payer_state_or_province, payer_date_of_birth, payer_identification_type, payer_identification_value can't be provided in the same request with 'payer_details_source' with value 'account'
+            params: ''
+          - code: payer_entity_type_not_in_range
+            category: payer_entity_type
+            message: 'payer_entity_type should be in range: individual, company'
+            params: '{ "range" => "individual, company" }'
+          - code: payer_details_are_missing
+            category: payer_entity_type
+            message: 'Following payer details are missing: payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_city, payer_address, payer_state_or_province, payer_postcode, payer_country, payer_date_of_birth, payer_identification_type, payer_identification_value, payer_ultimate_account_number'
+            params: '{"missing_details" => "payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_city, payer_address, payer_state_or_province, payer_postcode, payer_country, payer_date_of_birth, payer_identification_type, payer_identification_value, payer_ultimate_account_number"}'
+          - code: payer_date_of_birth_type_is_wrong
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: payer_date_of_birth_is_incorrect
+            category: payer_date_of_birth
+            message: payer_date_of_birth is incorrect
+            params: ''
+          - code: payer_date_of_birth_is_earlier
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be later
+            params: ''
+          - code: payer_date_of_birth_is_after
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be earlier
+            params: ''
+          - code: payer_identification_type_not_in_range
+            category: payer_identification_type
+            message: 'payer_identification_type should be in range: none, drivers_license, social_security_number, green_card, passport, visa, matricula_consular, registro_federal_de_contribuyentes, credential_de_elector, social_insurance_number, citizenship_papers, drivers_license_canadian, existing_credit_card_details, employer_identification_number, national_id, others, incorporation_number, clave_unica_de_registro_de_poblacion'
+            params: ''
+          - code: identification_type_is_invalid
+            category: payer_identification_type
+            message: identification_type is invalid
+            params: ''
+          - code: identification_value_is_missing
+            category: payer_identification_value
+            message: identification_value is missing
+            params: ''
+          - code: identification_value_is_invalid
+            category: payer_identification_value
+            message: identification_value is invalid
+            params: ''
+          - code: charge_type_not_available
+            category: charge_type
+            message: Not available charge_type has been provided
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: charge_type_not_in_range
+            category: charge_type
+            message: 'charge_type should be in range: ours, shared'
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: on_behalf_of_is_not_valid_UUID
+            category: on_behalf_of
+            message: on_behalf_of should be in UUID format
+            params: ''
+          - code: on_behalf_of_charge_type_not_available
+            category: on_behalf_of
+            message: Not available charge_type has been provided for on_behalf_of
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: fee_amount_type_is_wrong
+            category: fee_amount
+            message: fee_amount should be of numeric type
+            params: '{ "type" => "numeric" }'
+          - code: fee_currency_is_in_invalid_format
+            category: fee_currency
+            message: fee_currency is not a valid ISO 4217 currency code
+            params: '{ "type" => "currency" }'
+          - code: invalid_fields_for_company
+            category: fee_amount
+            message: Please provide payer_company_name, but not payer_first_name and payer_last_name
+            params: ''
+          - code: invalid_fields_for_individual
+            category: fee_amount
+            message: Please provide payer_first_name and payer_last_name, but not payer_company_name
+            params: ''
+          - code: incorrect_purpose_code
+            category: purpose_code
+            message: Purpose code is invalid
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          - code: invoice_number_parameter_invalid
+            category: invoice_number
+            message: Invoice number can only contain alphanumeric characters and must be 30 characters or less
+          - code: invoice_number_missing
+            category: invoice_number
+            message: Invoice number is missing for provided invoice date $invoiceDate
+          - code: invalid_invoice_date
+            category: invoice_date
+            message: Invoice date must follow YYYY-MM-DD format
+          - code: invoice_date_missing
+            category: invoice_date
+            message: Invoice date is missing for provided invoice number $invoiceNumber
+          - code: field_contains_invalid_characters
+            category: base
+            message: Field contains invalid characters
+            params: '{ ${field_name}: ${character_range} }'
+          - code: field_is_too_long
+            category: base
+            message: The information provided for this request exceeds our field length limits
+            params: '{ ${field_name}: ${max_field_length} }'
+          - code: request_contains_blocked_fields
+            category: base
+            message: This request contains fields that are not permitted for this route
+            params: '{ "blocked fields": [Fields that are not permitted for this route] }'
+          schema:
+            $ref: '#/definitions/UpdatePaymentError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          x-errors:
+          - code: payment_not_found
+            category: id
+            message: Payment was not found for this id
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/{id}/confirmation:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Get Payment Confirmation
+      description: Gets confirmation for a given payment.
+      operationId: GetPaymentConfirmation
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Payment UUID
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentConfirmation'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: id_is_not_valid_uuid
+            category: id
+            message: id should be in UUID format
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: payment_not_found
+            category: id
+            message: Payment was not found for this id
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/GetPaymentSubmissionError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '422':
+          description: Unprocessable Entity
+          x-errors:
+          - code: unprocessable_entity
+            category: base
+            message: Payment should be in 'Completed' or 'Failed' status
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/{id}/submission_info:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Get Payment Submission Information
+      description: Gets the pacs.008 or MT103 information for a Swift payment.
+      operationId: GetNewPaymentSubmission
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Payment UUID
+        format: uuid
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentSubmissionInformation'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: id_is_not_valid_uuid
+            category: id
+            message: ID should be in UUID format
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: on_behalf_of_is_not_valid_UUID
+            category: on_behalf_of
+            message: on_behalf_of should be in UUID format
+            params: ''
+          - code: payment_not_found
+            category: id
+            message: Payment was not found for this id
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          schema:
+            $ref: '#/definitions/GetPaymentSubmissionError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          x-errors:
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/authorise:
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Authorise Payment
+      description: Authorises a payment pending authorisation.
+      operationId: AuthorisePayment
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: payment_ids[]
+        in: query
+        required: true
+        type: array
+        items:
+          type: string
+        description: One or more payment UUID identifiers to be authorised.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentAuthorisations'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: payment_ids_is_required
+            category: id
+            message: payment_ids is required
+            params: ''
+          - code: payment_ids_type_is_wrong
+            category: id
+            message: payment_ids should be of array type
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          schema:
+            $ref: '#/definitions/CreatePaymentAuthorisationError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/{id}/delete:
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Delete Payment
+      description: Delete a payment. On success, returns the final payment record state.
+      operationId: DeletePayment
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Payment UUID.
+        format: uuid
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Payment'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: invalid_id
+            category: id
+            message: ID has invalid format
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: payment_not_found
+            category: id
+            message: Payment was not found for this id
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/DeletePaymentError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/{id}/tracking_info:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Get Payment Tracking Information
+      description: Gets the tracking information for a payment.
+      operationId: GetPaymentTrackingInfo
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Payment UUID
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentTrackingInfo'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: payment_id_is_not_valid_uuid
+            category: id
+            message: payment_id should be in UUID format
+            params: ''
+          - code: payment_is_not_swift
+            category: base
+            message: You cannot track non-swift payments
+            params: ''
+          - code: payment_is_not_executed
+            category: base
+            message: This payment is not executed yet, please try again later
+            params: ''
+          schema:
+            $ref: '#/definitions/GetPaymentTrackingInfoError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '403':
+          description: Forbidden.
+          x-errors:
+          - code: permission_denied
+            message: You do not have permission 'payment_tracking' to perform this operation
+            params: ''
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/assign_payment_fee:
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Assign Payment Fee
+      description: Assigns a <a href="https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ">payment fee</a> table to a specific sub-account.
+      operationId: PaymentsAssignPaymentFee
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: payment_fee_id
+        in: formData
+        required: true
+        type: string
+        format: uuid
+        description: ID of the payment fee entity that will be assigned to the account.
+      - name: account_id
+        in: formData
+        required: true
+        format: uuid
+        type: string
+        description: ID of the account to which the payment fee will be assigned.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentFeeAssignment'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: payment_fee_id_is_required
+            category: payment_fee_id
+            message: payment_fee_id is required
+            params: ''
+          - code: payment_fee_id_is_not_valid_uuid
+            category: payment_fee_id
+            message: payment_fee_id should be in UUID format
+            params: ''
+          - code: account_id_is_required
+            category: account_id
+            message: account_id is required
+            params: ''
+          - code: account_id_is_not_valid_uuid
+            category: account_id
+            message: account_id should be in UUID format
+            params: ''
+          - code: account_configuration_is_invalid
+            category: base
+            message: Account is not enabled for CashManager or NewPaymentRelease flow
+            params: ''
+          - code: account_operation_restricted
+            category: base
+            message: Operation restricted for the account
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/PaymentFeeAssignmentError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '403':
+          description: Forbidden.
+          x-errors:
+          - code: permission_denied
+            message: permission_denied
+            params: ''
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/payment_delivery_date:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Get Payment Delivery Date
+      description: Gets payment delivery date.
+      operationId: GetPaymentDeliveryDate
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: payment_date
+        in: query
+        required: true
+        type: string
+        description: The date when the payment will be released. Any valid ISO 8601 format, e.g. "2023-12-31".
+        format: date
+      - name: payment_type
+        in: query
+        required: true
+        type: string
+        enum:
+        - priority
+        - regular
+        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+      - name: currency
+        in: query
+        required: true
+        type: string
+        description: The three-letter ISO code of the currency of the payment.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: bank_country
+        in: query
+        required: true
+        type: string
+        description: The two-letter ISO code of the country where the payment is sent.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentDeliveryDate'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: bank_country_is_required
+            category: bank_country
+            message: bank_country is required
+            params: ''
+          - code: bank_country_is_in_invalid_format
+            category: bank_country
+            message: bank_country is in invalid format
+            params: ''
+          - code: currency_is_required
+            category: currency
+            message: currency is required
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: Currency is not a valid ISO 4217 currency code
+            params: ''
+          - code: payment_type_is_required
+            category: payment_type
+            message: payment_type is required
+            params: ''
+          - code: payment_type_not_in_range
+            category: payment_type
+            message: 'payment_type should be in range: priority, regular'
+            params: '{ "range" => "priority, regular" }'
+          - code: invalid_payment
+            category: base
+            message: Payment cannot be processed
+            params: ''
+          - code: invalid_currency
+            category: currency
+            message: You cannot make payments with this currency
+            params: ''
+          - code: payment_date_is_required
+            category: payment_date
+            message: payment_date is required
+            params: ''
+          - code: invalid_payment_date
+            category: payment_date
+            message: The payment date is invalid
+            params: ''
+          - code: payment_date_is_in_invalid_format
+            category: payment_date
+            message: payment_date should be in ISO 8601 format
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/GetPaymentDeliveryDateError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/payment_fees:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Get Payment Fees
+      description: Gets the <a href="https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ">payment fee</a> tables for the current authenticated account.
+      operationId: GetPaymentPaymentFees
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: page
+        in: query
+        required: false
+        type: integer
+        description: Page number
+        pattern: ^\d+$
+      - name: per_page
+        in: query
+        required: false
+        type: integer
+        description: Number of results per page.
+        pattern: ^\d+$
+      - name: order
+        in: query
+        required: false
+        type: string
+        description: Any field name to change the sort order.
+        minLength: 1
+        maxLength: 255
+      - name: order_asc_desc
+        in: query
+        required: false
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Sort records in ascending or descending order.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              payment_fees:
+                type: array
+                items:
+                  $ref: '#/definitions/PaymentFee'
+              pagination:
+                $ref: '#/definitions/Pagination'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '403':
+          description: Forbidden.
+          x-errors:
+          - code: permission_denied
+            message: permission_denied
+            params: ''
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/quote_payment_fee:
+    get:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Get Quote Payment Fee
+      description: Gets the calculated quote for the fee that will be applied against a payment.
+      operationId: GetQuotePaymentFee
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: account_id
+        in: query
+        required: false
+        type: string
+        description: Account UUID. If this is left empty, the account that is making the API call is used.
+        format: uuid
+      - name: payment_currency
+        in: query
+        required: true
+        type: string
+        description: Currency of the payment.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: payment_destination_country
+        in: query
+        required: true
+        type: string
+        description: Destination Country of the payment.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: payment_type
+        in: query
+        required: true
+        type: string
+        enum:
+        - priority
+        - regular
+        description: Type of payment - priority(Swift) or regular(local).
+      - name: charge_type
+        in: query
+        required: false
+        type: string
+        enum:
+        - ours
+        - shared
+        description: Payment Charges type. if no value is provided the account's default value is used.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/QuotePaymentFee'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: account_id_is_not_valid_uuid
+            category: account_id
+            message: account_id should be in UUID format
+            params: '{"type" => "currency"}'
+          - code: payment_currency_is_required
+            category: payment_currency
+            message: payment_currency is required
+            params: ''
+          - code: payment_currency_is_in_invalid_format
+            category: payment_currency
+            message: payment_currency is not a valid ISO 4217 currency code
+            params: '{ "type" => "currency" }'
+          - code: payment_destination_country_is_required
+            category: payment_destination_country
+            message: payment_destination_country is required
+            params: ''
+          - code: payment_destination_country_is_in_invalid_format
+            category: payment_destination_country
+            message: payment_destination_country is in invalid format
+            params: '{"type"=> "country_code"}'
+          - code: charge_type_is_required
+            category: charge_type
+            message: charge_type is required
+            params: ''
+          - code: charge_type_not_in_range
+            category: charge_type
+            message: 'charge_type should be in range: shared, ours'
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: payment_type_not_in_range
+            category: payment_type
+            message: 'payment_type should be in range: priority, regular'
+            params: '{ "payment_type" => "priority, regular" }'
+          schema:
+            $ref: '#/definitions/GetQuotePaymentFeeError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/unassign_payment_fee:
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Unassign Payment Fee
+      description: Unassigns the <a href="https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ">payment fee</a> tables for a specific sub-account.
+      operationId: PaymentsUnassignPaymentFee
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: account_id
+        in: formData
+        required: true
+        format: uuid
+        type: string
+        description: Sub-account UUID for which the payment level fee will be un-assigned.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/PaymentFeeUnassignment'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: account_id_is_required
+            category: account_id
+            message: account_id is required
+            params: ''
+          - code: account_id_is_not_valid_uuid
+            category: account_id
+            message: account_id should be in UUID format
+            params: ''
+          - code: account_configuration_is_invalid
+            category: base
+            message: Account is not enabled for CashManager or NewPaymentRelease flow
+            params: ''
+          - code: account_operation_restricted
+            category: base
+            message: Operation restricted for the account
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/PaymentFeeUnassignmentError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '403':
+          description: Forbidden.
+          x-errors:
+          - code: permission_denied
+            message: permission_denied
+            params: ''
+          schema:
+            $ref: '#/definitions/ForbiddenError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/validate:
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Validate Payment
+      description: 'Validates the details of a new payment without creating a record of the payment. On success, returns an object containing a string validation_result with value "success".<br><br>
+
+        Clients who are implementing Strong Customer Authentication (SCA) for payments should refer to our <strong><a href="../guides/integration-guides/sca_sponsored_api_payments">SCA for payments integration guide</a></strong>.'
+      operationId: ValidatePayment
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: x-sca-to-authenticated-user
+        in: header
+        required: false
+        type: boolean
+        description: Setting this to true will send the OTP to the authenticated user instead of the on-behalf-of customer. This option is only available to clients on specific licensing models.
+      - name: id
+        in: formData
+        required: false
+        type: string
+        description: Payment UUID
+        format: uuid
+      - name: currency
+        in: formData
+        required: true
+        type: string
+        description: Currency in which payment is made. Three-digit currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: beneficiary_id
+        in: formData
+        required: true
+        type: string
+        description: Beneficiary UUID
+        format: uuid
+      - name: amount
+        in: formData
+        required: true
+        type: string
+        description: Amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: reason
+        in: formData
+        required: true
+        type: string
+        description: User-generated reason for payment - freeform text.
+        minLength: 1
+        maxLength: 255
+      - name: reference
+        in: formData
+        required: true
+        type: string
+        description: User-generated reference code.
+        minLength: 1
+        maxLength: 255
+      - name: payment_date
+        in: formData
+        required: false
+        type: string
+        description: Instructed date of payment. Any valid ISO 8601 format, e.g. "2023-12-31".
+        format: date
+      - name: payment_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - priority
+        - regular
+        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+      - name: conversion_id
+        in: formData
+        required: false
+        type: string
+        description: Conversion UUID
+        format: uuid
+      - name: payer_entity_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity
+      - name: payer_company_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "company".
+        minLength: 1
+        maxLength: 255
+      - name: payer_first_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: payer_last_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "payer_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: payer_city
+        in: formData
+        required: false
+        type: string
+        description: City
+        minLength: 1
+        maxLength: 255
+      - name: payer_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 255
+      - name: payer_postcode
+        in: formData
+        required: false
+        type: string
+        description: Postal code
+        minLength: 1
+        maxLength: 255
+      - name: payer_state_or_province
+        in: formData
+        required: false
+        type: string
+        description: State or province.
+        minLength: 1
+        maxLength: 255
+      - name: payer_country
+        in: formData
+        required: false
+        type: string
+        description: Two-letter ISO country code.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: payer_date_of_birth
+        in: formData
+        required: false
+        type: string
+        description: If "payer_entity_type" is "company", this is the company registration date. If "payer_entity_type" is "individual", this is the individual's date of birth. ISO 8601 format YYYY-MM-DD.
+        format: date
+      - name: payer_identification_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - citizenship_papers
+        - credential_de_elector
+        - drivers_license
+        - drivers_license_canadian
+        - employer_identification_number
+        - existing_credit_card_details
+        - green_card
+        - incorporation_number
+        - matricula_consular
+        - national_id
+        - none
+        - others
+        - passport
+        - registro_federal_de_contribuyentes
+        - social_insurance_number
+        - social_security_number
+        - visa
+        description: A legal document that verifies the identity of the payer. Required documentation will vary depending on the nationality or registered address of the payer.
+      - name: payer_identification_value
+        in: formData
+        required: false
+        type: string
+        description: A unique reference code for the identification document, such as a passport number.
+        minLength: 1
+        maxLength: 255
+      - name: unique_request_id
+        in: formData
+        required: false
+        type: string
+        description: User-generated idempotency key.
+        minLength: 1
+        maxLength: 255
+      - name: ultimate_beneficiary_name
+        in: formData
+        required: false
+        type: string
+        description: The name of the ultimate beneficiary if different.
+        minLength: 1
+        maxLength: 255
+      - name: purpose_code
+        in: formData
+        required: false
+        type: string
+        description: Payment Purpose Code (Mandatory for all INR payments).
+        minLength: 1
+        maxLength: 255
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: charge_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - ours
+        - shared
+        description: Payment Charges Setting value (only applicable to Swift payments). If empty - then account's default value is used. Do not specify for regular (local) payments.
+      - name: fee_amount
+        in: formData
+        required: false
+        type: string
+        description: Fee amount
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: fee_currency
+        in: formData
+        required: false
+        type: string
+        description: Currency fee is paid in.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: payer_ultimate_account_number
+        in: formData
+        required: false
+        type: string
+        maxLength: 35
+        description: The payer's payment account number.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              validation_result:
+                type: string
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+            x-sca-required:
+              type: boolean
+              description: true if SCA is required to create the payment.
+            x-sca-id:
+              type: string
+              description: UUID to correlate to the SCA request.
+            x-sca-type:
+              type: string
+              enum:
+              - NONE
+              - oneTouch
+              - sms
+              description: Type of SCA applied to the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: invalid_type
+            category: type
+            message: Invalid Payment type
+            params: ''
+          - code: payment_type_not_in_range
+            category: type
+            message: 'payment_type should be in range: priority, regular'
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: type
+            message: currency is not a valid ISO 4217 currency code
+            params: ''
+          - code: currency_length_is_invalid
+            category: currency
+            message: currency should be 3 character(s) long
+            params: ''
+          - code: currency_is_required
+            category: currency
+            message: currency is required
+            params: ''
+          - code: invalid_currency
+            category: currency
+            message: You cannot make payments with this currency
+            params: ''
+          - code: beneficiary_id_is_not_valid_uuid
+            category: beneficiary_id
+            message: beneficiary_id should be in UUID format
+            params: ''
+          - code: beneficiary_id_is_required
+            category: beneficiary_id
+            message: beneficiary_id is required
+            params: ''
+          - code: invalid_beneficiary_currency
+            category: beneficiary_currency
+            message: You cannot assign this Beneficiary to the Payment as it is the incorrect currency
+            params: ''
+          - code: invalid_beneficiary_id
+            category: beneficiary_id
+            message: Unknown beneficiary_id
+            params: ''
+          - code: payment_above_limit
+            category: amount
+            message: 3000.00 EUR exceeds the maximum amount of 2500.00 EUR for a local payment.
+            params: ''
+          - code: payer_entity_type_not_in_range
+            category: payer_entity_type
+            message: 'payer_entity_type should be in range: individual, company'
+            params: ''
+          - code: payer_details_are_missing
+            category: payer_entity_type
+            message: 'Following payer details are missing: payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_city, payer_address, payer_state_or_province, payer_postcode, payer_country, payer_date_of_birth, payer_identification_type, payer_identification_value, payer_ultimate_account_number'
+            params: '{"missing_details" => "payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_city, payer_address, payer_state_or_province, payer_postcode, payer_country, payer_date_of_birth, payer_identification_type, payer_identification_value, payer_ultimate_account_number"}'
+          - code: unsupported_payer_country_code
+            category: payer_country_code
+            message: Payer country is not supported
+            params: ''
+          - code: payer_country_is_in_invalid_format
+            category: payer_country
+            message: payer_country is not a valid ISO 3166-1 Alpha-2 country code
+            params: ''
+          - code: payer_date_of_birth_type_is_wrong
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: payer_date_of_birth_is_incorrect
+            category: payer_date_of_birth
+            message: payer_date_of_birth is incorrect
+            params: ''
+          - code: payer_date_of_birth_is_earlier
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be later
+            params: ''
+          - code: payer_date_of_birth_is_after
+            category: payer_date_of_birth
+            message: payer_date_of_birth should be earlier
+            params: ''
+          - code: invalid_conversion_id
+            category: conversion_id
+            message: Conversion could not be found
+            params: ''
+          - code: conversion_is_already_settled
+            category: conversion_id
+            message: The conversion is already settled
+            params: ''
+          - code: invalid_amount_for_conversion
+            category: conversion_id
+            message: The payment amount is more than the value of the conversion
+            params: ''
+          - code: payment_date_type_is_wrong
+            category: payment_date
+            message: payment_date should be of date type
+            params: ''
+          - code: payment_date_is_too_early
+            category: payment_date
+            message: The payment date cannot be sooner than the conversion date
+            params: ''
+          - code: reason_is_too_long
+            category: reference
+            message: reference can not be longer than 255 character(s)
+            params: ''
+          - code: reference_is_too_long
+            category: reference
+            message: reference can not be longer than 255 character(s)
+            params: ''
+          - code: id_is_not_valid_uuid
+            category: reference
+            message: id should be in UUID format
+            params: ''
+          - code: charge_type_not_available
+            category: charge_type
+            message: Not available charge_type has been provided
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: charge_type_not_in_range
+            category: charge_type
+            message: 'charge_type should be in range: ours, shared'
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: on_behalf_of_is_not_valid_UUID
+            category: on_behalf_of
+            message: on_behalf_of should be in UUID format
+            params: ''
+          - code: on_behalf_of_charge_type_not_available
+            category: on_behalf_of
+            message: Not available charge_type has been provided for on_behalf_of
+            params: '{ "charge_type" => "shared, ours" }'
+          - code: duplicate_request
+            category: duplicate_request
+            message: The unique_request_id provided for this payment has already been used, please provide a new unique_request_id to successfully submit this payment
+            params: ''
+          - code: fee_amount_type_is_wrong
+            category: fee_amount
+            message: fee_amount should be of numeric type
+            params: '{ "type" => "numeric" }'
+          - code: fee_currency_is_in_invalid_format
+            category: fee_currency
+            message: fee_currency is not a valid ISO 4217 currency code
+            params: '{ "type" => "currency" }'
+          - code: purpose_code_is_missing
+            category: purpose_code
+            message: Purpose code is missing
+            params: ''
+          - code: incorrect_purpose_code
+            category: purpose_code
+            message: Purpose code is invalid
+            params: ''
+          - code: unsupported_beneficiary_country_code
+            category: beneficiary_country_code
+            message: Beneficiary country is not supported
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          - code: field_contains_invalid_characters
+            category: base
+            message: Field contains invalid characters
+            params: '{ ${field_name}: ${character_range} }'
+          - code: field_is_too_long
+            category: base
+            message: The information provided for this request exceeds our field length limits
+            params: '{ ${field_name}: ${max_field_length} }'
+          - code: request_contains_blocked_fields
+            category: base
+            message: This request contains fields that are not permitted for this route
+            params: '{ "blocked fields": [Fields that are not permitted for this route] }'
+          schema:
+            $ref: '#/definitions/ValidatePaymentError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+          x-errors:
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /payments/{id}/notifications/retry:
+    post:
+      tags:
+      - Payments
+      x-api-group: pay
+      summary: Resend Payment Notification
+      description: Resends a payment notification for the specified payment ID.
+      operationId: PaymentsRetryNotifications
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Payment UUID
+        format: uuid
+      - name: notification_type
+        in: query
+        required: true
+        type: string
+        description: The notification to be resent.
+        enum:
+        - payment_ready_to_send_notification
+        - payment_released_notification
+        - payment_failed_notification
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: id_is_not_valid_uuid
+            category: id
+            message: id should be in UUID format
+            params: ''
+          - code: payment_not_found
+            category: id
+            message: Payment was not found for this id
+            params: ''
+          - code: notification_type_not_in_range
+            category: notification_type
+            message: 'notification_type should be in range: payment_ready_to_send_notification, payment_released_notification, payment_failed_notification'
+            params: ''
+          schema:
+            $ref: '#/definitions/RetryNotificationError'
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporary unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+definitions:
+  PaymentFeeUnassignment:
+    type: object
+    description: Payment fee unassignment.
+    required:
+    - account_id
+    additionalProperties: false
+    properties:
+      account_id:
+        type: string
+        format: uuid
+        description: ID of the sub-account the rule is assigned to.
+    example:
+      account_id: 0178a7ba-9a77-4c74-af71-a5f650f00e09
+  QuotePaymentFee:
+    type: object
+    description: Quote payment fee.
+    required:
+    - account_id
+    - payment_currency
+    - payment_destination_country
+    - payment_type
+    - charge_type
+    - fee_amount
+    - fee_currency
+    additionalProperties: false
+    properties:
+      account_id:
+        type: string
+        description: Tha account Id.
+      payment_currency:
+        type: string
+        description: Three letter ISO code for the currency of the payment.
+      payment_destination_country:
+        type: string
+        description: Two-letter ISO country code for the payment's destination country.
+      payment_type:
+        type: string
+        description: The payment type the fee is applicable to, priority(Swift) or regular(local).
+      charge_type:
+        type: string
+        description: The charge type the fee is applicable.
+      fee_amount:
+        type: string
+        description: The fee amount.
+      fee_currency:
+        type: string
+        description: Three-letter ISO currency code for the fee's currency.
+    example:
+      account_id: 0534aaf2-2egg-0134-2f36-10b11cd33cfb
+      payment_currency: USD
+      payment_destination_country: US
+      payment_type: regular
+      charge_type: null
+      fee_amount: '10.00'
+      fee_currency: EUR
+  UnauthorizedError:
+    type: object
+    description: Authorization error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_failed
+      error_messages:
+        api_key:
+        - code: invalid_supplied_credentials
+          message: Authentication failed with the supplied credentials
+          params: {}
+  FindPaymentsError:
+    type: object
+    description: 'Client error information for the Get Payments endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  Payment:
+    type: object
+    description: Payment
+    properties:
+      id:
+        type: string
+        description: Payment UUID
+      amount:
+        type: string
+        description: Payment amount
+      beneficiary_id:
+        type: string
+        description: Beneficiary UUID
+      currency:
+        type: string
+        description: Payment currency
+      reference:
+        type: string
+        description: Payment reference
+      reason:
+        type: string
+        description: Reason for payment.
+      status:
+        type: string
+        description: Payment status
+      creator_contact_id:
+        type: string
+        description: Contact UUID of payment creator.
+      payment_type:
+        type: string
+        description: Type of payment - priority(Swift) or regular(local).
+      transferred_at:
+        type: string
+        description: Date of payment processing.
+      authorisation_steps_required:
+        type: string
+        description: Number of approvals required for the payment.
+      estimated_arrival:
+        type: string
+        description: Estimated date of payment.
+      payment_date:
+        type: string
+        description: Payment date.
+      last_updater_contact_id:
+        type: string
+        description: Contact UUID of user who last updated the record.
+      short_reference:
+        type: string
+        description: Short reference code.
+      conversion_id:
+        type: string
+        description: Conversion UUID
+      failure_reason:
+        type: string
+        description: A reason for why the payment failed.
+      payer_id:
+        type: string
+        description: Payer UUID
+      payer_details_source:
+        type: string
+        description: If the payment is a 3rd party one, the value will be "account". If  it is a 4th party payment, the value will be "payer".
+      created_at:
+        type: string
+        description: Date and time of when the payment was created.
+      updated_at:
+        type: string
+        description: Date and time of when the payment was last updated.
+      payment_group_id:
+        type: string
+        description: Payment group ID.
+      unique_request_id:
+        type: string
+        description: The user-generated idempotency key provided for the payment.
+      failure_returned_amount:
+        type: string
+        description: The amount returned on failure.
+      ultimate_beneficiary_name:
+        type: string
+        description: The name of the ultimate beneficiary.
+      purpose_code:
+        type: string
+        description: Payment purpose code.
+      fee_amount:
+        type: string
+        description: Fee amount
+      fee_currency:
+        type: string
+        description: Currency code for fee.
+      review_status:
+        type: string
+        description: Compliance review status - 'passed', 'in_review' or 'rejected'.
+        enum:
+        - in_review
+        - passed
+        - rejected
+      invoice_number:
+        type: string
+        description: The invoice number related to the payment. Can be up to 30 characters.
+      invoice_date:
+        type: string
+        description: The date of the invoice related to the payment. ISO 8601 format YYYY-MM-DD.
+    example:
+      id: 543477161-91de-012f-e284-1e0030c7f3123
+      short_reference: 140416-GGJBNQ001
+      beneficiary_id: 543477161-91de-012f-e284-1e0030c7f352
+      conversion_id: 049bab6d-fe2a-42e1-be0f-531c59f838ea
+      amount: '1250000.00'
+      currency: GBP
+      status: ready_to_send
+      payment_type: regular
+      reference: INVOICE 9876
+      reason: Salary for March
+      estimated_arrival: '2023-12-31T00:00:00.000Z'
+      payment_date: '2023-12-31T23:59:59.000Z'
+      transferred_at: '2023-12-31T23:59:59.000Z'
+      authorisation_steps_required: '0'
+      creator_contact_id: ab3477161-91de-012f-e284-1e0030c7f35c
+      last_updater_contact_id: ab3477161-91de-012f-e284-1e0030c7f35c
+      failure_reason: ''
+      payer_id: ''
+      created_at: '2023-12-31T23:59:59.000Z'
+      updated_at: '2023-12-31T23:59:59.000Z'
+      payment_group_id: 20140428-CJRRJM
+      unique_request_id: 1234567890abc
+      failure_returned_amount: ''
+      ultimate_beneficiary_name: Some beneficiary name
+      purpose_code: ''
+      fee_amount: '10.00'
+      fee_currency: EUR
+      review_status: in_review
+      invoice_number: INV01
+      invoice_date: '2023-07-03'
+  PaymentSubmissionInformation:
+    type: object
+    description: Payment submission.
+    properties:
+      status:
+        type: string
+        description: The status of the submission.
+        enum:
+        - canceled
+        - closed
+        - completed_manually
+        - duplicated
+        - failed
+        - pending
+        - processing
+        - success
+        - waiting_to_process
+      submission_ref:
+        type: string
+      format:
+        type: string
+        description: MT103 or PACS008
+      message:
+        type: string
+        description: The Swift message
+    example:
+      status: pending
+      submission_ref: MXGGYAGJULIIQKDV
+      format: PACS008
+      message: <AppHdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.02"> ...
+  ForbiddenError:
+    type: object
+    description: Permission error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents the reasons why the request was not permitted.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentAuthorisation:
+    type: object
+    description: Payment Authorisation.
+    properties:
+      payment_id:
+        type: string
+      payment_status:
+        type: string
+      updated:
+        type: string
+      error:
+        type: string
+      auth_steps_taken:
+        type: string
+      auth_steps_required:
+        type: string
+      short_reference:
+        type: string
+    example:
+      payment_id: 27966e22-5bdc-4675-923d-041c6be5b239
+      payment_status: ready_to_send
+      updated: true
+      error: null
+      auth_steps_taken: 3
+      auth_steps_required: 0
+      short_reference: 180628-FGVXPX001
+  ValidatePaymentError:
+    type: object
+    description: 'Client error information for the Validate Payment endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentConfirmation:
+    type: object
+    description: Payment confirmation.
+    properties:
+      id:
+        type: string
+        description: Unique ID of the Payment Confirmation.
+      payment_id:
+        type: string
+        description: Unique ID for the payment the confirmation relates to.
+      account_id:
+        type: string
+        description: Account ID
+      short_reference:
+        type: string
+        description: Short reference for the Payment Confirmation.
+      status:
+        type: string
+        description: Status of the Payment Confirmation processing.
+      confirmation_url:
+        type: string
+        description: URL to download Payment Confirmation file.
+      created_at:
+        type: string
+        format: date-time
+        description: Date and time of when the Payment Confirmation was created.
+      updated_at:
+        type: string
+        format: date-time
+        description: Date and time of when the Payment Confirmation was last updated.
+      expires_at:
+        type: string
+        format: date-time
+        description: Date and time of when the Payment Confirmation will expire.
+    example:
+      id: 123123121-91de-012f-e284-1e0030c7f3111
+      payment_id: 543477161-91de-012f-e284-1e0030c7f3123
+      account_id: 543477161-91de-012f-e284-1e0030c7f352
+      short_reference: 140416-GGJBNQ001
+      status: completed
+      confirmation_url: https://s3.com/140416-GGJBNQ001.pdf
+      created_at: '2014-01-12T00:00:00+00:00'
+      updated_at: '2014-01-12T00:00:00+00:00'
+      expires_at: '2014-02-12T00:00:00+00:00'
+  GetPaymentDeliveryDateError:
+    type: object
+    description: 'Client error information for the Get Payment Delivery Date endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetPaymentTrackingInfoError:
+    type: object
+    description: 'Client error information for the Get Payment Tracking Info endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  Pagination:
+    type: object
+    description: Pagination.
+    properties:
+      total_entries:
+        type: integer
+      total_pages:
+        type: integer
+      current_page:
+        type: integer
+      per_page:
+        type: integer
+        description: Number of results per page.
+      previous_page:
+        type: integer
+      next_page:
+        type: integer
+      order:
+        type: string
+        description: The field name by which the results are sorted.
+      order_asc_desc:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Whether results are sorted in ascending or descending order.
+    example:
+      total_entries: 1
+      total_pages: 1
+      current_page: 1
+      per_page: 25
+      previous_page: -1
+      next_page: 2
+      order: created_at
+      order_asc_desc: asc
+  PaymentAuthorisations:
+    type: object
+    description: Payment Authorisations.
+    properties:
+      authorisations:
+        type: array
+        items:
+          $ref: '#/definitions/PaymentAuthorisation'
+  GetPaymentSubmissionError:
+    type: object
+    description: 'Client error information for the Get Payment Submission endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  NotFoundError:
+    type: object
+    description: Resource not found.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentTrackingInfo:
+    type: object
+    description: PaymentTrackingInfo
+    required:
+    - uetr
+    - transaction_status
+    - initiation_time
+    - completion_time
+    - last_update_time
+    - payment_events
+    additionalProperties: false
+    properties:
+      uetr:
+        type: string
+        description: Unique End-to-end Transaction Reference.
+      transaction_status:
+        type: object
+        description: Status of the transaction.
+        required:
+        - status
+        - reason
+        properties:
+          status:
+            type: string
+            description: Current status
+          reason:
+            type: string
+            description: Reason for current status.
+      initiation_time:
+        type: string
+        format: date-time
+        description: Time of initiation.
+      completion_time:
+        type: string
+        format: date-time
+        description: Time of completion.
+      last_update_time:
+        type: string
+        format: date-time
+        description: Time of last update.
+      payment_events:
+        type: array
+        description: List of events that have been applied to the payment.
+        items:
+          type: object
+          description: An object describing an event that has been applied to the payment.
+    example:
+      uetr: 46ed4827-7b6f-4491-a06f-b548d5a7512d
+      transaction_status:
+        status: processing
+        reason: transferred_and_tracked
+      initiation_time: '2019-07-09T13:20:30.000Z'
+      completion_time: null
+      last_update_time: '2019-07-10T15:39:08.690Z'
+      payment_events:
+      - tracker_event_type: credit_transfer_payment_cancellation_request
+        valid: true
+        transaction_status: null
+        funds_available: null
+        forwarded_to_agent: null
+        from: BANABEBBXXX
+        to: BANAUS33XXX
+        originator: BANABEBBXXX
+        serial_parties: null
+        sender_acknowledgement_receipt: '2019-07-10T14:22:41.273Z'
+        instructed_amount: null
+        confirmed_amount: null
+        interbank_settlement_amount:
+          currency: USD
+          amount: 745437.57
+        interbank_settlement_date: '2019-07-09'
+        charge_type: null
+        charge_amount: null
+        foreign_exchange_details: null
+        last_update_time: '2019-07-10T14:22:41.273Z'
+      - tracker_event_type: customer_credit_transfer_payment
+        valid: true
+        transaction_status:
+          status: processing
+          reason: transferred_and_tracked
+        funds_available: null
+        forwarded_to_agent: null
+        from: BANABEBBXXX
+        to: BANAUS33XXX
+        originator: BANABEBBXXX
+        serial_parties:
+          debtor_agent: GPMRCH30
+          creditor_agent: GPMRQAJ0
+        sender_acknowledgement_receipt: '2019-07-09T13:20:30.000Z'
+        instructed_amount:
+          currency: USD
+          amount: 745437.57
+        confirmed_amount: null
+        interbank_settlement_amount:
+          currency: USD
+          amount: 745437.57
+        interbank_settlement_date: '2019-07-09'
+        charge_type: shared
+        charge_amount: null
+        foreign_exchange_details: null
+        last_update_time: '2019-07-09T13:20:50.633Z'
+  CreatePaymentError:
+    type: object
+    description: 'Client error information for the Create Payment endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetPaymentError:
+    type: object
+    description: 'Client error information for the Get Payment endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  RateLimitError:
+    type: object
+    description: Too many requests.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this validation/error.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentFeeAssignmentError:
+    type: object
+    description: 'Client error information for the Payment Fee Assignment endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  RetryNotificationError:
+    type: object
+    description: Client error information for the retry payment notification endpoint.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for  input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  GetQuotePaymentFeeError:
+    type: object
+    description: 'Client error information for the Get Quote Payment Fee endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentDeliveryDate:
+    type: object
+    description: Payment Delivery Date
+    required:
+    - payment_date
+    - payment_delivery_date
+    - payment_cutoff_time
+    - payment_type
+    - currency
+    - bank_country
+    additionalProperties: false
+    properties:
+      payment_date:
+        type: string
+        description: The date when the payment will be released.
+      payment_delivery_date:
+        type: string
+        description: Date that we expect the payment to be delivered and available in the beneficiary bank account.
+      payment_cutoff_time:
+        type: string
+        description: Calculated cut-off date and time.
+      payment_type:
+        type: string
+        description: Type of payment - priority (Swift) or regular (local).
+      currency:
+        type: string
+        description: The 3-letter ISO code for the currency of the payment.
+      bank_country:
+        type: string
+        description: Country in which the beneficiary's bank account is held. Two-letter ISO country code.
+    example:
+      payment_date: '2019-02-11'
+      payment_delivery_date: '2019-02-11T00:00:00+00:00'
+      payment_cutoff_time: '2019-02-11T19:00:00+00:00'
+      payment_type: priority
+      currency: MXN
+      bank_country: MX
+  CreatePaymentAuthorisationError:
+    type: object
+    description: 'Client error information for the Create Payment Authorise endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  DeletePaymentError:
+    type: object
+    description: 'Client error information for the Delete Payment endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentFee:
+    type: object
+    description: Payment fee.
+    required:
+    - id
+    - name
+    - currency
+    - regular_amount
+    - priority_shared_amount
+    - priority_ours_amount
+    - owner_account_id
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: ID of the payment fee.
+      name:
+        type: string
+        description: Name of the payment fee.
+      currency:
+        type: string
+        description: The fee currency.
+      regular_amount:
+        type: string
+        description: The fee regular amount.
+      priority_shared_amount:
+        type: string
+        description: The fee priority shared amount.
+      priority_ours_amount:
+        type: string
+        description: The fee priority our amount.
+      owner_account_id:
+        type: string
+        format: uuid
+        description: The ID of the owner account.
+    example:
+      id: 49521d55-5dd8-4362-8c2d-03b02b1a714b
+      name: 1updfee_table_AUD4
+      currency: DKK
+      regular_amount: '50.00'
+      priority_shared_amount: '40.00'
+      priority_ours_amount: '30.00'
+      owner_account_id: null
+  UpdatePaymentError:
+    type: object
+    description: 'Client error information for the Update Payment endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentFeeUnassignmentError:
+    type: object
+    description: 'Client error information for the Payment Fee Unassignment endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  PaymentFeeAssignment:
+    type: object
+    description: Payment Fee Assignment.
+    required:
+    - id
+    - account_id
+    additionalProperties: false
+    properties:
+      id:
+        type: string
+        format: uuid
+        description: ID of the payment fee.
+      account_id:
+        type: string
+        format: uuid
+        description: ID of the sub-account the rule is assigned to.
+    example:
+      id: a6c4a482-1a56-49ea-be55-b9b0bb92a9b2
+      account_id: 0178a7ba-9a77-4c74-af71-a5f650f00e09

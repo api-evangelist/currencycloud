@@ -1,0 +1,942 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage People API
+  version: v1
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: People
+paths:
+  /v1/forms/{form_id}/people:
+    post:
+      summary: Create Person Entity
+      description: Records a person's details associated with the specified application form. For more information, please see <a href="../guides/integration-guides/onboarding-api-pilot">our guide.</a>
+      tags:
+      - People
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Creates a person when correct params are provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/person'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_person_request'
+    get:
+      summary: Get People
+      description: Returns all people associated with an application form.
+      tags:
+      - People
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieves people for a form if this form exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  people:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/person'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+  /v1/forms/{form_id}/{person_id}:
+    get:
+      summary: Get Person
+      description: Retrieves the details of the person with the specified ID.
+      tags:
+      - People
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: person_id
+        in: path
+        description: Person UUID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieves person if the UUIDs match
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/person'
+        '404':
+          description: Person not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+    put:
+      summary: Update Person
+      description: Updates the person with the specified ID.
+      tags:
+      - People
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: person_id
+        in: path
+        description: Person UUID
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Updates a person when correct params are provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/person'
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_person_request'
+    delete:
+      summary: Delete Person
+      description: Deletes the details of the person with the specified ID.
+      tags:
+      - People
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: person_id
+        description: Person UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deletes the person
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      person_id:
+                        type: string
+                    required:
+                    - message
+                    - person_id
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+components:
+  schemas:
+    create_person_request:
+      type: object
+      properties:
+        roles:
+          type: array
+          description: Ther person's role(s).
+          items:
+            type: string
+            enum:
+            - director
+            - ultimate_business_owner
+            - user
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+          nullable: true
+        first_name:
+          description: First name
+          type: string
+        middle_name:
+          description: Middle name
+          type: string
+          nullable: true
+        last_name:
+          description: Surname
+          type: string
+        dob:
+          description: Date of Birth
+          type: string
+          format: date
+          nullable: true
+        phone_number:
+          description: Phone number
+          type: string
+          nullable: true
+        email:
+          description: Email address
+          type: string
+          nullable: true
+        ownership_percentage:
+          description: Percentage of company owned.
+          type: number
+          nullable: true
+          minimum: 0
+          maximum: 100
+        id_number:
+          description: Social security number if home_country=US.
+          type: string
+          nullable: true
+        home_country:
+          description: Country of permanent address.
+          type: string
+        passport_number:
+          type: string
+          description: Passport number
+          nullable: true
+        passport_country_of_issue:
+          type: string
+          description: Country code for where the passport was issued.
+          nullable: true
+        personal_address_attributes:
+          type: object
+          properties:
+            city:
+              description: City
+              type: string
+            street:
+              description: Street
+              type: string
+            country:
+              description: Country code
+              type: string
+              enum:
+              - AD
+              - AN
+              - AE
+              - AF
+              - AG
+              - AI
+              - AL
+              - AM
+              - AO
+              - AQ
+              - AR
+              - AS
+              - AT
+              - AU
+              - AW
+              - AX
+              - AZ
+              - BA
+              - BB
+              - BD
+              - BE
+              - BF
+              - BG
+              - BH
+              - BI
+              - BJ
+              - BL
+              - BM
+              - BN
+              - BO
+              - BQ
+              - BR
+              - BS
+              - BT
+              - BV
+              - BW
+              - BY
+              - BZ
+              - CA
+              - CC
+              - CD
+              - CF
+              - CG
+              - CH
+              - CI
+              - CK
+              - CL
+              - CM
+              - CN
+              - CO
+              - CR
+              - CV
+              - CW
+              - CX
+              - CY
+              - CZ
+              - DE
+              - DJ
+              - DK
+              - DM
+              - DO
+              - DZ
+              - EC
+              - EE
+              - EG
+              - EH
+              - ER
+              - ES
+              - ET
+              - FI
+              - FJ
+              - FK
+              - FM
+              - FO
+              - FR
+              - GA
+              - GB
+              - GD
+              - GE
+              - GF
+              - GG
+              - GH
+              - GI
+              - GL
+              - GM
+              - GN
+              - GP
+              - GQ
+              - GR
+              - GS
+              - GT
+              - GU
+              - GW
+              - GY
+              - HK
+              - HM
+              - HN
+              - HR
+              - HT
+              - HU
+              - ID
+              - IE
+              - IL
+              - IM
+              - IN
+              - IO
+              - IQ
+              - IS
+              - IT
+              - JE
+              - JM
+              - JO
+              - JP
+              - KE
+              - KG
+              - KH
+              - KI
+              - KM
+              - KN
+              - KR
+              - KW
+              - KY
+              - KZ
+              - LA
+              - LB
+              - LC
+              - LI
+              - LK
+              - LR
+              - LS
+              - LT
+              - LU
+              - LV
+              - MA
+              - MC
+              - MD
+              - ME
+              - MF
+              - MG
+              - MH
+              - MK
+              - ML
+              - MM
+              - MN
+              - MO
+              - MP
+              - MQ
+              - MR
+              - MS
+              - MT
+              - MU
+              - MV
+              - MW
+              - MX
+              - MY
+              - MZ
+              - NA
+              - NC
+              - NE
+              - NF
+              - NG
+              - NI
+              - NL
+              - 'NO'
+              - NP
+              - NR
+              - NU
+              - NZ
+              - OM
+              - PA
+              - PE
+              - PF
+              - PG
+              - PH
+              - PK
+              - PL
+              - PM
+              - PN
+              - PR
+              - PS
+              - PT
+              - PW
+              - PY
+              - QA
+              - RE
+              - RO
+              - RS
+              - RU
+              - RW
+              - SA
+              - SB
+              - SC
+              - SE
+              - SG
+              - SH
+              - SI
+              - SJ
+              - SK
+              - SL
+              - SM
+              - SN
+              - SO
+              - SR
+              - ST
+              - SV
+              - SX
+              - SZ
+              - TC
+              - TD
+              - TF
+              - TG
+              - TH
+              - TJ
+              - TK
+              - TL
+              - TM
+              - TN
+              - TO
+              - TR
+              - TT
+              - TV
+              - TW
+              - TZ
+              - UA
+              - UG
+              - UM
+              - US
+              - UY
+              - UZ
+              - VA
+              - VC
+              - VE
+              - VG
+              - VI
+              - VN
+              - VU
+              - WF
+              - WS
+              - XK
+              - YE
+              - YT
+              - ZA
+              - ZM
+              - ZW
+              - AND
+              - ANT
+              - ARE
+              - AFG
+              - ATG
+              - AIA
+              - ALB
+              - ARM
+              - AGO
+              - ATA
+              - ARG
+              - ASM
+              - AUT
+              - AUS
+              - ABW
+              - ALA
+              - AZE
+              - BIH
+              - BRB
+              - BGD
+              - BEL
+              - BFA
+              - BGR
+              - BHR
+              - BDI
+              - BEN
+              - BLM
+              - BMU
+              - BRN
+              - BOL
+              - BES
+              - BRA
+              - BHS
+              - BTN
+              - BVT
+              - BWA
+              - BLR
+              - BLZ
+              - CAN
+              - CCK
+              - COD
+              - CAF
+              - COG
+              - CHE
+              - CIV
+              - COK
+              - CHL
+              - CMR
+              - CHN
+              - COL
+              - CRI
+              - CPV
+              - CUW
+              - CXR
+              - CYP
+              - CZE
+              - DEU
+              - DJI
+              - DNK
+              - DMA
+              - DOM
+              - DZA
+              - ECU
+              - EST
+              - EGY
+              - ESH
+              - ERI
+              - ESP
+              - ETH
+              - FIN
+              - FJI
+              - FLK
+              - FSM
+              - FRO
+              - FRA
+              - GAB
+              - GBR
+              - GRD
+              - GEO
+              - GUF
+              - GGY
+              - GHA
+              - GIB
+              - GRL
+              - GMB
+              - GIN
+              - GLP
+              - GNQ
+              - GRC
+              - SGS
+              - GTM
+              - GUM
+              - GNB
+              - GUY
+              - HKG
+              - HMD
+              - HND
+              - HRV
+              - HTI
+              - HUN
+              - IDN
+              - IRL
+              - ISR
+              - IMN
+              - IND
+              - IOT
+              - IRQ
+              - ISL
+              - ITA
+              - JEY
+              - JAM
+              - JOR
+              - JPN
+              - KEN
+              - KGZ
+              - KHM
+              - KIR
+              - COM
+              - KNA
+              - KOR
+              - KWT
+              - CYM
+              - KAZ
+              - LAO
+              - LBN
+              - LCA
+              - LIE
+              - LKA
+              - LBR
+              - LSO
+              - LTU
+              - LUX
+              - LVA
+              - MAR
+              - MCO
+              - MDA
+              - MNE
+              - MAF
+              - MDG
+              - MHL
+              - MKD
+              - MLI
+              - MMR
+              - MNG
+              - MAC
+              - MNP
+              - MTQ
+              - MRT
+              - MSR
+              - MLT
+              - MUS
+              - MDV
+              - MWI
+              - MEX
+              - MYS
+              - MOZ
+              - NAM
+              - NCL
+              - NER
+              - NFK
+              - NGA
+              - NIC
+              - NLD
+              - NOR
+              - NPL
+              - NRU
+              - NIU
+              - NZL
+              - OMN
+              - PAN
+              - PER
+              - PYF
+              - PNG
+              - PHL
+              - PAK
+              - POL
+              - SPM
+              - PCN
+              - PRI
+              - PSE
+              - PRT
+              - PLW
+              - PRY
+              - QAT
+              - REU
+              - ROU
+              - SRB
+              - RUS
+              - RWA
+              - SAU
+              - SLB
+              - SYC
+              - SWE
+              - SGP
+              - SHN
+              - SVN
+              - SJM
+              - SVK
+              - SLE
+              - SMR
+              - SEN
+              - SOM
+              - SUR
+              - STP
+              - SLV
+              - SXM
+              - SWZ
+              - TCA
+              - TCD
+              - ATF
+              - TGO
+              - THA
+              - TJK
+              - TKL
+              - TLS
+              - TKM
+              - TUN
+              - TON
+              - TUR
+              - TTO
+              - TUV
+              - TWN
+              - TZA
+              - UKR
+              - UGA
+              - UMI
+              - USA
+              - URY
+              - UZB
+              - VAT
+              - VCT
+              - VEN
+              - VGB
+              - VIR
+              - VNM
+              - VUT
+              - WLF
+              - WSM
+              - UNK
+              - YEM
+              - MYT
+              - ZAF
+              - ZMB
+              - ZWE
+            postal_code:
+              type: string
+              description: Post Code
+            apartment_number:
+              description: Apartment number
+              type: string
+              nullable: true
+            building_name:
+              description: Building name
+              type: string
+              nullable: true
+            building_number:
+              description: Building number
+              type: string
+              nullable: true
+            state_or_province:
+              description: State or province
+              type: string
+              nullable: true
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+      required:
+      - roles
+      - first_name
+      - last_name
+      - home_country
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+          nullable: true
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    person:
+      type: object
+      properties:
+        id:
+          type: string
+        form_id:
+          type: string
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+        first_name:
+          type: string
+        middle_name:
+          type: string
+          nullable: true
+        last_name:
+          type: string
+        dob:
+          type: string
+          format: date
+          nullable: true
+        phone_number:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        ownership_percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+        id_number:
+          type: string
+          nullable: true
+        home_country:
+          type: string
+        passport_number:
+          type: string
+          nullable: true
+        passport_country_of_issue:
+          type: string
+          nullable: true
+        personal_address:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type: string
+              nullable: true
+            building_name:
+              type: string
+              nullable: true
+            building_number:
+              type: string
+              nullable: true
+            state_or_province:
+              type: string
+              nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - roles
+      - first_name
+      - last_name
+      - home_country
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token

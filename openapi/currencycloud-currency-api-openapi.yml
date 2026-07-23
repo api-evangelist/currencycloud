@@ -1,0 +1,66 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Currency API
+  version: v1
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Currency
+paths:
+  /v1/currencies/supported:
+    get:
+      summary: Get Supported Currencies
+      description: Returns a list of supported currencies.
+      tags:
+      - Currency
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      responses:
+        '200':
+          description: List of supported currencies.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    properties:
+                      currencies:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              description: Currency UUID
+                              type: string
+                            iso3:
+                              type: string
+                              description: Three character ISO currency code.
+                            name:
+                              type: string
+                              description: Currency name
+                            supported:
+                              type: boolean
+                              description: Supported currency
+                            created_at:
+                              type: string
+                              description: Date the currency entity was created.
+                            updated_at:
+                              type: string
+                              description: Date the currency entity was last updated.
+                          required:
+                          - id
+                          - iso3
+                          - name
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token

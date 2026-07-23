@@ -1,0 +1,271 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Documents API
+  version: v1
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Documents
+paths:
+  /v1/forms/{form_id}/documents:
+    post:
+      summary: Create Document
+      description: Adds a validation document to the specified form. For more information on uploading documents, see <a href="../guides/integration-guides/onboarding-api-pilot/#uploading-documents">our guide.</a>
+      tags:
+      - Documents
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Creates a document when correct params are provided
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/document'
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '400':
+          description: Invalid parameter in request params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_document_request'
+    get:
+      summary: Get Documents
+      description: Returns the uploaded documents for the specified application form.
+      tags:
+      - Documents
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Retrieves all form documents
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  documents:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/document_with_image_ids'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+  /v1/forms/{form_id}/documents/{document_id}:
+    delete:
+      summary: Delete Document
+      description: Deletes a document attached to the specified application form.
+      tags:
+      - Documents
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deletes the document
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      document_id:
+                        type: string
+                    required:
+                    - message
+                    - document_id
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Document not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+components:
+  schemas:
+    create_document_request:
+      type: object
+      properties:
+        document_type:
+          description: The type of document.
+          type: string
+          enum:
+          - bank_statement
+          - biometric_state_id
+          - driving_licence
+          - mortgage
+          - passport
+          - proof_of_business_activity
+          - proof_of_business_identity
+          - proof_of_directors
+          - proof_of_owners
+          - proof_of_source_of_funds
+          - residence_id
+          - state_id
+          - supporting
+          - unknown
+          - utility_bill
+          - visa
+        category:
+          type: string
+          description: Category of identification documentation.
+          enum:
+          - proof_of_address
+          - proof_of_business_activity
+          - proof_of_business_identity
+          - proof_of_directors
+          - proof_of_identity
+          - proof_of_owners
+          - proof_of_source_of_funds
+          - supporting
+      required:
+      - document_type
+      - category
+    document_with_image_ids:
+      type: object
+      properties:
+        id:
+          type: string
+        document_type:
+          type: string
+        category:
+          type: string
+        document_image_ids:
+          type: array
+          items:
+            type: string
+        form_section_type:
+          type: string
+          nullable: true
+        form_section_id:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - document_type
+      - category
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+          nullable: true
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    document:
+      type: object
+      properties:
+        id:
+          type: string
+        document_type:
+          type: string
+        category:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - document_type
+      - category
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token

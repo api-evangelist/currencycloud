@@ -1,0 +1,141 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Country API
+  version: v1
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Country
+paths:
+  /v1/countries:
+    get:
+      summary: Get countries
+      description: Returns a list of all countries.
+      tags:
+      - Country
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      responses:
+        '200':
+          description: List of countries.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      countries:
+                        type: array
+                        description: List of countries.
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Country UUID
+                            iso2:
+                              type: string
+                              description: Two character ISO country code.
+                            iso3:
+                              type: string
+                              description: Three character ISO country code.
+                            name:
+                              type: string
+                              description: Country name
+                            dial_code:
+                              type: string
+                              description: Country telephone dial code.
+                            eea_country:
+                              type: boolean
+                              description: Member of the EEA (European Economic Area).
+                            permitted_jurisdiction:
+                              type: boolean
+                              description: Is one of our <a href="https://support.currencycloud.com/hc/en-gb/articles/360017599560">permitted jurisdictions</a>.
+                            document_types:
+                              type: array
+                              description: List of acceptable ID documents.
+                              items:
+                                type: string
+                            created_at:
+                              type: string
+                              description: Date the Country entity was created.
+                            updated_at:
+                              type: string
+                              description: Date the Country entity was last updated.
+                          required:
+                          - id
+                          - iso2
+                          - iso3
+                          - name
+                          - eea_country
+                          - permitted_jurisdiction
+  /v1/countries/{country_code}/document_types:
+    get:
+      summary: Get Document Types
+      description: Returns a list of acceptable ID documents for the country specified.
+      tags:
+      - Country
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: country_code
+        description: Two or three character ISO code for the country.
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Get country document types (ISO3).
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      document_types:
+                        type: array
+                        description: List of acceptable ID documents for the country.
+                        items:
+                          type: string
+        '404':
+          description: Incorrect country sent in params
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+components:
+  schemas:
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+          nullable: true
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token

@@ -1,0 +1,1140 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage API
+  version: v1
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Account Usage
+paths:
+  /v1/forms/{form_id}/account_usage:
+    get:
+      summary: Get Account Usage
+      description: Gets the associated account usage for a form. The account usage outlines how the applicant intends to use their account.
+      tags:
+      - Account Usage
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Account usage found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/account_usage'
+        '404':
+          description: Returns error if form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+    put:
+      summary: Update Account Usage
+      description: Updates a form's associated account usage. The account usage outlines how the applicant intends to use their account.
+      tags:
+      - Account Usage
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Updates account usage.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/account_usage'
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '400':
+          description: Returns error if any request body schema validation fails
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_account_usage_request'
+    delete:
+      summary: Delete Account Usage
+      description: Deletes the account usage for the specified application form.
+      tags:
+      - Account Usage
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deletes account usage if it exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      form_id:
+                        type: string
+                        description: Form UUID
+                    required:
+                    - message
+                    - form_id
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+components:
+  schemas:
+    create_account_usage_request:
+      type: object
+      properties:
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+          nullable: true
+        collections_account:
+          description: Does the account receive funds from third parties.
+          type: boolean
+        collection_currencies:
+          description: List of currencies to fund account with. Three character ISO currency codes.
+          type: array
+          items:
+            type: string
+            nullable: true
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHF
+            - CLP
+            - CNH
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EEK
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XCD
+            - XOF
+            - XPF
+            - YER
+            - ZAR
+            - ZMK
+            - ZWL
+        payment_currencies:
+          type: array
+          description: List of payout currencies. Three character ISO currency codes.
+          items:
+            type: string
+            nullable: true
+            enum:
+            - AED
+            - AFN
+            - ALL
+            - AMD
+            - ANG
+            - AOA
+            - ARS
+            - AUD
+            - AWG
+            - AZN
+            - BAM
+            - BBD
+            - BDT
+            - BGN
+            - BHD
+            - BIF
+            - BMD
+            - BND
+            - BOB
+            - BRL
+            - BSD
+            - BTN
+            - BWP
+            - BYR
+            - BZD
+            - CAD
+            - CDF
+            - CHF
+            - CLP
+            - CNH
+            - CNY
+            - COP
+            - COU
+            - CRC
+            - CUP
+            - CVE
+            - CZK
+            - DJF
+            - DKK
+            - DOP
+            - DZD
+            - EEK
+            - EGP
+            - ERN
+            - ETB
+            - EUR
+            - FJD
+            - FKP
+            - GBP
+            - GEL
+            - GHS
+            - GIP
+            - GMD
+            - GNF
+            - GTQ
+            - GYD
+            - HKD
+            - HNL
+            - HRK
+            - HTG
+            - HUF
+            - IDR
+            - ILS
+            - INR
+            - IQD
+            - IRR
+            - ISK
+            - JMD
+            - JOD
+            - JPY
+            - KES
+            - KGS
+            - KHR
+            - KMF
+            - KPW
+            - KRW
+            - KWD
+            - KYD
+            - KZT
+            - LAK
+            - LBP
+            - LKR
+            - LRD
+            - LSL
+            - LVL
+            - LYD
+            - MAD
+            - MDL
+            - MGA
+            - MKD
+            - MMK
+            - MNT
+            - MOP
+            - MRO
+            - MUR
+            - MVR
+            - MWK
+            - MXN
+            - MYR
+            - MZN
+            - NAD
+            - NGN
+            - NIO
+            - NOK
+            - NPR
+            - NZD
+            - OMR
+            - PAB
+            - PEN
+            - PGK
+            - PHP
+            - PKR
+            - PLN
+            - PYG
+            - QAR
+            - RON
+            - RSD
+            - RUB
+            - RWF
+            - SAR
+            - SBD
+            - SCR
+            - SDG
+            - SEK
+            - SGD
+            - SHP
+            - SLL
+            - SOS
+            - SRD
+            - SSP
+            - STD
+            - SYP
+            - SZL
+            - THB
+            - TJS
+            - TMT
+            - TND
+            - TOP
+            - TRY
+            - TTD
+            - TWD
+            - TZS
+            - UAH
+            - UGX
+            - USD
+            - UYU
+            - UZS
+            - VEF
+            - VND
+            - VUV
+            - WST
+            - XAF
+            - XCD
+            - XOF
+            - XPF
+            - YER
+            - ZAR
+            - ZMK
+            - ZWL
+        transaction_countries:
+          type: array
+          description: List of countries that corporate accounts want to send/receive money to/from.
+          items:
+            type: string
+            nullable: true
+            enum:
+            - AD
+            - AN
+            - AE
+            - AF
+            - AG
+            - AI
+            - AL
+            - AM
+            - AO
+            - AQ
+            - AR
+            - AS
+            - AT
+            - AU
+            - AW
+            - AX
+            - AZ
+            - BA
+            - BB
+            - BD
+            - BE
+            - BF
+            - BG
+            - BH
+            - BI
+            - BJ
+            - BL
+            - BM
+            - BN
+            - BO
+            - BQ
+            - BR
+            - BS
+            - BT
+            - BV
+            - BW
+            - BY
+            - BZ
+            - CA
+            - CC
+            - CD
+            - CF
+            - CG
+            - CH
+            - CI
+            - CK
+            - CL
+            - CM
+            - CN
+            - CO
+            - CR
+            - CV
+            - CW
+            - CX
+            - CY
+            - CZ
+            - DE
+            - DJ
+            - DK
+            - DM
+            - DO
+            - DZ
+            - EC
+            - EE
+            - EG
+            - EH
+            - ER
+            - ES
+            - ET
+            - FI
+            - FJ
+            - FK
+            - FM
+            - FO
+            - FR
+            - GA
+            - GB
+            - GD
+            - GE
+            - GF
+            - GG
+            - GH
+            - GI
+            - GL
+            - GM
+            - GN
+            - GP
+            - GQ
+            - GR
+            - GS
+            - GT
+            - GU
+            - GW
+            - GY
+            - HK
+            - HM
+            - HN
+            - HR
+            - HT
+            - HU
+            - ID
+            - IE
+            - IL
+            - IM
+            - IN
+            - IO
+            - IQ
+            - IS
+            - IT
+            - JE
+            - JM
+            - JO
+            - JP
+            - KE
+            - KG
+            - KH
+            - KI
+            - KM
+            - KN
+            - KR
+            - KW
+            - KY
+            - KZ
+            - LA
+            - LB
+            - LC
+            - LI
+            - LK
+            - LR
+            - LS
+            - LT
+            - LU
+            - LV
+            - MA
+            - MC
+            - MD
+            - ME
+            - MF
+            - MG
+            - MH
+            - MK
+            - ML
+            - MM
+            - MN
+            - MO
+            - MP
+            - MQ
+            - MR
+            - MS
+            - MT
+            - MU
+            - MV
+            - MW
+            - MX
+            - MY
+            - MZ
+            - NA
+            - NC
+            - NE
+            - NF
+            - NG
+            - NI
+            - NL
+            - 'NO'
+            - NP
+            - NR
+            - NU
+            - NZ
+            - OM
+            - PA
+            - PE
+            - PF
+            - PG
+            - PH
+            - PK
+            - PL
+            - PM
+            - PN
+            - PR
+            - PS
+            - PT
+            - PW
+            - PY
+            - QA
+            - RE
+            - RO
+            - RS
+            - RU
+            - RW
+            - SA
+            - SB
+            - SC
+            - SE
+            - SG
+            - SH
+            - SI
+            - SJ
+            - SK
+            - SL
+            - SM
+            - SN
+            - SO
+            - SR
+            - ST
+            - SV
+            - SX
+            - SZ
+            - TC
+            - TD
+            - TF
+            - TG
+            - TH
+            - TJ
+            - TK
+            - TL
+            - TM
+            - TN
+            - TO
+            - TR
+            - TT
+            - TV
+            - TW
+            - TZ
+            - UA
+            - UG
+            - UM
+            - US
+            - UY
+            - UZ
+            - VA
+            - VC
+            - VE
+            - VG
+            - VI
+            - VN
+            - VU
+            - WF
+            - WS
+            - XK
+            - YE
+            - YT
+            - ZA
+            - ZM
+            - ZW
+            - AND
+            - ANT
+            - ARE
+            - AFG
+            - ATG
+            - AIA
+            - ALB
+            - ARM
+            - AGO
+            - ATA
+            - ARG
+            - ASM
+            - AUT
+            - AUS
+            - ABW
+            - ALA
+            - AZE
+            - BIH
+            - BRB
+            - BGD
+            - BEL
+            - BFA
+            - BGR
+            - BHR
+            - BDI
+            - BEN
+            - BLM
+            - BMU
+            - BRN
+            - BOL
+            - BES
+            - BRA
+            - BHS
+            - BTN
+            - BVT
+            - BWA
+            - BLR
+            - BLZ
+            - CAN
+            - CCK
+            - COD
+            - CAF
+            - COG
+            - CHE
+            - CIV
+            - COK
+            - CHL
+            - CMR
+            - CHN
+            - COL
+            - CRI
+            - CPV
+            - CUW
+            - CXR
+            - CYP
+            - CZE
+            - DEU
+            - DJI
+            - DNK
+            - DMA
+            - DOM
+            - DZA
+            - ECU
+            - EST
+            - EGY
+            - ESH
+            - ERI
+            - ESP
+            - ETH
+            - FIN
+            - FJI
+            - FLK
+            - FSM
+            - FRO
+            - FRA
+            - GAB
+            - GBR
+            - GRD
+            - GEO
+            - GUF
+            - GGY
+            - GHA
+            - GIB
+            - GRL
+            - GMB
+            - GIN
+            - GLP
+            - GNQ
+            - GRC
+            - SGS
+            - GTM
+            - GUM
+            - GNB
+            - GUY
+            - HKG
+            - HMD
+            - HND
+            - HRV
+            - HTI
+            - HUN
+            - IDN
+            - IRL
+            - ISR
+            - IMN
+            - IND
+            - IOT
+            - IRQ
+            - ISL
+            - ITA
+            - JEY
+            - JAM
+            - JOR
+            - JPN
+            - KEN
+            - KGZ
+            - KHM
+            - KIR
+            - COM
+            - KNA
+            - KOR
+            - KWT
+            - CYM
+            - KAZ
+            - LAO
+            - LBN
+            - LCA
+            - LIE
+            - LKA
+            - LBR
+            - LSO
+            - LTU
+            - LUX
+            - LVA
+            - MAR
+            - MCO
+            - MDA
+            - MNE
+            - MAF
+            - MDG
+            - MHL
+            - MKD
+            - MLI
+            - MMR
+            - MNG
+            - MAC
+            - MNP
+            - MTQ
+            - MRT
+            - MSR
+            - MLT
+            - MUS
+            - MDV
+            - MWI
+            - MEX
+            - MYS
+            - MOZ
+            - NAM
+            - NCL
+            - NER
+            - NFK
+            - NGA
+            - NIC
+            - NLD
+            - NOR
+            - NPL
+            - NRU
+            - NIU
+            - NZL
+            - OMN
+            - PAN
+            - PER
+            - PYF
+            - PNG
+            - PHL
+            - PAK
+            - POL
+            - SPM
+            - PCN
+            - PRI
+            - PSE
+            - PRT
+            - PLW
+            - PRY
+            - QAT
+            - REU
+            - ROU
+            - SRB
+            - RUS
+            - RWA
+            - SAU
+            - SLB
+            - SYC
+            - SWE
+            - SGP
+            - SHN
+            - SVN
+            - SJM
+            - SVK
+            - SLE
+            - SMR
+            - SEN
+            - SOM
+            - SUR
+            - STP
+            - SLV
+            - SXM
+            - SWZ
+            - TCA
+            - TCD
+            - ATF
+            - TGO
+            - THA
+            - TJK
+            - TKL
+            - TLS
+            - TKM
+            - TUN
+            - TON
+            - TUR
+            - TTO
+            - TUV
+            - TWN
+            - TZA
+            - UKR
+            - UGA
+            - UMI
+            - USA
+            - URY
+            - UZB
+            - VAT
+            - VCT
+            - VEN
+            - VGB
+            - VIR
+            - VNM
+            - VUT
+            - WLF
+            - WSM
+            - UNK
+            - YEM
+            - MYT
+            - ZAF
+            - ZMB
+            - ZWE
+        one_off_transaction:
+          type: boolean
+          description: Do corporate accounts just want to send a single one-off transaction.
+        estimated_monthly_transaction_currency:
+          description: Currency of the estimated monthly transaction value.
+          type: string
+          nullable: true
+        estimated_monthly_transaction_value:
+          type: integer
+          description: Estimated monthly value of what a corporate account will transact on the platform.
+          nullable: true
+        estimated_monthly_transaction_volume:
+          description: How often do corporates expect to send or receive funds.
+          type: integer
+          nullable: true
+        source_of_funds:
+          description: The source of the funds that will be sent through the platform.
+          type: string
+          nullable: true
+          enum:
+          - business_revenue
+          - external_investment
+          - loan
+          - donations_or_grants
+          - inter_company_transfers
+          - sale_of_assets
+          - other
+        primary_purpose:
+          type: string
+          description: The reason for opening an account with Currencycloud.
+          enum:
+          - intercompany_transfers
+          - liquidity_or_fx
+          - payment_to_an_individual
+          - paying_suppliers_or_bills
+          - investment_activity
+          - repatriating_overseas_earnings
+          - collecting_funds_from_clients
+          - property_purchase_or_sale
+          - other
+        purpose_details:
+          description: Additional details if primary_purpose is 'other'.
+          type: string
+          nullable: true
+      required:
+      - collections_account
+      - primary_purpose
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+          nullable: true
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    account_usage:
+      type: object
+      properties:
+        id:
+          type: string
+          description: UUID for the Account Usage entity.
+        form_id:
+          type: string
+          description: Form UUID
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        collections_account:
+          description: Does the account receive funds from third parties.
+          type: boolean
+        collection_currencies:
+          description: List of currencies to fund the account with.
+          type: array
+          items:
+            type: string
+            nullable: true
+        payment_currencies:
+          type: array
+          description: List of payout currencies.
+          items:
+            type: string
+            nullable: true
+        transaction_countries:
+          type: array
+          description: List of countries that corporate accounts want to send/receive money to/from.
+          items:
+            type: string
+            nullable: true
+        one_off_transaction:
+          type: boolean
+          description: Will it be a single one-off transaction.
+        estimated_monthly_transaction_currency:
+          description: Currency of the estimated monthly transaction value.
+          type: string
+          nullable: true
+        estimated_monthly_transaction_value:
+          description: Estimated monthly value of what a corporate account is going to transact on the platform.
+          type: integer
+          nullable: true
+        estimated_monthly_transaction_volume:
+          description: How often do corporates expect to send or receive funds.
+          type: integer
+          nullable: true
+        source_of_funds:
+          description: The source of money that will be sent through the platform.
+          type: string
+          nullable: true
+        primary_purpose:
+          description: The reason for opening an account with Currencycloud.
+          type: string
+          nullable: true
+        purpose_details:
+          description: Additional details if primary_purpose is 'other'.
+          type: string
+          nullable: true
+        created_at:
+          description: Date the Account Usage record created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Date the Account Usage record was last updated.
+          type: string
+          format: date-time
+      required:
+      - collections_account
+      - one_off_transaction
+      nullable: true
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token

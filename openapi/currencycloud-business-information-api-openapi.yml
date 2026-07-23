@@ -1,0 +1,1002 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Business Information API
+  version: v1
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Business Information
+paths:
+  /v1/forms/{form_id}/business_information:
+    get:
+      summary: Get Business Information
+      description: Gets the business information for the specified application form. Business information is only relevant to corporate applications.
+      tags:
+      - Business Information
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Business information found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/business_information'
+        '404':
+          description: Returns error if form is not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+    put:
+      summary: Update Business Information
+      description: Updates the business information for the specified application form. Business information is only relevant to corporate applications.
+      tags:
+      - Business Information
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Updates business information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/business_information'
+        '400':
+          description: Returns error if any request body schema validation fails
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '422':
+          description: Returns error if form has already been submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Returns error if form is not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/create_business_information_request'
+    delete:
+      summary: Delete Business Information
+      description: Deletes the business information for the specified form.
+      tags:
+      - Business Information
+      x-api-group: Onboard
+      security:
+      - AuthToken: []
+      parameters:
+      - name: form_id
+        description: Form UUID
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deletes business information if it exists
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                      form_id:
+                        type: string
+                        description: Form UUID
+                    required:
+                    - message
+                    - form_id
+        '422':
+          description: Form is already submitted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/validation_error_response'
+        '404':
+          description: Form not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/not_found_response'
+components:
+  schemas:
+    business_information:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique ID for the Business Information entity.
+        form_id:
+          type: string
+          description: Form UUID
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        business_country:
+          description: The country the business is registered in.
+          type: string
+        company_name:
+          description: The company name.
+          type: string
+        trading_name:
+          description: The company's trading name.
+          type: string
+          nullable: true
+        legal_entity_type:
+          description: Company's legal entity type e.g. "limited_liability_company"
+          type: string
+        sector:
+          description: The primary sector the company operates in.
+          type: string
+        company_registration_number:
+          description: An official number that identifies the company.
+          type: string
+          nullable: true
+        vat_number:
+          description: The company's VAT number or Tax ID  number.
+          type: string
+          nullable: true
+        incorporation_date:
+          description: The date the company was incorporated.
+          type: string
+          format: date
+        business_website:
+          description: The company's website URL or other online presence.
+          type: string
+          nullable: true
+        business_activity_description:
+          description: Description of the company's activities.
+          type: string
+        registered_address:
+          description: The company's registered address.
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type: string
+              nullable: true
+            building_name:
+              type: string
+              nullable: true
+            building_number:
+              type: string
+              nullable: true
+            state_or_province:
+              type: string
+              nullable: true
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+        trading_address:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type: string
+              nullable: true
+            building_name:
+              type: string
+              nullable: true
+            building_number:
+              type: string
+              nullable: true
+            state_or_province:
+              type: string
+              nullable: true
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+        created_at:
+          type: string
+          format: date-time
+          description: Date the Business Information record was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date the Business Information record was last updated.
+      required:
+      - business_country
+      - company_name
+      - legal_entity_type
+      - sector
+      - incorporation_date
+      - business_activity_description
+      - registered_address
+      nullable: true
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+          nullable: true
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    create_business_information_request:
+      type: object
+      properties:
+        document_ids:
+          description: List of IDs for any uploaded supporting documents.
+          type: array
+          items:
+            type: string
+          nullable: true
+        business_country:
+          description: ISO country code for the country the business is registered in.
+          type: string
+          enum:
+          - AD
+          - AN
+          - AE
+          - AF
+          - AG
+          - AI
+          - AL
+          - AM
+          - AO
+          - AQ
+          - AR
+          - AS
+          - AT
+          - AU
+          - AW
+          - AX
+          - AZ
+          - BA
+          - BB
+          - BD
+          - BE
+          - BF
+          - BG
+          - BH
+          - BI
+          - BJ
+          - BL
+          - BM
+          - BN
+          - BO
+          - BQ
+          - BR
+          - BS
+          - BT
+          - BV
+          - BW
+          - BY
+          - BZ
+          - CA
+          - CC
+          - CD
+          - CF
+          - CG
+          - CH
+          - CI
+          - CK
+          - CL
+          - CM
+          - CN
+          - CO
+          - CR
+          - CV
+          - CW
+          - CX
+          - CY
+          - CZ
+          - DE
+          - DJ
+          - DK
+          - DM
+          - DO
+          - DZ
+          - EC
+          - EE
+          - EG
+          - EH
+          - ER
+          - ES
+          - ET
+          - FI
+          - FJ
+          - FK
+          - FM
+          - FO
+          - FR
+          - GA
+          - GB
+          - GD
+          - GE
+          - GF
+          - GG
+          - GH
+          - GI
+          - GL
+          - GM
+          - GN
+          - GP
+          - GQ
+          - GR
+          - GS
+          - GT
+          - GU
+          - GW
+          - GY
+          - HK
+          - HM
+          - HN
+          - HR
+          - HT
+          - HU
+          - ID
+          - IE
+          - IL
+          - IM
+          - IN
+          - IO
+          - IQ
+          - IS
+          - IT
+          - JE
+          - JM
+          - JO
+          - JP
+          - KE
+          - KG
+          - KH
+          - KI
+          - KM
+          - KN
+          - KR
+          - KW
+          - KY
+          - KZ
+          - LA
+          - LB
+          - LC
+          - LI
+          - LK
+          - LR
+          - LS
+          - LT
+          - LU
+          - LV
+          - MA
+          - MC
+          - MD
+          - ME
+          - MF
+          - MG
+          - MH
+          - MK
+          - ML
+          - MM
+          - MN
+          - MO
+          - MP
+          - MQ
+          - MR
+          - MS
+          - MT
+          - MU
+          - MV
+          - MW
+          - MX
+          - MY
+          - MZ
+          - NA
+          - NC
+          - NE
+          - NF
+          - NG
+          - NI
+          - NL
+          - 'NO'
+          - NP
+          - NR
+          - NU
+          - NZ
+          - OM
+          - PA
+          - PE
+          - PF
+          - PG
+          - PH
+          - PK
+          - PL
+          - PM
+          - PN
+          - PR
+          - PS
+          - PT
+          - PW
+          - PY
+          - QA
+          - RE
+          - RO
+          - RS
+          - RU
+          - RW
+          - SA
+          - SB
+          - SC
+          - SE
+          - SG
+          - SH
+          - SI
+          - SJ
+          - SK
+          - SL
+          - SM
+          - SN
+          - SO
+          - SR
+          - ST
+          - SV
+          - SX
+          - SZ
+          - TC
+          - TD
+          - TF
+          - TG
+          - TH
+          - TJ
+          - TK
+          - TL
+          - TM
+          - TN
+          - TO
+          - TR
+          - TT
+          - TV
+          - TW
+          - TZ
+          - UA
+          - UG
+          - UM
+          - US
+          - UY
+          - UZ
+          - VA
+          - VC
+          - VE
+          - VG
+          - VI
+          - VN
+          - VU
+          - WF
+          - WS
+          - XK
+          - YE
+          - YT
+          - ZA
+          - ZM
+          - ZW
+          - AND
+          - ANT
+          - ARE
+          - AFG
+          - ATG
+          - AIA
+          - ALB
+          - ARM
+          - AGO
+          - ATA
+          - ARG
+          - ASM
+          - AUT
+          - AUS
+          - ABW
+          - ALA
+          - AZE
+          - BIH
+          - BRB
+          - BGD
+          - BEL
+          - BFA
+          - BGR
+          - BHR
+          - BDI
+          - BEN
+          - BLM
+          - BMU
+          - BRN
+          - BOL
+          - BES
+          - BRA
+          - BHS
+          - BTN
+          - BVT
+          - BWA
+          - BLR
+          - BLZ
+          - CAN
+          - CCK
+          - COD
+          - CAF
+          - COG
+          - CHE
+          - CIV
+          - COK
+          - CHL
+          - CMR
+          - CHN
+          - COL
+          - CRI
+          - CPV
+          - CUW
+          - CXR
+          - CYP
+          - CZE
+          - DEU
+          - DJI
+          - DNK
+          - DMA
+          - DOM
+          - DZA
+          - ECU
+          - EST
+          - EGY
+          - ESH
+          - ERI
+          - ESP
+          - ETH
+          - FIN
+          - FJI
+          - FLK
+          - FSM
+          - FRO
+          - FRA
+          - GAB
+          - GBR
+          - GRD
+          - GEO
+          - GUF
+          - GGY
+          - GHA
+          - GIB
+          - GRL
+          - GMB
+          - GIN
+          - GLP
+          - GNQ
+          - GRC
+          - SGS
+          - GTM
+          - GUM
+          - GNB
+          - GUY
+          - HKG
+          - HMD
+          - HND
+          - HRV
+          - HTI
+          - HUN
+          - IDN
+          - IRL
+          - ISR
+          - IMN
+          - IND
+          - IOT
+          - IRQ
+          - ISL
+          - ITA
+          - JEY
+          - JAM
+          - JOR
+          - JPN
+          - KEN
+          - KGZ
+          - KHM
+          - KIR
+          - COM
+          - KNA
+          - KOR
+          - KWT
+          - CYM
+          - KAZ
+          - LAO
+          - LBN
+          - LCA
+          - LIE
+          - LKA
+          - LBR
+          - LSO
+          - LTU
+          - LUX
+          - LVA
+          - MAR
+          - MCO
+          - MDA
+          - MNE
+          - MAF
+          - MDG
+          - MHL
+          - MKD
+          - MLI
+          - MMR
+          - MNG
+          - MAC
+          - MNP
+          - MTQ
+          - MRT
+          - MSR
+          - MLT
+          - MUS
+          - MDV
+          - MWI
+          - MEX
+          - MYS
+          - MOZ
+          - NAM
+          - NCL
+          - NER
+          - NFK
+          - NGA
+          - NIC
+          - NLD
+          - NOR
+          - NPL
+          - NRU
+          - NIU
+          - NZL
+          - OMN
+          - PAN
+          - PER
+          - PYF
+          - PNG
+          - PHL
+          - PAK
+          - POL
+          - SPM
+          - PCN
+          - PRI
+          - PSE
+          - PRT
+          - PLW
+          - PRY
+          - QAT
+          - REU
+          - ROU
+          - SRB
+          - RUS
+          - RWA
+          - SAU
+          - SLB
+          - SYC
+          - SWE
+          - SGP
+          - SHN
+          - SVN
+          - SJM
+          - SVK
+          - SLE
+          - SMR
+          - SEN
+          - SOM
+          - SUR
+          - STP
+          - SLV
+          - SXM
+          - SWZ
+          - TCA
+          - TCD
+          - ATF
+          - TGO
+          - THA
+          - TJK
+          - TKL
+          - TLS
+          - TKM
+          - TUN
+          - TON
+          - TUR
+          - TTO
+          - TUV
+          - TWN
+          - TZA
+          - UKR
+          - UGA
+          - UMI
+          - USA
+          - URY
+          - UZB
+          - VAT
+          - VCT
+          - VEN
+          - VGB
+          - VIR
+          - VNM
+          - VUT
+          - WLF
+          - WSM
+          - UNK
+          - YEM
+          - MYT
+          - ZAF
+          - ZMB
+          - ZWE
+        company_name:
+          description: The company name.
+          type: string
+        trading_name:
+          description: The company's trading name.
+          type: string
+          nullable: true
+        legal_entity_type:
+          type: string
+          description: Company's legal entity type.
+          enum:
+          - limited_liability_company
+          - limited_liability_partnership
+          - company_with_nominee_shareholders_or_shares_in_bearer_form
+          - other
+          - public_limited_company
+          - registered_charity
+          - scottish_limited_partnership
+          - sole_trader
+          - trust
+          - unincorporated_partnership
+          - unregistered_charity
+        sector:
+          type: string
+          description: The primary sector the company operates in.
+          enum:
+          - registered_charity
+          - unregistered_charity
+          - aerospace
+          - weapons_and_military_equipment
+          - advertising_or_public_relations_or_marketing
+          - multi_level_marketing
+          - telecoms
+          - call_centres
+          - schools_and_universities
+          - hospitals_and_care_facilities
+          - adult_entertainment
+          - books_or_magazines_and_newspapers
+          - casinos_or_gambling
+          - forestry_and_forest_products
+          - Gaming
+          - music_production
+          - radio_or_tv_broadcaster
+          - speculative_trading
+          - sporting_or_professional_club
+          - banking
+          - broker_dealer
+          - building_materials_and_equipment
+          - broker
+          - cryptoassets
+          - fund
+          - insurance_or_insure_tech
+          - loan_company
+          - money_services_business
+          - payroll_company_or_pay_tech
+          - private_equity_or_investment_firm_or_venture_capital
+          - trust_company
+          - asset_or_wealth_management_or_wealth_tech
+          - regulated_online_marketplace_or_platform
+          - accountancy
+          - architecture
+          - interior_design
+          - legal
+          - other_consultancy
+          - political_group_or_lobbying
+          - recruitment
+          - hospitality_or_events_or_conferences
+          - tax_advisers
+          - construction
+          - engineering
+          - estate_or_letting_agency
+          - property_development
+          - real_estate_investment
+          - waste_management_or_recycling
+          - adult_products
+          - agricultural
+          - automobile_or_car_parts
+          - bio_sciences_or_beauty_products
+          - chemical_and_related_manufacturing
+          - clothing_or_textiles
+          - electronic_equipment_or_mobile_phones
+          - fitness_equipment
+          - food_and_beverage
+          - furniture_and_flooring
+          - high_value_goods
+          - machinery_and_tools_or_industrial_equipment
+          - pawn_brokers
+          - pharmaceuticals_or_medical_devices
+          - tobacco_or_alcohol
+          - etailor_or_ecommerce
+          - nutritional_or_dietary_supplements
+          - online_marketing_or_branding
+          - historical_or_cultural_artefacts
+          - bars_or_restaurants
+          - courier_or_express_or_parcel
+          - freight_or_logistics
+          - packaging
+          - transportation
+          - taxi_or_private_transport
+          - security
+          - travel_agent_or_travel_website
+          - hotels
+          - computer_software
+          - it_managed_services
+          - data_storage_or_processing
+          - website_or_app_development
+          - computer_or_cyber_security
+          - utilities
+          - logging_timber_and_paper_mills
+          - oil_and_gas
+          - precious_metals
+          - trust_and_company_formation_providers
+          - hedge_fund_or_family_office
+          - mining_or_extractive_industries
+        company_registration_number:
+          type: string
+          description: An official number that identifies the company.
+          nullable: true
+        vat_number:
+          description: The company's VAT number or Tax ID  number.
+          type: string
+          nullable: true
+        incorporation_date:
+          description: The date the company was incorporated.
+          type: string
+          format: date
+        business_website:
+          description: The company's website URL or other online presence.
+          type: string
+          nullable: true
+        business_activity_description:
+          description: Description of the company's activities.
+          type: string
+          nullable: true
+        registered_address_attributes:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type: string
+              nullable: true
+            building_name:
+              type: string
+              nullable: true
+            building_number:
+              type: string
+              nullable: true
+            state_or_province:
+              type: string
+              nullable: true
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+        trading_address_attributes:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type: string
+              nullable: true
+            building_name:
+              type: string
+              nullable: true
+            building_number:
+              type: string
+              nullable: true
+            state_or_province:
+              type: string
+              nullable: true
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+          nullable: true
+      required:
+      - business_country
+      - company_name
+      - legal_entity_type
+      - sector
+      - incorporation_date
+      - registered_address_attributes
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token

@@ -1,0 +1,3604 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Beneficiaries API
+  version: v1
+  description: Create, search and manage the list of individuals or companies that you send payments to.
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Beneficiaries
+  description: Create, search and manage the list of individuals or companies that you send payments to.
+paths:
+  /beneficiaries/find:
+    post:
+      tags:
+      - Beneficiaries
+      x-api-group: pay
+      summary: Find Beneficiaries
+      description: Returns beneficiaries attached to the account or any sub-account owned by the authenticated user.
+      operationId: FindBeneficiariesPost
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: bank_account_holder_name
+        in: formData
+        required: false
+        type: string
+        description: Bank account holder's name.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_country
+        in: formData
+        required: false
+        type: string
+        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: currency
+        in: formData
+        required: false
+        type: string
+        description: Currency in which money is held in the beneficiary's bank account. Three-letter currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: account_number
+        in: formData
+        required: false
+        type: string
+        description: Bank account number.
+        minLength: 1
+        maxLength: 50
+      - name: routing_code_type[0]
+        in: formData
+        required: false
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system. If supplied, a value for routing_code_value[0] must also be supplied.
+      - name: routing_code_value[0]
+        in: formData
+        required: false
+        type: string
+        description: The value for any routing system specified in routing_code_type[0]. If supplied, a value for routing_code_type[0] must also be supplied.
+        minLength: 1
+        maxLength: 50
+      - name: bic_swift
+        in: formData
+        required: false
+        type: string
+        description: BIC/Swift code
+        pattern: ^(\w{8}|\w{11})$
+      - name: iban
+        in: formData
+        required: false
+        type: string
+        description: IBAN code
+        pattern: ([A-Z0-9]\s*){15,34}
+      - name: default_beneficiary
+        in: formData
+        required: false
+        type: boolean
+        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+      - name: bank_name
+        in: formData
+        required: false
+        type: string
+        description: Bank name
+        minLength: 1
+      - name: bank_account_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - checking
+        - savings
+        description: Bank account type.
+      - name: name
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary's name.
+        pattern: \S+
+        minLength: 1
+        maxLength: 100
+      - name: beneficiary_entity_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Beneficiary's legal entity type - individual or company.
+      - name: beneficiary_company_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "company".
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_first_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_last_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_city
+        in: formData
+        required: false
+        type: string
+        description: City
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_postcode
+        in: formData
+        required: false
+        type: string
+        description: Post code
+        maxLength: 12
+      - name: beneficiary_state_or_province
+        in: formData
+        required: false
+        type: string
+        description: State or province.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_date_of_birth
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: If "beneficiary_entity_type" is "company", date of registration. If "beneficiary_entity_type" is "individual", date of birth. ISO 8601 format YYYY-MM-DD.
+      - name: scope
+        in: formData
+        required: false
+        type: string
+        enum:
+        - all
+        - clients
+        - own
+        default: own
+        description: Search "own" account, "clients" sub-accounts, or "all" accounts.
+      - name: page
+        in: formData
+        required: false
+        type: integer
+        description: Page number
+        pattern: ^\d+$
+      - name: per_page
+        in: formData
+        required: false
+        type: integer
+        description: Number of results per page.
+        pattern: ^\d+$
+      - name: order
+        in: formData
+        required: false
+        type: string
+        description: Any field name to change the sort order.
+        minLength: 1
+        maxLength: 255
+      - name: order_asc_desc
+        in: formData
+        required: false
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Sort records in ascending or descending order.
+      - name: beneficiary_external_reference
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary external reference.
+        minLength: 1
+        maxLength: 255
+      responses:
+        '200':
+          description: Success.
+          schema:
+            type: object
+            properties:
+              beneficiaries:
+                type: array
+                items:
+                  $ref: '#/definitions/Beneficiary'
+              pagination:
+                $ref: '#/definitions/Pagination'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: bank_account_holder_name_is_too_short
+            category: bank_account_holder_name
+            message: bank_account_holder_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_account_holder_name_is_too_long
+            category: bank_account_holder_name
+            message: bank_account_holder_name can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_country_is_in_invalid_format
+            category: beneficiary_country
+            message: beneficiary_country is in invalid format
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is in invalid format
+            params: ''
+          - code: bank_name_is_too_short
+            category: bank_name
+            message: bank_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_account_type_not_in_range
+            category: bank_account_type
+            message: 'bank_account_type should be in range: checking, savings'
+            params: '{ "range" => "checking, savings" }'
+          - code: account_number_is_too_short
+            category: account_number
+            message: account_number can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: account_number_is_too_long
+            category: account_number
+            message: account_number can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: incorrect_mapping
+            category: base
+            message: Following parameters must have same keys
+            params: '{ "parameters" => "routing_code_value,routing_code_type" }'
+          - code: routing_code_type_is_too_short
+            category: routing_code_type
+            message: routing_code_type can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1, "indices" => ["0", "1"] }'
+          - code: routing_code_type_is_too_long
+            category: routing_code_type
+            message: routing_code_type can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50, "indices" => ["0", "1"] }'
+          - code: routing_code_type_not_included_in_list
+            category: routing_code_type
+            message: One or more of routing_code_type items are not included in list
+            params: '{ "list" => "sort_code,bsb_code,institution_no,bank_code,branch_code,aba,clabe }'
+          - code: beneficiary_date_of_birth_type_is_wrong
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: beneficiary_date_of_birth_is_earlier
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be later than 1900-01-01
+            params: '{ "min_date" => "1900-01-01" }'
+          - code: beneficiary_date_of_birth_is_after
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be earlier than todays date
+            params: '{ "max_date" => "Todays Date" }'
+          - code: routing_code_value_is_too_short
+            category: routing_code_value
+            message: routing_code_value can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1, "indices" => ["0", "1"] }'
+          - code: routing_code_value_is_too_long
+            category: routing_code_value
+            message: routing_code_value can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50, "indices" => ["0", "1"] }'
+          - code: routing_code_value_type_is_wrong
+            category: routing_code_value
+            message: routing_code_value should be of hash type
+            params: '{ "type" => "hash" }'
+          - code: bic_swift_is_in_invalid_format
+            category: bic_swift
+            message: bic_swift is in invalid format
+            params: ''
+          - code: iban_is_too_long
+            category: iban
+            message: iban can not be longer than 34 character(s)
+            params: '{ "maxlength" => 34 }'
+          - code: iban_is_too_short
+            category: iban
+            message: iban can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: iban_is_in_invalid_format
+            category: iban
+            message: iban is in invalid format
+            params: ''
+          - code: default_beneficiary_type_is_wrong
+            category: default_beneficiary
+            message: default_beneficiary should be of boolean type
+            params: '{ "type" => "boolean" }'
+          - code: name_is_too_short
+            category: name
+            message: name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: name_is_too_long
+            category: name
+            message: name can not be longer than 100 character(s)
+            params: '{ "maxlength" => 100 }'
+          - code: order_asc_desc_not_in_range
+            category: order_asc_desc
+            message: 'order_asc_desc should be in range: asc, desc'
+            params: '{ "range" => "asc, desc" }'
+          - code: order_not_in_range
+            category: order
+            message: 'order should be in range: bank_account_holder_name, beneficiary_country, currency, account_number, bic_swift, iban, default_beneficiary, bank_address, name, bank_account_type, beneficiary_entity_type, beneficiary_city, beneficiary_address, beneficiary_company_name, beneficiary_first_name, beneficiary_last_name, beneficiary_state_or_province, beneficiary_postcode, created_at, updated_at'
+            params: '{ "range" => "bank_account_holder_name, beneficiary_country, currency, account_number, bic_swift, iban, default_beneficiary, bank_address, name, bank_account_type, beneficiary_entity_type, beneficiary_city, beneficiary_address, beneficiary_company_name, beneficiary_first_name, beneficiary_last_name, beneficiary_state_or_province, beneficiary_postcode, created_at, updated_at" }'
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: on_behalf_of_is_not_valid_uuid
+            category: on_behalf_of
+            message: on_behalf_of should be in UUID format
+            params: ''
+          - code: beneficiary_external_reference_is_too_short
+            category: beneficiary_external_reference
+            message: beneficiary_external_reference can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_external_reference_is_too_long
+            category: beneficiary_external_reference
+            message: beneficiary_external_reference can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: cope_not_in_range
+            category: scope
+            message: 'scope should be in range: own, all, clients'
+            params: '{ "range" => "own, all, clients" }'
+          - code: beneficiary_entity_type_not_in_range
+            category: beneficiary_entity_type
+            message: 'beneficiary_entity_type should be in range: individual, company'
+            params: '{ "range" => "individual, company" }'
+          - code: beneficiary_company_name_is_too_short
+            category: beneficiary_company_name
+            message: beneficiary_company_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_company_name_is_too_long
+            category: beneficiary_company_name
+            message: beneficiary_company_name can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_first_name_is_too_short
+            category: beneficiary_first_name
+            message: beneficiary_first_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_first_name_is_too_long
+            category: beneficiary_first_name
+            message: beneficiary_first_name can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_last_name_is_too_short
+            category: beneficiary_last_name
+            message: beneficiary_last_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_last_name_is_too_long
+            category: beneficiary_last_name
+            message: beneficiary_last_name can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_city_is_too_short
+            category: beneficiary_city
+            message: beneficiary_city can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_city_is_too_long
+            category: beneficiary_city
+            message: beneficiary_city can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_postcode_is_too_short
+            category: beneficiary_postcode
+            message: beneficiary_postcode can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_postcode_is_too_long
+            category: beneficiary_postcode
+            message: beneficiary_postcode can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_state_or_province_is_too_short
+            category: beneficiary_state_or_province
+            message: beneficiary_state_or_province can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_state_or_province_is_too_long
+            category: beneficiary_state_or_province
+            message: beneficiary_state_or_province can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: page_type_is_wrong
+            category: page
+            message: page should be of integer type
+            params: '{ "type" => "integer" }'
+          - code: page_is_too_small
+            category: page
+            message: page can not be smaller than 1
+            params: '{ "minvalue" => 1 }'
+          - code: per_page_type_is_wrong
+            category: per_page
+            message: per_page should be of integer type
+            params: '{ "type" => "integer" }'
+          - code: per_page_is_too_small
+            category: per_page
+            message: per_page can not be smaller than 1
+            params: '{ "minvalue" => 1 }'
+          - code: order_asc_desc_not_in_range
+            category: order_asc_desc
+            message: 'order_asc_desc should be in range: asc, desc'
+            params: '{ "range" => "asc, desc" }'
+          schema:
+            $ref: '#/definitions/FindBeneficiariesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /beneficiaries/{id}:
+    get:
+      tags:
+      - Beneficiaries
+      x-api-group: pay
+      summary: Get Beneficiary
+      description: Gets a beneficiary with the given ID.
+      operationId: GetBeneficiary
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Beneficiary UUID
+        format: uuid
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Beneficiary'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: beneficiary_not_found
+            category: id
+            message: Beneficiary was not found for this id
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          schema:
+            $ref: '#/definitions/GetBeneficiaryError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+    post:
+      tags:
+      - Beneficiaries
+      x-api-group: pay
+      summary: Update Beneficiary
+      description: Updates an existing beneficiary. Returns the updated beneficiary entity on success. <br> Please note that it's not possible to change a beneficiary's entity type (company or individual) by an update. To achieve this, you should create a new beneficiary.
+      operationId: UpdateBeneficiary
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Beneficiary UUID
+        format: uuid
+      - name: name
+        in: formData
+        required: false
+        type: string
+        description: A nickname for the beneficiary.
+        pattern: \S+
+        minLength: 1
+        maxLength: 100
+      - name: bank_account_holder_name
+        in: formData
+        required: false
+        type: string
+        description: Bank account holder's name.
+        minLength: 1
+        maxLength: 255
+      - name: bank_country
+        in: formData
+        required: false
+        type: string
+        description: Country in which the beneficiary's bank account is held. Two-letter ISO country code.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: currency
+        in: formData
+        required: false
+        type: string
+        description: Currency in which money is held in the beneficiary's bank account. Three-letter ISO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: email
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary's email address.
+        pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
+        minLength: 6
+        maxLength: 255
+      - name: beneficiary_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_country
+        in: formData
+        required: false
+        type: string
+        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: account_number
+        in: formData
+        required: false
+        type: string
+        description: Bank account number.
+        minLength: 1
+        maxLength: 50
+      - name: routing_code_type_1
+        in: formData
+        required: false
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system.
+      - name: routing_code_value_1
+        in: formData
+        required: false
+        type: string
+        description: Routing code for "routing_code_type_1".
+        minLength: 1
+        maxLength: 50
+      - name: routing_code_type_2
+        in: formData
+        required: false
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system.
+      - name: routing_code_value_2
+        in: formData
+        required: false
+        type: string
+        description: Routing code for "routing_code_type_2".
+        minLength: 1
+        maxLength: 50
+      - name: payment_types[]
+        in: formData
+        required: false
+        type: array
+        items:
+          type: string
+          enum:
+          - priority
+          - regular
+        default:
+        - regular
+        description: Currencycloud supports two types of payment - "priority" (Swift) made using the Swift network, and "regular" (local) made using the local bank network.
+      - name: bic_swift
+        in: formData
+        required: false
+        type: string
+        description: BIC/Swift code
+        pattern: ^(\w{8}|\w{11})$
+      - name: iban
+        in: formData
+        required: false
+        type: string
+        description: IBAN code
+        pattern: ([A-Z0-9]\s*){15,34}
+      - name: default_beneficiary
+        in: formData
+        required: false
+        type: boolean
+        default: false
+        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+      - name: bank_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 100
+      - name: bank_name
+        in: formData
+        required: false
+        type: string
+        description: Bank name
+        minLength: 1
+      - name: bank_account_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - checking
+        - savings
+        description: Bank account type.
+      - name: beneficiary_entity_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity
+      - name: beneficiary_company_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_first_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_last_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers or company signifiers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_city
+        in: formData
+        required: false
+        type: string
+        description: City name, should not consist of only numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_postcode
+        in: formData
+        required: false
+        type: string
+        description: Postal code
+        maxLength: 12
+      - name: beneficiary_state_or_province
+        in: formData
+        required: false
+        type: string
+        format: date
+        description: State or province.
+      - name: beneficiary_date_of_birth
+        in: formData
+        required: false
+        type: string
+        description: If "beneficiary_entity_type" is "company", date of registration.<br> If "beneficiary_entity_type" is "individual", date of birth. The date of birth for the individual should not exceed 125 years and cannot be a date in the future.<br> ISO 8601 format YYYY-MM-DD.
+        format: date
+      - name: beneficiary_identification_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - citizenship_papers
+        - credential_de_elector
+        - drivers_license
+        - drivers_license_canadian
+        - employer_identification_number
+        - existing_credit_card_details
+        - green_card
+        - incorporation_number
+        - matricula_consular
+        - national_id
+        - none
+        - others
+        - passport
+        - registro_federal_de_contribuyentes
+        - social_insurance_number
+        - social_security_number
+        - visa
+        description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiary's bank account is held.
+      - name: beneficiary_identification_value
+        in: formData
+        required: false
+        type: string
+        description: A unique reference code for the identification document, such as a passport number.
+        minLength: 1
+        maxLength: 255
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: Contact UUID.
+        format: uuid
+      - name: beneficiary_external_reference
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary external reference.
+        minLength: 1
+        maxLength: 255
+      - name: business_nature
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary nature of business.
+        maxLength: 255
+      - name: company_website
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary company website.
+        maxLength: 255
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Beneficiary'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: id_is_not_valid_uuid
+            category: id
+            message: id should be in UUID format
+            params: ''
+          - code: beneficiary_not_found
+            category: id
+            message: Beneficiary was not found for this id
+            params: ''
+          - code: bank_account_holder_name_is_too_short
+            category: bank_account_holder_name
+            message: bank_account_holder_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_account_holder_name_is_too_long
+            category: bank_account_holder_name
+            message: bank_account_holder_name can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: email_is_too_long
+            category: email
+            message: email can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_address_is_too_short
+            category: beneficiary_address
+            message: beneficiary_address can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_address_is_too_long
+            category: beneficiary_address
+            message: beneficiary_address can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: account_number_is_too_short
+            category: account_number
+            message: account_number can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: account_number_is_too_long
+            category: account_number
+            message: account_number can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: account_number_is_missing
+            category: account_number
+            message: Account number is missing
+            params: ''
+          - code: account_number_is_invalid
+            category: account_number
+            message: Account number is in invalid format
+            params: ''
+          - code: routing_code_value_1_is_too_short
+            category: routing_code_value_1
+            message: routing_code_value_1 can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: routing_code_value_1_is_too_long
+            category: routing_code_value_1
+            message: routing_code_value_1 can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: routing_code_value_2_is_too_short
+            category: routing_code_value_2
+            message: routing_code_value_2 can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: routing_code_value_2_is_too_long
+            category: routing_code_value_2
+            message: routing_code_value_2 can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: iban_is_too_short
+            category: iban
+            message: iban can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: iban_is_too_long
+            category: iban
+            message: iban can not be longer than 34 character(s)
+            params: '{ "maxlength" => 34 }'
+          - code: iban_is_missing
+            category: iban
+            message: IBAN is missing
+            params: ''
+          - code: iban_is_invalid
+            category: iban
+            message: IBAN is in invalid format
+            params: ''
+          - code: bic_swift_is_missing
+            category: bic_swift
+            message: BIC/Swift is missing
+            params: ''
+          - code: bic_swift_is_invalid
+            category: bic_swift
+            message: BIC/Swift is in invalid format
+            params: ''
+          - code: bank_address_is_missing
+            category: bank_address
+            message: Bank address is missing
+            params: ''
+          - code: bank_address_is_too_short
+            category: bank_address
+            message: bank_address can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_address_is_too_long
+            category: bank_address
+            message: bank_address can not be longer than 100 character(s)
+            params: '{ "maxlength" => 100 }'
+          - code: bank_name_is_too_short
+            category: bank_name
+            message: bank_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_name_is_missing
+            category: bank_name
+            message: Bank name is missing
+            params: ''
+          - code: bank_account_type_not_in_range
+            category: bank_account_type
+            message: 'bank_account_type should be in range: checking, savings'
+            params: '{ "range" => "checking, savings" }'
+          - code: bank_account_type_is_missing
+            category: bank_account_type
+            message: Beneficiary bank account type is missing
+            params: ''
+          - code: name_is_in_invalid_format
+            category: name
+            message: name is in invalid format
+            params: ''
+          - code: name_is_too_short
+            category: name
+            message: name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: name_is_too_long
+            category: name
+            message: name can not be longer than 100 character(s)
+            params: '{ "maxlength" => 100 }'
+          - code: default_beneficiary_type_is_wrong
+            category: default_beneficiary
+            message: default_beneficiary should be of boolean type
+            params: '{ "type" => "boolean" }'
+          - code: routing_code_type_1_not_in_range
+            category: routing_code_type_1
+            message: 'routing_code_type_1 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+            params: '{ "range" => "sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps" }'
+          - code: routing_code_type_2_not_in_range
+            category: routing_code_type_2
+            message: 'routing_code_type_2 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+            params: '{ "range => "sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps" }'
+          - code: beneficiary_country_is_in_invalid_format
+            category: beneficiary_country
+            message: beneficiary_country is in invalid format
+            params: ''
+          - code: beneficiary_entity_type_not_in_range
+            category: beneficiary_entity_type
+            message: 'beneficiary_entity_type should be in range: individual, company'
+            params: '{ "range" => "individual, company" }'
+          - code: beneficiary_entity_type_is_missing
+            category: beneficiary_entity_type
+            message: Beneficiary entity type is missing
+            params: ''
+          - code: beneficiary_company_name_is_missing
+            category: beneficiary_company_name
+            message: Beneficiary company name is missing
+            params: ''
+          - code: company_name_contains_numbers
+            category: beneficiary_company_name
+            message: Beneficiary names cannot consist entirely of numbers for a company
+            params: ''
+          - code: beneficiary_first_name_is_missing
+            category: beneficiary_first_name
+            message: Beneficiary first name is missing
+            params: ''
+          - code: beneficiary_last_name_is_missing
+            category: beneficiary_last_name
+            message: Beneficiary last name is missing
+            params: ''
+          - code: first_name_contains_numbers
+            category: beneficiary_first_name
+            message: Beneficiary names cannot contain numbers for an individual
+            params: ''
+          - code: last_name_contains_numbers
+            category: beneficiary_last_name
+            message: Beneficiary names cannot contain numbers for an individual
+            params: ''
+          - code: beneficiary_city_is_too_short
+            category: beneficiary_city
+            message: beneficiary_city can not be shorter than 1 character(s)
+            params: ''
+          - code: beneficiary_state_or_province_is_missing
+            category: beneficiary_state_or_province
+            message: Beneficiary state or province is missing
+            params: ''
+          - code: beneficiary_state_or_province_is_not_supported
+            category: beneficiary_state_or_province
+            message: Beneficiary state or province is not supported
+            params: ''
+          - code: beneficiary_state_or_province_is_too_short
+            category: beneficiary_state_or_province
+            message: beneficiary_state_or_province can not be shorter than 1 character(s)
+            params: ''
+          - code: beneficiary_postcode_is_missing
+            category: beneficiary_postcode
+            message: Beneficiary postcode is missing
+            params: ''
+          - code: beneficiary_date_of_birth_type_is_wrong
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: beneficiary_date_of_birth_is_earlier
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be later
+            params: ''
+          - code: beneficiary_date_of_birth_is_after
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be earlier
+            params: ''
+          - code: identification_type_is_invalid
+            category: beneficiary_identification_type
+            message: identification_type is invalid
+            params: ''
+          - code: identification_value_is_missing
+            category: beneficiary_identification_value
+            message: identification_value is missing
+            params: ''
+          - code: identification_value_is_invalid
+            category: beneficiary_identification_value
+            message: identification_value is invalid
+            params: ''
+          - code: bank_country_is_in_invalid_format
+            category: bank_country
+            message: bank_country is in invalid format
+            params: ''
+          - code: bank_country_is_not_supported
+            category: bank_country
+            message: bank_country is not supported
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is in invalid format
+            params: ''
+          - code: currency_code_is_invalid
+            category: currency
+            message: You can not use this currency with beneficiaries
+            params: ''
+          - code: unique_value_parameters
+            category: base
+            message: 'Following parameters should not have same values: routing_code_type_1, routing_code_type_2'
+            params: '{ "parameters" => "routing_code_type_1, routing_code_type_2" }'
+          - code: at_least_one_parameter
+            category: base
+            message: 'At least one parameter should be present: bank_account_holder_name, beneficiary_country, bank_country, currency, email, beneficiary_address, account_number, routing_code_type_1, routing_code_type_2, routing_code_value_1, routing_code_value_2, bic_swift, iban, default_beneficiary, bank_address, bank_name, name'
+            params: '{ "parameters" => "bank_account_holder_name, beneficiary_country, bank_country, currency, email, beneficiary_address, account_number, routing_code_type_1, routing_code_type_2, routing_code_value_1, routing_code_value_2, bic_swift, iban, default_beneficiary, bank_address, bank_name, name" }'
+          - code: payment_types_not_included_in_list
+            category: payment_types
+            message: One or more payment_types items are not included in list
+            params: '{ "list":"priority, regular" }'
+          - code: sort_code_is_missing
+            category: routing_code
+            message: Sort code is missing
+            params: ''
+          - code: sort_code_is_invalid
+            category: routing_code
+            message: Sort code is in invalid format
+            params: ''
+          - code: aba_is_missing
+            category: routing_code
+            message: ABA is missing
+            params: ''
+          - code: aba_is_invalid
+            category: routing_code
+            message: ABA is in invalid format
+            params: ''
+          - code: bsb_code_is_missing
+            category: routing_code
+            message: BSB code is missing
+            params: ''
+          - code: bsb_code_is_invalid
+            category: routing_code
+            message: BSB code is in invalid format
+            params: ''
+          - code: branch_code_is_missing
+            category: routing_code
+            message: Branch code is missing
+            params: ''
+          - code: branch_code_is_invalid
+            category: routing_code
+            message: Branch code is in invalid format
+            params: ''
+          - code: institution_no_is_missing
+            category: routing_code
+            message: Institution no is missing
+            params: ''
+          - code: institution_no_is_invalid
+            category: routing_code
+            message: Institution no is in invalid format
+            params: ''
+          - code: bank_code_is_missing
+            category: routing_code
+            message: Bank code is missing
+            params: ''
+          - code: bank_code_is_invalid
+            category: routing_code
+            message: Bank code is in invalid format
+            params: ''
+          - code: beneficiary_update_failed
+            category: beneficiary
+            message: Beneficiary was not updated
+            params: ''
+          - code: beneficiary_details_are_missing
+            category: beneficiary
+            message: 'Following beneficiary details are missing: beneficiary_company_name'
+            params: '{ "missing_details" => ["beneficiary_company_name"] }'
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: beneficiary_external_reference_is_too_long
+            category: beneficiary_external_reference
+            message: beneficiary_external_reference can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: field_contains_invalid_characters
+            category: base
+            message: Field contains invalid characters
+            params: '{ ${field_name}: ${character_range} }'
+          - code: field_is_too_long
+            category: base
+            message: The information provided for this request exceeds our field length limits
+            params: '{ ${field_name}: ${max_field_length} }'
+          - code: request_contains_blocked_fields
+            category: base
+            message: This request contains fields that are not permitted for this route
+            params: '{ "blocked fields": [Fields that are not permitted for this route] }'
+          schema:
+            $ref: '#/definitions/UpdateBeneficiaryError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /beneficiaries/create:
+    post:
+      tags:
+      - Beneficiaries
+      x-api-group: pay
+      summary: Create Beneficiary
+      description: Creates a new beneficiary. Returns the new beneficiary entity on success.
+      operationId: CreateBeneficiary
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: name
+        in: formData
+        required: true
+        type: string
+        description: A nickname for the beneficiary.
+        pattern: \S+
+        minLength: 1
+        maxLength: 100
+      - name: bank_account_holder_name
+        in: formData
+        required: true
+        type: string
+        description: Bank account holder's name.
+        minLength: 1
+        maxLength: 255
+      - name: bank_country
+        in: formData
+        required: true
+        type: string
+        description: Two-letter code for the country in which the beneficiary's bank account is held.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: currency
+        in: formData
+        required: true
+        type: string
+        description: Currency in which money is held in the beneficiary's bank account. Three-letter IDO currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: email
+        in: formData
+        required: false
+        type: string
+        description: Email address
+        pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
+        minLength: 6
+        maxLength: 255
+      - name: beneficiary_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_country
+        in: formData
+        required: false
+        type: string
+        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: account_number
+        in: formData
+        required: false
+        type: string
+        description: Bank account number.
+        minLength: 1
+        maxLength: 50
+      - name: routing_code_type_1
+        in: formData
+        required: false
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system. If supplied, routing_code_value_1 should also be supplied.
+      - name: routing_code_value_1
+        in: formData
+        required: false
+        type: string
+        description: Routing code for routing_code_type_1. If supplied, routing_code_type_1 should also be supplied.
+        minLength: 1
+        maxLength: 50
+      - name: routing_code_type_2
+        in: formData
+        required: false
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system. If supplied, routing_code_value_2 should also be supplied.
+      - name: routing_code_value_2
+        in: formData
+        required: false
+        type: string
+        description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
+        minLength: 1
+        maxLength: 50
+      - name: bic_swift
+        in: formData
+        required: false
+        type: string
+        description: BIC/Swift code
+        pattern: ^(\w{8}|\w{11})$
+      - name: iban
+        in: formData
+        required: false
+        type: string
+        description: IBAN code
+        pattern: ([A-Z0-9]\s*){15,34}
+      - name: default_beneficiary
+        in: formData
+        required: false
+        type: boolean
+        default: false
+        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+      - name: bank_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 100
+      - name: bank_name
+        in: formData
+        required: false
+        type: string
+        description: Bank name
+        minLength: 1
+      - name: bank_account_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - checking
+        - savings
+        description: Bank account type.
+      - name: beneficiary_entity_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity
+      - name: beneficiary_company_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_first_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_last_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers or company signifiers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_city
+        in: formData
+        required: false
+        type: string
+        description: City name, should not consists of only numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_postcode
+        in: formData
+        required: false
+        type: string
+        description: Postal code
+        maxLength: 12
+      - name: beneficiary_state_or_province
+        in: formData
+        required: false
+        type: string
+        description: State or province.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_date_of_birth
+        in: formData
+        required: false
+        type: string
+        description: If "beneficiary_entity_type" is "company", date of registration.<br> If "beneficiary_entity_type" is "individual", date of birth. The date of birth for the individual should not exceed 125 years and cannot be a date in the future.<br> ISO 8601 format YYYY-MM-DD.
+        format: date
+      - name: beneficiary_identification_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - citizenship_papers
+        - credential_de_elector
+        - drivers_license
+        - drivers_license_canadian
+        - employer_identification_number
+        - existing_credit_card_details
+        - green_card
+        - incorporation_number
+        - matricula_consular
+        - national_id
+        - none
+        - others
+        - passport
+        - registro_federal_de_contribuyentes
+        - social_insurance_number
+        - social_security_number
+        - visa
+        description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiar's bank account is held and on whether "beneficiary_entity_type" is "individual" or "company".
+      - name: beneficiary_identification_value
+        in: formData
+        required: false
+        type: string
+        description: A unique reference code for the identification document, such as a passport number.
+        minLength: 1
+        maxLength: 255
+      - name: payment_types[]
+        in: formData
+        required: false
+        type: array
+        items:
+          type: string
+          enum:
+          - priority
+          - regular
+        default:
+        - regular
+        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: beneficiary_external_reference
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary external reference.
+        minLength: 1
+        maxLength: 255
+      - name: business_nature
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary nature of business.
+        maxLength: 255
+      - name: company_website
+        in: formData
+        required: false
+        type: string
+        description: Beneficiary company website.
+        maxLength: 255
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Beneficiary'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: bank_account_holder_name_is_required
+            category: bank_account_holder_name
+            message: bank_account_holder_name is required
+            params: ''
+          - code: bank_account_holder_name_is_too_short
+            category: bank_account_holder_name
+            message: bank_account_holder_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_account_holder_name_is_too_long
+            category: bank_account_holder_name
+            message: bank_account_holder_name can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: email_is_too_long
+            category: email
+            message: email can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: beneficiary_address_is_too_short
+            category: beneficiary_address
+            message: beneficiary_address can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_address_is_too_long
+            category: beneficiary_address
+            message: beneficiary_address can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: account_number_is_too_short
+            category: account_number
+            message: account_number can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: account_number_is_too_long
+            category: account_number
+            message: account_number can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: account_number_is_missing
+            category: account_number
+            message: Account number is missing
+            params: ''
+          - code: account_number_is_invalid
+            category: account_number
+            message: Account number is in invalid format
+            params: ''
+          - code: routing_code_value_1_is_too_short
+            category: routing_code_value_1
+            message: routing_code_value_1 can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: routing_code_value_1_is_too_long
+            category: routing_code_value_1
+            message: routing_code_value_1 can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: routing_code_value_2_is_too_short
+            category: routing_code_value_2
+            message: routing_code_value_2 can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: routing_code_value_2_is_too_long
+            category: routing_code_value_2
+            message: routing_code_value_2 can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: iban_is_too_short
+            category: iban
+            message: iban can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: iban_is_too_long
+            category: iban
+            message: iban can not be longer than 34 character(s)
+            params: '{ "maxlength" => 34 }'
+          - code: iban_is_missing
+            category: iban
+            message: IBAN is missing
+            params: ''
+          - code: iban_is_invalid
+            category: iban
+            message: IBAN is in invalid format
+            params: ''
+          - code: bic_swift_is_missing
+            category: bic_swift
+            message: BIC/Swift is missing
+            params: ''
+          - code: bic_swift_is_invalid
+            category: bic_swift
+            message: BIC/Swift is in invalid format
+            params: ''
+          - code: bank_address_is_missing
+            category: bank_address
+            message: Bank address is missing
+            params: ''
+          - code: bank_address_is_too_short
+            category: bank_address
+            message: bank_address can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_address_is_too_long
+            category: bank_address
+            message: bank_address can not be longer than 100 character(s)
+            params: '{ "maxlength" => 100 }'
+          - code: bank_name_is_too_short
+            category: bank_name
+            message: bank_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_name_is_missing
+            category: bank_name
+            message: Bank name is missing
+            params: ''
+          - code: bank_account_type_not_in_range
+            category: bank_account_type
+            message: 'bank_account_type should be in range: checking, savings'
+            params: '{ "range" => "checking, savings" }'
+          - code: bank_account_type_is_missing
+            category: bank_account_type
+            message: Beneficiary bank account type is missing
+            params: ''
+          - code: name_is_too_short
+            category: name
+            message: name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: name_is_in_invalid_format
+            category: name
+            message: name is in invalid format
+            params: ''
+          - code: name_is_too_long
+            category: name
+            message: name can not be longer than 100 character(s)
+            params: '{ "maxlength" => 100  }'
+          - code: default_beneficiary_type_is_wrong
+            category: default_beneficiary
+            message: default_beneficiary should be of boolean type
+            params: '{ "type" => "boolean"  }'
+          - code: routing_code_type_1_not_in_range
+            category: routing_code_type_1
+            message: 'routing_code_type_1 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+            params: '{ "range" => "sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps" }'
+          - code: routing_code_type_2_not_in_range
+            category: routing_code_type_2
+            message: 'routing_code_type_2 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+            params: '{ "range => "sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps" }'
+          - code: beneficiary_country_is_in_invalid_format
+            category: beneficiary_country
+            message: beneficiary_country is in invalid format
+            params: ''
+          - code: beneficiary_entity_type_not_in_range
+            category: beneficiary_entity_type
+            message: 'beneficiary_entity_type should be in range: individual, company'
+            params: '{ "range" => "individual, company" }'
+          - code: beneficiary_entity_type_is_missing
+            category: beneficiary_entity_type
+            message: Beneficiary entity type is missing
+            params: ''
+          - code: beneficiary_company_name_is_missing
+            category: beneficiary_company_name
+            message: Beneficiary company name is missing
+            params: ''
+          - code: company_name_contains_numbers
+            category: beneficiary_company_name
+            message: Beneficiary names cannot consist entirely of numbers for a company
+            params: ''
+          - code: beneficiary_first_name_is_missing
+            category: beneficiary_first_name
+            message: Beneficiary first name is missing
+            params: ''
+          - code: beneficiary_last_name_is_missing
+            category: beneficiary_last_name
+            message: Beneficiary last name is missing
+            params: ''
+          - code: first_name_contains_numbers
+            category: beneficiary_first_name
+            message: Beneficiary names cannot contain numbers for an individual
+            params: ''
+          - code: last_name_contains_numbers
+            category: beneficiary_last_name
+            message: Beneficiary names cannot contain numbers for an individual
+            params: ''
+          - code: beneficiary_city_is_too_short
+            category: beneficiary_city
+            message: beneficiary_city can not be shorter than 1 character(s)
+            params: '{"minlength" => 1}'
+          - code: beneficiary_state_or_province_is_too_short
+            category: beneficiary_state_or_province
+            message: beneficiary_state_or_province can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: beneficiary_state_or_province_is_missing
+            category: beneficiary_state_or_province
+            message: Beneficiary state or province is missing
+            params: ''
+          - code: beneficiary_state_or_province_is_not_supported
+            category: beneficiary_state_or_province
+            message: Beneficiary state or province is not supported
+            params: ''
+          - code: beneficiary_postcode_is_missing
+            category: beneficiary_postcode
+            message: Beneficiary postcode is missing
+            params: ''
+          - code: beneficiary_date_of_birth_type_is_wrong
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: beneficiary_date_of_birth_is_earlier
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be later
+            params: ''
+          - code: beneficiary_date_of_birth_is_after
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be earlier
+            params: ''
+          - code: identification_type_is_invalid
+            category: beneficiary_identification_type
+            message: identification_type is invalid
+            params: ''
+          - code: identification_value_is_missing
+            category: beneficiary_identification_value
+            message: identification_value is missing
+            params: ''
+          - code: identification_value_is_invalid
+            category: beneficiary_identification_value
+            message: identification_value is invalid
+            params: ''
+          - code: bank_country_is_required
+            category: bank_country
+            message: bank_country is required
+            params: ''
+          - code: bank_country_is_in_invalid_format
+            category: bank_country
+            message: bank_country is in invalid format
+            params: ''
+          - code: bank_country_is_not_supported
+            category: bank_country
+            message: bank_country is not supported
+            params: ''
+          - code: currency_is_required
+            category: currency
+            message: currency is required
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is in invalid format
+            params: ''
+          - code: currency_code_is_invalid
+            category: currency
+            message: You can not use this currency with beneficiaries
+            params: ''
+          - code: unique_value_parameters
+            category: base
+            message: 'Following parameters should not have same values: routing_code_type_1, routing_code_type_2'
+            params: '{ "parameters" => "routing_code_type_1, routing_code_type_2" }'
+          - code: unsupported_beneficiary_country_code
+            category: base
+            message: Beneficiary country is not supported
+            params: ''
+          - code: beneficiary_create_failed
+            category: beneficiary
+            message: Beneficiary was not created
+            params: ''
+          - code: beneficiary_details_are_missing
+            category: beneficiary
+            message: 'Following beneficiary details are missing: beneficiary_company_name'
+            params: '{ "missing_details" => ["beneficiary_company_name"] }'
+          - code: payment_types_not_in_range
+            category: payment_types
+            message: 'payment_types should be in range: priority, regular'
+            params: '{ "range" => "priority, regular" }'
+          - code: payment_type_is_not_supported
+            category: payment_types
+            message: Payment type is not supported for given parameters
+            params: ''
+          - code: sort_code_is_missing
+            category: routing_code
+            message: Sort code is missing
+            params: ''
+          - code: sort_code_is_invalid
+            category: routing_code
+            message: Sort code is in invalid format
+            params: ''
+          - code: aba_is_missing
+            category: routing_code
+            message: ABA is missing
+            params: ''
+          - code: aba_is_invalid
+            category: routing_code
+            message: ABA is in invalid format
+            params: ''
+          - code: bsb_code_is_missing
+            category: routing_code
+            message: BSB code is missing
+            params: ''
+          - code: bsb_code_is_invalid
+            category: routing_code
+            message: BSB code is in invalid format
+            params: ''
+          - code: branch_code_is_missing
+            category: routing_code
+            message: Branch code is missing
+            params: ''
+          - code: branch_code_is_invalid
+            category: routing_code
+            message: Branch code is in invalid format
+            params: ''
+          - code: institution_no_is_missing
+            category: routing_code
+            message: Institution no is missing
+            params: ''
+          - code: institution_no_is_invalid
+            category: routing_code
+            message: Institution no is in invalid format
+            params: ''
+          - code: bank_code_is_missing
+            category: routing_code
+            message: Bank code is missing
+            params: ''
+          - code: bank_code_is_invalid
+            category: routing_code
+            message: Bank code is in invalid format
+            params: ''
+          - code: cnaps_is_missing
+            category: routing_code
+            message: CNAPS number is missing
+            params: ''
+          - code: cnaps_is_invalid
+            category: routing_code
+            message: CNAPS number is in invalid format
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: beneficiary_external_reference_is_too_long
+            category: beneficiary_external_reference
+            message: beneficiary_external_reference can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: field_contains_invalid_characters
+            category: base
+            message: Field contains invalid characters
+            params: '{ ${field_name}: ${character_range} }'
+          - code: field_is_too_long
+            category: base
+            message: The information provided for this request exceeds our field length limits
+            params: '{ ${field_name}: ${max_field_length} }'
+          - code: request_contains_blocked_fields
+            category: base
+            message: This request contains fields that are not permitted for this route
+            params: '{ "blocked fields": [Fields that are not permitted for this route] }'
+          schema:
+            $ref: '#/definitions/CreateBeneficiaryError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /beneficiaries/{id}/delete:
+    post:
+      tags:
+      - Beneficiaries
+      x-api-group: pay
+      summary: Delete Beneficiary
+      description: Delete a beneficiary associated with a sub-account. If the deletion is successful, the beneficiary's final state is returned.
+      operationId: DeleteBeneficiary
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: id
+        in: path
+        required: true
+        type: string
+        description: Beneficiary UUID
+        format: uuid
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Beneficiary'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: id_is_not_valid_uuid
+            category: id
+            message: id should be in UUID format
+            params: ''
+          - code: beneficiary_not_found
+            category: id
+            message: Beneficiary was not found for this id
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          schema:
+            $ref: '#/definitions/DeleteBeneficiaryError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          schema:
+            $ref: '#/definitions/NotFoundError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /beneficiaries/validate:
+    post:
+      tags:
+      - Beneficiaries
+      x-api-group: pay
+      summary: Validate Beneficiary
+      description: Validates a new beneficiary's bank details, without actually creating a record of the beneficiary. On success, returns an object that represents the entity that would be created if the beneficiary was saved.
+      operationId: ValidateBeneficiary
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: bank_country
+        in: formData
+        required: true
+        type: string
+        description: Two-letter code for the country in which the beneficiary's bank account is held.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: currency
+        in: formData
+        required: true
+        type: string
+        description: Currency in which money is held in the beneficiary's bank account. Three-digit currency code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: beneficiary_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_country
+        in: formData
+        required: false
+        type: string
+        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: account_number
+        in: formData
+        required: false
+        type: string
+        description: Bank account number.
+        minLength: 1
+        maxLength: 50
+      - name: routing_code_type_1
+        in: formData
+        required: false
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system. If supplied, routing_code_value_1 should also be supplied.
+      - name: routing_code_value_1
+        in: formData
+        required: false
+        type: string
+        description: Routing code for routing_code_type_1. If supplied, routing_code_type_1 should also be supplied.
+        minLength: 1
+        maxLength: 50
+      - name: routing_code_type_2
+        in: formData
+        required: false
+        type: string
+        enum:
+        - aba
+        - bank_code
+        - branch_code
+        - bsb_code
+        - clabe
+        - cnaps
+        - ifsc
+        - institution_no
+        - sort_code
+        description: Local payment routing system. If supplied, routing_code_value_2 should also be supplied.
+      - name: routing_code_value_2
+        in: formData
+        required: false
+        type: string
+        description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
+        minLength: 1
+        maxLength: 50
+      - name: bic_swift
+        in: formData
+        required: false
+        type: string
+        description: BIC/Swift code
+        pattern: ^(\w{8}|\w{11})$
+      - name: iban
+        in: formData
+        required: false
+        type: string
+        description: IBAN code
+        pattern: ([A-Z0-9]\s*){15,34}
+      - name: bank_address
+        in: formData
+        required: false
+        type: string
+        description: First line of address.
+        minLength: 1
+        maxLength: 100
+      - name: bank_name
+        in: formData
+        required: false
+        type: string
+        description: Bank name
+        minLength: 1
+      - name: bank_account_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - checking
+        - savings
+        description: Bank account type.
+      - name: beneficiary_entity_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - company
+        - individual
+        description: Legal entity
+      - name: beneficiary_company_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_first_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_last_name
+        in: formData
+        required: false
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_city
+        in: formData
+        required: false
+        type: string
+        description: City
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_postcode
+        in: formData
+        required: false
+        type: string
+        description: Postal code
+        maxLength: 12
+      - name: beneficiary_state_or_province
+        in: formData
+        required: false
+        type: string
+        description: State or province.
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_date_of_birth
+        in: formData
+        required: false
+        type: string
+        description: If "beneficiary_entity_type" is "company", date of registration. If "beneficiary_entity_type" is "individual", date of birth. ISO 8601 format YYYY-MM-DD.
+        format: date
+      - name: beneficiary_identification_type
+        in: formData
+        required: false
+        type: string
+        enum:
+        - citizenship_papers
+        - credential_de_elector
+        - drivers_license
+        - drivers_license_canadian
+        - employer_identification_number
+        - existing_credit_card_details
+        - green_card
+        - incorporation_number
+        - matricula_consular
+        - national_id
+        - none
+        - others
+        - passport
+        - registro_federal_de_contribuyentes
+        - social_insurance_number
+        - social_security_number
+        - visa
+        description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiary's bank account is held.
+      - name: beneficiary_identification_value
+        in: formData
+        required: false
+        type: string
+        description: A unique reference code for the identification document, such as a passport number.
+        minLength: 1
+        maxLength: 255
+      - name: payment_types[]
+        in: formData
+        required: false
+        type: array
+        items:
+          type: string
+          enum:
+          - priority
+          - regular
+        default:
+        - regular
+        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+      - name: on_behalf_of
+        in: formData
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/Beneficiary'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: beneficiary_country_is_in_invalid_format
+            category: beneficiary_country
+            message: beneficiary_country is in invalid format
+            params: ''
+          - code: beneficiary_entity_type_not_in_range
+            category: beneficiary_entity_type
+            message: 'beneficiary_entity_type should be in range: individual, company'
+            params: '{ "range" => "individual, company" }'
+          - code: beneficiary_entity_type_is_missing
+            category: beneficiary_entity_type
+            message: Beneficiary entity type is missing
+            params: ''
+          - code: beneficiary_company_name_is_missing
+            category: beneficiary_company_name
+            message: Beneficiary company name is missing
+            params: ''
+          - code: company_name_contains_numbers
+            category: beneficiary_company_name
+            message: Beneficiary names cannot consist entirely of numbers for a company
+            params: ''
+          - code: beneficiary_first_name_is_missing
+            category: beneficiary_first_name
+            message: Beneficiary first name is missing
+            params: ''
+          - code: beneficiary_last_name_is_missing
+            category: beneficiary_last_name
+            message: Beneficiary last name is missing
+            params: ''
+          - code: first_name_contains_numbers
+            category: beneficiary_first_name
+            message: Beneficiary names cannot contain numbers for an individual
+            params: ''
+          - code: last_name_contains_numbers
+            category: beneficiary_last_name
+            message: Beneficiary names cannot contain numbers for an individual
+            params: ''
+          - code: beneficiary_state_or_province_is_missing
+            category: beneficiary_state_or_province
+            message: Beneficiary state or province is missing
+            params: ''
+          - code: beneficiary_state_or_province_is_not_supported
+            category: beneficiary_state_or_province
+            message: Beneficiary state or province is not supported
+            params: ''
+          - code: beneficiary_postcode_is_missing
+            category: beneficiary_postcode
+            message: Beneficiary postcode is missing
+            params: ''
+          - code: beneficiary_date_of_birth_type_is_wrong
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be of date type
+            params: '{ "type" => "date" }'
+          - code: beneficiary_date_of_birth_is_earlier
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be later
+            params: ''
+          - code: beneficiary_date_of_birth_is_after
+            category: beneficiary_date_of_birth
+            message: beneficiary_date_of_birth should be earlier
+            params: ''
+          - code: account_number_is_too_short
+            category: account_number
+            message: account_number can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: account_number_is_too_long
+            category: account_number
+            message: account_number can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: account_number_is_missing
+            category: account_number
+            message: Account number is missing
+            params: ''
+          - code: account_number_is_invalid
+            category: account_number
+            message: Account number is in invalid format
+            params: ''
+          - code: routing_code_value_1_is_too_short
+            category: routing_code_value_1
+            message: routing_code_value_1 can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: routing_code_value_1_is_too_long
+            category: routing_code_value_1
+            message: routing_code_value_1 can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: routing_code_value_2_is_too_short
+            category: routing_code_value_2
+            message: routing_code_value_2 can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: routing_code_value_2_is_too_long
+            category: routing_code_value_2
+            message: routing_code_value_2 can not be longer than 50 character(s)
+            params: '{ "maxlength" => 50 }'
+          - code: iban_is_too_short
+            category: iban
+            message: iban can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: iban_is_too_long
+            category: iban
+            message: iban can not be longer than 34 character(s)
+            params: '{ "maxlength" => 34 }'
+          - code: iban_is_missing
+            category: iban
+            message: IBAN is missing
+            params: ''
+          - code: iban_is_invalid
+            category: iban
+            message: IBAN is in invalid format
+            params: ''
+          - code: bic_swift_is_missing
+            category: bic_swift
+            message: BIC/Swift is missing
+            params: ''
+          - code: bic_swift_is_invalid
+            category: bic_swift
+            message: BIC/Swift is in invalid format
+            params: ''
+          - code: bank_address_is_missing
+            category: bank_address
+            message: Bank address is missing
+            params: ''
+          - code: bank_address_is_too_short
+            category: bank_address
+            message: bank_address can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_address_is_too_long
+            category: bank_address
+            message: bank_address can not be longer than 100 character(s)
+            params: '{ "maxlength" => 100 }'
+          - code: bank_name_is_too_short
+            category: bank_name
+            message: bank_name can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: bank_name_is_missing
+            category: bank_name
+            message: Bank name is missing
+            params: ''
+          - code: bank_account_type_not_in_range
+            category: bank_account_type
+            message: 'bank_account_type should be in range: checking, savings'
+            params: '{ "range" => "checking, savings" }'
+          - code: bank_account_type_is_missing
+            category: bank_account_type
+            message: Beneficiary bank account type is missing
+            params: ''
+          - code: routing_code_type_1_not_in_range
+            category: routing_code_type_1
+            message: 'routing_code_type_1 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+            params: '{ "range" => "sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps" }'
+          - code: routing_code_type_2_not_in_range
+            category: routing_code_type_2
+            message: 'routing_code_type_2 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+            params: '{ "range => "sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps" }'
+          - code: bank_country_is_required
+            category: bank_country
+            message: bank_country is required
+            params: ''
+          - code: bank_country_is_in_invalid_format
+            category: bank_country
+            message: bank_country is in invalid format
+            params: ''
+          - code: bank_country_is_not_supported
+            category: bank_country
+            message: bank_country is not supported
+            params: ''
+          - code: currency_is_required
+            category: currency
+            message: currency is required
+            params: ''
+          - code: currency_is_in_invalid_format
+            category: currency
+            message: currency is in invalid format
+            params: ''
+          - code: currency_code_is_invalid
+            category: currency
+            message: You can not use this currency with beneficiaries
+            params: ''
+          - code: unique_value_parameters
+            category: base
+            message: 'Following parameters should not have same values: routing_code_type_1, routing_code_type_2'
+            params: '{ "parameters" => "routing_code_type_1, routing_code_type_2" }'
+          - code: beneficiary_create_failed
+            category: beneficiary
+            message: Beneficiary was not created
+            params: ''
+          - code: beneficiary_details_are_missing
+            category: beneficiary
+            message: 'Following beneficiary details are missing: beneficiary_company_name'
+            params: '{ "missing_details" => ["beneficiary_company_name"] }'
+          - code: payment_types_not_in_range
+            category: payment_types
+            message: 'payment_types should be in range: priority, regular'
+            params: '{ "range" => "priority, regular" }'
+          - code: sort_code_is_missing
+            category: routing_code
+            message: Sort code is missing
+            params: ''
+          - code: sort_code_is_invalid
+            category: routing_code
+            message: Sort code is in invalid format
+            params: ''
+          - code: aba_is_missing
+            category: routing_code
+            message: ABA is missing
+            params: ''
+          - code: aba_is_invalid
+            category: routing_code
+            message: ABA is in invalid format
+            params: ''
+          - code: bsb_code_is_missing
+            category: routing_code
+            message: BSB code is missing
+            params: ''
+          - code: bsb_code_is_invalid
+            category: routing_code
+            message: BSB code is in invalid format
+            params: ''
+          - code: branch_code_is_missing
+            category: routing_code
+            message: Branch code is missing
+            params: ''
+          - code: branch_code_is_invalid
+            category: routing_code
+            message: Branch code is in invalid format
+            params: ''
+          - code: institution_no_is_missing
+            category: routing_code
+            message: Institution no is missing
+            params: ''
+          - code: institution_no_is_invalid
+            category: routing_code
+            message: Institution no is in invalid format
+            params: ''
+          - code: bank_code_is_missing
+            category: routing_code
+            message: Bank code is missing
+            params: ''
+          - code: bank_code_is_invalid
+            category: routing_code
+            message: Bank code is in invalid format
+            params: ''
+          - code: beneficiary_update_failed
+            category: beneficiary
+            message: Beneficiary was not updated
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: field_contains_invalid_characters
+            category: base
+            message: Field contains invalid characters
+            params: '{ ${field_name}: ${character_range} }'
+          - code: field_is_too_long
+            category: base
+            message: The information provided for this request exceeds our field length limits
+            params: '{ ${field_name}: ${max_field_length} }'
+          - code: request_contains_blocked_fields
+            category: base
+            message: This request contains fields that are not permitted for this route
+            params: '{ "blocked fields": [Fields that are not permitted for this route] }'
+          schema:
+            $ref: '#/definitions/ValidateBeneficiaryError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /beneficiaries/account_verification:
+    post:
+      tags:
+      - Beneficiaries
+      x-api-group: pay
+      summary: Verify Beneficiary Account
+      description: This service is currently only available to in-scope clients who must provide Confirmation of Payee (CoP) or Verification of Payee (VoP) services to their end-users making local GBP payments in the UK or SEPA EUR payments.<br><br> CoP and VoP are both peer-to-peer name-checking service designed to help reduce misdirected payments and provide greater assurance that payments are being sent, and collected from, the intended account holder for domestic payments. <br><br> Currently, access is restricted to UK and EU institutions and in-scope clients.<br><br> We plan to add more market coverage to this API in the future, thereby extending access to additional clients.<br><br> If you're interested in learning more or have received notification that you're in-scope, please contact your Account Manager or our support team.
+      operationId: BeneficiaryAccountVerification
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: payment_type
+        in: formData
+        type: string
+        required: false
+        enum:
+        - regular
+        - priority (not supported for this endpoint)
+        description: 'Currencycloud supports two types of payments: ''priority'', made using the Swift network and ''regular'', made using the local bank network. Confirmation of Payee and Verification of Payee checks only apply to local transactions so this field should always be set to ''regular''.'
+      - name: bank_country
+        in: formData
+        type: string
+        required: false
+        description: Two-letter code for the country in which the beneficiary's bank account is held.
+        format: iso3166-1-alpha-2
+        pattern: ^[A-Z]{2}$
+      - name: currency
+        in: formData
+        type: string
+        required: true
+        default: GBP
+        enum:
+        - GBP
+        - EUR
+        description: Currency in which money will be sent to the beneficiary's bank account. Three-character currency code. 'GBP' for Confirmation of Payee, 'EUR' for Verification of Payee.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: account_number
+        in: formData
+        required: false
+        type: string
+        minLength: 1
+        maxLength: 50
+        description: Bank account number. Required when currency is 'GBP' (Confirmation of Payee).
+      - name: beneficiary_entity_type
+        in: formData
+        type: string
+        required: false
+        description: Legal entity - 'individual' or 'company'.<br> - If 'individual' then 'beneficiary_first_name' and 'beneficiary_last_name' are required.<br> - If 'company' then 'beneficiary_company_name' is required.<br> - Required when currency is 'GBP' (Confirmation of Payee).<br> - Not required when currency is 'EUR' (Verification of Payee).
+        enum:
+        - company
+        - individual
+      - name: beneficiary_company_name
+        in: formData
+        type: string
+        description: Required if "beneficiary_entity_type" is "company".
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_first_name
+        in: formData
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: beneficiary_last_name
+        in: formData
+        type: string
+        description: Required if "beneficiary_entity_type" is "individual".
+        minLength: 1
+        maxLength: 255
+      - name: routing_code_type_1
+        in: formData
+        type: string
+        description: Local payment routing system. Defaults to 'sort_code'.
+      - name: routing_code_value_1
+        in: formData
+        required: false
+        type: string
+        minLength: 1
+        maxLength: 50
+        description: Routing system value i.e. the account's sort code. Required when currency is 'GBP' (Confirmation of Payee).
+      - name: routing_code_type_2
+        in: formData
+        type: string
+        description: Second local payment routing system. If supplied, routing_code_value_2 should also be supplied. Necessary for when more than one routing code is required.
+      - name: routing_code_value_2
+        in: formData
+        type: string
+        description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
+        minLength: 1
+        maxLength: 50
+      - name: bic_swift
+        in: formData
+        type: string
+        description: BIC/Swift code
+        pattern: ^(\w{8}|\w{11})$
+      - name: iban
+        in: formData
+        type: string
+        pattern: ([A-Z0-9]\s*){15,34}
+        description: IBAN code. Required when currency is 'EUR' (Verification of Payee). Must match <code>^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}$</code>
+      - name: secondary_reference_data
+        pattern: ^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}$
+        in: formData
+        type: string
+        description: For customer accounts that are not uniquely addressable by a sort code and account number, but instead rely on their PSP to credit their account via SRD – i.e. using the reference field in the payment with a further unique identifier.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/BeneficiaryAccountVerificationResult'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: invalid_field_account_number
+            category: account_number
+            message: account_number must match \"^[0-9]{8}$\"
+            params: ''
+          - code: invalid_beneficiary_type
+            category: beneficiary_entity_type
+            message: Beneficiary_entity_type must be either 'individual' or 'company'.
+            params: '{ "range" => "individual, company" }'
+            enum: individual company
+          - code: invalid_field_routing_code_value_1
+            category: routing_code_value_1
+            message: routing_code_value_1 must match \"^[0-9]{6}$\"
+            params: ''
+          - code: invalid_field_company_name
+            category: beneficiary_company_name
+            message: beneficiary_company_name must match \"[a-zA-Z0-9-'\\s]+\"
+            params: ''
+          - code: missing_company_name
+            category: beneficiary_company_name
+            message: beneficiary_company_name size must be between 0 and 140
+            params: ''
+          - code: invalid_field_beneficiary_first_name
+            category: beneficiary_first_name
+            message: beneficiary_first_name must match \"[a-zA-Z0-9-'\\s]+\"
+            params: ''
+          - code: invalid_field_beneficiary_first_name
+            category: beneficiary_first_name
+            message: beneficiary_first_name size must be between 0 and 140
+            params: ''
+          - code: invalid_field_beneficiary_last_name
+            category: beneficiary_last_name
+            message: beneficiary_last_name must match \"[a-zA-Z0-9-'\\s]+\"
+            params: ''
+          - code: invalid_field_beneficiary_last_name
+            category: beneficiary_last_name
+            message: beneficiary_last_name size must be between 0 and 140
+            params: ''
+          - code: invalid_field_bank_country
+            category: bank_country
+            message: bank_country must match \”^[A-Z]{2}$
+            params: ''
+          - code: missing_individual_names
+            category: beneficiary_last_name
+            message: beneficiary_first_name and beneficiary_last_name are required when beneficiary_entity_type is individual.
+            params: ''
+          - code: missing_company_name
+            category: company_name
+            message: beneficiary_company_name is required when beneficiary_entity_type is company.
+            params: ''
+          - code: expect_individual_names_only
+            category: beneficiary_last_name
+            message: beneficiary_company_name must not be supplied when beneficiary_entity_type is individual.
+            params: ''
+          - code: expect_company_name_only
+            category: beneficiary_last_name
+            message: beneficiary_first_name and beneficiary_last_name must not be supplied when beneficiary_entity_type is company.
+            params: ''
+          - code: invalid_bank_country
+            category: bank_country
+            message: Country ${bank_country} is not supported
+            params: ''
+          - code: invalid_extra_parameters
+            category: base
+            message: Invalid extra parameters extra_parameter
+            params: '{ "parameters" => "extra_parameter" }'
+          schema:
+            $ref: '#/definitions/BeneficiaryAccountVerificationError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+definitions:
+  DeleteBeneficiaryError:
+    type: object
+    description: 'Client error information for the Delete Beneficiary endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  FindBeneficiariesError:
+    type: object
+    description: 'Client error information for the Find Beneficiaries endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  RateLimitError:
+    type: object
+    description: Too many requests.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this validation/error.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  CreateBeneficiaryError:
+    type: object
+    description: 'Client error information for the Create Beneficiary endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  UnauthorizedError:
+    type: object
+    description: Authorization error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_failed
+      error_messages:
+        api_key:
+        - code: invalid_supplied_credentials
+          message: Authentication failed with the supplied credentials
+          params: {}
+  Beneficiary:
+    type: object
+    description: Beneficiary
+    properties:
+      id:
+        type: string
+        description: Beneficiary UUID
+      bank_account_holder_name:
+        type: string
+        description: Bank account holder's name.
+      name:
+        type: string
+        description: Beneficiary's name
+      email:
+        type: string
+        description: Beneficiary's email address
+      payment_types:
+        type: array
+        items:
+          type: string
+          description: The payment type - regular (local) or priority (Swift).
+          enum:
+          - priority
+          - regular
+      beneficiary_address:
+        type: array
+        items:
+          type: string
+          description: Line of address.
+      beneficiary_country:
+        type: string
+        description: Two-letter ISO country code.
+      beneficiary_entity_type:
+        type: string
+        description: Beneficiary legal entity type - company or individual.
+        enum:
+        - company
+        - individual
+      beneficiary_company_name:
+        type: string
+        description: For companies
+      beneficiary_first_name:
+        type: string
+        description: For individuals
+      beneficiary_last_name:
+        type: string
+        description: For individuals
+      beneficiary_city:
+        type: string
+        description: City
+      beneficiary_postcode:
+        type: string
+        description: Postal code
+      beneficiary_state_or_province:
+        type: string
+        description: State or province.
+      beneficiary_date_of_birth:
+        type: string
+        description: For companies, this is the foundation date of the company. For individuals, it is their date of birth.
+      beneficiary_identification_type:
+        type: string
+        description: A legal document that verifies the identity of the beneficiary.
+      beneficiary_identification_value:
+        type: string
+        description: A unique reference code for the identification document, such as a passport number.
+      bank_country:
+        type: string
+        description: Two-letter ISO code for the country in which the beneficiary's bank account is held.
+      bank_name:
+        type: string
+        description: Bank name
+      bank_account_type:
+        type: string
+        description: Bank account type.
+        enum:
+        - checking
+        - savings
+      currency:
+        type: string
+        description: Currency in which money is held in the beneficiary's bank account. Three-digit currency code.
+      account_number:
+        type: string
+        description: Bank account number.
+      routing_code_type_1:
+        type: string
+        description: Local payment routing system.
+      routing_code_value_1:
+        type: string
+        description: Value for "routing_code_type_1".
+      routing_code_type_2:
+        type: string
+        description: Local payment routing system.
+      routing_code_value_2:
+        type: string
+        description: Value for "routing_code_type_2".
+      bic_swift:
+        type: string
+        description: BIC/Swift code
+      iban:
+        type: string
+        description: IBAN code
+      default_beneficiary:
+        type: string
+        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+        enum:
+        - 'true'
+        - 'false'
+      creator_contact_id:
+        type: string
+        description: Contact UUID of beneficiary creator.
+      bank_address:
+        type: array
+        items:
+          type: string
+          description: Line of address.
+      created_at:
+        type: string
+        description: Date the beneficiary record was created.
+        format: date-time
+      updated_at:
+        type: string
+        description: Date the beneficiary record was last updated.
+        format: date-time
+      beneficiary_external_reference:
+        type: string
+        description: Beneficiary external reference.
+      business_nature:
+        type: string
+        description: Beneficiary nature of business.
+      company_website:
+        type: string
+        description: Beneficiary company website.
+    example:
+      id: a6000ce9-46b8-49a7-9f5b-325ed3f047c2
+      bank_account_holder_name: Company PLC
+      name: Sample name
+      email: ''
+      payment_types:
+      - regular
+      beneficiary_address:
+      - 1 My Road
+      - London
+      beneficiary_country: AU
+      beneficiary_entity_type: company
+      beneficiary_company_name: Sample Company Name
+      beneficiary_first_name: ''
+      beneficiary_last_name: ''
+      beneficiary_city: ''
+      beneficiary_postcode: ''
+      beneficiary_state_or_province: ''
+      beneficiary_date_of_birth: ''
+      beneficiary_identification_type: none
+      beneficiary_identification_value: ''
+      bank_country: AU
+      bank_name: Sample Bank Name
+      bank_account_type: checking
+      currency: AUD
+      account_number: '123456783'
+      routing_code_type_1: bsb_code
+      routing_code_value_1: '123456'
+      routing_code_type_2: ''
+      routing_code_value_2: ''
+      bic_swift: ''
+      iban: ''
+      default_beneficiary: 'false'
+      creator_contact_id: 58e78791-e0e5-012c-2dee-001e52f3c730
+      bank_address:
+      - Line 1
+      - Line 2
+      created_at: '2023-12-31T23:59:59.000Z'
+      updated_at: '2023-12-31T23:59:59.000Z'
+      beneficiary_external_reference: B-5847789
+      business_nature: Government agency
+      company_website: https://www.gov.uk/
+  BeneficiaryAccountVerificationResult:
+    type: object
+    description: Beneficiary account verification result.
+    properties:
+      answer:
+        description: The account verification result - 'full_match', 'close_match' or 'no_match'.
+        type: string
+        enum:
+        - close_match
+        - full_match
+        - no_match
+      actual_name:
+        type: string
+        description: The actual name of the account holder.
+      reason_code:
+        type: string
+        description: Encoded reason.
+      reason:
+        type: string
+        description: Description of the reason.
+      reason_type:
+        type: string
+        description: Category of reason - 'okay', 'warning' or 'rejected'.
+    example:
+      answer: full_match
+      actual_name: Joe Bloggs
+      reason_code: AV100
+      reason: Full match
+      reason_type: okay
+  GetBeneficiaryError:
+    type: object
+    description: 'Client error information for the Get Beneficiary endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  NotFoundError:
+    type: object
+    description: Resource not found.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  ValidateBeneficiaryError:
+    type: object
+    description: 'Client error information for the Validate Beneficiary endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  UpdateBeneficiaryError:
+    type: object
+    description: 'Client error information for the Update Beneficiary endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  BeneficiaryAccountVerificationError:
+    type: object
+    description: 'Client error information for the Beneficiary Account Verification (CoP) endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  Pagination:
+    type: object
+    description: Pagination.
+    properties:
+      total_entries:
+        type: integer
+      total_pages:
+        type: integer
+      current_page:
+        type: integer
+      per_page:
+        type: integer
+        description: Number of results per page.
+      previous_page:
+        type: integer
+      next_page:
+        type: integer
+      order:
+        type: string
+        description: The field name by which the results are sorted.
+      order_asc_desc:
+        type: string
+        enum:
+        - asc
+        - desc
+        default: asc
+        description: Whether results are sorted in ascending or descending order.
+    example:
+      total_entries: 1
+      total_pages: 1
+      current_page: 1
+      per_page: 25
+      previous_page: -1
+      next_page: 2
+      order: created_at
+      order_asc_desc: asc

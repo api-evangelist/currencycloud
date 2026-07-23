@@ -1,0 +1,361 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Authenticate API
+  version: v1
+  description: Authenticate to gain access to the API. Log in to your Currencycloud account using your API Key and log out to terminate your session.
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Authenticate
+  description: Authenticate to gain access to the API. Log in to your Currencycloud account using your API Key and log out to terminate your session.
+paths:
+  /authenticate/api:
+    post:
+      tags:
+      - Authenticate
+      x-api-group: manage
+      summary: Login
+      description: 'Authenticates and authorizes a user to the Currencycloud API.<br><br>
+
+        Submit a login ID and API key for a Currencycloud account, you can register for and API key <a href="https://developer.currencycloud.com/register-for-an-api-key/">here</a>. A temporary authentication token is returned following a succesful login.<br><br>
+
+        The authentication token is required to make requests to all other endpoints in the Currencycloud API. Tokens expire after 30 minutes of inactivity.<br><br>
+
+        Token requests are limited to 60 calls per minute.<br><br>
+
+        For security, Currencycloud accounts are disabled when four unsuccessful login attempts are made within a short period. In these circumstances, account holders must <a href="mailto:support@currencycloud.com">contact support</a> to reactivate their account.'
+      operationId: Login
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: login_id
+        in: formData
+        required: true
+        type: string
+        description: The login ID for a Currencycloud account, this is usually an email address.
+        minLength: 1
+        maxLength: 50
+      - name: api_key
+        in: formData
+        required: true
+        type: string
+        description: The unique API key for the Currencycloud account.
+        pattern: ^[a-f0-9]{64}$
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/AuthenticationToken'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: login_id_is_required
+            category: login_id
+            message: login_id is required
+            params: ''
+          - code: login_id_is_too_short
+            category: login_id
+            message: login_id can not be shorter than 1 character(s)
+            params: '{ "minlength" => 1 }'
+          - code: login_id_is_too_long
+            category: login_id
+            message: login_id can not be longer than 255 character(s)
+            params: '{ "maxlength" => 255 }'
+          - code: api_key_is_required
+            category: api_key
+            message: api_key is required
+            params: ''
+          - code: api_key_length_is_invalid
+            category: api_key
+            message: api_key should be 64 character(s) long
+            params: '{ "length" => 64 }'
+          schema:
+            $ref: '#/definitions/LoginError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporarily unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /authenticate/close_session:
+    post:
+      tags:
+      - Authenticate
+      x-api-group: manage
+      summary: Logout
+      description: Authentication tokens expire automatically after 30 minutes of inactivity. If a session is no longer required, it is good security practice to retire its authentication token early rather than leave it to time out.
+      operationId: Logout
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      responses:
+        '200':
+          description: Success. A 200 response with an empty payload signifies that the authentication token is successfully retired.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+definitions:
+  UnauthorizedError:
+    type: object
+    description: Authorization error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_failed
+      error_messages:
+        api_key:
+        - code: invalid_supplied_credentials
+          message: Authentication failed with the supplied credentials
+          params: {}
+  RateLimitError:
+    type: object
+    description: Too many requests.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this validation/error.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  AuthenticationToken:
+    type: object
+    description: Authentication token
+    properties:
+      auth_token:
+        type: string
+        description: Currently a randomly-generated 32-digit authentication token. Clients must store this securely and destroy it when it is no longer needed.
+    example:
+      auth_token: 043cc6069f5e32757647641460d1d5ed
+  LoginError:
+    type: object
+    description: 'Login error.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_invalid_user_login_details
+      error_messages:
+        api_key:
+        - code: api_key_length_is_invalid
+          message: api_key should be 64 character(s) long
+          params:
+            length: 64

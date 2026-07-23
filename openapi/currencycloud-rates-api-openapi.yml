@@ -1,0 +1,625 @@
+openapi: 3.0.3
+info:
+  title: api-onboarding Account Usage Rates API
+  version: v1
+  description: Super fast real-time access to live foreign exchange rates through the Currencycloud platform.
+servers:
+- url: /onboarding
+  description: Relative URL
+- url: https://api.currencycloud.com/onboarding
+  description: Production server (uses live data)
+- url: https://devapi.currencycloud.com/onboarding
+  description: Dev server (uses test data)
+tags:
+- name: Rates
+  description: Super fast real-time access to live foreign exchange rates through the Currencycloud platform.
+paths:
+  /rates/find:
+    get:
+      tags:
+      - Rates
+      x-api-group: convert
+      summary: Get Basic Rates
+      description: Gets indicative foreign exchange rate information for one or more currency pairs in a single request. <br><br> This endpoint is intended to provide an indication of the rate available in the market and can support requests for multiple currency pairs, so is good for polling requirements such as live FX ticker widgets. This endpoint should be used where speed, availability and the ability to request multiple currency pairs is important.
+      operationId: GetBasicRates
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: currency_pair
+        in: query
+        required: true
+        type: string
+        description: Concatenated string of the two currencies traded, e.g. "USDEUR". More than one pair can be entered, separated by a comma e.g. "EURGBP,GBPUSD,EURUSD".
+        pattern: ^[A-Z]{6}$
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: ignore_invalid_pairs
+        in: query
+        required: false
+        type: boolean
+        description: Ignore the validation of currency pairs.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/RatesBasic'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: currency_pair_is_too_long
+            category: currency_pair
+            message: currency_pair can not be longer than 2450 character(s)
+            params: '{ "maxlength" => 2450 }'
+          - code: currency_pair_is_too_short
+            category: currency_pair
+            message: currency_pair can not be shorter than 6 letter(s)
+            params: '{ "minlength" => 6 }'
+          - code: currency_pair_is_required
+            category: currency_pair
+            message: currency_pair is required
+            params: ''
+          - code: invalid_currency_pair
+            category: currency_pair
+            message: Invalid currency pair
+            params: '{ "currency_pair" => ["AAABBB"] }'
+          - code: ignore_invalid_pairs_type_is_wrong
+            category: currency_pair
+            message: ignore_invalid_pairs should be of boolean type
+            params: '{ "ignore_invalid_pairs": "not_true" }'
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          schema:
+            $ref: '#/definitions/GetBasicRatesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+  /rates/detailed:
+    get:
+      tags:
+      - Rates
+      x-api-group: convert
+      summary: Get Detailed Rates
+      description: Gets a detailed, tradeable rate quote to convert money from one currency to another. The quotation provided will be based on the spread table of the authenticated user. There is also the option to provide a specific date for the conversion to occur. <br><br> This endpoint provides a current tradeable rate for a single currency pair. It should be used as the start of the flow before a conversion is booked. This endpoint should be used where accuracy is the most important aspect, such as when a trade is about to be booked.
+      operationId: GetDetailedRates
+      produces:
+      - application/json
+      parameters:
+      - name: X-Auth-Token
+        in: header
+        required: true
+        type: string
+        description: Authentication token
+        minLength: 32
+      - name: buy_currency
+        in: query
+        required: true
+        type: string
+        description: Currency purchased - three-letter ISO code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: sell_currency
+        in: query
+        required: true
+        type: string
+        description: Currency sold - three-letter ISO code.
+        format: iso-4217
+        pattern: ^[A-Z]{3}$
+      - name: fixed_side
+        in: query
+        required: true
+        type: string
+        enum:
+        - buy
+        - sell
+        description: Fix the buy or sell currency.
+      - name: amount
+        in: query
+        required: true
+        type: string
+        description: Amount of the fixed buy or sell currency.
+        pattern: ^\d+(\.\d{1,3})?$
+      - name: on_behalf_of
+        in: query
+        required: false
+        type: string
+        description: A contact UUID for the sub-account you're acting on behalf of.
+        format: uuid
+      - name: conversion_date
+        in: query
+        required: false
+        type: string
+        format: date
+        description: Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.
+      - name: conversion_date_preference
+        in: query
+        required: false
+        type: string
+        enum:
+        - default
+        - earliest
+        - next_day
+        - optimize_liquidity
+        description: Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href="https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href="https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ">APAC restricted currencies</a>, and T+1 or T+2 for all others.
+      responses:
+        '200':
+          description: Success.
+          schema:
+            $ref: '#/definitions/RateDetailed'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '400':
+          description: Client error.
+          x-errors:
+          - code: unique_value_parameters
+            category: base
+            message: 'Following parameters should not have same values: sell_currency, buy_currency'
+            params: '{ "parameters" => "sell_currency, buy_currency" }'
+          - code: rate_could_not_be_retrieved
+            category: base
+            message: Rate could not be retrieved
+            params: ''
+          - code: ccy_pair_is_not_tradeable
+            category: base
+            message: Given currency pair is not tradeable
+            params: ''
+          - code: fixed_side_not_in_range
+            category: fixed_side
+            message: 'fixed_side should be in range: sell, buy'
+            params: '{ "range" => "sell, buy" }'
+          - code: fixed_side_is_required
+            category: fixed_side
+            message: fixed_side is required
+            params: ''
+          - code: conversion_date_type_is_wrong
+            category: conversion_date
+            message: conversion_date should be of date type
+            params: '{ "type" => "date" }'
+          - code: invalid_delivery_date
+            category: conversion_date
+            message: The delivery date you have requested cannot be met for this currency pair
+            params: ''
+          - code: sell_currency_is_in_invalid_format
+            category: sell_currency
+            message: sell_currency is in invalid format
+            params: ''
+          - code: sell_currency_is_required
+            category: sell_currency
+            message: sell_currency is required
+            params: ''
+          - code: currency_pair_not_available_for_weekend
+            category: currency_pair_not_available_for_weekend
+            message: Currency pair is not available for weekend
+            params: ''
+          - code: amount_type_is_wrong
+            category: amount
+            message: amount should be of numeric type
+            params: '{ "type" => "numeric" }'
+          - code: amount_is_required
+            category: amount
+            message: amount is required
+            params: ''
+          - code: amount_is_too_small
+            category: amount
+            message: amount can not be smaller than 1
+            params: '{ "minvalue" => 1 }'
+          - code: buy_currency_is_in_invalid_format
+            category: buy_currency
+            message: buy_currency is in invalid format
+            params: ''
+          - code: buy_currency_is_required
+            category: buy_currency
+            message: buy_currency is required
+            params: ''
+          - code: on_behalf_of_self
+            category: on_behalf_of
+            message: You cannot act on behalf of your own Contact
+            params: ''
+          - code: contact_not_found
+            category: on_behalf_of
+            message: Contact was not found for this id
+            params: ''
+          - code: amount_is_in_invalid_format
+            category: amount
+            message: amount should be of numeric type with 2 dp
+            params: '{ "type" => "numeric_with_precision", "precision" => 2 }'
+          - code: invalid_conversion_date_combination
+            category: base
+            message: conversion_date_preference can not be specified along side a date parameter
+            params: ''
+          - code: invalid_conversion_date_preference
+            category: base
+            message: not a valid conversion date preference, possible options are earliest, optimize_liquidity, default, next_day
+            params: ''
+          schema:
+            $ref: '#/definitions/GetDetailedRatesError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '401':
+          description: Unauthorized.
+          x-errors:
+          - code: invalid_supplied_credentials
+            category: username
+            message: Authentication failed with the supplied credentials
+            params: ''
+          schema:
+            $ref: '#/definitions/UnauthorizedError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '404':
+          description: Resource not found.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '429':
+          description: Too many requests.
+          x-errors:
+          - code: too_many_requests
+            category: base
+            message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+            params: ''
+          schema:
+            $ref: '#/definitions/RateLimitError'
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '500':
+          description: Internal server error
+          x-errors:
+          - code: internal_server_error
+            category: base
+            message: Internal server error
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        '503':
+          description: Service is temporary unavailable
+          x-errors:
+          - code: service_unavailable
+            category: base
+            message: Service is temporarily unavailable
+            params: ''
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+        default:
+          description: Unexpected error.
+          headers:
+            X-Request-Id:
+              type: string
+              description: A unique reference for the request.
+components:
+  securitySchemes:
+    AuthToken:
+      type: apiKey
+      in: header
+      name: X-Auth-Token
+definitions:
+  GetDetailedRatesError:
+    type: object
+    description: 'Client error information for the Get Detailed Rates endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  RateLimitError:
+    type: object
+    description: Too many requests.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this validation/error.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  UnauthorizedError:
+    type: object
+    description: Authorization error.
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+        enum:
+        - auth_failed
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+    example:
+      error_code: auth_failed
+      error_messages:
+        api_key:
+        - code: invalid_supplied_credentials
+          message: Authentication failed with the supplied credentials
+          params: {}
+  GetBasicRatesError:
+    type: object
+    description: 'Client error information for the Get Basic Rates endpoint.
+
+      '
+    required:
+    - error_code
+    - error_messages
+    properties:
+      error_code:
+        type: string
+        description: A high-level error code for the whole request.
+      error_messages:
+        type: object
+        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+        additionalProperties:
+          type: array
+          items:
+            type: object
+            description: An object that represents one of the reasons why the input parameter failed.
+            required:
+            - code
+            - message
+            properties:
+              code:
+                type: string
+                description: A unique code that identifies this error. It can be used for translations.
+              message:
+                type: string
+                description: An explanation of the error in English.
+              params:
+                type: object
+                default: {}
+                description: Relevant validation rules that failed. This can be used for translations.
+                example:
+                  minlength: 1
+                  maxlength: 255
+  RatesBasic:
+    properties:
+      rates:
+        type: object
+        description: Maps currency pairs (eg. "EURUSD", "GBPZAR") to rates. The first number is the bid SPOT rate and the second is the ask SPOT rate. For example, in the EURUSD example response, the first number (1.3803) is the EUR->USD rate and the second number (1.3809) is the USD->EUR rate.
+        additionalProperties:
+          type: array
+          items:
+            type: string
+            description: A pair of rates for the currency pair. The first number is the bid SPOT rate and the second is the ask SPOT rate.
+      unavailable:
+        type: array
+        description: A list of valid currency pairs that are not currently available.
+    example:
+      EURUSD:
+      - '1.3803'
+      - '1.3809'
+      GBPZAR:
+      - '17.5271'
+      - '17.5279'
+  RateDetailed:
+    type: object
+    description: Detailed rate information.
+    properties:
+      settlement_cut_off_time:
+        description: The date and time by which funds need to be available to settle the trade, in the format YYYY-MM-DDThh:mm:ssZ
+        type: string
+      currency_pair:
+        description: Concatenated string of the two currencies traded, e.g. "USDEUR".
+        type: string
+      client_buy_currency:
+        description: Three character ISO code for the currency being bought.
+        type: string
+      client_sell_currency:
+        description: Three character ISO code for the currency being sold.
+        type: string
+      client_buy_amount:
+        description: The amount of buy currency for a client.
+        type: string
+      client_sell_amount:
+        description: The amount of sell currency for a client.
+        type: string
+      fixed_side:
+        description: Which currency is fixed -  the buy or sell one.
+        type: string
+        enum:
+        - buy
+        - sell
+      mid_market_rate:
+        description: The mid point between buy and sell rates.
+        type: string
+      core_rate:
+        description: The market rate.
+        type: string
+      partner_rate:
+        description: The market rate + Currencycloud's commission (if applicable).
+        type: string
+      client_rate:
+        description: The rate that will be returned to your customer after all spread has been applied.
+        type: string
+      deposit_required:
+        description: Is a deposit required for the conversion?
+        type: string
+      deposit_amount:
+        description: The amount of a deposit required.
+        type: string
+      deposit_currency:
+        description: Three-letter ISO currency code for the currency the deposit is shown in.
+        type: string
+    example:
+      settlement_cut_off_time: '2023-12-31T23:59:59.000Z'
+      currency_pair: GBPUSD
+      client_buy_currency: GBP
+      client_sell_currency: USD
+      client_buy_amount: '1000.00'
+      client_sell_amount: '1594.90'
+      fixed_side: buy
+      mid_market_rate: '1.5868'
+      core_rate: '1.587'
+      partner_rate: '1.5878'
+      client_rate: '1.5949'
+      deposit_required: 'true'
+      deposit_amount: '316.96'
+      deposit_currency: USD
