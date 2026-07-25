@@ -1,0 +1,20 @@
+generated: '2026-07-18'
+method: generated
+source: openapi/currencycloud-openapi-original.yml
+note: >-
+  Agent Skills generated from the Currencycloud API v2 OpenAPI. Every step is
+  grounded in a verified operationId. No provider-published skills/AGENTS.md
+  were found.
+skills:
+  - file: currencycloud-convert-and-pay.md
+    name: Convert currency and pay a beneficiary
+    api: openapi/currencycloud-openapi-original.yml
+    operations: [Login, GetDetailedRates, CreateConversion, CreateBeneficiary, CreatePayment, GetPaymentTrackingInfo]
+  - file: currencycloud-onboard-subaccount.md
+    name: Onboard a sub-account and contact
+    api: openapi/currencycloud-openapi-original.yml
+    operations: [Login, CreateAccount, CreateContact]
+  - file: currencycloud-check-balances-and-transfer.md
+    name: Check balances and transfer between accounts
+    api: openapi/currencycloud-openapi-original.yml
+    operations: [Login, FindBalances, GetBalance, CreateTransfer]

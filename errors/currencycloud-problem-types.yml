@@ -1,0 +1,31 @@
+generated: '2026-07-18'
+method: derived
+format: currencycloud-error-envelope
+source: openapi/currencycloud-openapi-original.yml
+docs: https://developer.currencycloud.com/api-reference/
+note: HTTP-status-level problem catalog. Currencycloud does not use application/problem+json (RFC 9457); it uses its own {error_code, error_messages} envelope. Per-parameter reason codes are in currencycloud-error-codes.yml.
+problems:
+- status: 400
+  title: Client error / validation failed
+  remediation: Request contained invalid or missing parameters. Inspect error_messages for the offending fields.
+- status: 401
+  title: Authentication failed
+  remediation: auth_token missing, invalid, or expired (tokens expire after 30 minutes of inactivity). Re-authenticate via POST /authenticate/api.
+- status: 403
+  title: Forbidden
+  remediation: Authenticated contact lacks permission for the requested resource or action.
+- status: 404
+  title: Resource not found
+  remediation: The referenced entity id does not exist or is not visible to the authenticated account.
+- status: 422
+  title: Unprocessable entity
+  remediation: Request was well-formed but semantically invalid (e.g. business-rule violation).
+- status: 429
+  title: Too many requests
+  remediation: Rate limit exceeded. Back off (exponential backoff + jitter) and retry after 60 seconds.
+- status: 500
+  title: Internal server error
+  remediation: Unexpected server error. Safe to retry idempotent requests.
+- status: 503
+  title: Service unavailable
+  remediation: Planned maintenance window or temporary outage; check the status page.

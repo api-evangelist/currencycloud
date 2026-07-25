@@ -1,0 +1,37 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.currencycloud.com/guides/platform-specifics/rate-limiting/
+scheme: per-minute, per-client-account, per-resource; bursting allowed within the window
+exceeded_status: 429
+exceeded_error_code: too_many_requests
+retry_after_seconds: 60
+recommended_handling: exponential backoff with random jitter on HTTP 429
+limits:
+- request_type: Authenticate
+  path: /v2/authenticate/api
+  production: 60/min
+  demo: 60/min
+  limit_count: 60
+  window: minute
+- request_type: Rate requests
+  path: /v2/rates/find, /v2/rates/detailed
+  production: 200/min
+  demo: 150/min
+  limit_count: 200
+  window: minute
+- request_type: Account creation
+  path: /v2/accounts/create
+  production: no specific limit
+  demo: 1000/day
+- request_type: All authenticated requests
+  path: /v2/*
+  production: 500/min
+  demo: 150/min
+  limit_count: 500
+  window: minute
+- request_type: All unauthenticated requests
+  path: /v2/*
+  production: 200/min
+  demo: 200/min
+  limit_count: 200
+  window: minute

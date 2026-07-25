@@ -1,0 +1,29 @@
+generated: '2026-07-18'
+method: searched
+note: >-
+  Probed the /.well-known/ discovery surface on the developer, marketing and
+  API hosts on 2026-07-18. No .well-known documents are published (no
+  security.txt, no OIDC/OAuth discovery, no api-catalog, no ai-plugin). Absence
+  is recorded data. Currencycloud uses a login-token (X-Auth-Token) auth model,
+  not OAuth/OIDC, so OIDC/OAuth discovery documents are not expected.
+hosts:
+  - host: https://developer.currencycloud.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+  - host: https://www.currencycloud.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+  - host: https://api.currencycloud.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403

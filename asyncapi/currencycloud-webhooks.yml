@@ -1,0 +1,43 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.currencycloud.com/guides/platform-specifics/push-notifications/
+spec_type: Webhooks
+note: >-
+  Currencycloud publishes Push Notifications (webhooks): on a triggering event
+  it sends an HTTP POST to a configured endpoint. No AsyncAPI document is
+  published; this captures the documented webhook/event surface. Endpoints are
+  configured per-environment via a Currencycloud Solutions Manager (not
+  self-service). Delivery is retried up to 5 times with exponential backoff
+  (1, 2, 4, 8, 16 seconds) before being marked Failed.
+security:
+  scheme: HMAC
+  description: >-
+    A Hash-based Message Authentication Code (HMAC) is appended to each
+    notification so recipients can verify integrity and origin.
+  hmac_key_operation: POST /v2/contacts/generate_hmac_key
+  verification_docs: https://support.currencycloud.com/hc/en-gb/articles/360018656600-Push-Notifications-Message-Verification-HMAC-FAQ
+versioning:
+  introduced: '2021-07'
+  behaviour: >-
+    Notification types are versioned; by default the most recent version of a
+    notification type is delivered. Deprecations are announced with upgrade
+    guidance.
+delivery:
+  transport: HTTP POST to configured webhook URL
+  retries: 5
+  backoff_seconds: [1, 2, 4, 8, 16]
+  on_exhaustion: marked Failed (manual re-send via Solutions Manager)
+event_families:
+  - entity: Payment
+    description: Status changes across the payment lifecycle trigger notifications.
+  - entity: Conversion
+    description: Status changes across the conversion lifecycle trigger notifications.
+  - entity: Transfer
+    description: Status changes across the transfer lifecycle trigger notifications.
+  - entity: Funding transaction
+    description: Inbound funding transaction details trigger notifications.
+  - entity: Onboarding
+    description: Onboarding-related events (account/contact onboarding) trigger notifications.
+configuration:
+  self_service: false
+  contact: https://www.currencycloud.com/contact/technical-support/

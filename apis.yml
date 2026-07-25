@@ -1,8 +1,17 @@
 aid: currencycloud
 name: Currencycloud
-description: 'Currencycloud is a company surfaced as a portfolio company of anthemis, gv, sapphire-ventures
-  and added to the API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a
-  lead awaiting the enrichment pipeline.'
+description: >-
+  Currencycloud is a cross-border payments and foreign-exchange platform, part
+  of Visa, that provides a robust, predictable REST API for converting money
+  between currencies, holding multi-currency balances, and making payments
+  around the world. Its API v2 spans 18 domains — authentication, accounts and
+  sub-accounts, balances, beneficiaries, contacts, conversions, funding,
+  payers, payments, quotes, rates, reference data, reporting, transactions,
+  transfers and withdrawal accounts — and lets businesses dynamically register
+  sub-accounts to offer white-labelled money-transfer services to their own
+  customers. Currencycloud is an FCA-authorised Electronic Money Institution
+  (registration #900199) and a FinCEN-registered money transmitter, and
+  publishes official SDKs for JavaScript, Python, Ruby, PHP, Java and .NET.
 url: https://raw.githubusercontent.com/api-evangelist/currencycloud/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -12,18 +21,455 @@ x-backed-by:
 - sapphire-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-18'
+image: https://raw.githubusercontent.com/CurrencyCloud/currencycloud-swagger/master/apps/website/public/images/introduction-header.png
 tags:
 - Company
 - Fintech
-apis: []
+- Payments
+- Foreign Exchange
+- Cross-Border Payments
+- Money Transfer
+- Currency Conversion
+- Banking
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+apis:
+- aid: currencycloud:currencycloud-account-usage-api
+  name: Currencycloud Account Usage API
+  description: The Account Usage API from Currencycloud — 1 operation(s) for account usage.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Account Usage
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-account-usage-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-accounts-api
+  name: Currencycloud Accounts API
+  description: >-
+    Create, search and update your Currencycloud account and any associated sub-accounts. Also provides
+    you with the ability to use your own reference IDs for easy reconciliation with your internal systems.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-accounts-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-authenticate-api
+  name: Currencycloud Authenticate API
+  description: >-
+    Authenticate to gain access to the API. Log in to your Currencycloud account using your API Key and
+    log out to terminate your session.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Authenticate
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-authenticate-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-balances-api
+  name: Currencycloud Balances API
+  description: >-
+    Provides access to view balance information. View the balances that you currently hold in different
+    currencies on your Currencycloud account.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Balances
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-balances-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-beneficiaries-api
+  name: Currencycloud Beneficiaries API
+  description: >-
+    Create, search and manage the list of individuals or companies that you send payments to.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Beneficiaries
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-beneficiaries-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-business-information-api
+  name: Currencycloud Business Information API
+  description: >-
+    The Business Information API from Currencycloud — 1 operation(s) for business information.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Business Information
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-business-information-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-contacts-api
+  name: Currencycloud Contacts API
+  description: >-
+    Create, search and manage the list of users that have access in your Currencycloud account or associated
+    sub-accounts.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-contacts-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-conversions-api
+  name: Currencycloud Conversions API
+  description: >-
+    Find, retrieve and create a live currency conversion. You can also create and manage the live conversion
+    of funds between two currencies.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Conversions
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-conversions-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-country-api
+  name: Currencycloud Country API
+  description: The Country API from Currencycloud — 2 operation(s) for country.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Country
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-country-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-currency-api
+  name: Currencycloud Currency API
+  description: The Currency API from Currencycloud — 1 operation(s) for currency.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Currency
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-currency-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-demo-api
+  name: Currencycloud Demo API
+  description: Requests that are only available in the Demo environment.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Demo
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-demo-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-document-images-api
+  name: Currencycloud Document Images API
+  description: The Document Images API from Currencycloud — 2 operation(s) for document images.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Document Images
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-document-images-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-documents-api
+  name: Currencycloud Documents API
+  description: The Documents API from Currencycloud — 2 operation(s) for documents.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Documents
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-documents-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-form-api
+  name: Currencycloud Form API
+  description: The Form API from Currencycloud — 3 operation(s) for form.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Form
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-form-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-funding-api
+  name: Currencycloud Funding API
+  description: >-
+    Find funding accounts that can be used to settle and collect funds in each available currency.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Funding
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-funding-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-payers-api
+  name: Currencycloud Payers API
+  description: >-
+    View information relating to the 'payer' for a payment that has been initiated through the platform.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Payers
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-payers-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-payments-api
+  name: Currencycloud Payments API
+  description: >-
+    Create, search, manage and action all of your domestic and international payments through this API.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Payments
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-payments-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-people-api
+  name: Currencycloud People API
+  description: The People API from Currencycloud — 2 operation(s) for people.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - People
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-people-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-quotes-api
+  name: Currencycloud Quotes API
+  description: Create new quotes to use for held rates conversions.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Quotes
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-quotes-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-rates-api
+  name: Currencycloud Rates API
+  description: >-
+    Super fast real-time access to live foreign exchange rates through the Currencycloud platform.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-rates-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-reference-api
+  name: Currencycloud Reference API
+  description: >-
+    Easy access to view important data relevant to your Currencycloud account including beneficiary details,
+    conversion dates, available currencies, payer required details, payment dates and settlement details.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-reference-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-reporting-api
+  name: Currencycloud Reporting API
+  description: Ability to create and retrieve reports.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-reporting-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-sender-api
+  name: Currencycloud Sender API
+  description: Sender of funds.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Sender
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-sender-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-transaction-approval-api
+  name: Currencycloud Transaction Approval API
+  description: >-
+    The Transaction Approval API from Currencycloud — 1 operation(s) for transaction approval.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Transaction Approval
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-transaction-approval-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-transactions-api
+  name: Currencycloud Transactions API
+  description: >-
+    View balances and all pending and completed transactions in your Currencycloud account, as well as
+    associated sub-account balances and transactions.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Transactions
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-transactions-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-transfers-api
+  name: Currencycloud Transfers API
+  description: >-
+    Search, retrieve and create a transfer of funds between your Currencycloud account and associated
+    sub-accounts.
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Transfers
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-transfers-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
+- aid: currencycloud:currencycloud-withdrawal-accounts-api
+  name: Currencycloud Withdrawal Accounts API
+  description: Manage withdrawal accounts
+  humanURL: https://developer.currencycloud.com/api-reference/
+  baseURL: https://api.currencycloud.com/v2
+  tags:
+  - Withdrawal Accounts
+  properties:
+  - type: OpenAPI
+    url: openapi/currencycloud-withdrawal-accounts-api-openapi.yml
+  - type: Sandbox
+    url: sandbox/currencycloud-sandbox.yml
 common:
+- type: DeveloperPortal
+  url: https://developer.currencycloud.com/
+- type: Documentation
+  url: https://developer.currencycloud.com/
+- type: APIReference
+  url: https://developer.currencycloud.com/api-reference/
+- type: GettingStarted
+  url: https://developer.currencycloud.com/guides/getting-started/getting-started-with-the-api/
+- type: Authentication
+  url: authentication/currencycloud-authentication.yml
+- type: SignUp
+  url: https://developer.currencycloud.com/register-for-an-api-key/
+- type: Support
+  url: https://support.currencycloud.com/hc/
+- type: TermsOfService
+  url: https://www.currencycloud.com/legal/terms
+- type: PrivacyPolicy
+  url: https://www.visa.co.uk/legal/global-privacy-notice.html
+- type: GitHubOrganization
+  url: https://github.com/CurrencyCloud
+- type: StatusPage
+  url: https://status.currencycloud.com/
+- type: Deprecation
+  url: https://developer.currencycloud.com/guides/platform-specifics/deprecation-policy/
+- type: Postman
+  url: https://github.com/CurrencyCloud/postman
+- type: SDKs
+  url: packages/currencycloud-packages.yml
+- type: Packages
+  url: packages/currencycloud-packages.yml
+- type: MCPServer
+  url: mcp/currencycloud-mcp.yml
+- type: LLMsTxt
+  url: llms/currencycloud-llms.txt
+- type: WellKnown
+  url: well-known/currencycloud-well-known.yml
+- type: Conformance
+  url: conformance/currencycloud-conformance.yml
+- type: Compliance
+  url: security/currencycloud-trust-center.yml
+- type: TrustCenter
+  url: security/currencycloud-trust-center.yml
+- type: ErrorCatalog
+  url: errors/currencycloud-error-codes.yml
+- type: Lifecycle
+  url: lifecycle/currencycloud-lifecycle.yml
+- type: ChangeLog
+  url: changelog/currencycloud-changelog.yml
+- type: RateLimits
+  url: rate-limits/currencycloud-rate-limits.yml
+- type: Conventions
+  url: conventions/currencycloud-conventions.yml
+- type: Idempotency
+  url: conventions/currencycloud-conventions.yml
+- type: DataModel
+  url: data-model/currencycloud-data-model.yml
+- type: Webhooks
+  url: asyncapi/currencycloud-webhooks.yml
+- type: Sandbox
+  url: sandbox/currencycloud-sandbox.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: AgenticAccess
+  url: agentic-access/currencycloud-agentic-access.yml
+- type: DomainSecurity
+  url: security/currencycloud-domain-security.yml
 - type: Website
-  url: http://currencycloud.com
+  url: https://www.currencycloud.com
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

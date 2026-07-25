@@ -1,0 +1,39 @@
+generated: '2026-07-18'
+method: searched
+source: https://developer.currencycloud.com/guides/getting-started/getting-started-with-the-api/
+docs:
+  - https://developer.currencycloud.com/guides/getting-started/getting-started-with-the-api/
+  - https://developer.currencycloud.com/guides/platform-specifics/rate-limiting/
+  - https://developer.currencycloud.com/register-for-an-api-key/
+note: >-
+  Currencycloud publishes a Demo environment connected to its test
+  infrastructure. It returns real data but executes trades in a 'demo' market
+  and does not execute real payments. Credentials are per-developer (register
+  for an API key); no shared/public test credentials are published, so none are
+  recorded here. NEVER invent test credentials.
+environments:
+  - name: Demo
+    base_url: https://devapi.currencycloud.com/v2
+    host: devapi.currencycloud.com
+    executes_real_payments: false
+    description: Connected to test infrastructure; returns real data, trades on a demo market.
+  - name: Production
+    base_url: https://api.currencycloud.com/v2
+    host: api.currencycloud.com
+    executes_real_payments: true
+test_helpers:
+  - name: Demo funding
+    operation: CreateSimulateFunding
+    method: POST
+    path: /demo/funding/create
+    description: >-
+      Demo-only endpoint to simulate an inbound funding transaction so demo
+      accounts can be funded and downstream flows (conversions, payments)
+      exercised. Available on the demo environment only.
+credentials:
+  model: per-developer
+  how_to_obtain: https://developer.currencycloud.com/register-for-an-api-key/
+  login_flow: >-
+    POST /v2/authenticate/api with form-data login_id + api_key returns
+    { auth_token }, then pass X-Auth-Token on subsequent calls. Tokens expire
+    after 30 minutes of inactivity.

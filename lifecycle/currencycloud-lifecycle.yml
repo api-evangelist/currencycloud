@@ -1,0 +1,24 @@
+generated: '2026-07-18'
+method: searched
+source:
+  - https://developer.currencycloud.com/guides/platform-specifics/deprecation-policy/
+  - https://developer.currencycloud.com/guides/platform-specifics/maintenance-windows/
+  - https://status.currencycloud.com/
+versioning:
+  scheme: uri-path
+  current: v2
+  spec_version: 2.43.0
+  docs: https://developer.currencycloud.com/api-reference/
+deprecation:
+  policy_url: https://developer.currencycloud.com/guides/platform-specifics/deprecation-policy/
+  removal_period: 3 months from announcement (may be shorter for security-driven deprecations)
+  security_fixes_continue: true
+status_page: https://status.currencycloud.com/
+maintenance:
+  docs: https://developer.currencycloud.com/guides/platform-specifics/maintenance-windows/
+  signal: HTTP 503 service_unavailable during maintenance windows; announced on the status page
+deprecated_operations: []
+note: >-
+  No operations are marked deprecated in the OpenAPI (v2.43.0). Deprecation
+  policy: features are marked deprecated and removed 3 months after
+  announcement, with security fixes continuing during that window.

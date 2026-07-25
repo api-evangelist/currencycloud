@@ -1,0 +1,52 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/CurrencyCloud
+note: >-
+  Official first-party client libraries maintained under the CurrencyCloud
+  GitHub organization, verified against each public package registry on
+  2026-07-18. All wrap the Currencycloud API v2.
+packages:
+  - language: javascript
+    registry: npm
+    name: currency-cloud
+    url: https://www.npmjs.com/package/currency-cloud
+    repo: https://github.com/CurrencyCloud/currencycloud-js
+    install: npm install currency-cloud
+    version: 8.3.0
+    official: true
+  - language: python
+    registry: pypi
+    name: currencycloud
+    url: https://pypi.org/project/currencycloud/
+    repo: https://github.com/CurrencyCloud/currencycloud-python
+    install: pip install currencycloud
+    version: 0.7.0
+    official: true
+  - language: ruby
+    registry: rubygems
+    name: currency_cloud
+    url: https://rubygems.org/gems/currency_cloud
+    repo: https://github.com/CurrencyCloud/currencycloud-ruby
+    install: gem install currency_cloud
+    official: true
+  - language: php
+    registry: packagist
+    name: currency-cloud/client
+    url: https://packagist.org/packages/currency-cloud/client
+    repo: https://github.com/CurrencyCloud/currencycloud-php
+    install: composer require currency-cloud/client
+    official: true
+  - language: java
+    registry: maven
+    name: com.currencycloud.currencycloud-java:currencycloud-java
+    url: https://central.sonatype.com/artifact/com.currencycloud.currencycloud-java/currencycloud-java
+    repo: https://github.com/CurrencyCloud/currencycloud-java
+    official: true
+  - language: dotnet
+    registry: nuget
+    name: CurrencyCloud
+    url: https://www.nuget.org/packages/CurrencyCloud/
+    repo: https://github.com/CurrencyCloud/currencycloud-net
+    install: dotnet add package CurrencyCloud
+    version: 9.5.0
+    official: true

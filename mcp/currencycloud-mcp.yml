@@ -1,0 +1,435 @@
+generated: '2026-07-18'
+method: derived
+status: candidate
+source: openapi/currencycloud-openapi-original.yml
+note: No official Currencycloud MCP server was found (searched docs, npm @modelcontextprotocol, MCP registries as of 2026-07-18). This is a candidate tool list derived one-to-one from the OpenAPI operations, to seed a future MCP server.
+server:
+  name: currencycloud
+  transport: stdio
+tool_count: 85
+tools:
+- name: Login
+  description: Login
+  source_operation: openapi/currencycloud-openapi-original.yml#Login
+  method: POST
+  path: /authenticate/api
+- name: Logout
+  description: Logout
+  source_operation: openapi/currencycloud-openapi-original.yml#Logout
+  method: POST
+  path: /authenticate/close_session
+- name: CreateAccount
+  description: Create Account
+  source_operation: openapi/currencycloud-openapi-original.yml#CreateAccount
+  method: POST
+  path: /accounts/create
+- name: GetAccount
+  description: Get Account
+  source_operation: openapi/currencycloud-openapi-original.yml#GetAccount
+  method: GET
+  path: /accounts/{id}
+- name: UpdateAccount
+  description: Update Account
+  source_operation: openapi/currencycloud-openapi-original.yml#UpdateAccount
+  method: POST
+  path: /accounts/{id}
+- name: GetAccountComplianceSettings
+  description: Get Account's Compliance Settings
+  source_operation: openapi/currencycloud-openapi-original.yml#GetAccountComplianceSettings
+  method: GET
+  path: /accounts/{id}/compliance_settings
+- name: UpdateAccountComplianceSettings
+  description: Update Account's Compliance Settings
+  source_operation: openapi/currencycloud-openapi-original.yml#UpdateAccountComplianceSettings
+  method: POST
+  path: /accounts/{id}/compliance_settings
+- name: GetAuthenticatingAccount
+  description: Get Authenticating Account
+  source_operation: openapi/currencycloud-openapi-original.yml#GetAuthenticatingAccount
+  method: GET
+  path: /accounts/current
+- name: FindAccountsPost
+  description: Find Accounts
+  source_operation: openapi/currencycloud-openapi-original.yml#FindAccountsPost
+  method: POST
+  path: /accounts/find
+- name: GetAccountPaymentChargesSettings
+  description: Get Payment Charges Settings
+  source_operation: openapi/currencycloud-openapi-original.yml#GetAccountPaymentChargesSettings
+  method: GET
+  path: /accounts/{account_id}/payment_charges_settings
+- name: ManageAccountPaymentChargesSettings
+  description: Manage Account Payment Charges Settings
+  source_operation: openapi/currencycloud-openapi-original.yml#ManageAccountPaymentChargesSettings
+  method: POST
+  path: /accounts/{account_id}/payment_charges_settings/{charge_settings_id}
+- name: post_terms_and_conditions_accept
+  description: Accept Terms of Use
+  source_operation: openapi/currencycloud-openapi-original.yml#post_terms_and_conditions_accept
+  method: POST
+  path: /terms_and_conditions/accept
+- name: GetBalance
+  description: Get Balance
+  source_operation: openapi/currencycloud-openapi-original.yml#GetBalance
+  method: GET
+  path: /balances/{currency}
+- name: FindBalances
+  description: Find Balances
+  source_operation: openapi/currencycloud-openapi-original.yml#FindBalances
+  method: GET
+  path: /balances/find
+- name: TopUpMarginBalance
+  description: Top Up Margin Balance
+  source_operation: openapi/currencycloud-openapi-original.yml#TopUpMarginBalance
+  method: POST
+  path: /balances/top_up_margin
+- name: FindBeneficiariesPost
+  description: Find Beneficiaries
+  source_operation: openapi/currencycloud-openapi-original.yml#FindBeneficiariesPost
+  method: POST
+  path: /beneficiaries/find
+- name: GetBeneficiary
+  description: Get Beneficiary
+  source_operation: openapi/currencycloud-openapi-original.yml#GetBeneficiary
+  method: GET
+  path: /beneficiaries/{id}
+- name: UpdateBeneficiary
+  description: Update Beneficiary
+  source_operation: openapi/currencycloud-openapi-original.yml#UpdateBeneficiary
+  method: POST
+  path: /beneficiaries/{id}
+- name: CreateBeneficiary
+  description: Create Beneficiary
+  source_operation: openapi/currencycloud-openapi-original.yml#CreateBeneficiary
+  method: POST
+  path: /beneficiaries/create
+- name: DeleteBeneficiary
+  description: Delete Beneficiary
+  source_operation: openapi/currencycloud-openapi-original.yml#DeleteBeneficiary
+  method: POST
+  path: /beneficiaries/{id}/delete
+- name: ValidateBeneficiary
+  description: Validate Beneficiary
+  source_operation: openapi/currencycloud-openapi-original.yml#ValidateBeneficiary
+  method: POST
+  path: /beneficiaries/validate
+- name: BeneficiaryAccountVerification
+  description: Verify Beneficiary Account
+  source_operation: openapi/currencycloud-openapi-original.yml#BeneficiaryAccountVerification
+  method: POST
+  path: /beneficiaries/account_verification
+- name: GetAuthenticatingContact
+  description: Get Authenticating Contact
+  source_operation: openapi/currencycloud-openapi-original.yml#GetAuthenticatingContact
+  method: GET
+  path: /contacts/current
+- name: FindContactsPost
+  description: Find Contacts
+  source_operation: openapi/currencycloud-openapi-original.yml#FindContactsPost
+  method: POST
+  path: /contacts/find
+- name: GetContact
+  description: Get Contact
+  source_operation: openapi/currencycloud-openapi-original.yml#GetContact
+  method: GET
+  path: /contacts/{id}
+- name: UpdateContact
+  description: Update Contact
+  source_operation: openapi/currencycloud-openapi-original.yml#UpdateContact
+  method: POST
+  path: /contacts/{id}
+- name: CreateContact
+  description: Create Contact
+  source_operation: openapi/currencycloud-openapi-original.yml#CreateContact
+  method: POST
+  path: /contacts/create
+- name: GenrateHMACKey
+  description: Generate HMAC Key for Contact
+  source_operation: openapi/currencycloud-openapi-original.yml#GenrateHMACKey
+  method: POST
+  path: /contacts/generate_hmac_key
+- name: CreateConversion
+  description: Create Conversion
+  source_operation: openapi/currencycloud-openapi-original.yml#CreateConversion
+  method: POST
+  path: /conversions/create
+- name: GetConversion
+  description: Get Conversion
+  source_operation: openapi/currencycloud-openapi-original.yml#GetConversion
+  method: GET
+  path: /conversions/{id}
+- name: FindConversions
+  description: Find Conversions
+  source_operation: openapi/currencycloud-openapi-original.yml#FindConversions
+  method: GET
+  path: /conversions/find
+- name: ConversionCancellationQuote
+  description: Quote Conversion Cancellation
+  source_operation: openapi/currencycloud-openapi-original.yml#ConversionCancellationQuote
+  method: GET
+  path: /conversions/{id}/cancellation_quote
+- name: CancelConversion
+  description: Cancel a Conversion
+  source_operation: openapi/currencycloud-openapi-original.yml#CancelConversion
+  method: POST
+  path: /conversions/{id}/cancel
+- name: ConversionDateChangeQuote
+  description: Quote Conversion Date Change
+  source_operation: openapi/currencycloud-openapi-original.yml#ConversionDateChangeQuote
+  method: GET
+  path: /conversions/{id}/date_change_quote
+- name: ConversionDateChange
+  description: Conversion Date Change
+  source_operation: openapi/currencycloud-openapi-original.yml#ConversionDateChange
+  method: POST
+  path: /conversions/{id}/date_change
+- name: ConversionProfitAndLoss
+  description: Retrieve Profit / Loss
+  source_operation: openapi/currencycloud-openapi-original.yml#ConversionProfitAndLoss
+  method: GET
+  path: /conversions/profit_and_loss
+- name: GetConversionSplitPreview
+  description: Split Preview
+  source_operation: openapi/currencycloud-openapi-original.yml#GetConversionSplitPreview
+  method: GET
+  path: /conversions/{id}/split_preview
+- name: SplitConversion
+  description: Conversion Split
+  source_operation: openapi/currencycloud-openapi-original.yml#SplitConversion
+  method: POST
+  path: /conversions/{id}/split
+- name: GetConversionSplitHistory
+  description: Conversion Split History
+  source_operation: openapi/currencycloud-openapi-original.yml#GetConversionSplitHistory
+  method: GET
+  path: /conversions/{id}/split_history
+- name: FindFundingAccounts
+  description: Find Funding Accounts
+  source_operation: openapi/currencycloud-openapi-original.yml#FindFundingAccounts
+  method: GET
+  path: /funding_accounts/find
+- name: GetFundingTransaction
+  description: Get Funding Transaction
+  source_operation: openapi/currencycloud-openapi-original.yml#GetFundingTransaction
+  method: GET
+  path: /funding_transactions/{id}
+- name: CreatePayment
+  description: Create Payment
+  source_operation: openapi/currencycloud-openapi-original.yml#CreatePayment
+  method: POST
+  path: /payments/create
+- name: FindPayments
+  description: Find Payments
+  source_operation: openapi/currencycloud-openapi-original.yml#FindPayments
+  method: GET
+  path: /payments/find
+- name: GetPayment
+  description: Get Payment
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPayment
+  method: GET
+  path: /payments/{id}
+- name: UpdatePayment
+  description: Update Payment
+  source_operation: openapi/currencycloud-openapi-original.yml#UpdatePayment
+  method: POST
+  path: /payments/{id}
+- name: GetPaymentConfirmation
+  description: Get Payment Confirmation
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPaymentConfirmation
+  method: GET
+  path: /payments/{id}/confirmation
+- name: GetNewPaymentSubmission
+  description: Get Payment Submission Information
+  source_operation: openapi/currencycloud-openapi-original.yml#GetNewPaymentSubmission
+  method: GET
+  path: /payments/{id}/submission_info
+- name: AuthorisePayment
+  description: Authorise Payment
+  source_operation: openapi/currencycloud-openapi-original.yml#AuthorisePayment
+  method: POST
+  path: /payments/authorise
+- name: DeletePayment
+  description: Delete Payment
+  source_operation: openapi/currencycloud-openapi-original.yml#DeletePayment
+  method: POST
+  path: /payments/{id}/delete
+- name: GetPaymentTrackingInfo
+  description: Get Payment Tracking Information
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPaymentTrackingInfo
+  method: GET
+  path: /payments/{id}/tracking_info
+- name: PaymentsAssignPaymentFee
+  description: Assign Payment Fee
+  source_operation: openapi/currencycloud-openapi-original.yml#PaymentsAssignPaymentFee
+  method: POST
+  path: /payments/assign_payment_fee
+- name: GetPaymentDeliveryDate
+  description: Get Payment Delivery Date
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPaymentDeliveryDate
+  method: GET
+  path: /payments/payment_delivery_date
+- name: GetPaymentPaymentFees
+  description: Get Payment Fees
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPaymentPaymentFees
+  method: GET
+  path: /payments/payment_fees
+- name: GetQuotePaymentFee
+  description: Get Quote Payment Fee
+  source_operation: openapi/currencycloud-openapi-original.yml#GetQuotePaymentFee
+  method: GET
+  path: /payments/quote_payment_fee
+- name: PaymentsUnassignPaymentFee
+  description: Unassign Payment Fee
+  source_operation: openapi/currencycloud-openapi-original.yml#PaymentsUnassignPaymentFee
+  method: POST
+  path: /payments/unassign_payment_fee
+- name: ValidatePayment
+  description: Validate Payment
+  source_operation: openapi/currencycloud-openapi-original.yml#ValidatePayment
+  method: POST
+  path: /payments/validate
+- name: PaymentsRetryNotifications
+  description: Resend Payment Notification
+  source_operation: openapi/currencycloud-openapi-original.yml#PaymentsRetryNotifications
+  method: POST
+  path: /payments/{id}/notifications/retry
+- name: GetPayer
+  description: Get Payer
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPayer
+  method: GET
+  path: /payers/{id}
+- name: GetBasicRates
+  description: Get Basic Rates
+  source_operation: openapi/currencycloud-openapi-original.yml#GetBasicRates
+  method: GET
+  path: /rates/find
+- name: CreateQuoteConversion
+  description: Create Held Rate Quote
+  source_operation: openapi/currencycloud-openapi-original.yml#CreateQuoteConversion
+  method: POST
+  path: /quotes/create
+- name: GetDetailedRates
+  description: Get Detailed Rates
+  source_operation: openapi/currencycloud-openapi-original.yml#GetDetailedRates
+  method: GET
+  path: /rates/detailed
+- name: FinfBankDetailsPost
+  description: Find Bank Details
+  source_operation: openapi/currencycloud-openapi-original.yml#FinfBankDetailsPost
+  method: POST
+  path: /reference/bank_details/find
+- name: GetBeneficiaryRequirements
+  description: Get Beneficiary Requirements
+  source_operation: openapi/currencycloud-openapi-original.yml#GetBeneficiaryRequirements
+  method: GET
+  path: /reference/beneficiary_required_details
+- name: GetConversionDates
+  description: Get Conversion Dates
+  source_operation: openapi/currencycloud-openapi-original.yml#GetConversionDates
+  method: GET
+  path: /reference/conversion_dates
+- name: GetAvailableCurrencies
+  description: Get Available Currencies
+  source_operation: openapi/currencycloud-openapi-original.yml#GetAvailableCurrencies
+  method: GET
+  path: /reference/currencies
+- name: GetPayerRequirements
+  description: Get Payer Requirements
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPayerRequirements
+  method: GET
+  path: /reference/payer_required_details
+- name: GetPaymentDates
+  description: Get Payment Dates
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPaymentDates
+  method: GET
+  path: /reference/payment_dates
+- name: GetPaymentFeeRules
+  description: Get Payment Fee Rules
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPaymentFeeRules
+  method: GET
+  path: /reference/payment_fee_rules
+- name: GetPaymentPurposeCodes
+  description: Get Payment Purpose Codes
+  source_operation: openapi/currencycloud-openapi-original.yml#GetPaymentPurposeCodes
+  method: GET
+  path: /reference/payment_purpose_codes
+- name: GetSettlementAccounts
+  description: Get Settlement Accounts
+  source_operation: openapi/currencycloud-openapi-original.yml#GetSettlementAccounts
+  method: GET
+  path: /reference/settlement_accounts
+- name: GenerateConversionReport
+  description: Generate Conversion Report
+  source_operation: openapi/currencycloud-openapi-original.yml#GenerateConversionReport
+  method: POST
+  path: /reports/conversions/create
+- name: GeneratePaymentReport
+  description: Generate Payment Report
+  source_operation: openapi/currencycloud-openapi-original.yml#GeneratePaymentReport
+  method: POST
+  path: /reports/payments/create
+- name: Find Report Requests
+  description: Find Report Requests
+  source_operation: openapi/currencycloud-openapi-original.yml#Find Report Requests
+  method: GET
+  path: /reports/report_requests/find
+- name: Retrieve a Report Request
+  description: Retrieves a Report Request with the given ID
+  source_operation: openapi/currencycloud-openapi-original.yml#Retrieve a Report Request
+  method: GET
+  path: /reports/report_requests/{id}
+- name: GetSenderDetails
+  description: Get Sender Details
+  source_operation: openapi/currencycloud-openapi-original.yml#GetSenderDetails
+  method: GET
+  path: /transactions/sender/{id}
+- name: FindTransactions
+  description: Find Transactions
+  source_operation: openapi/currencycloud-openapi-original.yml#FindTransactions
+  method: GET
+  path: /transactions/find
+- name: GetTransaction
+  description: Get Transaction
+  source_operation: openapi/currencycloud-openapi-original.yml#GetTransaction
+  method: GET
+  path: /transactions/{id}
+- name: CreateTransfer
+  description: Create Transfer
+  source_operation: openapi/currencycloud-openapi-original.yml#CreateTransfer
+  method: POST
+  path: /transfers/create
+- name: GetTransfer
+  description: Get Transfer
+  source_operation: openapi/currencycloud-openapi-original.yml#GetTransfer
+  method: GET
+  path: /transfers/{id}
+- name: FindTransfers
+  description: Find Transfers
+  source_operation: openapi/currencycloud-openapi-original.yml#FindTransfers
+  method: GET
+  path: /transfers/find
+- name: CancelTransfer
+  description: Cancel Transfer
+  source_operation: openapi/currencycloud-openapi-original.yml#CancelTransfer
+  method: POST
+  path: /transfers/{id}/cancel
+- name: FindWithdrawlAccount
+  description: Find Withdrawal Account
+  source_operation: openapi/currencycloud-openapi-original.yml#FindWithdrawlAccount
+  method: GET
+  path: /withdrawal_accounts/find
+- name: PullFundsFromWithdrawalAccount
+  description: Pull Funds From Withdrawal Account
+  source_operation: openapi/currencycloud-openapi-original.yml#PullFundsFromWithdrawalAccount
+  method: POST
+  path: /withdrawal_accounts/{withdrawal_account_id}/pull_funds
+- name: SimulateFunding
+  description: Emulate inbound funds
+  source_operation: openapi/currencycloud-openapi-original.yml#SimulateFunding
+  method: POST
+  path: /demo/funding/create
+- name: CompleteCollectionsScreening
+  description: Accept or Reject Inbound Transaction
+  source_operation: openapi/currencycloud-openapi-original.yml#CompleteCollectionsScreening
+  method: PUT
+  path: /collections_screening/{transactionId}/complete

@@ -1,0 +1,30 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Currencycloud API v2
+  version: 1.0.0
+extends: openapi/currencycloud-openapi-original.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-enriched: '2026-07-18'
+      x-apievangelist-provider: currencycloud
+      x-apievangelist-artifacts:
+        authentication: authentication/currencycloud-authentication.yml
+        conventions: conventions/currencycloud-conventions.yml
+        errors: errors/currencycloud-error-codes.yml
+        rate_limits: rate-limits/currencycloud-rate-limits.yml
+        lifecycle: lifecycle/currencycloud-lifecycle.yml
+        webhooks: asyncapi/currencycloud-webhooks.yml
+        data_model: data-model/currencycloud-data-model.yml
+  - target: $.info
+    update:
+      x-apievangelist-auth:
+        style: login-token
+        header: X-Auth-Token
+        token_expiry: 30m inactivity
+      x-apievangelist-idempotency:
+        supported: true
+        mechanism: unique_request_id
+      x-apievangelist-environments:
+        production: https://api.currencycloud.com/v2
+        demo: https://devapi.currencycloud.com/v2

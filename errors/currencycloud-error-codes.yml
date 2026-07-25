@@ -1,0 +1,1474 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/currencycloud-openapi-original.yml
+docs: https://developer.currencycloud.com/api-reference/
+note: Currencycloud returns a top-level error_code plus an error_messages object keyed by the offending input parameter; each entry is a list of {code, message, params}. The codes below are the per-parameter reason codes harvested from the OpenAPI x-errors annotations across all operations.
+envelope:
+  error_code: high-level error code for the whole request (e.g. auth_failed, too_many_requests, service_unavailable)
+  error_messages: object keyed by input parameter name (or "base"); each value is an array of {code, message, params}
+error_code_count: 488
+error_codes:
+- code: login_id_is_required
+  category: login_id
+  message: login_id is required
+- code: login_id_is_too_short
+  category: login_id
+  message: login_id can not be shorter than 1 character(s)
+- code: login_id_is_too_long
+  category: login_id
+  message: login_id can not be longer than 255 character(s)
+- code: api_key_is_required
+  category: api_key
+  message: api_key is required
+- code: api_key_length_is_invalid
+  category: api_key
+  message: api_key should be 64 character(s) long
+- code: too_many_requests
+  category: base
+  message: Too many requests have been made to the api. Please refer to the Developer Center for more information
+- code: internal_server_error
+  category: base
+  message: Internal server error
+- code: service_unavailable
+  category: base
+  message: Service is temporarily unavailable
+- code: invalid_supplied_credentials
+  category: username
+  message: Authentication failed with the supplied credentials
+- code: account_name_is_too_short
+  category: account_name
+  message: account_name can not be shorter than 1 character(s)
+- code: account_name_is_too_long
+  category: account_name
+  message: account_name can not be longer than 150 character(s)
+- code: account_name_is_required
+  category: account_name
+  message: account_name is required
+- code: brand_is_too_short
+  category: brand
+  message: brand can not be shorter than 1 character(s)
+- code: brand_is_too_long
+  category: brand
+  message: brand can not be longer than 255 character(s)
+- code: brand_not_found
+  category: brand
+  message: Brand non_existing_brand wasn't found
+- code: brand_account_not_broker
+  category: brand
+  message: Account doesn't have broker permissions
+- code: your_reference_is_too_long
+  category: your_reference
+  message: your_reference can not be longer than 25 character(s)
+- code: status_not_in_range
+  category: status
+  message: 'status should be in range: enabled, disabled'
+- code: legal_entity_type_not_in_range
+  category: legal_entity_type
+  message: 'legal_entity_type should be in range: individual, company'
+- code: legal_entity_type_is_required
+  category: legal_entity_type
+  message: Legal entity type is required
+- code: street_is_too_long
+  category: street
+  message: street can not be longer than 150 character(s)
+- code: street_is_required
+  category: street
+  message: Street is required
+- code: city_is_too_long
+  category: city
+  message: city can not be longer than 100 character(s)
+- code: city_is_required
+  category: city
+  message: City is required.
+- code: postal_code_is_too_long
+  category: postal_code
+  message: postal_code can not be longer than 20 character(s)
+- code: postal_code_is_required
+  category: postal_code
+  message: Postal code is required.
+- code: state_or_province_is_too_long
+  category: state_or_province
+  message: state_or_province can not be longer than 100 character(s)
+- code: country_is_in_invalid_format
+  category: country
+  message: country is not a valid ISO 3166-1 Alpha-2 country code
+- code: country_is_required
+  category: country
+  message: Country is required
+- code: spread_table_is_too_long
+  category: spread_table
+  message: spread_table can not be longer than 100 character(s)
+- code: identification_type_is_missing
+  category: identification_type
+  message: identification_type is missing
+- code: identification_type_is_invalid
+  category: identification_type
+  message: identification_type is invalid
+- code: identification_value_is_missing
+  category: identification_value
+  message: identification_value is missing
+- code: identification_value_is_invalid
+  category: identification_value
+  message: identification_value is invalid
+- code: state_or_province_is_required
+  category: state_or_province
+  message: State or province is required for US, CA and MX
+- code: terms_and_conditions_accepted_is_required
+  category: terms_and_conditions_accepted
+  message: Terms and conditions accepted is required
+- code: invalid_extra_parameters
+  category: base
+  message: Invalid extra parameters extra_parameter
+- code: id_is_not_valid_uuid
+  category: id
+  message: id should be in UUID format
+- code: account_not_found
+  category: id
+  message: Account was not found for this id
+- code: on_behalf_of_self
+  category: on_behalf_of
+  message: You cannot act on behalf of your own contact
+- code: contact_not_found
+  category: on_behalf_of
+  message: Contact was not found for this id
+- code: at_least_one_parameter
+  category: base
+  message: 'At least one parameter should be present: account_name, brand, your_reference, status, street, city, state_or_province, postal_code, country, spread_table, legal_entity_type, identification_type, identification_value, api_trading, online_trading, phone_trading or terms_and_conditions_accepted.'
+- code: account_name_is_in_invalid_format
+  category: account_name
+  message: account_name is in invalid format
+- code: permission_denied
+  category: permissions
+  message: Permission denied
+- code: identification_type_not_in_range
+  category: identification_type
+  message: 'identification_type should be in range: none, drivers_license, social_security_number, green_card, passport, visa, matricula_consular, registro_federal_de_contribuyentes, credential_de_elector, social_insurance_number, citizenship_papers, drivers_license_canadian, existing_credit_card_details, employer_identification_number, national_id, others, incorporation_number, clave_unica_de_registro_de_poblacion'
+- code: identification_value_is_too_short
+  category: identification_value
+  message: identification_value can not be shorter than 1 character(s)
+- code: editing_address_not_allowed
+  category: address
+  message: You cannot edit address information. Please contact support for additional information
+- code: editing_country_not_allowed
+  category: country
+  message: You cannot edit country. Please contact support for additional information
+- code: business_website_url_is_required
+  category: business_website_url
+  message: business_website_url is required
+- code: business_website_url_is_not_permitted
+  category: business_website_url
+  message: business_website_url is not permitted
+- code: date_of_incorporation_is_required
+  category: date_of_incorporation
+  message: date_of_incorporation is required
+- code: date_of_incorporation_is_not_permitted
+  category: date_of_incorporation
+  message: date_of_incorporation is not permitted
+- code: country_of_incorporation_is_required
+  category: country_of_incorporation
+  message: country_of_incorporation is required
+- code: country_of_incorporation_is_not_permitted
+  category: country_of_incorporation
+  message: country_of_incorporation is not permitted
+- code: country_of_citizenship_is_required
+  category: country_of_citizenship
+  message: country_of_citizenship is required
+- code: country_of_citizenship_is_not_permitted
+  category: country_of_citizenship
+  message: country_of_citizenship is not permitted
+- code: expected_monthly_activity_volume_must_be_a_number_greater_than_zero
+  category: expected_monthly_activity_volume_
+  message: expected_monthly_activity_volume must be a number greater than zero
+- code: expected_monthly_activity_value_must_be_a_number_greater_than_zero
+  category: expected_monthly_activity_value
+  message: expected_monthly_activity_value must be a number greater than zero
+- code: expected_transaction_currencies_is_required
+  category: expected_transaction_currencies
+  message: expected_transaction_currencies is required
+- code: expected_transaction_countries_is_required
+  category: expected_transaction_countries
+  message: expected_transaction_countries is required
+- code: industry_type_is_required
+  category: industry_type
+  message: industry_type is required
+- code: industry_type_is_not_permitted
+  category: industry_type
+  message: industry_type is not permitted
+- code: trading_address_street_is_required
+  category: trading_address_street
+  message: trading_address_street is required
+- code: trading_address_city_is_required
+  category: trading_address_city
+  message: trading_address_city is required
+- code: trading_address_postalcode_is_required
+  category: trading_address_postalcode
+  message: trading_address_postalcode is required
+- code: trading_address_state_is_required
+  category: trading_address_state
+  message: trading_address_state is required
+- code: trading_address_country_is_required
+  category: trading_address_country
+  message: trading_address_country is required
+- code: trading_address_street_is_not_permitted
+  category: trading_address_street
+  message: trading_address_street is not permitted
+- code: trading_address_city_is_not_permitted
+  category: trading_address_city
+  message: trading_address_city is not permitted
+- code: trading_address_postalcode_is_not_permitted
+  category: trading_address_postalcode
+  message: trading_address_postalcode is not permitted
+- code: trading_address_state_is_not_permitted
+  category: trading_address_state
+  message: trading_address_state is not permitted
+- code: trading_address_country_is_not_permitted
+  category: trading_address_country
+  message: trading_address_country is not permitted
+- code: trading_address_state_invalid_state
+  category: trading_address_state
+  message: trading_address_state invalid state
+- code: tax_identification_is_required
+  category: tax_identification
+  message: tax_identification is required
+- code: tax_identification_is_not_permitted
+  category: tax_identification
+  message: tax_identification is not permitted
+- code: national_identification_is_required
+  category: national_identification
+  message: national_identification is required
+- code: national_identification_is_not_permitted
+  category: national_identification
+  message: national_identification is not permitted
+- code: customer_risk_is_required
+  category: customer_risk
+  message: customer_risk is required
+- code: customer_risk_invalid_value
+  category: customer_risk
+  message: customer_risk invalid value
+- code: your_reference_is_too_short
+  category: your_reference
+  message: your_reference can not be shorter than 1 character(s)
+- code: spread_table_is_too_short
+  category: spread_table
+  message: spread_table can not be shorter than 1 character(s)
+- code: bank_account_verified_not_in_range
+  category: bank_account_verified
+  message: 'bank_account_verified should be in range: yes, no, not required'
+- code: edit_not_allowed
+  category: permission
+  message: You are not allowed to change your 'payment_charges_settings'. In order to be enabled for additional type(s) of payment charges please contact Customer Support
+- code: banking_charges_settings_not_found
+  category: charge_settings_id
+  message: Bank Charges Settings were not found for the provided ChargeSettingsId
+- code: unavailable_charge_type
+  category: permission
+  message: You are not enabled to switch on these type of charges. In order to be enabled for this option - please contact Customer Support
+- code: disable_and_default_charge_not_allowed
+  category: invalid_value
+  message: You cannot disable and then default setting
+- code: default_disabled_charge_not_allowed
+  category: invalid_value
+  message: You cannot default disabled setting
+- code: disable_default_charge_not_allowed
+  category: invalid_value
+  message: You can not disable default settings
+- code: set_default_to_false_not_allowed
+  category: invalid_value
+  message: You cannot disable a default charge type. Please update the charge type not to be default and then disable it
+- code: accept_terms_and_conditions_invalid
+  category: null
+  message: Parameters are invalid or missing when required
+- code: invalid_currency
+  category: currency
+  message: XYZ is not a valid ISO 4217 currency code
+- code: currency_is_in_invalid_format
+  category: currency
+  message: currency is not a valid ISO 4217 currency code
+- code: on_behalf_of_is_not_valid_uuid
+  category: on_behalf_of
+  message: on_behalf_of should be in UUID format
+- code: unsupported_currency
+  category: currency
+  message: Unsupported currency XYZ
+- code: as_at_date_is_in_invalid_format
+  category: as_at_date
+  message: as_at_date should be in ISO 8601 format
+- code: amount_from_type_is_wrong
+  category: amount_from_type
+  message: amount_from should be of decimal type
+- code: amount_to_type_is_wrong
+  category: amount_to_type
+  message: amount_to should be of decimal type
+- code: order_not_in_range
+  category: order
+  message: 'order should be in range: created_at, amount, updated_at, currency'
+- code: order_asc_desc_not_in_range
+  category: order_asc_desc
+  message: 'order_asc_desc should be in range: asc, desc'
+- code: currency_is_required
+  category: currency
+  message: currency is required
+- code: amount_is_required
+  category: amount
+  message: amount is required
+- code: amount_type_is_wrong
+  category: amount
+  message: amount should be of numeric_greater_than_zero type
+- code: bank_account_holder_name_is_too_short
+  category: bank_account_holder_name
+  message: bank_account_holder_name can not be shorter than 1 character(s)
+- code: bank_account_holder_name_is_too_long
+  category: bank_account_holder_name
+  message: bank_account_holder_name can not be longer than 255 character(s)
+- code: beneficiary_country_is_in_invalid_format
+  category: beneficiary_country
+  message: beneficiary_country is in invalid format
+- code: bank_name_is_too_short
+  category: bank_name
+  message: bank_name can not be shorter than 1 character(s)
+- code: bank_account_type_not_in_range
+  category: bank_account_type
+  message: 'bank_account_type should be in range: checking, savings'
+- code: account_number_is_too_short
+  category: account_number
+  message: account_number can not be shorter than 1 character(s)
+- code: account_number_is_too_long
+  category: account_number
+  message: account_number can not be longer than 50 character(s)
+- code: incorrect_mapping
+  category: base
+  message: Following parameters must have same keys
+- code: routing_code_type_is_too_short
+  category: routing_code_type
+  message: routing_code_type can not be shorter than 1 character(s)
+- code: routing_code_type_is_too_long
+  category: routing_code_type
+  message: routing_code_type can not be longer than 50 character(s)
+- code: routing_code_type_not_included_in_list
+  category: routing_code_type
+  message: One or more of routing_code_type items are not included in list
+- code: beneficiary_date_of_birth_type_is_wrong
+  category: beneficiary_date_of_birth
+  message: beneficiary_date_of_birth should be of date type
+- code: beneficiary_date_of_birth_is_earlier
+  category: beneficiary_date_of_birth
+  message: beneficiary_date_of_birth should be later than 1900-01-01
+- code: beneficiary_date_of_birth_is_after
+  category: beneficiary_date_of_birth
+  message: beneficiary_date_of_birth should be earlier than todays date
+- code: routing_code_value_is_too_short
+  category: routing_code_value
+  message: routing_code_value can not be shorter than 1 character(s)
+- code: routing_code_value_is_too_long
+  category: routing_code_value
+  message: routing_code_value can not be longer than 50 character(s)
+- code: routing_code_value_type_is_wrong
+  category: routing_code_value
+  message: routing_code_value should be of hash type
+- code: bic_swift_is_in_invalid_format
+  category: bic_swift
+  message: bic_swift is in invalid format
+- code: iban_is_too_long
+  category: iban
+  message: iban can not be longer than 34 character(s)
+- code: iban_is_too_short
+  category: iban
+  message: iban can not be shorter than 1 character(s)
+- code: iban_is_in_invalid_format
+  category: iban
+  message: iban is in invalid format
+- code: default_beneficiary_type_is_wrong
+  category: default_beneficiary
+  message: default_beneficiary should be of boolean type
+- code: name_is_too_short
+  category: name
+  message: name can not be shorter than 1 character(s)
+- code: name_is_too_long
+  category: name
+  message: name can not be longer than 100 character(s)
+- code: beneficiary_external_reference_is_too_short
+  category: beneficiary_external_reference
+  message: beneficiary_external_reference can not be shorter than 1 character(s)
+- code: beneficiary_external_reference_is_too_long
+  category: beneficiary_external_reference
+  message: beneficiary_external_reference can not be longer than 255 character(s)
+- code: cope_not_in_range
+  category: scope
+  message: 'scope should be in range: own, all, clients'
+- code: beneficiary_entity_type_not_in_range
+  category: beneficiary_entity_type
+  message: 'beneficiary_entity_type should be in range: individual, company'
+- code: beneficiary_company_name_is_too_short
+  category: beneficiary_company_name
+  message: beneficiary_company_name can not be shorter than 1 character(s)
+- code: beneficiary_company_name_is_too_long
+  category: beneficiary_company_name
+  message: beneficiary_company_name can not be longer than 255 character(s)
+- code: beneficiary_first_name_is_too_short
+  category: beneficiary_first_name
+  message: beneficiary_first_name can not be shorter than 1 character(s)
+- code: beneficiary_first_name_is_too_long
+  category: beneficiary_first_name
+  message: beneficiary_first_name can not be longer than 255 character(s)
+- code: beneficiary_last_name_is_too_short
+  category: beneficiary_last_name
+  message: beneficiary_last_name can not be shorter than 1 character(s)
+- code: beneficiary_last_name_is_too_long
+  category: beneficiary_last_name
+  message: beneficiary_last_name can not be longer than 255 character(s)
+- code: beneficiary_city_is_too_short
+  category: beneficiary_city
+  message: beneficiary_city can not be shorter than 1 character(s)
+- code: beneficiary_city_is_too_long
+  category: beneficiary_city
+  message: beneficiary_city can not be longer than 255 character(s)
+- code: beneficiary_postcode_is_too_short
+  category: beneficiary_postcode
+  message: beneficiary_postcode can not be shorter than 1 character(s)
+- code: beneficiary_postcode_is_too_long
+  category: beneficiary_postcode
+  message: beneficiary_postcode can not be longer than 255 character(s)
+- code: beneficiary_state_or_province_is_too_short
+  category: beneficiary_state_or_province
+  message: beneficiary_state_or_province can not be shorter than 1 character(s)
+- code: beneficiary_state_or_province_is_too_long
+  category: beneficiary_state_or_province
+  message: beneficiary_state_or_province can not be longer than 255 character(s)
+- code: page_type_is_wrong
+  category: page
+  message: page should be of integer type
+- code: page_is_too_small
+  category: page
+  message: page can not be smaller than 1
+- code: per_page_type_is_wrong
+  category: per_page
+  message: per_page should be of integer type
+- code: per_page_is_too_small
+  category: per_page
+  message: per_page can not be smaller than 1
+- code: beneficiary_not_found
+  category: id
+  message: Beneficiary was not found for this id
+- code: email_is_too_long
+  category: email
+  message: email can not be longer than 255 character(s)
+- code: beneficiary_address_is_too_short
+  category: beneficiary_address
+  message: beneficiary_address can not be shorter than 1 character(s)
+- code: beneficiary_address_is_too_long
+  category: beneficiary_address
+  message: beneficiary_address can not be longer than 255 character(s)
+- code: account_number_is_missing
+  category: account_number
+  message: Account number is missing
+- code: account_number_is_invalid
+  category: account_number
+  message: Account number is in invalid format
+- code: routing_code_value_1_is_too_short
+  category: routing_code_value_1
+  message: routing_code_value_1 can not be shorter than 1 character(s)
+- code: routing_code_value_1_is_too_long
+  category: routing_code_value_1
+  message: routing_code_value_1 can not be longer than 50 character(s)
+- code: routing_code_value_2_is_too_short
+  category: routing_code_value_2
+  message: routing_code_value_2 can not be shorter than 1 character(s)
+- code: routing_code_value_2_is_too_long
+  category: routing_code_value_2
+  message: routing_code_value_2 can not be longer than 50 character(s)
+- code: iban_is_missing
+  category: iban
+  message: IBAN is missing
+- code: iban_is_invalid
+  category: iban
+  message: IBAN is in invalid format
+- code: bic_swift_is_missing
+  category: bic_swift
+  message: BIC/Swift is missing
+- code: bic_swift_is_invalid
+  category: bic_swift
+  message: BIC/Swift is in invalid format
+- code: bank_address_is_missing
+  category: bank_address
+  message: Bank address is missing
+- code: bank_address_is_too_short
+  category: bank_address
+  message: bank_address can not be shorter than 1 character(s)
+- code: bank_address_is_too_long
+  category: bank_address
+  message: bank_address can not be longer than 100 character(s)
+- code: bank_name_is_missing
+  category: bank_name
+  message: Bank name is missing
+- code: bank_account_type_is_missing
+  category: bank_account_type
+  message: Beneficiary bank account type is missing
+- code: name_is_in_invalid_format
+  category: name
+  message: name is in invalid format
+- code: routing_code_type_1_not_in_range
+  category: routing_code_type_1
+  message: 'routing_code_type_1 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+- code: routing_code_type_2_not_in_range
+  category: routing_code_type_2
+  message: 'routing_code_type_2 should be in range: sort_code, bsb_code, institution_no, bank_code, branch_code, aba, clabe, cnaps'
+- code: beneficiary_entity_type_is_missing
+  category: beneficiary_entity_type
+  message: Beneficiary entity type is missing
+- code: beneficiary_company_name_is_missing
+  category: beneficiary_company_name
+  message: Beneficiary company name is missing
+- code: company_name_contains_numbers
+  category: beneficiary_company_name
+  message: Beneficiary names cannot consist entirely of numbers for a company
+- code: beneficiary_first_name_is_missing
+  category: beneficiary_first_name
+  message: Beneficiary first name is missing
+- code: beneficiary_last_name_is_missing
+  category: beneficiary_last_name
+  message: Beneficiary last name is missing
+- code: first_name_contains_numbers
+  category: beneficiary_first_name
+  message: Beneficiary names cannot contain numbers for an individual
+- code: last_name_contains_numbers
+  category: beneficiary_last_name
+  message: Beneficiary names cannot contain numbers for an individual
+- code: beneficiary_state_or_province_is_missing
+  category: beneficiary_state_or_province
+  message: Beneficiary state or province is missing
+- code: beneficiary_state_or_province_is_not_supported
+  category: beneficiary_state_or_province
+  message: Beneficiary state or province is not supported
+- code: beneficiary_postcode_is_missing
+  category: beneficiary_postcode
+  message: Beneficiary postcode is missing
+- code: bank_country_is_in_invalid_format
+  category: bank_country
+  message: bank_country is in invalid format
+- code: bank_country_is_not_supported
+  category: bank_country
+  message: bank_country is not supported
+- code: currency_code_is_invalid
+  category: currency
+  message: You can not use this currency with beneficiaries
+- code: unique_value_parameters
+  category: base
+  message: 'Following parameters should not have same values: routing_code_type_1, routing_code_type_2'
+- code: payment_types_not_included_in_list
+  category: payment_types
+  message: One or more payment_types items are not included in list
+- code: sort_code_is_missing
+  category: routing_code
+  message: Sort code is missing
+- code: sort_code_is_invalid
+  category: routing_code
+  message: Sort code is in invalid format
+- code: aba_is_missing
+  category: routing_code
+  message: ABA is missing
+- code: aba_is_invalid
+  category: routing_code
+  message: ABA is in invalid format
+- code: bsb_code_is_missing
+  category: routing_code
+  message: BSB code is missing
+- code: bsb_code_is_invalid
+  category: routing_code
+  message: BSB code is in invalid format
+- code: branch_code_is_missing
+  category: routing_code
+  message: Branch code is missing
+- code: branch_code_is_invalid
+  category: routing_code
+  message: Branch code is in invalid format
+- code: institution_no_is_missing
+  category: routing_code
+  message: Institution no is missing
+- code: institution_no_is_invalid
+  category: routing_code
+  message: Institution no is in invalid format
+- code: bank_code_is_missing
+  category: routing_code
+  message: Bank code is missing
+- code: bank_code_is_invalid
+  category: routing_code
+  message: Bank code is in invalid format
+- code: beneficiary_update_failed
+  category: beneficiary
+  message: Beneficiary was not updated
+- code: beneficiary_details_are_missing
+  category: beneficiary
+  message: 'Following beneficiary details are missing: beneficiary_company_name'
+- code: field_contains_invalid_characters
+  category: base
+  message: Field contains invalid characters
+- code: field_is_too_long
+  category: base
+  message: The information provided for this request exceeds our field length limits
+- code: request_contains_blocked_fields
+  category: base
+  message: This request contains fields that are not permitted for this route
+- code: bank_account_holder_name_is_required
+  category: bank_account_holder_name
+  message: bank_account_holder_name is required
+- code: bank_country_is_required
+  category: bank_country
+  message: bank_country is required
+- code: unsupported_beneficiary_country_code
+  category: base
+  message: Beneficiary country is not supported
+- code: beneficiary_create_failed
+  category: beneficiary
+  message: Beneficiary was not created
+- code: payment_types_not_in_range
+  category: payment_types
+  message: 'payment_types should be in range: priority, regular'
+- code: payment_type_is_not_supported
+  category: payment_types
+  message: Payment type is not supported for given parameters
+- code: cnaps_is_missing
+  category: routing_code
+  message: CNAPS number is missing
+- code: cnaps_is_invalid
+  category: routing_code
+  message: CNAPS number is in invalid format
+- code: invalid_field_account_number
+  category: account_number
+  message: account_number must match \"^[0-9]{8}$\"
+- code: invalid_beneficiary_type
+  category: beneficiary_entity_type
+  message: Beneficiary_entity_type must be either 'individual' or 'company'.
+- code: invalid_field_routing_code_value_1
+  category: routing_code_value_1
+  message: routing_code_value_1 must match \"^[0-9]{6}$\"
+- code: invalid_field_company_name
+  category: beneficiary_company_name
+  message: beneficiary_company_name must match \"[a-zA-Z0-9-'\\s]+\"
+- code: missing_company_name
+  category: beneficiary_company_name
+  message: beneficiary_company_name size must be between 0 and 140
+- code: invalid_field_beneficiary_first_name
+  category: beneficiary_first_name
+  message: beneficiary_first_name must match \"[a-zA-Z0-9-'\\s]+\"
+- code: invalid_field_beneficiary_last_name
+  category: beneficiary_last_name
+  message: beneficiary_last_name must match \"[a-zA-Z0-9-'\\s]+\"
+- code: invalid_field_bank_country
+  category: bank_country
+  message: bank_country must match \”^[A-Z]{2}$
+- code: missing_individual_names
+  category: beneficiary_last_name
+  message: beneficiary_first_name and beneficiary_last_name are required when beneficiary_entity_type is individual.
+- code: expect_individual_names_only
+  category: beneficiary_last_name
+  message: beneficiary_company_name must not be supplied when beneficiary_entity_type is individual.
+- code: expect_company_name_only
+  category: beneficiary_last_name
+  message: beneficiary_first_name and beneficiary_last_name must not be supplied when beneficiary_entity_type is company.
+- code: invalid_bank_country
+  category: bank_country
+  message: Country ${bank_country} is not supported
+- code: first_name_invalid_format
+  category: first_name
+  message: Please make sure that first_name doesn't contain < or > symbols
+- code: last_name_invalid_format
+  category: last_name
+  message: Please make sure that last_name doesn't contain < or > symbols
+- code: first_name_is_too_short
+  category: first_name
+  message: first_name cann ot be shorter than 1 character(s)
+- code: first_name_is_too_long
+  category: first_name
+  message: first_name can not be longer than 100 character(s)
+- code: last_name_is_too_short
+  category: last_name
+  message: last_name can not be shorter than 1 character(s)
+- code: last_name_is_too_long
+  category: last_name
+  message: last_name can not be longer than 100 character(s)
+- code: email_address_is_too_short
+  category: email_address
+  message: email_address can not be shorter than 1 character(s)
+- code: email_address_is_too_long
+  category: email_address
+  message: email_address can not be longer than 255 character(s)
+- code: email_address_is_in_invalid_format
+  category: email_address
+  message: email_address is in invalid format
+- code: phone_number_is_too_short
+  category: phone_number
+  message: phone_number can not be shorter than 1 character(s)
+- code: phone_number_is_too_long
+  category: phone_number
+  message: phone_number can not be longer than 100 character(s)
+- code: mobile_phone_number_is_too_short
+  category: mobile_phone_number
+  message: mobile_phone_number can not be shorter than 1 character(s)
+- code: mobile_phone_number_is_too_long
+  category: mobile_phone_number
+  message: mobile_phone_number can not be longer than 100 character(s)
+- code: login_id_in_use
+  category: login_id
+  message: 'login_id already in use: john.smith@company.com'
+- code: locale_is_too_short
+  category: locale
+  message: locale can not be shorter than 2 character(s)
+- code: locale_is_too_long
+  category: locale
+  message: locale can not be longer than 5 character(s)
+- code: timezone_is_too_short
+  category: timezone
+  message: timezone can not be shorter than 7 character(s)
+- code: timezone_is_too_long
+  category: timezone
+  message: timezone can not be longer than 35 character(s)
+- code: date_of_birth_type_is_wrong
+  category: date_of_birth
+  message: date_of_birth should be of date type
+- code: date_of_birth_is_required
+  category: date_of_birth
+  message: Date of Birth is a required field. Please provide date of birth (YYYY-MM-DD)
+- code: editing_first_last_name_not_allowed
+  category: name
+  message: You cannot edit First and Last name. Please contact support for additional information
+- code: account_id_is_required
+  category: account_id
+  message: account_id is required
+- code: first_name_is_required
+  category: first_name
+  message: first_name is required
+- code: last_name_is_required
+  category: last_name
+  message: last_name is required
+- code: email_address_is_required
+  category: email_address
+  message: email_address is required
+- code: phone_number_is_required
+  category: phone_number
+  message: phone_number is required
+- code: account_id_is_not_valid_uuid
+  category: account_id
+  message: account_id should be in UUID format
+- code: generate_hmac_key_wrong_brand
+  category: base
+  message: HMAC key can't be generated for that brand
+- code: generate_hmac_key_brand_not_configured
+  category: base
+  message: 'Brand #{brand} should be configured first'
+- code: buy_currency_is_in_invalid_format
+  category: buy_currency
+  message: buy_currency is not a valid ISO 4217 currency code
+- code: buy_currency_is_required
+  category: buy_currency
+  message: buy_currency is required
+- code: invalid_buy_currency
+  category: buy_currency
+  message: buy_currency is invalid
+- code: sell_currency_is_required
+  category: sell_currency
+  message: sell_currency is required
+- code: sell_currency_is_in_invalid_format
+  category: sell_currency
+  message: sell_currency is not a valid ISO 4217 currency code
+- code: invalid_sell_currency
+  category: sell_currency
+  message: sell_currency is invalid
+- code: conversion_above_limit
+  category: amount
+  message: Conversion of ${currency} equivalent ${amount} exceeds your limit of ${limit_amount}
+- code: conversion_below_limit
+  category: amount
+  message: Conversion of ${currency} equivalent ${amount} is less than your lower limit of ${limit_amount}
+- code: reason_is_required
+  category: reason
+  message: reason is required
+- code: reason_is_too_short
+  category: reason
+  message: reason can not be shorter than 1 character(s)
+- code: client_rate_is_in_invalid_format
+  category: client_rate
+  message: client_rate should be of numeric type with 4 dp
+- code: invalid_client_rate
+  category: client_rate
+  message: client_rate is invalid
+- code: currency_pair_not_available_for_weekend
+  category: currency_pair_not_available_for_weekend
+  message: Currency pair is not available for weekend
+- code: client_rate_is_required
+  category: client_rate
+  message: The client_rate is required if you supply currency_pair
+- code: fixed_side_is_required
+  category: fixed_side
+  message: fixed_side is required
+- code: fixed_side_not_in_range
+  category: fixed_side
+  message: 'fixed_side should be in range: buy, sell'
+- code: term_agreement_is_required
+  category: term_agreement
+  message: term_agreement is required
+- code: term_agreement_type_is_wrong
+  category: term_agreement
+  message: term_agreement should be of boolean type
+- code: conversion_create_failed
+  category: conversion_create_failed
+  message: Conversion create failed
+- code: currency_pair_is_in_invalid_format
+  category: currency_pair
+  message: currency_pair is not a valid ISO 4217 currency code
+- code: invalid_currency_pair
+  category: invalid_currency_pair
+  message: The currency_pair should be the real market pair of the buy_currency and sell_currency
+- code: on_behalf_of_is_required
+  category: on_behalf_of
+  message: You should do this conversion on behalf of someone if you supply client_rate
+- code: currency_pair_is_required
+  category: currency_pair_is_required
+  message: The currency_pair is required if you supply client_rate
+- code: variable_value_dates_not_permitted
+  category: variable_value_dates_not_permitted
+  message: Sorry - you are not currently setup to trade with variable value dates, please contact us on the phone if you want to change this or wish to trade now on the phone.
+- code: client_buy_amount_is_in_invalid_format
+  category: client_buy_amount
+  message: client_buy_amount should be of numeric type with 2 dp
+- code: client_sell_amount_is_in_invalid_format
+  category: client_sell_amount
+  message: client_sell_amount should be of numeric type with 2 dp
+- code: cannot_fix_client_sell_on_fixed_sell_side
+  category: cannot_fix_client_sell_on_fixed_sell_side
+  message: You cannot specify a fixed client_sell_amount when the fixed side for a conversion is the sell side
+- code: client_buy_amount_exceeds_partner_buy_amount
+  category: client_buy_amount_exceeds_partner_buy_amount
+  message: The client buy amount specified is greater than the amount that you would be buying and is thus invalid
+- code: partner_sell_amount_exceeds_client_sell_amount
+  category: partner_sell_amount_exceeds_client_sell_amount
+  message: The client sell amount specified is less than the amount that you would be selling and is thus invalid
+- code: missing_partner_spread_table_data
+  category: missing_partner_spread_table_data
+  message: Sorry, the online partner pricing for the amount of the currency pair you are trying to trade has not been set up
+- code: missing_client_spread_table_data
+  category: missing_client_spread_table_data
+  message: Sorry, the online client pricing for the amount of the currency pair you are trying to trade has not been set up
+- code: fixed_amounts_not_permitted_for_this_user
+  category: fixed_amounts_not_permitted_for_this_user
+  message: You are not permitted to specify a fixed client_buy_amount or client_sell_amount for this customer
+- code: invalid_client_rate_combination
+  category: invalid_client_rate_combination
+  message: You cannot specify a client rate and client currency pair alongside a client buy amount or client sell amount
+- code: duplicate_request
+  category: duplicate_request
+  message: The unique_request_id provided for this conversion has already been used, please provide a new unique_request_id to successfully submit this conversion
+- code: invalid_conversion_date_combination
+  category: base
+  message: conversion_date_preference can not be specified along side a date parameter
+- code: invalid_conversion_date_preference
+  category: base
+  message: not a valid conversion date preference, possible options are earliest, optimize_liquidity, default, next_day
+- code: new_settlement_date_invalid_in_past
+  category: new_settlement_date
+  message: New settlement date has to be today or greater than today's date
+- code: new_settlement_date_invalid
+  category: new_settlement_date
+  message: Invalid new settlement date, next valid date time is - YYYY-MM-DDT15:30:00Z
+- code: amount_is_too_small
+  category: amount
+  message: amount can not be smaller than 1
+- code: parent_market_buy_amount_less_than_1
+  category: buy_amount
+  message: Remaining parent market buy amount cannot be less than 1
+- code: child_market_buy_amount_less_than_1
+  category: buy_amount
+  message: Remaining child market buy amount cannot be less than 1.
+- code: parent_market_sell_amount_less_than_1
+  category: sell_amount
+  message: Remaining parent market sell amount cannot be less than 1
+- code: child_market_sell_amount_less_than_1
+  category: sell_amount
+  message: Remaining child market sell amount cannot be less than 1.
+- code: split_amount_below_deposit_amount
+  category: amount
+  message: Remaining amount cannot be less than the original trade's deposit.
+- code: split_amount_exceeds_unallocated_funds
+  category: amount
+  message: Trade split amount cannot exceed unallocated funds if multiple payments attached.
+- code: conversion_status_is_incorrect
+  category: status
+  message: Trade must still be awaiting funds
+- code: split_amount_precision
+  category: amount
+  message: Amount precision is too low for currency GBP
+- code: conversion_not_found
+  category: id
+  message: Conversion was not found for this id
+- code: payment_type_not_in_range
+  category: payment_type
+  message: 'payment_type should be in range: priority, regular'
+- code: currency_is_not_supported
+  category: currency
+  message: currency is not supported
+- code: funding_accounts_not_found
+  category: funding_accounts
+  message: No funding accounts found for this account
+- code: transaction_not_found
+  category: id
+  message: Transaction not found
+- code: invalid_type
+  category: type
+  message: Invalid Payment type
+- code: currency_length_is_invalid
+  category: currency
+  message: currency should be 3 character(s) long
+- code: beneficiary_id_is_not_valid_uuid
+  category: beneficiary_id
+  message: beneficiary_id should be in UUID format
+- code: beneficiary_id_is_required
+  category: beneficiary_id
+  message: beneficiary_id is required
+- code: beneficiary_date_of_birth_is_incorrect
+  category: beneficiary_date_of_birth
+  message: beneficiary_date_of_birth is incorrect
+- code: invalid_beneficiary_id
+  category: beneficiary_id
+  message: Unknown beneficiary_id
+- code: payment_above_limit
+  category: amount
+  message: ${amount} ${currency} exceeds the maximum amount of ${limit} ${currency} for a local payment
+- code: payer_entity_type_not_in_range
+  category: payer_entity_type
+  message: 'payer_entity_type should be in range: individual, company'
+- code: payer_details_are_missing
+  category: payer_entity_type
+  message: 'Following payer details are missing: payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_city, payer_address, payer_state_or_province, payer_postcode, payer_country, payer_date_of_birth, payer_identification_type, payer_identification_value, payer_ultimate_account_number'
+- code: payer_entity_type_is_missing
+  category: payer_entity_type
+  message: Payer entity type is missing
+- code: payer_company_name_is_missing
+  category: payer_company_name
+  message: Payer company name is missing
+- code: payer_first_name_is_missing
+  category: payer_first_name
+  message: Payer first name is missing
+- code: payer_last_name_is_missing
+  category: payer_last_name
+  message: Payer last name is missing
+- code: payer_city_is_missing
+  category: payer_city
+  message: Payer city is missing
+- code: unsupported_payer_country_code
+  category: payer_country_code
+  message: Payer country is not supported
+- code: payer_state_or_province_is_missing
+  category: payer_state_or_province
+  message: Payer state or province is missing
+- code: payer_postcode_is_missing
+  category: payer_postcode
+  message: Payer postcode is missing
+- code: payer_date_of_birth_type_is_wrong
+  category: payer_date_of_birth
+  message: payer_date_of_birth should be of date type
+- code: payer_date_of_birth_is_incorrect
+  category: payer_date_of_birth
+  message: payer_date_of_birth is incorrect
+- code: payer_date_of_birth_is_earlier
+  category: payer_date_of_birth
+  message: payer_date_of_birth should be later
+- code: payer_date_of_birth_is_after
+  category: payer_date_of_birth
+  message: payer_date_of_birth should be earlier
+- code: invalid_conversion_id
+  category: conversion_id
+  message: Conversion could not be found
+- code: conversion_is_already_settled
+  category: conversion_id
+  message: The conversion is already settled
+- code: invalid_payment_date
+  category: payment_date
+  message: The payment date is invalid
+- code: payment_date_is_too_early
+  category: payment_date
+  message: The payment date cannot be sooner than the conversion date
+- code: reference_is_too_long
+  category: reference
+  message: reference can not be longer than 255 character(s)
+- code: charge_type_not_available
+  category: charge_type
+  message: Not available charge_type has been provided
+- code: invalid_charge_type
+  category: charge_type
+  message: Invalid banking_charges supplied, must be in range [ours, shared]
+- code: on_behalf_of_charge_type_not_available
+  category: on_behalf_of
+  message: Not available charge_type has been provided for on_behalf_of
+- code: fee_amount_type_is_wrong
+  category: fee_amount
+  message: fee_amount should be of numeric type
+- code: fee_currency_is_in_invalid_format
+  category: fee_currency
+  message: fee_currency is not a valid ISO 4217 currency code
+- code: unsupported_account
+  category: account
+  message: The account is currently not permitted to create payments.
+- code: invalid_fee_amount_format
+  category: fee_amount
+  message: ${FEE_CURRENCY} only supports up to ${CURRENCY_NUMBER_OF_DECIMAL_PLACES} decimal places
+- code: payer_details_not_allowed
+  category: payer_details
+  message: This account is not allowed to pass payer details
+- code: unique_request_id_is_required
+  category: unique_request_id_is_required
+  message: unique_request_id is required
+- code: invoice_number_parameter_invalid
+  category: invoice_number
+  message: Invoice number can only contain alphanumeric characters and must be 30 characters or less
+- code: invoice_number_missing
+  category: invoice_number
+  message: Invoice number is missing for provided invoice date $invoiceDate
+- code: invalid_invoice_date
+  category: invoice_date
+  message: Invoice date must follow YYYY-MM-DD format
+- code: invoice_date_missing
+  category: invoice_date
+  message: Invoice date is missing for provided invoice number $invoiceNumber
+- code: incorrect_purpose_code
+  category: purpose_code
+  message: Purpose code is invalid
+- code: review_status_not_in_range
+  category: review_status
+  message: 'review_status should be in range: passed, in_review, rejected'
+- code: invalid_id
+  category: id
+  message: ID has invalid format
+- code: with_deleted_type_is_wrong
+  category: id
+  message: with_deleted should be of boolean type
+- code: on_behalf_of_is_not_valid_UUID
+  category: on_behalf_of
+  message: on_behalf_of should be in UUID format
+- code: payment_not_found
+  category: id
+  message: Payment was not found for this id
+- code: invalid_beneficiary_currency
+  category: beneficiary_currency
+  message: You cannot assign this Beneficiary to the Payment as it is the incorrect currency
+- code: invalid_amount_for_order
+  category: amount_for_order
+  message: The payment amount is more than the value of the order
+- code: conversion_id_is_not_valid_uuid
+  category: conversion_id
+  message: conversion_id should be in UUID format
+- code: payment_date_type_is_wrong
+  category: payment_date
+  message: payment_date should be of date type
+- code: payment_can_not_be_edited
+  category: can_not_be_edited
+  message: Sorry this Payment has already been processed and you are unable to Edit it
+- code: extra_dependent_params
+  category: base
+  message: Parameters payer_entity_type, payer_company_name, payer_first_name, payer_last_name, payer_address, payer_country, payer_postcode, payer_state_or_province, payer_date_of_birth, payer_identification_type, payer_identification_value can't be provided in the same request with 'payer_details_source' with value 'account'
+- code: payer_identification_type_not_in_range
+  category: payer_identification_type
+  message: 'payer_identification_type should be in range: none, drivers_license, social_security_number, green_card, passport, visa, matricula_consular, registro_federal_de_contribuyentes, credential_de_elector, social_insurance_number, citizenship_papers, drivers_license_canadian, existing_credit_card_details, employer_identification_number, national_id, others, incorporation_number, clave_unica_de_registro_de_poblacion'
+- code: charge_type_not_in_range
+  category: charge_type
+  message: 'charge_type should be in range: ours, shared'
+- code: invalid_fields_for_company
+  category: fee_amount
+  message: Please provide payer_company_name, but not payer_first_name and payer_last_name
+- code: invalid_fields_for_individual
+  category: fee_amount
+  message: Please provide payer_first_name and payer_last_name, but not payer_company_name
+- code: unprocessable_entity
+  category: base
+  message: Payment should be in 'Completed' or 'Failed' status
+- code: payment_ids_is_required
+  category: id
+  message: payment_ids is required
+- code: payment_ids_type_is_wrong
+  category: id
+  message: payment_ids should be of array type
+- code: payment_id_is_not_valid_uuid
+  category: id
+  message: payment_id should be in UUID format
+- code: payment_is_not_swift
+  category: base
+  message: You cannot track non-swift payments
+- code: payment_is_not_executed
+  category: base
+  message: This payment is not executed yet, please try again later
+- code: payment_fee_id_is_required
+  category: payment_fee_id
+  message: payment_fee_id is required
+- code: payment_fee_id_is_not_valid_uuid
+  category: payment_fee_id
+  message: payment_fee_id should be in UUID format
+- code: account_configuration_is_invalid
+  category: base
+  message: Account is not enabled for CashManager or NewPaymentRelease flow
+- code: account_operation_restricted
+  category: base
+  message: Operation restricted for the account
+- code: payment_type_is_required
+  category: payment_type
+  message: payment_type is required
+- code: invalid_payment
+  category: base
+  message: Payment cannot be processed
+- code: payment_date_is_required
+  category: payment_date
+  message: payment_date is required
+- code: payment_date_is_in_invalid_format
+  category: payment_date
+  message: payment_date should be in ISO 8601 format
+- code: payment_currency_is_required
+  category: payment_currency
+  message: payment_currency is required
+- code: payment_currency_is_in_invalid_format
+  category: payment_currency
+  message: payment_currency is not a valid ISO 4217 currency code
+- code: payment_destination_country_is_required
+  category: payment_destination_country
+  message: payment_destination_country is required
+- code: payment_destination_country_is_in_invalid_format
+  category: payment_destination_country
+  message: payment_destination_country is in invalid format
+- code: charge_type_is_required
+  category: charge_type
+  message: charge_type is required
+- code: payer_country_is_in_invalid_format
+  category: payer_country
+  message: payer_country is not a valid ISO 3166-1 Alpha-2 country code
+- code: invalid_amount_for_conversion
+  category: conversion_id
+  message: The payment amount is more than the value of the conversion
+- code: reason_is_too_long
+  category: reference
+  message: reference can not be longer than 255 character(s)
+- code: purpose_code_is_missing
+  category: purpose_code
+  message: Purpose code is missing
+- code: notification_type_not_in_range
+  category: notification_type
+  message: 'notification_type should be in range: payment_ready_to_send_notification, payment_released_notification, payment_failed_notification'
+- code: payer_not_found
+  category: id
+  message: Payer was not found for this id
+- code: currency_pair_is_too_long
+  category: currency_pair
+  message: currency_pair can not be longer than 2450 character(s)
+- code: currency_pair_is_too_short
+  category: currency_pair
+  message: currency_pair can not be shorter than 6 letter(s)
+- code: ignore_invalid_pairs_type_is_wrong
+  category: currency_pair
+  message: ignore_invalid_pairs should be of boolean type
+- code: conversion_date_type_is_wrong
+  category: conversion_date
+  message: conversion_date should be of date type
+- code: amount_is_in_invalid_format
+  category: amount
+  message: amount should be of numeric type with 2 dp
+- code: hold_period_is_required
+  category: hold_period
+  message: hold_period is required
+- code: ccy_pair_is_not_tradeable
+  category: currency_pair
+  message: Given currency pair is not tradeable
+- code: crossing_cutoff_time
+  category: base
+  message: Hold period extends beyond the cut-off-time for the requested delivery date
+- code: held_rate_not_enabled
+  category: base
+  message: Held Rates Product is not enabled for this account
+- code: invalid_conversion_date
+  category: base
+  message: Conversion date is not valid for this currency pair
+- code: invalid_decimals
+  category: base
+  message: amount should be specified with a valid number of decimal places
+- code: invalid_delivery_date
+  category: base
+  message: The delivery date you have requested cannot be met for this currency pair
+- code: invalid_hold_period
+  category: base
+  message: Requested hold_period is invalid for this account
+- code: quote_could_not_be_created
+  category: base
+  message: Quote could not be created
+- code: rate_could_not_be_retrieved
+  category: base
+  message: Rate could not be retrieved
+- code: identifier_type_is_required
+  category: identifier_type
+  message: identifier_type is required
+- code: identifier_type_not_in_range
+  category: identifier_type
+  message: 'identifier_type should be in range: iban, bic_swift, sort_code, aba, bsb_code, routing_number, cnaps, ifsc'
+- code: identifier_value_is_required
+  category: identifier_value
+  message: identifier_value is required
+- code: identifier_value_is_empty
+  category: identifier_value
+  message: identifier_value should not be empty
+- code: invalid_iban
+  category: base
+  message: IBAN is invalid
+- code: invalid_bic
+  category: base
+  message: BIC_Swift is invalid
+- code: invalid_aba
+  category: base
+  message: ABA is invalid
+- code: invalid_sort_code
+  category: base
+  message: SORT_CODE is invalid
+- code: invalid_bsb
+  category: base
+  message: BSB_CODE is invalid
+- code: invalid_routing_number
+  category: base
+  message: ROUTING_NUMBER is invalid
+- code: invalid_cnaps
+  category: base
+  message: CNAPS is invalid
+- code: cannot_retrieve_bank_data
+  category: base
+  message: Bank Details service is temporarily unavailable
+- code: bank_account_country_is_in_invalid_format
+  category: bank_account_country
+  message: Bank account country is not a valid ISO 3166-1 Alpha-2 country code
+- code: conversion_pair_is_required
+  category: conversion_pair
+  message: conversion_pair is required
+- code: invalid_conversion_pair
+  category: conversion_pair
+  message: The conversion pair specified was invalid
+- code: conversion_pair_is_too_short
+  category: conversion_pair
+  message: conversion_pair can not be shorter than 6 character(s)
+- code: conversion_pair_is_too_long
+  category: conversion_pair
+  message: conversion_pair can not be longer than 6 character(s)
+- code: start_date_is_too_far_in_future
+  category: start_date
+  message: Date is too far in the future (more than 1 year)
+- code: start_date_is_in_invalid_format
+  category: start_date
+  message: start_date should be in ISO 8601 format
+- code: payer_country_is_required
+  category: payer_country
+  message: payer_country is required
+- code: missing_translation
+  category: base
+  message: Internal server error. Currency value was not specified
+- code: settlement_accounts_not_found
+  category: base
+  message: Settlement Account details not found
+- code: description_is_too_long
+  category: description
+  message: description can not be longer than 255 character(s)
+- code: partner_sell_amount_to_type_is_wrong
+  category: currency
+  message: partner_sell_amount_to should be of numeric type
+- code: scope_not_in_range
+  category: currency
+  message: 'scope should be in range: own, all, clients'
+- code: client_status_not_in_range
+  category: client
+  message: 'client_status should be in range: awaiting_funds, funds_sent, funds_arrived, trade_settled, closed, awaiting_authorisation, funds_being_processed, trade_settling'
+- code: updated_at_to_is_in_invalid_format
+  category: update_at_to
+  message: updated_at_to should be in ISO 8601 format
+- code: report_type_not_in_range
+  category: report_type
+  message: 'report_type should be in range: conversion, payment, beneficiary, transaction'
+- code: short_reference_is_too_long
+  category: short_reference
+  message: short_reference can not be longer than 25 character(s)
+- code: sender_not_found
+  category: id
+  message: Sender not found
+- code: created_at_to_type_is_wrong
+  category: created_as_to
+  message: created_at_to should be of date type
+- code: completed_at_to_type_is_wrong
+  category: completed_at_to
+  message: completed_at_to should be of date type
+- code: related_entity_id_is_not_valid_uuid
+  category: related_entity
+  message: related_entity_id should be in UUID format
+- code: related_entity_type_not_in_range
+  category: related_entity_type
+  message: 'related_entity_type should be in range: conversion, payment, inbound_funds, deposit, transfer'
+- code: action_not_in_range
+  category: action
+  message: 'action should be in range: funding, conversion, payment, payment_failure, manual_transaction, transfer, conversion_deposit, deposit_refund, payment_unrelease, payment_fee, margin'
+- code: amount_is_too_big
+  category: amount
+  message: Amount cannot be greater than 10000000000
+- code: cash_workflow_unknown
+  category: account_id
+  message: Could not retrieve cash workflow for account {account_id}
+- code: cross_hub_transfer_not_permitted
+  category: unique_request_id
+  message: The accounts would require a transfer between two hub banks which is not permitted
+- code: destination_account_disabled
+  category: null
+  message: The transfer was not created successfully because the destination account is disabled. Ensure that both source and destination accounts are enabled before making a transfer.
+- code: destination_account_id_is_not_valid_uuid
+  category: account_id
+  message: destination_account_id should be in UUID format
+- code: destination_bank_account_verified_error
+  category: account_id
+  message: Destination bank account is not verified. Ensure that both source and destination bank accounts are verified before making a transfer.
+- code: duplicate_unique_request_id
+  category: unique_request_id
+  message: The unique_request_id provided for this transfer has already been used, please provide a new one to successfully submit this transfer
+- code: invalid_amount_format
+  category: amount
+  message: '{currency} does not support any decimal places'
+- code: not_allowed_currency
+  category: currency
+  message: You cannot perform this operation in {currency} currency
+- code: reason_too_long
+  category: reason
+  message: Reason longer than 255 symbols
+- code: same_source_and_destination_accounts
+  category: account_id
+  message: Source and Destination accounts cannot be the same
+- code: source_account_disabled
+  category: account_id
+  message: The transfer was not created successfully because the source account is disabled. Ensure that both source and destination accounts are enabled before making a transfer.
+- code: source_account_id_is_not_valid_uuid
+  category: source_account_id
+  message: source_account_id should be in UUID format
+- code: source_bank_account_verified_error
+  category: source_account_id
+  message: Source bank account is not verified. Ensure that both source and destination bank accounts are verified before making a transfer.
+- code: transfer_not_permitted
+  category: account_id
+  message: The transfer is not permitted between the source and destination accounts defined.
+- code: unique_request_id_too_long
+  category: unique_request_id
+  message: The unique_request_id provided is longer than 100 characters, please provide a shorter one
+- code: transfer_not_found
+  category: null
+  message: Transfer was not found for this ID
+- code: completed_at_from_is_in_invalid_format
+  category: completed_at_from
+  message: completed_at_from should be in ISO 8601 format
+- code: completed_at_from_is_too_old
+  category: completed_at_from
+  message: completed_at_from is set to a date too far back
+- code: completed_at_to_is_in_invalid_format
+  category: completed_at_to
+  message: completed_at_from should be in ISO 8601 format
+- code: created_at_from_is_in_invalid_format
+  category: created_at_from
+  message: created_at_from should be in ISO 8601 format
+- code: created_at_from_is_too_old
+  category: created_at_from
+  message: created_at_from is set to a date too far back
+- code: created_at_to_is_in_invalid_format
+  category: created_at_to
+  message: created_at_from should be in ISO 8601 format
+- code: per_page_is_too_big
+  category: per_page
+  message: per_page can not be bigger than %i
+- code: updated_at_from_is_in_invalid_format
+  category: updated_at_from
+  message: updated_at_from should be in ISO 8601 format
+- code: updated_at_from_is_too_old
+  category: updated_at_from
+  message: updated_at_from is set to a date too far back
+- code: transfer_cannot_be_cancelled
+  category: short_reference
+  message: Transfer {short_reference} cannot be cancelled
+- code: transfer_is_already_cancelled
+  category: short_reference
+  message: Transfer {short_reference} is already cancelled
+- code: transfer_is_already_completed
+  category: short_reference
+  message: Transfer {short_reference} cannot be cancelled since it is already completed
+- code: withdrawal_account_not_found
+  category: id
+  message: No withdrawal account found for this account
+- code: withdrawal_account_id_is_not_valid_uuid
+  category: id
+  message: withdrawal_account_id should be in UUID format
+- code: reference_is_required
+  category: reference
+  message: reference is required
+- code: reference_invalid
+  category: reference
+  message: Only characters, digits, spaces, '_' and '-' allowed
+- code: reference_too_long
+  category: reference
+  message: Reference cannot be longer than 10 characters
+- code: amount_not_positive
+  category: amount
+  message: Amount should be positive
+- code: amount_not_allowed
+  category: amount
+  message: Amount should be up to 100000 limit
+- code: id_cant_be_blank
+  category: id
+  message: ID can't be blank
+- code: id_has_invalid_format
+  category: id
+  message: ID should be in UUID format
+- code: receiver_account_number_cant_be_blank
+  category: receiver_account_number
+  message: Receiver account number can't be blank
+- code: receiver_account_number_not_found
+  category: receiver_account_number
+  message: Receiver account number not found
+- code: sender_country_is_invalid
+  category: sender_country
+  message: Sender country is invalid
+- code: sender_country_has_invalid_format
+  category: sender_country
+  message: Sender country is not a valid ISO 3166 country code
+- code: amount_cant_be_blank
+  category: amount
+  message: Amount can't be blank
+- code: amount_must_be_greater_than_0
+  category: amount
+  message: Amount must be greater than 0
+- code: amount_must_be_less_than_1000000000000
+  category: amount
+  message: Amount must be less than 1 000 000 000 000
+- code: amount_is_invalid
+  category: amount
+  message: Amount should be numeric with 2 decimal points separated by '.'
+- code: action_is_invalid
+  category: action
+  message: 'Action is invalid, should be in range: approve, reject'
+- code: currency_cant_be_blank
+  category: currency
+  message: Currency can't be blank
+- code: currency_is_invalid
+  category: currency
+  message: Currency is invalid
+- code: currency_has_invalid_format
+  category: currency
+  message: Currency is not a valid ISO 4217 currency code
+- code: currency_not_supported_by_account
+  category: currency
+  message: Currency not supported by account
+- code: id_has_already_been_taken
+  category: id
+  message: ID was already used in a previous request
+- code: screening_already_expired
+  category: base
+  message: Screening is already expired.
+- code: transaction_id_is_not_valid_uuid
+  category: base
+  message: transaction_id should be in UUID format
+- code: accepted_type_is_wrong
+  category: base
+  message: accepted should be of boolean type
+- code: invalid_request
+  category: base
+  message: 'Invalid reason provided, expected one of: sanctioned_match, unsupported_currency, insufficient_transaction_information, suspected_fraud, internal_watchlist_match, suspected_money_laundering_activity'
+- code: resource_not_found
+  category: base
+  message: Unable to find the resource.

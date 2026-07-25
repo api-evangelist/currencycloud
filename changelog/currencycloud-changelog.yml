@@ -1,0 +1,53 @@
+generated: '2026-07-18'
+method: searched
+source: https://github.com/CurrencyCloud/currencycloud-swagger/blob/master/CHANGELOG.md
+scheme: semver (API version tracked as x.y.z, e.g. 2.43.0)
+current_version: 2.43.0
+releases_url: https://github.com/CurrencyCloud/currencycloud-swagger/releases
+note: >-
+  Changelog for the Currencycloud API v2 OpenAPI/Swagger definition. The public
+  API surface has been stable since the 2.43.0 release (2023-04-20). Recent
+  window shown; full history in the source changelog.
+entries:
+  - version: 2.43.0
+    date: '2023-04-20'
+    breaking: false
+    highlights:
+      - Adds POST /accounts/find
+      - Adds POST /beneficiaries/find
+      - Adds POST /contacts/find
+      - Adds POST /reference/bank_details/find
+  - version: 2.36.2
+    date: '2022-09-13'
+    breaking: false
+    highlights:
+      - Adds new error responses to contacts/create and contacts/update
+  - version: 2.36.1
+    date: '2022-08-12'
+    breaking: false
+    highlights:
+      - Updates documentation of reference/payment_dates
+      - Updates documentation of unique_request_id on payments/create
+  - version: 2.36.0
+    date: '2022-07-12'
+    breaking: false
+    highlights:
+      - Updates type of unique_request_id in transfer/find to be a query parameter
+      - Documents that updating email_address of contacts works via POST contacts/{id}
+  - version: 2.32.0
+    date: '2022-01-31'
+    breaking: false
+    highlights:
+      - Adds on_behalf_of parameter to funding_accounts/find
+      - Adds new error responses to /conversions/create and /rates/detailed
+  - version: 2.31.0
+    date: '2021-10-01'
+    breaking: false
+    highlights:
+      - Adds optional unique_request_id parameter to transfers/create and transfers/find
+      - Corrects the type of the order parameter in conversions/find from integer to string
+  - version: 2.30.0
+    date: '2021-09-23'
+    breaking: false
+    highlights:
+      - Adds demo-only demo/funding/create endpoint

@@ -1,0 +1,63 @@
+generated: '2026-07-18'
+method: searched
+source:
+  - https://developer.currencycloud.com/guides/integration-guides/authentication/
+  - https://developer.currencycloud.com/guides/platform-specifics/rate-limiting/
+  - openapi/currencycloud-openapi-original.yml
+note: Cross-cutting request/response semantics for the Currencycloud API v2.
+authentication:
+  style: login-token
+  header: X-Auth-Token
+  login_operation: POST /v2/authenticate/api (login_id + api_key form-data -> auth_token)
+  logout_operation: POST /v2/authenticate/close_session
+  token_expiry: 30 minutes of inactivity
+  on_behalf_of: >-
+    Most write operations accept an on_behalf_of parameter (a sub-account
+    contact id) so a house account can act for its sub-accounts.
+  cross_ref: authentication/currencycloud-authentication.yml
+idempotency:
+  supported: true
+  mechanism: unique_request_id
+  scope: >-
+    A client-supplied unique_request_id on create operations (payments/create,
+    transfers/create, conversions/create) makes the request idempotent -
+    resubmitting the same unique_request_id will not create a duplicate.
+  operations:
+    - CreatePayment
+    - CreateTransfer
+    - CreateConversion
+  cross_ref: errors/currencycloud-error-codes.yml
+pagination:
+  style: page-number
+  request_params:
+    - page
+    - per_page
+    - order
+    - order_asc_desc
+  response_field: pagination
+  response_fields:
+    - total_entries
+    - total_pages
+    - current_page
+    - per_page
+    - previous_page
+    - next_page
+    - order
+    - order_asc_desc
+versioning:
+  scheme: uri-path
+  current: v2
+  base_path: /v2
+  cross_ref: lifecycle/currencycloud-lifecycle.yml
+error_envelope:
+  shape: '{ error_code, error_messages: { <param>: [ { code, message, params } ] } }'
+  cross_ref: errors/currencycloud-problem-types.yml
+rate_limit_signaling:
+  status: 429
+  error_code: too_many_requests
+  retry_after_seconds: 60
+  cross_ref: rate-limits/currencycloud-rate-limits.yml
+webhooks:
+  supported: true
+  signature: HMAC
+  cross_ref: asyncapi/currencycloud-webhooks.yml

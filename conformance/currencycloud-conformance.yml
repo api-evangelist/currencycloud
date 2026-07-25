@@ -1,0 +1,40 @@
+generated: '2026-07-18'
+method: derived
+source: openapi/currencycloud-openapi-original.yml
+docs: https://www.currencycloud.com/legal/security
+note: >-
+  Cross-cutting standards conformance derived from the OpenAPI plus documented
+  behaviour. Currencycloud is an FCA-authorised Electronic Money Institution
+  (and, as part of Visa, operates a regulated cross-border payments platform);
+  it is not a card acquirer, so card-scheme and OAuth/OIDC standards do not
+  apply.
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: Uses a login-token (X-Auth-Token) model, not OAuth2.
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: Uses a custom { error_code, error_messages } envelope, not application/problem+json.
+  - id: rfc6585-429
+    conforms: true
+    evidence: Returns HTTP 429 too_many_requests when rate limited.
+  - id: rfc8594-deprecation-headers
+    conforms: false
+    evidence: Deprecation is policy-based (3-month notice), no Sunset/Deprecation headers documented.
+  - id: idempotency
+    conforms: true
+    evidence: unique_request_id makes payment/transfer/conversion creation idempotent.
+  - id: pagination
+    conforms: true
+    evidence: page/per_page/order params with a pagination response object.
+  - id: hmac-webhooks
+    conforms: true
+    evidence: Push notifications signed with HMAC.
+  - id: psd2
+    conforms: true
+    evidence: Operates SCA-sponsored API payments and EU/UK open-banking flows (regulated EMI).
+  - id: confirmation-of-payee
+    conforms: true
+    evidence: Beneficiary account verification (UK CoP / EU Verification of Payee) endpoints.

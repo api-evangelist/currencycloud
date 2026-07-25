@@ -1,0 +1,25 @@
+generated: '2026-07-18'
+method: searched
+source: https://www.currencycloud.com/legal/security
+url: https://www.currencycloud.com/legal/security
+note: >-
+  Currencycloud publishes its security posture and certifications on its legal
+  security page. It is an FCA-authorised Electronic Money Institution and part
+  of Visa. No public vulnerability-disclosure / bug-bounty program or security@
+  contact was found (2026-07-18), so no VulnerabilityDisclosure artifact is
+  emitted.
+certifications:
+  - ISO/IEC 27001:2022
+  - ISO/IEC 27018
+  - PCI DSS Level 1
+  - SOC 1
+  - SOC 2
+  - SOC 3
+  - FIPS
+  - GDPR
+  - UK DPA
+regulatory:
+  - authority: Financial Conduct Authority (UK)
+    detail: Authorised for issuing electronic money and provision of payment services (Registration #900199)
+  - authority: FinCEN (USA)
+    detail: Registered money transmitter, licensed in 39 states
