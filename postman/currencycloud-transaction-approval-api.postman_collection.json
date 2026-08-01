@@ -1,0 +1,338 @@
+{
+  "info": {
+    "_postman_id": "582056d1-8e20-461a-96cb-11799a1418b0",
+    "name": "api-onboarding Account Usage Transaction Approval API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:43.000Z",
+    "updatedAt": "2026-07-28T01:28:43.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-582056d1-8e20-461a-96cb-11799a1418b0"
+  },
+  "item": [
+    {
+      "name": "collections_screening",
+      "item": [
+        {
+          "name": "{transactionId}",
+          "item": [
+            {
+              "name": "complete",
+              "item": [
+                {
+                  "name": "Accept or Reject Inbound Transaction",
+                  "id": "44aa3906-8001-4ea3-b12f-eba23823121e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/collections_screening/:transactionId/complete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "collections_screening",
+                        ":transactionId",
+                        "complete"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0b6ee384-d5ce-4faf-9206-e0d7702c458c",
+                          "key": "transactionId",
+                          "value": "",
+                          "description": "(Required) The related_entity_id from the Cash Manager notification."
+                        }
+                      ]
+                    },
+                    "description": "\nAllows you to accept or reject an inbound transaction before the funds are credited to the beneficiary\u2019s account."
+                  },
+                  "response": [
+                    {
+                      "id": "cd4c311e-3781-4905-9c03-831e906b8bb1",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token.",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/collections_screening/:transactionId/complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "collections_screening",
+                            ":transactionId",
+                            "complete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "transactionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:44.000Z",
+                      "updatedAt": "2026-07-28T01:28:44.000Z",
+                      "uid": "35240-cd4c311e-3781-4905-9c03-831e906b8bb1"
+                    },
+                    {
+                      "id": "c577bd08-7eb3-4810-86da-9fbf5504ed07",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token.",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/collections_screening/:transactionId/complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "collections_screening",
+                            ":transactionId",
+                            "complete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "transactionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:44.000Z",
+                      "updatedAt": "2026-07-28T01:28:44.000Z",
+                      "uid": "35240-c577bd08-7eb3-4810-86da-9fbf5504ed07"
+                    },
+                    {
+                      "id": "f70f63dd-a98e-4a05-a874-0396299816ad",
+                      "name": "Authentication failed.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token.",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/collections_screening/:transactionId/complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "collections_screening",
+                            ":transactionId",
+                            "complete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "transactionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:44.000Z",
+                      "updatedAt": "2026-07-28T01:28:44.000Z",
+                      "uid": "35240-f70f63dd-a98e-4a05-a874-0396299816ad"
+                    },
+                    {
+                      "id": "9d58b976-23fa-4a9f-ad04-bb2157ba6e23",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token.",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/collections_screening/:transactionId/complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "collections_screening",
+                            ":transactionId",
+                            "complete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "transactionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:44.000Z",
+                      "updatedAt": "2026-07-28T01:28:44.000Z",
+                      "uid": "35240-9d58b976-23fa-4a9f-ad04-bb2157ba6e23"
+                    },
+                    {
+                      "id": "121f0daf-af8d-4ccc-8faf-b48f54b5087d",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token.",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/collections_screening/:transactionId/complete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "collections_screening",
+                            ":transactionId",
+                            "complete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "transactionId"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:44.000Z",
+                      "updatedAt": "2026-07-28T01:28:44.000Z",
+                      "uid": "35240-121f0daf-af8d-4ccc-8faf-b48f54b5087d"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:44.000Z",
+                  "updatedAt": "2026-07-28T01:28:44.000Z",
+                  "uid": "35240-44aa3906-8001-4ea3-b12f-eba23823121e"
+                }
+              ],
+              "id": "2065eb47-c628-4840-8faf-2d422273bd32",
+              "createdAt": "2026-07-28T01:28:44.000Z",
+              "updatedAt": "2026-07-28T01:28:44.000Z",
+              "uid": "35240-2065eb47-c628-4840-8faf-2d422273bd32"
+            }
+          ],
+          "id": "51580ac7-ebac-4174-9d46-bf2a4214841b",
+          "createdAt": "2026-07-28T01:28:44.000Z",
+          "updatedAt": "2026-07-28T01:28:44.000Z",
+          "uid": "35240-51580ac7-ebac-4174-9d46-bf2a4214841b"
+        }
+      ],
+      "id": "2142d38b-e7af-4425-8029-3ddccf6054e3",
+      "createdAt": "2026-07-28T01:28:44.000Z",
+      "updatedAt": "2026-07-28T01:28:44.000Z",
+      "uid": "35240-2142d38b-e7af-4425-8029-3ddccf6054e3"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

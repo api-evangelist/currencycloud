@@ -1,0 +1,441 @@
+{
+  "info": {
+    "_postman_id": "1e6d16c9-4cfb-4864-9521-15046cdd07d7",
+    "name": "api-onboarding Account Usage Demo API",
+    "description": "Requests that are only available in the Demo environment.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:10.000Z",
+    "updatedAt": "2026-07-28T01:28:10.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1e6d16c9-4cfb-4864-9521-15046cdd07d7"
+  },
+  "item": [
+    {
+      "name": "demo",
+      "item": [
+        {
+          "name": "funding",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Emulate inbound funds",
+                  "id": "ee47dfd8-d7fc-488e-b877-51736f2f2e21",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/demo/funding/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "demo",
+                        "funding",
+                        "create"
+                      ]
+                    },
+                    "description": "Triggers a production-like flow for processing funds, topping up CM balance or rejecting the transaction without topping up CM balance. This resource is only available in the Currencycloud Demo environment; it is not implemented in the Production environment."
+                  },
+                  "response": [
+                    {
+                      "id": "b52a32b5-ba61-421e-bcae-e75d1aa29e5f",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-b52a32b5-ba61-421e-bcae-e75d1aa29e5f"
+                    },
+                    {
+                      "id": "e182ce87-b3cd-4844-b36c-8faffaffa9ed",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-e182ce87-b3cd-4844-b36c-8faffaffa9ed"
+                    },
+                    {
+                      "id": "0abcef7d-6018-4749-ae2e-b689ef07a99a",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-0abcef7d-6018-4749-ae2e-b689ef07a99a"
+                    },
+                    {
+                      "id": "3e8b6d91-99f9-4755-a487-1f6a2ea3dbbc",
+                      "name": "Forbidden.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-3e8b6d91-99f9-4755-a487-1f6a2ea3dbbc"
+                    },
+                    {
+                      "id": "61013082-1735-4f23-9d6a-7634ec47e592",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-61013082-1735-4f23-9d6a-7634ec47e592"
+                    },
+                    {
+                      "id": "f0f27ced-6581-49f4-bc37-de8b176332b5",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-f0f27ced-6581-49f4-bc37-de8b176332b5"
+                    },
+                    {
+                      "id": "1c9707e3-1fd4-489f-b4e0-3cc23a8caa89",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-1c9707e3-1fd4-489f-b4e0-3cc23a8caa89"
+                    },
+                    {
+                      "id": "b7f9502c-119a-444a-ae65-38c7ec8c83c1",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/demo/funding/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "demo",
+                            "funding",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:10.000Z",
+                      "updatedAt": "2026-07-28T01:28:10.000Z",
+                      "uid": "35240-b7f9502c-119a-444a-ae65-38c7ec8c83c1"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:10.000Z",
+                  "updatedAt": "2026-07-28T01:28:10.000Z",
+                  "uid": "35240-ee47dfd8-d7fc-488e-b877-51736f2f2e21"
+                }
+              ],
+              "id": "33665ef7-7447-48d1-9bf1-ef54495ad4ab",
+              "createdAt": "2026-07-28T01:28:10.000Z",
+              "updatedAt": "2026-07-28T01:28:10.000Z",
+              "uid": "35240-33665ef7-7447-48d1-9bf1-ef54495ad4ab"
+            }
+          ],
+          "id": "cc798fb1-e5af-4b13-9fb1-d68989ec4c26",
+          "createdAt": "2026-07-28T01:28:10.000Z",
+          "updatedAt": "2026-07-28T01:28:10.000Z",
+          "uid": "35240-cc798fb1-e5af-4b13-9fb1-d68989ec4c26"
+        }
+      ],
+      "id": "db7f09d9-928d-49c9-a556-f5888205bae8",
+      "createdAt": "2026-07-28T01:28:10.000Z",
+      "updatedAt": "2026-07-28T01:28:10.000Z",
+      "uid": "35240-db7f09d9-928d-49c9-a556-f5888205bae8"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

@@ -1,0 +1,1303 @@
+{
+  "info": {
+    "_postman_id": "deeb0a91-1f79-4687-acc1-4f3b38624d67",
+    "name": "api-onboarding Account Usage Rates API",
+    "description": "Super fast real-time access to live foreign exchange rates through the Currencycloud platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:37.000Z",
+    "updatedAt": "2026-07-28T01:28:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-deeb0a91-1f79-4687-acc1-4f3b38624d67"
+  },
+  "item": [
+    {
+      "name": "rates",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Get Basic Rates",
+              "id": "0f2363b7-97ec-4d87-96b8-5f53c0bbf06d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "description": "Ignore the validation of currency pairs.",
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Gets indicative foreign exchange rate information for one or more currency pairs in a single request. <br><br> This endpoint is intended to provide an indication of the rate available in the market and can support requests for multiple currency pairs, so is good for polling requirements such as live FX ticker widgets. This endpoint should be used where speed, availability and the ability to request multiple currency pairs is important."
+              },
+              "response": [
+                {
+                  "id": "fe57562c-0f9e-4fca-a7fc-940f8d0614ed",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-fe57562c-0f9e-4fca-a7fc-940f8d0614ed"
+                },
+                {
+                  "id": "d9844a47-1c00-43e1-91ae-7ac42d7c3847",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-d9844a47-1c00-43e1-91ae-7ac42d7c3847"
+                },
+                {
+                  "id": "862fda99-1902-404a-bb57-42dc31c338bd",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-862fda99-1902-404a-bb57-42dc31c338bd"
+                },
+                {
+                  "id": "7dc98bfa-1d03-4d39-8320-21acb7512b07",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-7dc98bfa-1d03-4d39-8320-21acb7512b07"
+                },
+                {
+                  "id": "f81dd2ad-9c57-46cd-9a1c-cc53f173c1e1",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-f81dd2ad-9c57-46cd-9a1c-cc53f173c1e1"
+                },
+                {
+                  "id": "a0d5a8e1-68f8-4261-9090-8434f3e1fdef",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-a0d5a8e1-68f8-4261-9090-8434f3e1fdef"
+                },
+                {
+                  "id": "ddc4766c-17d7-43c2-a988-1ddf057ab7cf",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-ddc4766c-17d7-43c2-a988-1ddf057ab7cf"
+                },
+                {
+                  "id": "41f96a37-07d1-40bf-81d5-348a4153112e",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/find?currency_pair=&on_behalf_of=&ignore_invalid_pairs=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Ignore the validation of currency pairs.",
+                          "key": "ignore_invalid_pairs",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-41f96a37-07d1-40bf-81d5-348a4153112e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:37.000Z",
+              "updatedAt": "2026-07-28T01:28:37.000Z",
+              "uid": "35240-0f2363b7-97ec-4d87-96b8-5f53c0bbf06d"
+            }
+          ],
+          "id": "76877d1d-7dfb-48d9-8557-dfa2d48c3a1d",
+          "createdAt": "2026-07-28T01:28:37.000Z",
+          "updatedAt": "2026-07-28T01:28:37.000Z",
+          "uid": "35240-76877d1d-7dfb-48d9-8557-dfa2d48c3a1d"
+        },
+        {
+          "name": "detailed",
+          "item": [
+            {
+              "name": "Get Detailed Rates",
+              "id": "604c027d-100c-4010-bf7a-462dcc7b4f87",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) Currency purchased - three-letter ISO code.",
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "description": "(Required) Currency sold - three-letter ISO code.",
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "description": "(Required) Amount of the fixed buy or sell currency.",
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Gets a detailed, tradeable rate quote to convert money from one currency to another. The quotation provided will be based on the spread table of the authenticated user. There is also the option to provide a specific date for the conversion to occur. <br><br> This endpoint provides a current tradeable rate for a single currency pair. It should be used as the start of the flow before a conversion is booked. This endpoint should be used where accuracy is the most important aspect, such as when a trade is about to be booked."
+              },
+              "response": [
+                {
+                  "id": "07dd9635-4f59-4e57-9922-c1429ce7d829",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-07dd9635-4f59-4e57-9922-c1429ce7d829"
+                },
+                {
+                  "id": "8be15d36-5695-428c-9d72-5e49094cb482",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-8be15d36-5695-428c-9d72-5e49094cb482"
+                },
+                {
+                  "id": "0500c6df-b1e4-46d3-81c0-6a49236ab719",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-0500c6df-b1e4-46d3-81c0-6a49236ab719"
+                },
+                {
+                  "id": "a77bfc55-2915-4a9d-9f91-c63b23a52d03",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-a77bfc55-2915-4a9d-9f91-c63b23a52d03"
+                },
+                {
+                  "id": "658762f2-3f4a-4ce3-b12a-b9dcfa5fcc49",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-658762f2-3f4a-4ce3-b12a-b9dcfa5fcc49"
+                },
+                {
+                  "id": "12e05f46-be23-4140-8dd9-2a4dc0c0a978",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-12e05f46-be23-4140-8dd9-2a4dc0c0a978"
+                },
+                {
+                  "id": "7574060a-0703-4888-bca8-e8b827fe9aa2",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-7574060a-0703-4888-bca8-e8b827fe9aa2"
+                },
+                {
+                  "id": "945a7ed3-f3db-4920-9707-9fc04c2379c4",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/rates/detailed?buy_currency=&sell_currency=&fixed_side=&amount=&on_behalf_of=&conversion_date=&conversion_date_preference=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "rates",
+                        "detailed"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) Currency purchased - three-letter ISO code.",
+                          "key": "buy_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Currency sold - three-letter ISO code.",
+                          "key": "sell_currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                          "key": "fixed_side",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) Amount of the fixed buy or sell currency.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                          "key": "conversion_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                          "key": "conversion_date_preference",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:37.000Z",
+                  "updatedAt": "2026-07-28T01:28:37.000Z",
+                  "uid": "35240-945a7ed3-f3db-4920-9707-9fc04c2379c4"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:37.000Z",
+              "updatedAt": "2026-07-28T01:28:37.000Z",
+              "uid": "35240-604c027d-100c-4010-bf7a-462dcc7b4f87"
+            }
+          ],
+          "id": "3d83444d-fe00-4b87-a014-4c194c138cb2",
+          "createdAt": "2026-07-28T01:28:37.000Z",
+          "updatedAt": "2026-07-28T01:28:37.000Z",
+          "uid": "35240-3d83444d-fe00-4b87-a014-4c194c138cb2"
+        }
+      ],
+      "id": "5eb0010a-02d5-455d-8df6-d81ba7d89ad7",
+      "createdAt": "2026-07-28T01:28:37.000Z",
+      "updatedAt": "2026-07-28T01:28:37.000Z",
+      "uid": "35240-5eb0010a-02d5-455d-8df6-d81ba7d89ad7"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

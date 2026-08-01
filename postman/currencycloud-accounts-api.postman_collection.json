@@ -1,0 +1,4404 @@
+{
+  "info": {
+    "_postman_id": "1864e835-03e9-49eb-9d13-cd170f537d77",
+    "name": "api-onboarding Account Usage Accounts API",
+    "description": "Create, search and update your Currencycloud account and any associated sub-accounts. Also provides you with the ability to use your own reference IDs for easy reconciliation with your internal systems.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:36.000Z",
+    "updatedAt": "2026-07-28T01:27:37.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1864e835-03e9-49eb-9d13-cd170f537d77"
+  },
+  "item": [
+    {
+      "name": "accounts",
+      "item": [
+        {
+          "name": "create",
+          "item": [
+            {
+              "name": "Create Account",
+              "id": "fa4c8a90-9a43-46a7-bb41-dcc5afc8018c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    "create"
+                  ]
+                },
+                "description": "Creates a new sub-account. Returns the new account entity on success."
+              },
+              "response": [
+                {
+                  "id": "3ded0b9e-9c99-4968-8cce-36ebae5810d4",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-3ded0b9e-9c99-4968-8cce-36ebae5810d4"
+                },
+                {
+                  "id": "329e86d2-fb4d-4acf-bbbc-1b676290b717",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-329e86d2-fb4d-4acf-bbbc-1b676290b717"
+                },
+                {
+                  "id": "dc4398c2-23e5-4e7d-844b-b7c0527a555b",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-dc4398c2-23e5-4e7d-844b-b7c0527a555b"
+                },
+                {
+                  "id": "dc824274-0211-4364-a6ab-1986cc107aeb",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-dc824274-0211-4364-a6ab-1986cc107aeb"
+                },
+                {
+                  "id": "5adadaad-c154-47b5-a2bd-308ba91a3781",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-5adadaad-c154-47b5-a2bd-308ba91a3781"
+                },
+                {
+                  "id": "2b2e4130-6ae6-4df0-864b-4464639ff6cb",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-2b2e4130-6ae6-4df0-864b-4464639ff6cb"
+                },
+                {
+                  "id": "8b4b7865-a8be-44e7-a7b8-d11ec81a0de8",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-8b4b7865-a8be-44e7-a7b8-d11ec81a0de8"
+                },
+                {
+                  "id": "6940d322-cb68-444d-9212-3cb3228dee74",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-6940d322-cb68-444d-9212-3cb3228dee74"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-fa4c8a90-9a43-46a7-bb41-dcc5afc8018c"
+            }
+          ],
+          "id": "00195d31-c41d-4fb6-88bd-cc8722779b19",
+          "createdAt": "2026-07-28T01:27:37.000Z",
+          "updatedAt": "2026-07-28T01:27:37.000Z",
+          "uid": "35240-00195d31-c41d-4fb6-88bd-cc8722779b19"
+        },
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "compliance_settings",
+              "item": [
+                {
+                  "name": "Get Account's Compliance Settings",
+                  "id": "704859e3-34d0-43f0-90f8-1689419ce848",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id",
+                        "compliance_settings"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "8dc0039d-6539-41d9-9b59-989f0474f026",
+                          "key": "id",
+                          "value": "",
+                          "description": "(Required) Account UUID, returned by the create account endpoint."
+                        }
+                      ]
+                    },
+                    "description": "Gets the compliance settings for the account with the given ID."
+                  },
+                  "response": [
+                    {
+                      "id": "76fcf110-0c88-4df6-a89d-5375a673de13",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-76fcf110-0c88-4df6-a89d-5375a673de13"
+                    },
+                    {
+                      "id": "8d57ad20-529f-4109-8172-a8335c84668f",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-8d57ad20-529f-4109-8172-a8335c84668f"
+                    },
+                    {
+                      "id": "bef58467-fc53-420d-8abc-afa28bf7dc60",
+                      "name": "Unauthorized",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-bef58467-fc53-420d-8abc-afa28bf7dc60"
+                    },
+                    {
+                      "id": "f73e7afc-f43d-413f-8852-c315c9764f5d",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-f73e7afc-f43d-413f-8852-c315c9764f5d"
+                    },
+                    {
+                      "id": "bd51653e-e4af-49e4-ab68-21afdcdf2c57",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-bd51653e-e4af-49e4-ab68-21afdcdf2c57"
+                    },
+                    {
+                      "id": "a5c499d2-f270-4300-9da1-635c2980881e",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-a5c499d2-f270-4300-9da1-635c2980881e"
+                    },
+                    {
+                      "id": "5414b8a8-a7b9-480d-b60a-338d03349ae6",
+                      "name": "Service is temporary unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-5414b8a8-a7b9-480d-b60a-338d03349ae6"
+                    },
+                    {
+                      "id": "1fed1bde-2e1b-4660-810d-3e80731e1bf9",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-1fed1bde-2e1b-4660-810d-3e80731e1bf9"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-704859e3-34d0-43f0-90f8-1689419ce848"
+                },
+                {
+                  "name": "Update Account's Compliance Settings",
+                  "id": "5c62d2ff-e171-44d0-8d49-9098dd9ac0eb",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id",
+                        "compliance_settings"
+                      ],
+                      "variable": [
+                        {
+                          "id": "0de848e6-774a-41dc-8769-1e4160f23cdc",
+                          "key": "id",
+                          "value": "",
+                          "description": "(Required) Account UUID."
+                        }
+                      ]
+                    },
+                    "description": "Update the compliance settings for a sub-account owned by the authenticating user. On success, returns the updated account entity."
+                  },
+                  "response": [
+                    {
+                      "id": "d793cd17-4cb7-4532-bced-6a2ea8a076b6",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-d793cd17-4cb7-4532-bced-6a2ea8a076b6"
+                    },
+                    {
+                      "id": "5022bbe3-f84f-4071-8ae7-d2a3b19db30e",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-5022bbe3-f84f-4071-8ae7-d2a3b19db30e"
+                    },
+                    {
+                      "id": "48bd125b-96c4-4c20-8e11-fe95b9937313",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-48bd125b-96c4-4c20-8e11-fe95b9937313"
+                    },
+                    {
+                      "id": "c104d34c-e0e7-4fa4-b71b-1939dbc8353c",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-c104d34c-e0e7-4fa4-b71b-1939dbc8353c"
+                    },
+                    {
+                      "id": "d2dea7ce-38ef-464f-a502-4db0b4faa0f0",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-d2dea7ce-38ef-464f-a502-4db0b4faa0f0"
+                    },
+                    {
+                      "id": "b5fe3d3c-542e-42d7-b1ef-76977ab7643a",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-b5fe3d3c-542e-42d7-b1ef-76977ab7643a"
+                    },
+                    {
+                      "id": "55e57f6c-7f41-43bd-b67a-1c6eea89f6af",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-55e57f6c-7f41-43bd-b67a-1c6eea89f6af"
+                    },
+                    {
+                      "id": "1d858775-91e9-48af-96bb-98dc9d5671d5",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:id/compliance_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":id",
+                            "compliance_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-1d858775-91e9-48af-96bb-98dc9d5671d5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-5c62d2ff-e171-44d0-8d49-9098dd9ac0eb"
+                }
+              ],
+              "id": "e5539b51-2789-43c1-9739-09f7624eaf0e",
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-e5539b51-2789-43c1-9739-09f7624eaf0e"
+            },
+            {
+              "name": "Get Account",
+              "id": "ed12af1e-2d0a-4590-9e82-87d4243226d1",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "6cdb5a4e-8da4-4240-9140-bf678bc7a438",
+                      "key": "id",
+                      "value": "",
+                      "description": "(Required) Account UUID, returned by the create account endpoint."
+                    }
+                  ]
+                },
+                "description": "Gets an account or sub-account owned by the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "5b53c717-499c-466d-b7ff-f039d390fdf4",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-5b53c717-499c-466d-b7ff-f039d390fdf4"
+                },
+                {
+                  "id": "4eaea374-863d-4d84-88df-732ca732e445",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-4eaea374-863d-4d84-88df-732ca732e445"
+                },
+                {
+                  "id": "d974367d-39d8-4bc1-b016-0326bedaf54a",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-d974367d-39d8-4bc1-b016-0326bedaf54a"
+                },
+                {
+                  "id": "05658fd0-7ec2-4fe8-b2f5-260edf7f915d",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-05658fd0-7ec2-4fe8-b2f5-260edf7f915d"
+                },
+                {
+                  "id": "86ae5016-1a2a-4bcc-a69f-56e640757bf2",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-86ae5016-1a2a-4bcc-a69f-56e640757bf2"
+                },
+                {
+                  "id": "939e33eb-ca9f-4dea-a3cd-0968195834ad",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-939e33eb-ca9f-4dea-a3cd-0968195834ad"
+                },
+                {
+                  "id": "7548a157-ab9c-4934-9366-ccd52bc2113b",
+                  "name": "Service is temporary unavailable.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-7548a157-ab9c-4934-9366-ccd52bc2113b"
+                },
+                {
+                  "id": "4199456e-4ca1-4816-9457-f036d0ca445c",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-4199456e-4ca1-4816-9457-f036d0ca445c"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-ed12af1e-2d0a-4590-9e82-87d4243226d1"
+            },
+            {
+              "name": "Update Account",
+              "id": "fee326f3-eef3-49aa-ba03-09338e88aa8d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "eec026c2-7d5d-4875-9747-d3cb3940adf8",
+                      "key": "id",
+                      "value": "",
+                      "description": "(Required) Account UUID, returned by the create account endpoint."
+                    }
+                  ]
+                },
+                "description": "Updates a sub-account owned by the authenticated user. The updated account entity is returned on success."
+              },
+              "response": [
+                {
+                  "id": "d31b3293-3c5f-4f90-a0b1-8450e8e0763f",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-d31b3293-3c5f-4f90-a0b1-8450e8e0763f"
+                },
+                {
+                  "id": "5840cc8d-43ef-4501-852b-4192d442e1cb",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-5840cc8d-43ef-4501-852b-4192d442e1cb"
+                },
+                {
+                  "id": "212b4c3a-015b-43b6-9d48-c85bec1baa35",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-212b4c3a-015b-43b6-9d48-c85bec1baa35"
+                },
+                {
+                  "id": "77dd4c8c-9c9d-4542-948f-7120fe7eb5ae",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-77dd4c8c-9c9d-4542-948f-7120fe7eb5ae"
+                },
+                {
+                  "id": "7a2f5600-9f03-429c-b59c-66831033b8b7",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-7a2f5600-9f03-429c-b59c-66831033b8b7"
+                },
+                {
+                  "id": "e6f1206b-4c99-4b2f-8ec3-c0549329ba3c",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-e6f1206b-4c99-4b2f-8ec3-c0549329ba3c"
+                },
+                {
+                  "id": "2e266778-9534-4601-8be7-e58db1bc8d4b",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-2e266778-9534-4601-8be7-e58db1bc8d4b"
+                },
+                {
+                  "id": "eefde051-7b4f-45a5-9e6a-f32692380d93",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-eefde051-7b4f-45a5-9e6a-f32692380d93"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-fee326f3-eef3-49aa-ba03-09338e88aa8d"
+            }
+          ],
+          "id": "564933f1-8a5c-4bd5-8ece-f6ccb60b1f37",
+          "createdAt": "2026-07-28T01:27:37.000Z",
+          "updatedAt": "2026-07-28T01:27:37.000Z",
+          "uid": "35240-564933f1-8a5c-4bd5-8ece-f6ccb60b1f37"
+        },
+        {
+          "name": "current",
+          "item": [
+            {
+              "name": "Get Authenticating Account",
+              "id": "716491ab-6dee-48f4-b91d-572788a127ce",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/current",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    "current"
+                  ]
+                },
+                "description": "Gets the authenticated user's main account."
+              },
+              "response": [
+                {
+                  "id": "77210f59-f5c7-478c-b4ac-84b6cac8ac78",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-77210f59-f5c7-478c-b4ac-84b6cac8ac78"
+                },
+                {
+                  "id": "850a8bc6-f03d-45c7-b388-8c3278a7ad44",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-850a8bc6-f03d-45c7-b388-8c3278a7ad44"
+                },
+                {
+                  "id": "ce9c2e66-0e40-4c2d-83cd-ffb397dac71c",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-ce9c2e66-0e40-4c2d-83cd-ffb397dac71c"
+                },
+                {
+                  "id": "f2432c15-0b72-48af-9c04-cb479efe57d9",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-f2432c15-0b72-48af-9c04-cb479efe57d9"
+                },
+                {
+                  "id": "65d46fe4-2d0f-43e4-a1c0-8cde08a2ecc7",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-65d46fe4-2d0f-43e4-a1c0-8cde08a2ecc7"
+                },
+                {
+                  "id": "12ba6dd0-e7d5-4eb0-bc10-ba53152f1920",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-12ba6dd0-e7d5-4eb0-bc10-ba53152f1920"
+                },
+                {
+                  "id": "1c6e540f-d5f3-4109-87a8-1012dd05fd22",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/current",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "current"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-1c6e540f-d5f3-4109-87a8-1012dd05fd22"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-716491ab-6dee-48f4-b91d-572788a127ce"
+            }
+          ],
+          "id": "2b5883d3-e563-42e9-81d7-ec05b766285d",
+          "createdAt": "2026-07-28T01:27:37.000Z",
+          "updatedAt": "2026-07-28T01:27:37.000Z",
+          "uid": "35240-2b5883d3-e563-42e9-81d7-ec05b766285d"
+        },
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Find Accounts",
+              "id": "a3455909-8cbd-4f3e-b232-3821fb82b454",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/accounts/find",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "accounts",
+                    "find"
+                  ]
+                },
+                "description": "Returns account and any sub-accounts owned by the authenticated user. Optionally filter by account status and other criteria."
+              },
+              "response": [
+                {
+                  "id": "616b3fdb-112f-4381-bde2-0f29640c3503",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-616b3fdb-112f-4381-bde2-0f29640c3503"
+                },
+                {
+                  "id": "8b1eb9f3-6f70-43c9-a0a4-9b0091638b5b",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-8b1eb9f3-6f70-43c9-a0a4-9b0091638b5b"
+                },
+                {
+                  "id": "841a9c57-2a60-467b-a380-824055245637",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-841a9c57-2a60-467b-a380-824055245637"
+                },
+                {
+                  "id": "320e684d-d102-4e70-b602-6d332053fb72",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-320e684d-d102-4e70-b602-6d332053fb72"
+                },
+                {
+                  "id": "7f47b4e1-b76a-4c12-a49b-98ea6a9b8f6e",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-7f47b4e1-b76a-4c12-a49b-98ea6a9b8f6e"
+                },
+                {
+                  "id": "a7e3cda4-c7d3-47ca-8e27-15a21574d3e1",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-a7e3cda4-c7d3-47ca-8e27-15a21574d3e1"
+                },
+                {
+                  "id": "135fb658-ba6b-4f47-9a3b-ce54bd863368",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-135fb658-ba6b-4f47-9a3b-ce54bd863368"
+                },
+                {
+                  "id": "4514487e-39c3-4258-b6e4-09c76ec8af7b",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-4514487e-39c3-4258-b6e4-09c76ec8af7b"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-a3455909-8cbd-4f3e-b232-3821fb82b454"
+            }
+          ],
+          "id": "ab56a0a5-e171-45c5-b6e3-d0103847fcd0",
+          "createdAt": "2026-07-28T01:27:37.000Z",
+          "updatedAt": "2026-07-28T01:27:37.000Z",
+          "uid": "35240-ab56a0a5-e171-45c5-b6e3-d0103847fcd0"
+        },
+        {
+          "name": "{account_id}",
+          "item": [
+            {
+              "name": "payment_charges_settings",
+              "item": [
+                {
+                  "name": "{charge_settings_id}",
+                  "item": [
+                    {
+                      "name": "Manage Account Payment Charges Settings",
+                      "id": "72b219d6-ba9a-4f23-8043-9752a4982056",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings",
+                            ":charge_settings_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "72582975-eec6-437b-ae58-5d8e00f0f578",
+                              "key": "account_id",
+                              "value": "",
+                              "description": "(Required) Account UUID"
+                            },
+                            {
+                              "id": "b34f60f9-c318-4594-95b5-afef5206311d",
+                              "key": "charge_settings_id",
+                              "value": "",
+                              "description": "(Required) Account Payment Charges Setting UUID. Can be retrieved via appropriate GET call for the given Account UUID."
+                            }
+                          ]
+                        },
+                        "description": "Manage a given account's Payment Charge Settings (enable, disable, set as default)."
+                      },
+                      "response": [
+                        {
+                          "id": "b0ca4e55-0066-47eb-81a4-88a59c3209ed",
+                          "name": "Success.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-b0ca4e55-0066-47eb-81a4-88a59c3209ed"
+                        },
+                        {
+                          "id": "5ed85a81-d7b7-4cca-88e3-1208c4018d4a",
+                          "name": "Client error.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-5ed85a81-d7b7-4cca-88e3-1208c4018d4a"
+                        },
+                        {
+                          "id": "c99e9ff8-5f09-412d-b87d-6dea8979a93f",
+                          "name": "Unauthorized.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-c99e9ff8-5f09-412d-b87d-6dea8979a93f"
+                        },
+                        {
+                          "id": "01b9ed54-efda-4ff5-8127-6de90291644a",
+                          "name": "Resource not found.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-01b9ed54-efda-4ff5-8127-6de90291644a"
+                        },
+                        {
+                          "id": "d84d73f2-5a4b-4521-92d7-6201aff1cf83",
+                          "name": "Too many requests.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Too Many Requests",
+                          "code": 429,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-d84d73f2-5a4b-4521-92d7-6201aff1cf83"
+                        },
+                        {
+                          "id": "6747bbf1-05aa-40f1-b914-11633a1dc2e2",
+                          "name": "Internal server error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-6747bbf1-05aa-40f1-b914-11633a1dc2e2"
+                        },
+                        {
+                          "id": "550c7ffe-146d-4e18-983e-cb66cef3a39d",
+                          "name": "Service is temporary unavailable",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Service Unavailable",
+                          "code": 503,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-550c7ffe-146d-4e18-983e-cb66cef3a39d"
+                        },
+                        {
+                          "id": "fe44123e-1e26-4758-a437-3d66d959f9d2",
+                          "name": "Unexpected error.",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "description": "(Required) Authentication token",
+                                "key": "X-Auth-Token",
+                                "value": ""
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "accounts",
+                                ":account_id",
+                                "payment_charges_settings",
+                                ":charge_settings_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "account_id"
+                                },
+                                {
+                                  "key": "charge_settings_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Internal Server Error",
+                          "code": 500,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "disabled": false,
+                              "description": {
+                                "content": "A unique reference for the request.",
+                                "type": "text/plain"
+                              },
+                              "key": "X-Request-Id",
+                              "value": ""
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T01:27:37.000Z",
+                          "updatedAt": "2026-07-28T01:27:37.000Z",
+                          "uid": "35240-fe44123e-1e26-4758-a437-3d66d959f9d2"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-72b219d6-ba9a-4f23-8043-9752a4982056"
+                    }
+                  ],
+                  "id": "e6f127d6-efbb-4a91-a291-77759f74e35f",
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-e6f127d6-efbb-4a91-a291-77759f74e35f"
+                },
+                {
+                  "name": "Get Payment Charges Settings",
+                  "id": "2aa0bc27-3193-4f24-8b5a-04ab150d2892",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "accounts",
+                        ":account_id",
+                        "payment_charges_settings"
+                      ],
+                      "variable": [
+                        {
+                          "id": "315b9af7-5344-4cd4-ba79-b786bc4f5cda",
+                          "key": "account_id",
+                          "value": "",
+                          "description": "(Required) A UUID of a sub-account or house account visible to the authenticated user."
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the Payment Charges Settings for the given account."
+                  },
+                  "response": [
+                    {
+                      "id": "a306f88d-dc44-4218-8d2d-ca86740257ae",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-a306f88d-dc44-4218-8d2d-ca86740257ae"
+                    },
+                    {
+                      "id": "f2fab9f0-cc0d-4bf3-b75f-743440041e68",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-f2fab9f0-cc0d-4bf3-b75f-743440041e68"
+                    },
+                    {
+                      "id": "b5dc248d-7ede-47f8-b72d-300fbe80a739",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-b5dc248d-7ede-47f8-b72d-300fbe80a739"
+                    },
+                    {
+                      "id": "47f7985c-d7e0-45bf-93c6-40dc50b48992",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-47f7985c-d7e0-45bf-93c6-40dc50b48992"
+                    },
+                    {
+                      "id": "5ea1585f-e38a-4768-b9dc-ee1dbd62e0f1",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-5ea1585f-e38a-4768-b9dc-ee1dbd62e0f1"
+                    },
+                    {
+                      "id": "63a9f3ee-73f0-4fc8-aac4-c3b239d0b045",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-63a9f3ee-73f0-4fc8-aac4-c3b239d0b045"
+                    },
+                    {
+                      "id": "6ad2ec52-ca74-4cac-ba1c-154197fd6f2c",
+                      "name": "Service is temporary unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-6ad2ec52-ca74-4cac-ba1c-154197fd6f2c"
+                    },
+                    {
+                      "id": "11e15d1f-4fa3-41ba-89dd-2f15c9204bb4",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/accounts/:account_id/payment_charges_settings",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "accounts",
+                            ":account_id",
+                            "payment_charges_settings"
+                          ],
+                          "variable": [
+                            {
+                              "key": "account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:37.000Z",
+                      "updatedAt": "2026-07-28T01:27:37.000Z",
+                      "uid": "35240-11e15d1f-4fa3-41ba-89dd-2f15c9204bb4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-2aa0bc27-3193-4f24-8b5a-04ab150d2892"
+                }
+              ],
+              "id": "f3607772-1b74-46af-91ef-dfeee362479a",
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-f3607772-1b74-46af-91ef-dfeee362479a"
+            }
+          ],
+          "id": "506f91b4-e767-49e0-8097-9075b22a72a1",
+          "createdAt": "2026-07-28T01:27:37.000Z",
+          "updatedAt": "2026-07-28T01:27:37.000Z",
+          "uid": "35240-506f91b4-e767-49e0-8097-9075b22a72a1"
+        }
+      ],
+      "id": "c3dd32c5-5f3e-4ff4-90bf-b77389687a1e",
+      "createdAt": "2026-07-28T01:27:37.000Z",
+      "updatedAt": "2026-07-28T01:27:37.000Z",
+      "uid": "35240-c3dd32c5-5f3e-4ff4-90bf-b77389687a1e"
+    },
+    {
+      "name": "terms_and_conditions",
+      "item": [
+        {
+          "name": "accept",
+          "item": [
+            {
+              "name": "Accept Terms of Use",
+              "id": "171d3675-2f7a-4396-a126-f6e2a0c8b610",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "terms_and_conditions",
+                    "accept"
+                  ]
+                },
+                "description": "Endpoint for accounts using our Outsourced KYC model to accept Terms of Use."
+              },
+              "response": [
+                {
+                  "id": "2c3c4558-db36-43a0-891b-cab8c66899af",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-2c3c4558-db36-43a0-891b-cab8c66899af"
+                },
+                {
+                  "id": "5d71b87e-ab85-4a8b-953f-bb1782c07431",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-5d71b87e-ab85-4a8b-953f-bb1782c07431"
+                },
+                {
+                  "id": "f036d91c-6b1b-477c-87a9-e0df2cdde234",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-f036d91c-6b1b-477c-87a9-e0df2cdde234"
+                },
+                {
+                  "id": "18201de0-c786-4341-9744-917a24a60a0a",
+                  "name": "Contact ID or Terms of Use type not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-18201de0-c786-4341-9744-917a24a60a0a"
+                },
+                {
+                  "id": "2124dc3a-4238-4d79-839e-465b929e367a",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-2124dc3a-4238-4d79-839e-465b929e367a"
+                },
+                {
+                  "id": "01d73fb6-d173-43fa-89f7-3c216fdb385d",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-01d73fb6-d173-43fa-89f7-3c216fdb385d"
+                },
+                {
+                  "id": "d1f6c999-b1ab-4edf-ad2c-261277e8ad8b",
+                  "name": "Service is temporary unavailable.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-d1f6c999-b1ab-4edf-ad2c-261277e8ad8b"
+                },
+                {
+                  "id": "6b50f9f9-79ce-44cf-97ad-cbad838984c8",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/terms_and_conditions/accept",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "terms_and_conditions",
+                        "accept"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:37.000Z",
+                  "updatedAt": "2026-07-28T01:27:37.000Z",
+                  "uid": "35240-6b50f9f9-79ce-44cf-97ad-cbad838984c8"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:37.000Z",
+              "updatedAt": "2026-07-28T01:27:37.000Z",
+              "uid": "35240-171d3675-2f7a-4396-a126-f6e2a0c8b610"
+            }
+          ],
+          "id": "2ffbfce7-36a0-4914-80f6-7b57177a8ef8",
+          "createdAt": "2026-07-28T01:27:37.000Z",
+          "updatedAt": "2026-07-28T01:27:37.000Z",
+          "uid": "35240-2ffbfce7-36a0-4914-80f6-7b57177a8ef8"
+        }
+      ],
+      "id": "8b434c16-bdf2-4976-a9f4-b502a70e86ed",
+      "createdAt": "2026-07-28T01:27:37.000Z",
+      "updatedAt": "2026-07-28T01:27:37.000Z",
+      "uid": "35240-8b434c16-bdf2-4976-a9f4-b502a70e86ed"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

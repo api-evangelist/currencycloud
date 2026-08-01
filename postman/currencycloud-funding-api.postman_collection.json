@@ -1,0 +1,1315 @@
+{
+  "info": {
+    "_postman_id": "7aea01af-36b2-4be1-ada1-7059c9f19024",
+    "name": "api-onboarding Account Usage Funding API",
+    "description": "Find funding accounts that can be used to settle and collect funds in each available currency.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:14.000Z",
+    "updatedAt": "2026-07-28T01:28:14.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-7aea01af-36b2-4be1-ada1-7059c9f19024"
+  },
+  "item": [
+    {
+      "name": "funding_accounts",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Find Funding Accounts",
+              "id": "885ce75d-a052-4af3-8b9e-2f665dcda58b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "description": "Page number",
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "description": "Number of results per page.",
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "description": "Any field name to change the sort order.",
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Gets details of the Standard Settlement Instructions (SSIs) that can be used to settle and collect funds in each available currency."
+              },
+              "response": [
+                {
+                  "id": "1e870185-9a84-4f4d-9278-e8ace5293995",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-1e870185-9a84-4f4d-9278-e8ace5293995"
+                },
+                {
+                  "id": "2fcdda4f-d783-495a-b0fb-498f0191a3b5",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-2fcdda4f-d783-495a-b0fb-498f0191a3b5"
+                },
+                {
+                  "id": "fa0cf85f-6743-4945-b3ea-d735833fa932",
+                  "name": "Unauthorized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-fa0cf85f-6743-4945-b3ea-d735833fa932"
+                },
+                {
+                  "id": "4fd0c1b7-7751-4a13-ad1b-c05b8431974b",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-4fd0c1b7-7751-4a13-ad1b-c05b8431974b"
+                },
+                {
+                  "id": "17a752f9-bdc3-45ea-87cc-55c9f89f545a",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-17a752f9-bdc3-45ea-87cc-55c9f89f545a"
+                },
+                {
+                  "id": "a5ca6386-e37e-4d40-911f-fc1a05804a86",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-a5ca6386-e37e-4d40-911f-fc1a05804a86"
+                },
+                {
+                  "id": "9ffcd27f-ae0e-47f6-be2e-7b368fbe54d7",
+                  "name": "Service is temporary unavailable.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-9ffcd27f-ae0e-47f6-be2e-7b368fbe54d7"
+                },
+                {
+                  "id": "1661e27f-3aef-4e0f-af7f-436b8d0a818b",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_accounts/find?payment_type=&currency=&account_id=&on_behalf_of=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                          "key": "payment_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "(Required) The currency of the account details required, ISO 4217 standard.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of a specific sub-account you want to see the SSIs for.",
+                          "key": "account_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-1661e27f-3aef-4e0f-af7f-436b8d0a818b"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:14.000Z",
+              "updatedAt": "2026-07-28T01:28:14.000Z",
+              "uid": "35240-885ce75d-a052-4af3-8b9e-2f665dcda58b"
+            }
+          ],
+          "id": "a433461b-fd5d-4f60-9894-3026e9adf6f8",
+          "createdAt": "2026-07-28T01:28:14.000Z",
+          "updatedAt": "2026-07-28T01:28:14.000Z",
+          "uid": "35240-a433461b-fd5d-4f60-9894-3026e9adf6f8"
+        }
+      ],
+      "id": "742cc743-e5d4-42fa-9018-d7b7bc78dbd1",
+      "createdAt": "2026-07-28T01:28:14.000Z",
+      "updatedAt": "2026-07-28T01:28:14.000Z",
+      "uid": "35240-742cc743-e5d4-42fa-9018-d7b7bc78dbd1"
+    },
+    {
+      "name": "funding_transactions",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Funding Transaction",
+              "id": "d2be4f17-c94b-4435-83f1-39bec2851994",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "4c756283-5d2c-4729-8d3b-de1251274375",
+                      "key": "id",
+                      "value": "",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "description": "\nGets the details of an approved funding transaction with the given ID."
+              },
+              "response": [
+                {
+                  "id": "d97ee3d3-6adb-4efe-b15f-61b2d371f1a0",
+                  "name": "Success",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-d97ee3d3-6adb-4efe-b15f-61b2d371f1a0"
+                },
+                {
+                  "id": "dbcdfa8b-5465-4ec6-914d-172563482820",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-dbcdfa8b-5465-4ec6-914d-172563482820"
+                },
+                {
+                  "id": "af2c4426-dd25-4e38-8f8a-4b815f0e2815",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-af2c4426-dd25-4e38-8f8a-4b815f0e2815"
+                },
+                {
+                  "id": "7784e11a-10a7-47fa-95af-9878bc505319",
+                  "name": "Transaction not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-7784e11a-10a7-47fa-95af-9878bc505319"
+                },
+                {
+                  "id": "9c074092-507b-4e04-9ad8-ce7cd3388eda",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-9c074092-507b-4e04-9ad8-ce7cd3388eda"
+                },
+                {
+                  "id": "6965031f-acc1-48d4-8e7f-4822e9aff11f",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-6965031f-acc1-48d4-8e7f-4822e9aff11f"
+                },
+                {
+                  "id": "ebc3d554-5e20-4ae8-9851-5131611f17c0",
+                  "name": "Service is temporary unavailable.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-ebc3d554-5e20-4ae8-9851-5131611f17c0"
+                },
+                {
+                  "id": "17337ad8-a60c-48ba-aa80-623f7deb99dd",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/funding_transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "funding_transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:14.000Z",
+                  "updatedAt": "2026-07-28T01:28:14.000Z",
+                  "uid": "35240-17337ad8-a60c-48ba-aa80-623f7deb99dd"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:14.000Z",
+              "updatedAt": "2026-07-28T01:28:14.000Z",
+              "uid": "35240-d2be4f17-c94b-4435-83f1-39bec2851994"
+            }
+          ],
+          "id": "470e99d0-31ba-4fc1-a91c-4cfec9834973",
+          "createdAt": "2026-07-28T01:28:14.000Z",
+          "updatedAt": "2026-07-28T01:28:14.000Z",
+          "uid": "35240-470e99d0-31ba-4fc1-a91c-4cfec9834973"
+        }
+      ],
+      "id": "a710427c-f27d-49a6-850a-8d5a218c04ad",
+      "createdAt": "2026-07-28T01:28:14.000Z",
+      "updatedAt": "2026-07-28T01:28:14.000Z",
+      "uid": "35240-a710427c-f27d-49a6-850a-8d5a218c04ad"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

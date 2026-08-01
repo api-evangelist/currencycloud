@@ -1,0 +1,1047 @@
+{
+  "info": {
+    "_postman_id": "ea67a7a3-980d-4d51-8634-4edfd9200006",
+    "name": "api-onboarding Account Usage Withdrawal Accounts API",
+    "description": "Manage withdrawal accounts",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:46.000Z",
+    "updatedAt": "2026-07-28T01:28:46.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-ea67a7a3-980d-4d51-8634-4edfd9200006"
+  },
+  "item": [
+    {
+      "name": "withdrawal_accounts",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Find Withdrawal Account",
+              "id": "0e0cdcbe-a2b1-490d-8e0b-5445dd217466",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "withdrawal_accounts",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                      "key": "account_id",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Lists all withdrawal accounts assigned to an account."
+              },
+              "response": [
+                {
+                  "id": "86c98d58-fac8-4e86-8c1d-96f6e56659c3",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-86c98d58-fac8-4e86-8c1d-96f6e56659c3"
+                },
+                {
+                  "id": "3ecd256f-a467-4c87-9011-4a635f546d2f",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-3ecd256f-a467-4c87-9011-4a635f546d2f"
+                },
+                {
+                  "id": "d33c39f6-73d2-4005-85a8-d3874871ce01",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-d33c39f6-73d2-4005-85a8-d3874871ce01"
+                },
+                {
+                  "id": "9cfa02ff-fd28-4fa3-8bf1-4ac23d79f6b2",
+                  "name": "Forbidden.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Forbidden",
+                  "code": 403,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-9cfa02ff-fd28-4fa3-8bf1-4ac23d79f6b2"
+                },
+                {
+                  "id": "afcfc420-9b28-4e6e-9beb-1d5025de1dc5",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-afcfc420-9b28-4e6e-9beb-1d5025de1dc5"
+                },
+                {
+                  "id": "56d68259-e00d-4ede-a64c-dc6359188144",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-56d68259-e00d-4ede-a64c-dc6359188144"
+                },
+                {
+                  "id": "2fbc477c-4c8c-41f3-aec8-c96daadc9bc1",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-2fbc477c-4c8c-41f3-aec8-c96daadc9bc1"
+                },
+                {
+                  "id": "2e1cc6b4-5a33-4e47-a150-be2216f06f04",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-2e1cc6b4-5a33-4e47-a150-be2216f06f04"
+                },
+                {
+                  "id": "5366facf-7f75-49d8-999b-26f0a4488e63",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/find?account_id=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "The UUID of a sub-account you want to see the withdrawal accounts for. If omitted the withdrawal accounts for the house account and all sub-accounts are returned.",
+                          "key": "account_id",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-5366facf-7f75-49d8-999b-26f0a4488e63"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:47.000Z",
+              "updatedAt": "2026-07-28T01:28:47.000Z",
+              "uid": "35240-0e0cdcbe-a2b1-490d-8e0b-5445dd217466"
+            }
+          ],
+          "id": "5f8bb437-e4e1-4de3-924a-f36993cae139",
+          "createdAt": "2026-07-28T01:28:47.000Z",
+          "updatedAt": "2026-07-28T01:28:47.000Z",
+          "uid": "35240-5f8bb437-e4e1-4de3-924a-f36993cae139"
+        },
+        {
+          "name": "{withdrawal_account_id}",
+          "item": [
+            {
+              "name": "pull_funds",
+              "item": [
+                {
+                  "name": "Pull Funds From Withdrawal Account",
+                  "id": "76e26e4a-43a9-4148-b2c8-fe1cee9e42f6",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "withdrawal_accounts",
+                        ":withdrawal_account_id",
+                        "pull_funds"
+                      ],
+                      "variable": [
+                        {
+                          "id": "35fa35e5-17a6-4535-8ba8-3117a9d259d4",
+                          "key": "withdrawal_account_id",
+                          "value": "",
+                          "description": "(Required) The withdrawal account ID you want to pull the funds from. The funds will be pulled into the account ID related to this withdrawal account."
+                        }
+                      ]
+                    },
+                    "description": "Submits an ACH pull request from a specific withdrawal account. The funds will be pulled into the account the specified withdrawal account is related to."
+                  },
+                  "response": [
+                    {
+                      "id": "4c1d9d4a-d649-4179-be53-0726c1ebbd75",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-4c1d9d4a-d649-4179-be53-0726c1ebbd75"
+                    },
+                    {
+                      "id": "574042cb-2bdb-43fd-8ef1-a42fadb2de6a",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-574042cb-2bdb-43fd-8ef1-a42fadb2de6a"
+                    },
+                    {
+                      "id": "830b21ae-0e16-439d-b944-30bb7ea71f48",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-830b21ae-0e16-439d-b944-30bb7ea71f48"
+                    },
+                    {
+                      "id": "b0f59371-bb36-460e-9437-a014f15f5a78",
+                      "name": "Forbidden.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-b0f59371-bb36-460e-9437-a014f15f5a78"
+                    },
+                    {
+                      "id": "d2a9efa8-95d5-4073-aaec-20b3df1e665d",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-d2a9efa8-95d5-4073-aaec-20b3df1e665d"
+                    },
+                    {
+                      "id": "ca6a99e5-c156-41f0-872d-f2cb53bc1785",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-ca6a99e5-c156-41f0-872d-f2cb53bc1785"
+                    },
+                    {
+                      "id": "1b846faa-0713-4acb-835f-10702e61fa3e",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-1b846faa-0713-4acb-835f-10702e61fa3e"
+                    },
+                    {
+                      "id": "c14fa0e5-5331-4ff6-a709-5750ef9fa830",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-c14fa0e5-5331-4ff6-a709-5750ef9fa830"
+                    },
+                    {
+                      "id": "37c03830-4def-47e6-af66-d69990fa315a",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/withdrawal_accounts/:withdrawal_account_id/pull_funds",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "withdrawal_accounts",
+                            ":withdrawal_account_id",
+                            "pull_funds"
+                          ],
+                          "variable": [
+                            {
+                              "key": "withdrawal_account_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:47.000Z",
+                      "updatedAt": "2026-07-28T01:28:47.000Z",
+                      "uid": "35240-37c03830-4def-47e6-af66-d69990fa315a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:47.000Z",
+                  "updatedAt": "2026-07-28T01:28:47.000Z",
+                  "uid": "35240-76e26e4a-43a9-4148-b2c8-fe1cee9e42f6"
+                }
+              ],
+              "id": "0b8bd388-89cd-43d3-b2f9-9493ee90e2a9",
+              "createdAt": "2026-07-28T01:28:47.000Z",
+              "updatedAt": "2026-07-28T01:28:47.000Z",
+              "uid": "35240-0b8bd388-89cd-43d3-b2f9-9493ee90e2a9"
+            }
+          ],
+          "id": "5a60890b-8cc9-4135-82c1-54bf014240ee",
+          "createdAt": "2026-07-28T01:28:47.000Z",
+          "updatedAt": "2026-07-28T01:28:47.000Z",
+          "uid": "35240-5a60890b-8cc9-4135-82c1-54bf014240ee"
+        }
+      ],
+      "id": "27e6e34d-ead5-4b6f-a9d8-0ac99bb8795c",
+      "createdAt": "2026-07-28T01:28:47.000Z",
+      "updatedAt": "2026-07-28T01:28:47.000Z",
+      "uid": "35240-27e6e34d-ead5-4b6f-a9d8-0ac99bb8795c"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

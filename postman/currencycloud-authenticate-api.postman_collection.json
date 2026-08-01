@@ -1,0 +1,681 @@
+{
+  "info": {
+    "_postman_id": "6f1fcc9b-b037-490a-9b9a-d7a59efd2e3a",
+    "name": "api-onboarding Account Usage Authenticate API",
+    "description": "Authenticate to gain access to the API. Log in to your Currencycloud account using your API Key and log out to terminate your session.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:40.000Z",
+    "updatedAt": "2026-07-28T01:27:40.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6f1fcc9b-b037-490a-9b9a-d7a59efd2e3a"
+  },
+  "item": [
+    {
+      "name": "authenticate",
+      "item": [
+        {
+          "name": "api",
+          "item": [
+            {
+              "name": "Login",
+              "id": "f1206aa0-b02c-4d03-81bf-8da5e643d30b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/authenticate/api",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "authenticate",
+                    "api"
+                  ]
+                },
+                "description": "Authenticates and authorizes a user to the Currencycloud API.<br><br>\nSubmit a login ID and API key for a Currencycloud account, you can register for and API key <a href=\"https://developer.currencycloud.com/register-for-an-api-key/\">here</a>. A temporary authentication token is returned following a succesful login.<br><br>\nThe authentication token is required to make requests to all other endpoints in the Currencycloud API. Tokens expire after 30 minutes of inactivity.<br><br>\nToken requests are limited to 60 calls per minute.<br><br>\nFor security, Currencycloud accounts are disabled when four unsuccessful login attempts are made within a short period. In these circumstances, account holders must <a href=\"mailto:support@currencycloud.com\">contact support</a> to reactivate their account."
+              },
+              "response": [
+                {
+                  "id": "91ba63ef-7a31-414f-ba53-091dddd53778",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/api",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "api"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-91ba63ef-7a31-414f-ba53-091dddd53778"
+                },
+                {
+                  "id": "7e807ed7-ac20-43d2-afe2-f57387d3cf3f",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/api",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "api"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-7e807ed7-ac20-43d2-afe2-f57387d3cf3f"
+                },
+                {
+                  "id": "50e914d0-f1bb-433a-8c9b-9cfa3583b597",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/api",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "api"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-50e914d0-f1bb-433a-8c9b-9cfa3583b597"
+                },
+                {
+                  "id": "a5a1eeab-4a1f-4001-8b98-4bbe0dc7b8ba",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/api",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "api"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-a5a1eeab-4a1f-4001-8b98-4bbe0dc7b8ba"
+                },
+                {
+                  "id": "f52e6de6-260d-4668-96f5-a38969293d94",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/api",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "api"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-f52e6de6-260d-4668-96f5-a38969293d94"
+                },
+                {
+                  "id": "d357f79e-beb8-4a30-ad39-c7eb4b8194e3",
+                  "name": "Service is temporarily unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/api",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "api"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-d357f79e-beb8-4a30-ad39-c7eb4b8194e3"
+                },
+                {
+                  "id": "209bbcce-cae4-4e72-aa84-b6f3c67d8c5c",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/api",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "api"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-209bbcce-cae4-4e72-aa84-b6f3c67d8c5c"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:40.000Z",
+              "updatedAt": "2026-07-28T01:27:40.000Z",
+              "uid": "35240-f1206aa0-b02c-4d03-81bf-8da5e643d30b"
+            }
+          ],
+          "id": "8c5963a5-3377-4e49-be12-3f59d7c097f7",
+          "createdAt": "2026-07-28T01:27:40.000Z",
+          "updatedAt": "2026-07-28T01:27:40.000Z",
+          "uid": "35240-8c5963a5-3377-4e49-be12-3f59d7c097f7"
+        },
+        {
+          "name": "close_session",
+          "item": [
+            {
+              "name": "Logout",
+              "id": "f791057a-2e91-4cdd-b2f9-6aef1d0e93d3",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/authenticate/close_session",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "authenticate",
+                    "close_session"
+                  ]
+                },
+                "description": "Authentication tokens expire automatically after 30 minutes of inactivity. If a session is no longer required, it is good security practice to retire its authentication token early rather than leave it to time out."
+              },
+              "response": [
+                {
+                  "id": "91a63678-7497-4d2b-bb67-b7f3c590406d",
+                  "name": "Success. A 200 response with an empty payload signifies that the authentication token is successfully retired.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/close_session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "close_session"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-91a63678-7497-4d2b-bb67-b7f3c590406d"
+                },
+                {
+                  "id": "0e0b4690-288a-43a8-ba35-f32decaa89a6",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/close_session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "close_session"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-0e0b4690-288a-43a8-ba35-f32decaa89a6"
+                },
+                {
+                  "id": "e2639d80-f0d7-4630-a4c9-a6a2e7fe2230",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/close_session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "close_session"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-e2639d80-f0d7-4630-a4c9-a6a2e7fe2230"
+                },
+                {
+                  "id": "ac28f352-e7bb-4b01-afaf-7517dc70bced",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/close_session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "close_session"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-ac28f352-e7bb-4b01-afaf-7517dc70bced"
+                },
+                {
+                  "id": "59cb4b0a-884b-4c59-9a8c-c802ed9572e4",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/close_session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "close_session"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-59cb4b0a-884b-4c59-9a8c-c802ed9572e4"
+                },
+                {
+                  "id": "947aa5c7-69cf-40ef-8a3e-826d50cc3f41",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/close_session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "close_session"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-947aa5c7-69cf-40ef-8a3e-826d50cc3f41"
+                },
+                {
+                  "id": "8a3b82e0-dcf8-4543-9792-e881decff60d",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/authenticate/close_session",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "authenticate",
+                        "close_session"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-8a3b82e0-dcf8-4543-9792-e881decff60d"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:40.000Z",
+              "updatedAt": "2026-07-28T01:27:40.000Z",
+              "uid": "35240-f791057a-2e91-4cdd-b2f9-6aef1d0e93d3"
+            }
+          ],
+          "id": "f4a88b86-4510-4b21-b15b-6db63648a7c8",
+          "createdAt": "2026-07-28T01:27:40.000Z",
+          "updatedAt": "2026-07-28T01:27:40.000Z",
+          "uid": "35240-f4a88b86-4510-4b21-b15b-6db63648a7c8"
+        }
+      ],
+      "id": "4b09b8ea-1425-4e38-bf30-3c860669389e",
+      "createdAt": "2026-07-28T01:27:40.000Z",
+      "updatedAt": "2026-07-28T01:27:40.000Z",
+      "uid": "35240-4b09b8ea-1425-4e38-bf30-3c860669389e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

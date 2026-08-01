@@ -1,0 +1,1319 @@
+{
+  "info": {
+    "_postman_id": "f0e41967-4af4-4644-bb1c-d1b9b006d4ef",
+    "name": "api-onboarding Account Usage Form API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:13.000Z",
+    "updatedAt": "2026-07-28T01:28:13.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f0e41967-4af4-4644-bb1c-d1b9b006d4ef"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "forms",
+          "item": [
+            {
+              "name": "{form_id}",
+              "item": [
+                {
+                  "name": "submit",
+                  "item": [
+                    {
+                      "name": "Submit Form",
+                      "id": "41b11fd9-9efe-4510-8573-fc91d533b644",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Auth-Token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id/submit",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id",
+                            "submit"
+                          ],
+                          "variable": [
+                            {
+                              "id": "65dd3be6-c716-4941-9b40-44d84a347e28",
+                              "key": "form_id",
+                              "value": "<string>",
+                              "description": "(Required) Form UUID"
+                            }
+                          ]
+                        },
+                        "description": "Submits the application form."
+                      },
+                      "response": [
+                        {
+                          "id": "dc120ba3-f97d-4a3d-9b68-e55e3a6516d9",
+                          "name": "Successful response",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/submit",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "submit"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"agreed_to_marketing_emails\": \"<boolean>\",\n    \"agreed_to_terms_and_conditions\": \"<boolean>\",\n    \"brand_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"entity_type\": \"<string>\",\n    \"products_required\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"detached_document_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"affiliate_code\": \"<string>\",\n    \"agreed_to_corporate_authority\": \"<boolean>\",\n    \"email\": \"<string>\",\n    \"brand_key\": \"<string>\",\n    \"referred_by\": \"<string>\",\n    \"state\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"contact_name\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:28:13.000Z",
+                          "updatedAt": "2026-07-28T01:28:13.000Z",
+                          "uid": "35240-dc120ba3-f97d-4a3d-9b68-e55e3a6516d9"
+                        },
+                        {
+                          "id": "9efc82b5-4c69-4bb5-8970-302518e0b28b",
+                          "name": "Form already submitted",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/submit",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "submit"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                          "createdAt": "2026-07-28T01:28:13.000Z",
+                          "updatedAt": "2026-07-28T01:28:13.000Z",
+                          "uid": "35240-9efc82b5-4c69-4bb5-8970-302518e0b28b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-41b11fd9-9efe-4510-8573-fc91d533b644"
+                    }
+                  ],
+                  "id": "8822dced-50e5-4599-9b87-e8e2fa9bff43",
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-8822dced-50e5-4599-9b87-e8e2fa9bff43"
+                },
+                {
+                  "name": "Get Form",
+                  "id": "0ae49f51-f610-4d96-8dea-6905ade1509b",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Auth-Token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/forms/:form_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "forms",
+                        ":form_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "1ed29ef3-728b-4ea8-aaf2-7949bb9533ae",
+                          "key": "form_id",
+                          "value": "<string>",
+                          "description": "(Required) Form UUID"
+                        }
+                      ]
+                    },
+                    "description": "Retrieves the application form with the given ID."
+                  },
+                  "response": [
+                    {
+                      "id": "4eda00d1-a95f-4817-a621-f0dff845914a",
+                      "name": "Retrieves form if the UUID exists",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"agreed_to_marketing_emails\": \"<boolean>\",\n    \"agreed_to_terms_and_conditions\": \"<boolean>\",\n    \"country\": \"<string>\",\n    \"entity_type\": \"<string>\",\n    \"brand_name\": \"<string>\",\n    \"products_required\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"detached_document_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"affiliate_code\": \"<string>\",\n    \"agreed_to_corporate_authority\": \"<boolean>\",\n    \"email\": \"<string>\",\n    \"brand_key\": \"<string>\",\n    \"referred_by\": \"<string>\",\n    \"state\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"contact_name\": \"<string>\",\n    \"business_information\": {\n      \"business_country\": \"<string>\",\n      \"company_name\": \"<string>\",\n      \"legal_entity_type\": \"<string>\",\n      \"sector\": \"<string>\",\n      \"incorporation_date\": \"<date>\",\n      \"business_activity_description\": \"<string>\",\n      \"registered_address\": {\n        \"city\": \"<string>\",\n        \"street\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"apartment_number\": \"<string>\",\n        \"building_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"state_or_province\": \"<string>\"\n      },\n      \"id\": \"<string>\",\n      \"form_id\": \"<string>\",\n      \"document_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"trading_name\": \"<string>\",\n      \"company_registration_number\": \"<string>\",\n      \"vat_number\": \"<string>\",\n      \"business_website\": \"<string>\",\n      \"trading_address\": {\n        \"city\": \"<string>\",\n        \"street\": \"<string>\",\n        \"country\": \"<string>\",\n        \"postal_code\": \"<string>\",\n        \"apartment_number\": \"<string>\",\n        \"building_name\": \"<string>\",\n        \"building_number\": \"<string>\",\n        \"state_or_province\": \"<string>\"\n      },\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    \"account_usage\": {\n      \"collections_account\": \"<boolean>\",\n      \"one_off_transaction\": \"<boolean>\",\n      \"id\": \"<string>\",\n      \"form_id\": \"<string>\",\n      \"document_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"collection_currencies\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"payment_currencies\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"transaction_countries\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"estimated_monthly_transaction_currency\": \"<string>\",\n      \"estimated_monthly_transaction_value\": \"<integer>\",\n      \"estimated_monthly_transaction_volume\": \"<integer>\",\n      \"source_of_funds\": \"<string>\",\n      \"primary_purpose\": \"<string>\",\n      \"purpose_details\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    \"people\": [\n      {\n        \"id\": \"<string>\",\n        \"roles\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"home_country\": \"<string>\",\n        \"form_id\": \"<string>\",\n        \"document_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"middle_name\": \"<string>\",\n        \"dob\": \"<date>\",\n        \"phone_number\": \"<string>\",\n        \"email\": \"<string>\",\n        \"ownership_percentage\": \"<number>\",\n        \"id_number\": \"<string>\",\n        \"passport_number\": \"<string>\",\n        \"passport_country_of_issue\": \"<string>\",\n        \"personal_address\": {\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postal_code\": \"<string>\",\n          \"apartment_number\": \"<string>\",\n          \"building_name\": \"<string>\",\n          \"building_number\": \"<string>\",\n          \"state_or_province\": \"<string>\"\n        },\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      {\n        \"id\": \"<string>\",\n        \"roles\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"first_name\": \"<string>\",\n        \"last_name\": \"<string>\",\n        \"home_country\": \"<string>\",\n        \"form_id\": \"<string>\",\n        \"document_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"middle_name\": \"<string>\",\n        \"dob\": \"<date>\",\n        \"phone_number\": \"<string>\",\n        \"email\": \"<string>\",\n        \"ownership_percentage\": \"<number>\",\n        \"id_number\": \"<string>\",\n        \"passport_number\": \"<string>\",\n        \"passport_country_of_issue\": \"<string>\",\n        \"personal_address\": {\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postal_code\": \"<string>\",\n          \"apartment_number\": \"<string>\",\n          \"building_name\": \"<string>\",\n          \"building_number\": \"<string>\",\n          \"state_or_province\": \"<string>\"\n        },\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      }\n    ]\n  }\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-4eda00d1-a95f-4817-a621-f0dff845914a"
+                    },
+                    {
+                      "id": "fc4a42d9-533a-4579-ae0c-4653f3fbfb85",
+                      "name": "Record not found - Invalid UUID",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-fc4a42d9-533a-4579-ae0c-4653f3fbfb85"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-0ae49f51-f610-4d96-8dea-6905ade1509b"
+                },
+                {
+                  "name": "Update Form",
+                  "id": "14b2f97b-5635-4046-803e-183521ed0985",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Auth-Token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "PUT",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"affiliate_code\": \"<string>\",\n  \"country\": \"BZ\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"individual\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/forms/:form_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "forms",
+                        ":form_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "b623ca1e-6f5f-4d53-959d-ae57043c273e",
+                          "key": "form_id",
+                          "value": "<string>",
+                          "description": "(Required) Form UUID"
+                        }
+                      ]
+                    },
+                    "description": "Updates an application form."
+                  },
+                  "response": [
+                    {
+                      "id": "35b1b797-56ff-4b13-a231-99bd15505982",
+                      "name": "Updates form when correct params are provided",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"affiliate_code\": \"<string>\",\n  \"country\": \"BZ\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"individual\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"agreed_to_marketing_emails\": \"<boolean>\",\n    \"agreed_to_terms_and_conditions\": \"<boolean>\",\n    \"brand_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"entity_type\": \"<string>\",\n    \"products_required\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"detached_document_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"affiliate_code\": \"<string>\",\n    \"agreed_to_corporate_authority\": \"<boolean>\",\n    \"email\": \"<string>\",\n    \"brand_key\": \"<string>\",\n    \"referred_by\": \"<string>\",\n    \"state\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"contact_name\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-35b1b797-56ff-4b13-a231-99bd15505982"
+                    },
+                    {
+                      "id": "792c21eb-f478-44b1-a326-846f781d04df",
+                      "name": "Invalid parameter in request params",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"affiliate_code\": \"<string>\",\n  \"country\": \"BZ\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"individual\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-792c21eb-f478-44b1-a326-846f781d04df"
+                    },
+                    {
+                      "id": "cd02f0d2-0958-4ccf-8256-662046a5a319",
+                      "name": "Form not found",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"affiliate_code\": \"<string>\",\n  \"country\": \"BZ\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"individual\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-cd02f0d2-0958-4ccf-8256-662046a5a319"
+                    },
+                    {
+                      "id": "fba954cb-555d-4819-84cf-e47739d48392",
+                      "name": "Form is already submitted",
+                      "originalRequest": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"affiliate_code\": \"<string>\",\n  \"country\": \"BZ\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"individual\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-fba954cb-555d-4819-84cf-e47739d48392"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-14b2f97b-5635-4046-803e-183521ed0985"
+                },
+                {
+                  "name": "Delete Form",
+                  "id": "3c43ad8f-28d4-4c56-9e4f-07d8d920cedf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "auth": {
+                      "type": "apikey",
+                      "apikey": [
+                        {
+                          "key": "key",
+                          "value": "X-Auth-Token",
+                          "type": "string"
+                        },
+                        {
+                          "key": "value",
+                          "value": "{{apiKey}}",
+                          "type": "string"
+                        },
+                        {
+                          "key": "in",
+                          "value": "header",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/forms/:form_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "forms",
+                        ":form_id"
+                      ],
+                      "variable": [
+                        {
+                          "id": "c90db832-a309-4d98-a49e-993da774cda3",
+                          "key": "form_id",
+                          "value": "<string>",
+                          "description": "(Required) Form UUID"
+                        }
+                      ]
+                    },
+                    "description": "Deletes the application form with the given ID."
+                  },
+                  "response": [
+                    {
+                      "id": "5cbb66a6-b9a1-4284-949a-beafa4a51cc3",
+                      "name": "Deletes form",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"data\": {\n    \"message\": \"<string>\",\n    \"form_id\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-5cbb66a6-b9a1-4284-949a-beafa4a51cc3"
+                    },
+                    {
+                      "id": "c8cf4df7-0c10-42b7-b64a-4f4f77cae1b8",
+                      "name": "Form not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-c8cf4df7-0c10-42b7-b64a-4f4f77cae1b8"
+                    },
+                    {
+                      "id": "e7ca3865-2b19-450c-94e5-921464fdd13e",
+                      "name": "Form is already submitted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: apikey",
+                            "key": "X-Auth-Token",
+                            "value": "<API Key>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id"
+                          ],
+                          "variable": [
+                            {
+                              "key": "form_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                      "createdAt": "2026-07-28T01:28:13.000Z",
+                      "updatedAt": "2026-07-28T01:28:13.000Z",
+                      "uid": "35240-e7ca3865-2b19-450c-94e5-921464fdd13e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-3c43ad8f-28d4-4c56-9e4f-07d8d920cedf"
+                }
+              ],
+              "id": "c0d54d96-71f6-4211-980b-4f61428daa9d",
+              "createdAt": "2026-07-28T01:28:13.000Z",
+              "updatedAt": "2026-07-28T01:28:13.000Z",
+              "uid": "35240-c0d54d96-71f6-4211-980b-4f61428daa9d"
+            },
+            {
+              "name": "Get Forms",
+              "id": "6d87ac1a-454d-43e9-97d4-d92fa3206582",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Auth-Token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/v1/forms?order=<string>&order_asc_desc=<string>&application_status=submitted&entity_type=corporate&page=<integer>&per_page=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "forms"
+                  ],
+                  "query": [
+                    {
+                      "key": "order",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Filter by application_status.",
+                      "key": "application_status",
+                      "value": "submitted"
+                    },
+                    {
+                      "description": "Type of applicant - individual or corporate.",
+                      "key": "entity_type",
+                      "value": "corporate"
+                    },
+                    {
+                      "description": "Page number",
+                      "key": "page",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Number of results per page.",
+                      "key": "per_page",
+                      "value": "<integer>"
+                    }
+                  ]
+                },
+                "description": "Retrieves all application forms for the house account."
+              },
+              "response": [
+                {
+                  "id": "9e8b7bec-8ff2-4086-b5b7-81a0337929cb",
+                  "name": "Retrieves all forms for a house_account_id",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Auth-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/forms?order=<string>&order_asc_desc=<string>&application_status=submitted&entity_type=corporate&page=<integer>&per_page=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "forms"
+                      ],
+                      "query": [
+                        {
+                          "key": "order",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "order_asc_desc",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by application_status.",
+                          "key": "application_status",
+                          "value": "submitted"
+                        },
+                        {
+                          "description": "Type of applicant - individual or corporate.",
+                          "key": "entity_type",
+                          "value": "corporate"
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"forms\": [\n    {\n      \"id\": \"<string>\",\n      \"agreed_to_marketing_emails\": \"<boolean>\",\n      \"agreed_to_terms_and_conditions\": \"<boolean>\",\n      \"country\": \"<string>\",\n      \"entity_type\": \"<string>\",\n      \"brand_name\": \"<string>\",\n      \"products_required\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"detached_document_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"affiliate_code\": \"<string>\",\n      \"agreed_to_corporate_authority\": \"<boolean>\",\n      \"email\": \"<string>\",\n      \"brand_key\": \"<string>\",\n      \"referred_by\": \"<string>\",\n      \"state\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"contact_name\": \"<string>\",\n      \"business_information\": {\n        \"business_country\": \"<string>\",\n        \"company_name\": \"<string>\",\n        \"legal_entity_type\": \"<string>\",\n        \"sector\": \"<string>\",\n        \"incorporation_date\": \"<date>\",\n        \"business_activity_description\": \"<string>\",\n        \"registered_address\": {\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postal_code\": \"<string>\",\n          \"apartment_number\": \"<string>\",\n          \"building_name\": \"<string>\",\n          \"building_number\": \"<string>\",\n          \"state_or_province\": \"<string>\"\n        },\n        \"id\": \"<string>\",\n        \"form_id\": \"<string>\",\n        \"document_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"trading_name\": \"<string>\",\n        \"company_registration_number\": \"<string>\",\n        \"vat_number\": \"<string>\",\n        \"business_website\": \"<string>\",\n        \"trading_address\": {\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postal_code\": \"<string>\",\n          \"apartment_number\": \"<string>\",\n          \"building_name\": \"<string>\",\n          \"building_number\": \"<string>\",\n          \"state_or_province\": \"<string>\"\n        },\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      \"account_usage\": {\n        \"collections_account\": \"<boolean>\",\n        \"one_off_transaction\": \"<boolean>\",\n        \"id\": \"<string>\",\n        \"form_id\": \"<string>\",\n        \"document_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"collection_currencies\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"payment_currencies\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"transaction_countries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"estimated_monthly_transaction_currency\": \"<string>\",\n        \"estimated_monthly_transaction_value\": \"<integer>\",\n        \"estimated_monthly_transaction_volume\": \"<integer>\",\n        \"source_of_funds\": \"<string>\",\n        \"primary_purpose\": \"<string>\",\n        \"purpose_details\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      \"people\": [\n        {\n          \"id\": \"<string>\",\n          \"roles\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"first_name\": \"<string>\",\n          \"last_name\": \"<string>\",\n          \"home_country\": \"<string>\",\n          \"form_id\": \"<string>\",\n          \"document_ids\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"middle_name\": \"<string>\",\n          \"dob\": \"<date>\",\n          \"phone_number\": \"<string>\",\n          \"email\": \"<string>\",\n          \"ownership_percentage\": \"<number>\",\n          \"id_number\": \"<string>\",\n          \"passport_number\": \"<string>\",\n          \"passport_country_of_issue\": \"<string>\",\n          \"personal_address\": {\n            \"city\": \"<string>\",\n            \"street\": \"<string>\",\n            \"country\": \"<string>\",\n            \"postal_code\": \"<string>\",\n            \"apartment_number\": \"<string>\",\n            \"building_name\": \"<string>\",\n            \"building_number\": \"<string>\",\n            \"state_or_province\": \"<string>\"\n          },\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"roles\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"first_name\": \"<string>\",\n          \"last_name\": \"<string>\",\n          \"home_country\": \"<string>\",\n          \"form_id\": \"<string>\",\n          \"document_ids\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"middle_name\": \"<string>\",\n          \"dob\": \"<date>\",\n          \"phone_number\": \"<string>\",\n          \"email\": \"<string>\",\n          \"ownership_percentage\": \"<number>\",\n          \"id_number\": \"<string>\",\n          \"passport_number\": \"<string>\",\n          \"passport_country_of_issue\": \"<string>\",\n          \"personal_address\": {\n            \"city\": \"<string>\",\n            \"street\": \"<string>\",\n            \"country\": \"<string>\",\n            \"postal_code\": \"<string>\",\n            \"apartment_number\": \"<string>\",\n            \"building_name\": \"<string>\",\n            \"building_number\": \"<string>\",\n            \"state_or_province\": \"<string>\"\n          },\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<string>\",\n      \"agreed_to_marketing_emails\": \"<boolean>\",\n      \"agreed_to_terms_and_conditions\": \"<boolean>\",\n      \"country\": \"<string>\",\n      \"entity_type\": \"<string>\",\n      \"brand_name\": \"<string>\",\n      \"products_required\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"detached_document_ids\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"affiliate_code\": \"<string>\",\n      \"agreed_to_corporate_authority\": \"<boolean>\",\n      \"email\": \"<string>\",\n      \"brand_key\": \"<string>\",\n      \"referred_by\": \"<string>\",\n      \"state\": \"<string>\",\n      \"phone_number\": \"<string>\",\n      \"contact_name\": \"<string>\",\n      \"business_information\": {\n        \"business_country\": \"<string>\",\n        \"company_name\": \"<string>\",\n        \"legal_entity_type\": \"<string>\",\n        \"sector\": \"<string>\",\n        \"incorporation_date\": \"<date>\",\n        \"business_activity_description\": \"<string>\",\n        \"registered_address\": {\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postal_code\": \"<string>\",\n          \"apartment_number\": \"<string>\",\n          \"building_name\": \"<string>\",\n          \"building_number\": \"<string>\",\n          \"state_or_province\": \"<string>\"\n        },\n        \"id\": \"<string>\",\n        \"form_id\": \"<string>\",\n        \"document_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"trading_name\": \"<string>\",\n        \"company_registration_number\": \"<string>\",\n        \"vat_number\": \"<string>\",\n        \"business_website\": \"<string>\",\n        \"trading_address\": {\n          \"city\": \"<string>\",\n          \"street\": \"<string>\",\n          \"country\": \"<string>\",\n          \"postal_code\": \"<string>\",\n          \"apartment_number\": \"<string>\",\n          \"building_name\": \"<string>\",\n          \"building_number\": \"<string>\",\n          \"state_or_province\": \"<string>\"\n        },\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      \"account_usage\": {\n        \"collections_account\": \"<boolean>\",\n        \"one_off_transaction\": \"<boolean>\",\n        \"id\": \"<string>\",\n        \"form_id\": \"<string>\",\n        \"document_ids\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"collection_currencies\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"payment_currencies\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"transaction_countries\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"estimated_monthly_transaction_currency\": \"<string>\",\n        \"estimated_monthly_transaction_value\": \"<integer>\",\n        \"estimated_monthly_transaction_volume\": \"<integer>\",\n        \"source_of_funds\": \"<string>\",\n        \"primary_purpose\": \"<string>\",\n        \"purpose_details\": \"<string>\",\n        \"created_at\": \"<dateTime>\",\n        \"updated_at\": \"<dateTime>\"\n      },\n      \"people\": [\n        {\n          \"id\": \"<string>\",\n          \"roles\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"first_name\": \"<string>\",\n          \"last_name\": \"<string>\",\n          \"home_country\": \"<string>\",\n          \"form_id\": \"<string>\",\n          \"document_ids\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"middle_name\": \"<string>\",\n          \"dob\": \"<date>\",\n          \"phone_number\": \"<string>\",\n          \"email\": \"<string>\",\n          \"ownership_percentage\": \"<number>\",\n          \"id_number\": \"<string>\",\n          \"passport_number\": \"<string>\",\n          \"passport_country_of_issue\": \"<string>\",\n          \"personal_address\": {\n            \"city\": \"<string>\",\n            \"street\": \"<string>\",\n            \"country\": \"<string>\",\n            \"postal_code\": \"<string>\",\n            \"apartment_number\": \"<string>\",\n            \"building_name\": \"<string>\",\n            \"building_number\": \"<string>\",\n            \"state_or_province\": \"<string>\"\n          },\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        },\n        {\n          \"id\": \"<string>\",\n          \"roles\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"first_name\": \"<string>\",\n          \"last_name\": \"<string>\",\n          \"home_country\": \"<string>\",\n          \"form_id\": \"<string>\",\n          \"document_ids\": [\n            \"<string>\",\n            \"<string>\"\n          ],\n          \"middle_name\": \"<string>\",\n          \"dob\": \"<date>\",\n          \"phone_number\": \"<string>\",\n          \"email\": \"<string>\",\n          \"ownership_percentage\": \"<number>\",\n          \"id_number\": \"<string>\",\n          \"passport_number\": \"<string>\",\n          \"passport_country_of_issue\": \"<string>\",\n          \"personal_address\": {\n            \"city\": \"<string>\",\n            \"street\": \"<string>\",\n            \"country\": \"<string>\",\n            \"postal_code\": \"<string>\",\n            \"apartment_number\": \"<string>\",\n            \"building_name\": \"<string>\",\n            \"building_number\": \"<string>\",\n            \"state_or_province\": \"<string>\"\n          },\n          \"created_at\": \"<dateTime>\",\n          \"updated_at\": \"<dateTime>\"\n        }\n      ]\n    }\n  ],\n  \"pagination\": {\n    \"total_entries\": \"<integer>\",\n    \"total_pages\": \"<integer>\",\n    \"current_page\": \"<integer>\",\n    \"per_page\": \"<integer>\",\n    \"previous_page\": \"<integer>\",\n    \"next_page\": \"<integer>\",\n    \"order\": \"<string>\",\n    \"order_asc_desc\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-9e8b7bec-8ff2-4086-b5b7-81a0337929cb"
+                },
+                {
+                  "id": "6ee37ef6-9419-4073-bd1d-95f3774be76e",
+                  "name": "Returns error if request validation errors occur",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Auth-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/forms?order=<string>&order_asc_desc=<string>&application_status=submitted&entity_type=corporate&page=<integer>&per_page=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "forms"
+                      ],
+                      "query": [
+                        {
+                          "key": "order",
+                          "value": "<string>"
+                        },
+                        {
+                          "key": "order_asc_desc",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter by application_status.",
+                          "key": "application_status",
+                          "value": "submitted"
+                        },
+                        {
+                          "description": "Type of applicant - individual or corporate.",
+                          "key": "entity_type",
+                          "value": "corporate"
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": "<integer>"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-6ee37ef6-9419-4073-bd1d-95f3774be76e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:13.000Z",
+              "updatedAt": "2026-07-28T01:28:13.000Z",
+              "uid": "35240-6d87ac1a-454d-43e9-97d4-d92fa3206582"
+            },
+            {
+              "name": "Create Form",
+              "id": "a0549c98-b024-4bba-b011-87ac0740d39c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "auth": {
+                  "type": "apikey",
+                  "apikey": [
+                    {
+                      "key": "key",
+                      "value": "X-Auth-Token",
+                      "type": "string"
+                    },
+                    {
+                      "key": "value",
+                      "value": "{{apiKey}}",
+                      "type": "string"
+                    },
+                    {
+                      "key": "in",
+                      "value": "header",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"agreed_to_marketing_emails\": \"<boolean>\",\n  \"agreed_to_terms_and_conditions\": \"<boolean>\",\n  \"country\": \"PF\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"corporate\",\n  \"brand_name\": \"<string>\",\n  \"affiliate_code\": \"<string>\",\n  \"agreed_to_corporate_authority\": \"<boolean>\",\n  \"brand_key\": \"<string>\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/v1/forms",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "v1",
+                    "forms"
+                  ]
+                },
+                "description": "Creates a new application form. Returns the new form entity on success."
+              },
+              "response": [
+                {
+                  "id": "4fa1dc71-fa23-42ae-a402-c757f78c3241",
+                  "name": "Creates a form when correct params are provided",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Auth-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agreed_to_marketing_emails\": \"<boolean>\",\n  \"agreed_to_terms_and_conditions\": \"<boolean>\",\n  \"country\": \"PF\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"corporate\",\n  \"brand_name\": \"<string>\",\n  \"affiliate_code\": \"<string>\",\n  \"agreed_to_corporate_authority\": \"<boolean>\",\n  \"brand_key\": \"<string>\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/forms",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "forms"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"agreed_to_marketing_emails\": \"<boolean>\",\n    \"agreed_to_terms_and_conditions\": \"<boolean>\",\n    \"brand_name\": \"<string>\",\n    \"country\": \"<string>\",\n    \"entity_type\": \"<string>\",\n    \"products_required\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"detached_document_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"affiliate_code\": \"<string>\",\n    \"agreed_to_corporate_authority\": \"<boolean>\",\n    \"email\": \"<string>\",\n    \"brand_key\": \"<string>\",\n    \"referred_by\": \"<string>\",\n    \"state\": \"<string>\",\n    \"phone_number\": \"<string>\",\n    \"contact_name\": \"<string>\"\n  }\n}",
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-4fa1dc71-fa23-42ae-a402-c757f78c3241"
+                },
+                {
+                  "id": "430a2408-fb18-43fa-a18c-318542704971",
+                  "name": "Invalid parameter in request params",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: apikey",
+                        "key": "X-Auth-Token",
+                        "value": "<API Key>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"agreed_to_marketing_emails\": \"<boolean>\",\n  \"agreed_to_terms_and_conditions\": \"<boolean>\",\n  \"country\": \"PF\",\n  \"email\": \"<string>\",\n  \"entity_type\": \"corporate\",\n  \"brand_name\": \"<string>\",\n  \"affiliate_code\": \"<string>\",\n  \"agreed_to_corporate_authority\": \"<boolean>\",\n  \"brand_key\": \"<string>\",\n  \"referred_by\": \"<string>\",\n  \"phone_number\": \"<string>\",\n  \"contact_name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/v1/forms",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "v1",
+                        "forms"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                  "createdAt": "2026-07-28T01:28:13.000Z",
+                  "updatedAt": "2026-07-28T01:28:13.000Z",
+                  "uid": "35240-430a2408-fb18-43fa-a18c-318542704971"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:13.000Z",
+              "updatedAt": "2026-07-28T01:28:13.000Z",
+              "uid": "35240-a0549c98-b024-4bba-b011-87ac0740d39c"
+            }
+          ],
+          "id": "87eff447-657d-488a-8efc-bd9fea7110d2",
+          "createdAt": "2026-07-28T01:28:13.000Z",
+          "updatedAt": "2026-07-28T01:28:13.000Z",
+          "uid": "35240-87eff447-657d-488a-8efc-bd9fea7110d2"
+        }
+      ],
+      "id": "87edf859-72c8-4783-bf80-abb23fd8887e",
+      "createdAt": "2026-07-28T01:28:13.000Z",
+      "updatedAt": "2026-07-28T01:28:13.000Z",
+      "uid": "35240-87edf859-72c8-4783-bf80-abb23fd8887e"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

@@ -1,0 +1,379 @@
+{
+  "info": {
+    "_postman_id": "9fb608a3-5e5f-450f-896f-4686f47d54b4",
+    "name": "api-onboarding Account Usage Quotes API",
+    "description": "Create new quotes to use for held rates conversions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:36.000Z",
+    "updatedAt": "2026-07-28T01:28:36.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-9fb608a3-5e5f-450f-896f-4686f47d54b4"
+  },
+  "item": [
+    {
+      "name": "quotes",
+      "item": [
+        {
+          "name": "create",
+          "item": [
+            {
+              "name": "Create Held Rate Quote",
+              "id": "8d817c44-b9d4-4c77-8988-f24102e70ec9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token.",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/quotes/create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "quotes",
+                    "create"
+                  ]
+                },
+                "description": "<p style=\"color:#FF5000;\"><strong>BETA</strong></p><br> <p style=\"border-width:3px; border-style:solid; border-color:#FF5000; padding: 1em;\">Please note that this endpoint is currently in beta. For additional details, please contact your Account Manager or our <a href=\"mailto:support@currencycloud.com\">support team</a>.</p><br> Requests a new quote for the specified held-rate period and returns the details of the quote on success."
+              },
+              "response": [
+                {
+                  "id": "1014e4ec-678d-4b23-b2c2-e89584e1744d",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotes/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotes",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:36.000Z",
+                  "updatedAt": "2026-07-28T01:28:36.000Z",
+                  "uid": "35240-1014e4ec-678d-4b23-b2c2-e89584e1744d"
+                },
+                {
+                  "id": "91469753-4a2c-4ba2-a160-703be7c2051c",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotes/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotes",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:36.000Z",
+                  "updatedAt": "2026-07-28T01:28:36.000Z",
+                  "uid": "35240-91469753-4a2c-4ba2-a160-703be7c2051c"
+                },
+                {
+                  "id": "d9792296-ffb6-42f4-98f4-067eb04b0c7b",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotes/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotes",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:36.000Z",
+                  "updatedAt": "2026-07-28T01:28:36.000Z",
+                  "uid": "35240-d9792296-ffb6-42f4-98f4-067eb04b0c7b"
+                },
+                {
+                  "id": "8d7bf55a-ce57-42bf-b58f-5a10b51130f0",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotes/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotes",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:36.000Z",
+                  "updatedAt": "2026-07-28T01:28:36.000Z",
+                  "uid": "35240-8d7bf55a-ce57-42bf-b58f-5a10b51130f0"
+                },
+                {
+                  "id": "3b7de9b3-c264-439f-bb43-abed9c20e78a",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotes/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotes",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:36.000Z",
+                  "updatedAt": "2026-07-28T01:28:36.000Z",
+                  "uid": "35240-3b7de9b3-c264-439f-bb43-abed9c20e78a"
+                },
+                {
+                  "id": "ba45f058-60cc-4e7f-b42c-acb2c9bbbd29",
+                  "name": "Service is temporarily unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotes/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotes",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:36.000Z",
+                  "updatedAt": "2026-07-28T01:28:36.000Z",
+                  "uid": "35240-ba45f058-60cc-4e7f-b42c-acb2c9bbbd29"
+                },
+                {
+                  "id": "7be17c9f-d769-4da6-a6d8-5fc0570e50ea",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token.",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/quotes/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "quotes",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:36.000Z",
+                  "updatedAt": "2026-07-28T01:28:36.000Z",
+                  "uid": "35240-7be17c9f-d769-4da6-a6d8-5fc0570e50ea"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:36.000Z",
+              "updatedAt": "2026-07-28T01:28:36.000Z",
+              "uid": "35240-8d817c44-b9d4-4c77-8988-f24102e70ec9"
+            }
+          ],
+          "id": "90314d52-c0f8-4656-9a67-dcd0e913ccd7",
+          "createdAt": "2026-07-28T01:28:36.000Z",
+          "updatedAt": "2026-07-28T01:28:36.000Z",
+          "uid": "35240-90314d52-c0f8-4656-9a67-dcd0e913ccd7"
+        }
+      ],
+      "id": "38b8bbb5-c61d-4427-89bc-4d5eb0e6e944",
+      "createdAt": "2026-07-28T01:28:36.000Z",
+      "updatedAt": "2026-07-28T01:28:36.000Z",
+      "uid": "35240-38b8bbb5-c61d-4427-89bc-4d5eb0e6e944"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

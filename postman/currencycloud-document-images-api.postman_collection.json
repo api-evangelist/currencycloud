@@ -1,0 +1,867 @@
+{
+  "info": {
+    "_postman_id": "389a2b64-d495-42ff-92e9-52a977192eab",
+    "name": "api-onboarding Account Usage Document Images API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:11.000Z",
+    "updatedAt": "2026-07-28T01:28:11.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-389a2b64-d495-42ff-92e9-52a977192eab"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "forms",
+          "item": [
+            {
+              "name": "{form_id}",
+              "item": [
+                {
+                  "name": "documents",
+                  "item": [
+                    {
+                      "name": "{document_id}",
+                      "item": [
+                        {
+                          "name": "document_images",
+                          "item": [
+                            {
+                              "name": "{document_image_id}",
+                              "item": [
+                                {
+                                  "name": "Delete Document Image",
+                                  "id": "463b5361-e1b4-4d95-b7fa-5e61f842eacd",
+                                  "protocolProfileBehavior": {
+                                    "disableBodyPruning": true
+                                  },
+                                  "request": {
+                                    "auth": {
+                                      "type": "apikey",
+                                      "apikey": [
+                                        {
+                                          "key": "key",
+                                          "value": "X-Auth-Token",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "value",
+                                          "value": "{{apiKey}}",
+                                          "type": "string"
+                                        },
+                                        {
+                                          "key": "in",
+                                          "value": "header",
+                                          "type": "string"
+                                        }
+                                      ]
+                                    },
+                                    "method": "DELETE",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images/:document_image_id",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "forms",
+                                        ":form_id",
+                                        "documents",
+                                        ":document_id",
+                                        "document_images",
+                                        ":document_image_id"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "id": "58a1d6e7-0ec4-4e7f-97de-68b9b74a48b1",
+                                          "key": "form_id",
+                                          "value": "<string>",
+                                          "description": "(Required) Form UUID"
+                                        },
+                                        {
+                                          "id": "985161f5-0212-41f5-a461-253105b860cd",
+                                          "key": "document_id",
+                                          "value": "<string>",
+                                          "description": "(Required) Document UUID"
+                                        },
+                                        {
+                                          "id": "74a80f85-8061-4427-a7d7-2b5138307b58",
+                                          "key": "document_image_id",
+                                          "value": "<string>",
+                                          "description": "(Required) Document Image UUID."
+                                        }
+                                      ]
+                                    },
+                                    "description": "Deletes the specified image of a document attached to the specified form."
+                                  },
+                                  "response": [
+                                    {
+                                      "id": "6f2ef16a-f0f2-4e48-bd85-c21edb0f1155",
+                                      "name": "Deletes the document image",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images/:document_image_id",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "v1",
+                                            "forms",
+                                            ":form_id",
+                                            "documents",
+                                            ":document_id",
+                                            "document_images",
+                                            ":document_image_id"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "form_id"
+                                            },
+                                            {
+                                              "key": "document_id"
+                                            },
+                                            {
+                                              "key": "document_image_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "OK",
+                                      "code": 200,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"data\": {\n    \"message\": \"<string>\",\n    \"document_image_id\": \"<string>\"\n  }\n}",
+                                      "createdAt": "2026-07-28T01:28:11.000Z",
+                                      "updatedAt": "2026-07-28T01:28:11.000Z",
+                                      "uid": "35240-6f2ef16a-f0f2-4e48-bd85-c21edb0f1155"
+                                    },
+                                    {
+                                      "id": "2405d082-cb68-47a5-aab2-aab5f4b94b2f",
+                                      "name": "Document image not found",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images/:document_image_id",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "v1",
+                                            "forms",
+                                            ":form_id",
+                                            "documents",
+                                            ":document_id",
+                                            "document_images",
+                                            ":document_image_id"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "form_id"
+                                            },
+                                            {
+                                              "key": "document_id"
+                                            },
+                                            {
+                                              "key": "document_image_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Not Found",
+                                      "code": 404,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                                      "createdAt": "2026-07-28T01:28:11.000Z",
+                                      "updatedAt": "2026-07-28T01:28:11.000Z",
+                                      "uid": "35240-2405d082-cb68-47a5-aab2-aab5f4b94b2f"
+                                    },
+                                    {
+                                      "id": "d700852c-6545-4909-bfaf-fee7e3e90579",
+                                      "name": "Form is already submitted",
+                                      "originalRequest": {
+                                        "method": "DELETE",
+                                        "header": [
+                                          {
+                                            "key": "Accept",
+                                            "value": "application/json"
+                                          },
+                                          {
+                                            "description": "Added as a part of security scheme: apikey",
+                                            "key": "X-Auth-Token",
+                                            "value": "<API Key>"
+                                          }
+                                        ],
+                                        "url": {
+                                          "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images/:document_image_id",
+                                          "host": [
+                                            "{{baseUrl}}"
+                                          ],
+                                          "path": [
+                                            "v1",
+                                            "forms",
+                                            ":form_id",
+                                            "documents",
+                                            ":document_id",
+                                            "document_images",
+                                            ":document_image_id"
+                                          ],
+                                          "variable": [
+                                            {
+                                              "key": "form_id"
+                                            },
+                                            {
+                                              "key": "document_id"
+                                            },
+                                            {
+                                              "key": "document_image_id"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                      "code": 422,
+                                      "_postman_previewlanguage": "json",
+                                      "header": [
+                                        {
+                                          "key": "Content-Type",
+                                          "value": "application/json"
+                                        }
+                                      ],
+                                      "cookie": [],
+                                      "responseTime": null,
+                                      "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                                      "createdAt": "2026-07-28T01:28:11.000Z",
+                                      "updatedAt": "2026-07-28T01:28:11.000Z",
+                                      "uid": "35240-d700852c-6545-4909-bfaf-fee7e3e90579"
+                                    }
+                                  ],
+                                  "createdAt": "2026-07-28T01:28:11.000Z",
+                                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                                  "uid": "35240-463b5361-e1b4-4d95-b7fa-5e61f842eacd"
+                                }
+                              ],
+                              "id": "d15839e2-dd09-46ee-b931-be343e1e8b9c",
+                              "createdAt": "2026-07-28T01:28:11.000Z",
+                              "updatedAt": "2026-07-28T01:28:11.000Z",
+                              "uid": "35240-d15839e2-dd09-46ee-b931-be343e1e8b9c"
+                            },
+                            {
+                              "name": "Create Document Image",
+                              "id": "a92492de-a119-4d93-ab98-91416764bd1f",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"image\": \"<string>\",\n  \"side\": \"front\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "forms",
+                                    ":form_id",
+                                    "documents",
+                                    ":document_id",
+                                    "document_images"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "7bbf1ab7-4113-4f57-a625-b627d75bc1ce",
+                                      "key": "form_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Form UUID"
+                                    },
+                                    {
+                                      "id": "c7f906e4-4acc-462b-9478-7e3b40951d85",
+                                      "key": "document_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Document UUID"
+                                    }
+                                  ]
+                                },
+                                "description": "Records an image of a document that's required for the specified application form. For more information, see the \"Uploading documents\" section of <a href=\"../guides/integration-guides/onboarding-api-pilot\">our guide.</a>"
+                              },
+                              "response": [
+                                {
+                                  "id": "99f9ce7e-8b64-44f6-9ca8-6cce643451be",
+                                  "name": "Document image attached",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"image\": \"<string>\",\n  \"side\": \"front\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "forms",
+                                        ":form_id",
+                                        "documents",
+                                        ":document_id",
+                                        "document_images"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "form_id"
+                                        },
+                                        {
+                                          "key": "document_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Created",
+                                  "code": 201,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"data\": {\n    \"id\": \"<string>\",\n    \"side\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                                  "createdAt": "2026-07-28T01:28:11.000Z",
+                                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                                  "uid": "35240-99f9ce7e-8b64-44f6-9ca8-6cce643451be"
+                                },
+                                {
+                                  "id": "764569c8-945f-48c8-a22a-c3a0f3d1f28e",
+                                  "name": "Invalid side in request params",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"image\": \"<string>\",\n  \"side\": \"front\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "forms",
+                                        ":form_id",
+                                        "documents",
+                                        ":document_id",
+                                        "document_images"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "form_id"
+                                        },
+                                        {
+                                          "key": "document_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Bad Request",
+                                  "code": 400,
+                                  "_postman_previewlanguage": "text",
+                                  "header": [],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": null,
+                                  "createdAt": "2026-07-28T01:28:11.000Z",
+                                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                                  "uid": "35240-764569c8-945f-48c8-a22a-c3a0f3d1f28e"
+                                },
+                                {
+                                  "id": "8b424ed7-1f52-4f0f-bc4a-926d348d502b",
+                                  "name": "Document not found",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"image\": \"<string>\",\n  \"side\": \"front\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "forms",
+                                        ":form_id",
+                                        "documents",
+                                        ":document_id",
+                                        "document_images"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "form_id"
+                                        },
+                                        {
+                                          "key": "document_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                                  "createdAt": "2026-07-28T01:28:11.000Z",
+                                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                                  "uid": "35240-8b424ed7-1f52-4f0f-bc4a-926d348d502b"
+                                },
+                                {
+                                  "id": "2f792250-6b4e-41e9-a7c9-1685fbf4e31f",
+                                  "name": "Form is already submitted",
+                                  "originalRequest": {
+                                    "method": "POST",
+                                    "header": [
+                                      {
+                                        "key": "Content-Type",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "body": {
+                                      "mode": "raw",
+                                      "raw": "{\n  \"image\": \"<string>\",\n  \"side\": \"front\"\n}",
+                                      "options": {
+                                        "raw": {
+                                          "headerFamily": "json",
+                                          "language": "json"
+                                        }
+                                      }
+                                    },
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "forms",
+                                        ":form_id",
+                                        "documents",
+                                        ":document_id",
+                                        "document_images"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "form_id"
+                                        },
+                                        {
+                                          "key": "document_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                                  "code": 422,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                                  "createdAt": "2026-07-28T01:28:11.000Z",
+                                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                                  "uid": "35240-2f792250-6b4e-41e9-a7c9-1685fbf4e31f"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:28:11.000Z",
+                              "updatedAt": "2026-07-28T01:28:11.000Z",
+                              "uid": "35240-a92492de-a119-4d93-ab98-91416764bd1f"
+                            },
+                            {
+                              "name": "Get Document Images",
+                              "id": "adf7f10c-49b7-4ec4-83b6-c612cec930fb",
+                              "protocolProfileBehavior": {
+                                "disableBodyPruning": true
+                              },
+                              "request": {
+                                "auth": {
+                                  "type": "apikey",
+                                  "apikey": [
+                                    {
+                                      "key": "key",
+                                      "value": "X-Auth-Token",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "value",
+                                      "value": "{{apiKey}}",
+                                      "type": "string"
+                                    },
+                                    {
+                                      "key": "in",
+                                      "value": "header",
+                                      "type": "string"
+                                    }
+                                  ]
+                                },
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "v1",
+                                    "forms",
+                                    ":form_id",
+                                    "documents",
+                                    ":document_id",
+                                    "document_images"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "id": "aafaa148-d7b1-47a5-b94a-c3015a99bcb4",
+                                      "key": "form_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Form UUID"
+                                    },
+                                    {
+                                      "id": "a349578c-625a-444a-847e-18115192e816",
+                                      "key": "document_id",
+                                      "value": "<string>",
+                                      "description": "(Required) Document UUID"
+                                    }
+                                  ]
+                                },
+                                "description": "Returns all document images for the specified document."
+                              },
+                              "response": [
+                                {
+                                  "id": "b21b5e0e-5f04-43bc-9c10-45fb9b3d0024",
+                                  "name": "Retrieves document images",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "forms",
+                                        ":form_id",
+                                        "documents",
+                                        ":document_id",
+                                        "document_images"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "form_id"
+                                        },
+                                        {
+                                          "key": "document_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "OK",
+                                  "code": 200,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"document_images\": [\n    {\n      \"id\": \"<string>\",\n      \"side\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"side\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                                  "createdAt": "2026-07-28T01:28:11.000Z",
+                                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                                  "uid": "35240-b21b5e0e-5f04-43bc-9c10-45fb9b3d0024"
+                                },
+                                {
+                                  "id": "24c67dad-d0c4-4e48-9497-c258dae21039",
+                                  "name": "Document image not found with incorrect form id",
+                                  "originalRequest": {
+                                    "method": "GET",
+                                    "header": [
+                                      {
+                                        "key": "Accept",
+                                        "value": "application/json"
+                                      },
+                                      {
+                                        "description": "Added as a part of security scheme: apikey",
+                                        "key": "X-Auth-Token",
+                                        "value": "<API Key>"
+                                      }
+                                    ],
+                                    "url": {
+                                      "raw": "{{baseUrl}}/v1/forms/:form_id/documents/:document_id/document_images",
+                                      "host": [
+                                        "{{baseUrl}}"
+                                      ],
+                                      "path": [
+                                        "v1",
+                                        "forms",
+                                        ":form_id",
+                                        "documents",
+                                        ":document_id",
+                                        "document_images"
+                                      ],
+                                      "variable": [
+                                        {
+                                          "key": "form_id"
+                                        },
+                                        {
+                                          "key": "document_id"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "status": "Not Found",
+                                  "code": 404,
+                                  "_postman_previewlanguage": "json",
+                                  "header": [
+                                    {
+                                      "key": "Content-Type",
+                                      "value": "application/json"
+                                    }
+                                  ],
+                                  "cookie": [],
+                                  "responseTime": null,
+                                  "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                                  "createdAt": "2026-07-28T01:28:11.000Z",
+                                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                                  "uid": "35240-24c67dad-d0c4-4e48-9497-c258dae21039"
+                                }
+                              ],
+                              "createdAt": "2026-07-28T01:28:11.000Z",
+                              "updatedAt": "2026-07-28T01:28:11.000Z",
+                              "uid": "35240-adf7f10c-49b7-4ec4-83b6-c612cec930fb"
+                            }
+                          ],
+                          "id": "2be8d0f6-e46d-4902-9bbe-52ecb02dc64c",
+                          "createdAt": "2026-07-28T01:28:11.000Z",
+                          "updatedAt": "2026-07-28T01:28:11.000Z",
+                          "uid": "35240-2be8d0f6-e46d-4902-9bbe-52ecb02dc64c"
+                        }
+                      ],
+                      "id": "4b6f885a-698e-495d-96be-c8ff1af243b0",
+                      "createdAt": "2026-07-28T01:28:11.000Z",
+                      "updatedAt": "2026-07-28T01:28:11.000Z",
+                      "uid": "35240-4b6f885a-698e-495d-96be-c8ff1af243b0"
+                    }
+                  ],
+                  "id": "8a67117d-e2af-4f2a-a807-93513e5a8196",
+                  "createdAt": "2026-07-28T01:28:11.000Z",
+                  "updatedAt": "2026-07-28T01:28:11.000Z",
+                  "uid": "35240-8a67117d-e2af-4f2a-a807-93513e5a8196"
+                }
+              ],
+              "id": "b3f1538e-5247-49b5-9ffd-0b3131abf29a",
+              "createdAt": "2026-07-28T01:28:11.000Z",
+              "updatedAt": "2026-07-28T01:28:11.000Z",
+              "uid": "35240-b3f1538e-5247-49b5-9ffd-0b3131abf29a"
+            }
+          ],
+          "id": "e87b33bc-64a3-4b85-850c-fd5651005a3a",
+          "createdAt": "2026-07-28T01:28:11.000Z",
+          "updatedAt": "2026-07-28T01:28:11.000Z",
+          "uid": "35240-e87b33bc-64a3-4b85-850c-fd5651005a3a"
+        }
+      ],
+      "id": "ec7bcfd2-ea59-4d30-bd2c-4cd3abc9b255",
+      "createdAt": "2026-07-28T01:28:11.000Z",
+      "updatedAt": "2026-07-28T01:28:11.000Z",
+      "uid": "35240-ec7bcfd2-ea59-4d30-bd2c-4cd3abc9b255"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

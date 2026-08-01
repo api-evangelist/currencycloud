@@ -1,0 +1,2994 @@
+{
+  "info": {
+    "_postman_id": "d0e78f0a-eb32-4186-9dad-b3fc2ab8c880",
+    "name": "api-onboarding Account Usage Beneficiaries API",
+    "description": "Create, search and manage the list of individuals or companies that you send payments to.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:42.000Z",
+    "updatedAt": "2026-07-28T01:27:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-d0e78f0a-eb32-4186-9dad-b3fc2ab8c880"
+  },
+  "item": [
+    {
+      "name": "beneficiaries",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Find Beneficiaries",
+              "id": "3f6d135d-0b69-41f6-a853-51294937f3fa",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/beneficiaries/find",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "beneficiaries",
+                    "find"
+                  ]
+                },
+                "description": "Returns beneficiaries attached to the account or any sub-account owned by the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "2118b5ce-2919-470a-abb6-1d8f75535661",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-2118b5ce-2919-470a-abb6-1d8f75535661"
+                },
+                {
+                  "id": "05320bee-8eda-47e8-9683-e32fd58e9092",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-05320bee-8eda-47e8-9683-e32fd58e9092"
+                },
+                {
+                  "id": "9b33968c-7f0e-46f0-ad24-ceadfb8cc8fc",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-9b33968c-7f0e-46f0-ad24-ceadfb8cc8fc"
+                },
+                {
+                  "id": "af4b9447-e6b9-4451-bada-e4b5b7d840cc",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-af4b9447-e6b9-4451-bada-e4b5b7d840cc"
+                },
+                {
+                  "id": "14faea58-6c7c-4023-8d8e-de73168c7abe",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-14faea58-6c7c-4023-8d8e-de73168c7abe"
+                },
+                {
+                  "id": "c022fb0c-652d-44cb-bebd-d188e0cd170e",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-c022fb0c-652d-44cb-bebd-d188e0cd170e"
+                },
+                {
+                  "id": "5e37ff3d-b948-4500-810a-8e23062038ce",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-5e37ff3d-b948-4500-810a-8e23062038ce"
+                },
+                {
+                  "id": "17023cd9-375a-4a84-85cb-1a4a4473daef",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/find",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "find"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-17023cd9-375a-4a84-85cb-1a4a4473daef"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:43.000Z",
+              "updatedAt": "2026-07-28T01:27:43.000Z",
+              "uid": "35240-3f6d135d-0b69-41f6-a853-51294937f3fa"
+            }
+          ],
+          "id": "26208aee-e90f-430d-9b53-49e1ec1cc051",
+          "createdAt": "2026-07-28T01:27:43.000Z",
+          "updatedAt": "2026-07-28T01:27:43.000Z",
+          "uid": "35240-26208aee-e90f-430d-9b53-49e1ec1cc051"
+        },
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "delete",
+              "item": [
+                {
+                  "name": "Delete Beneficiary",
+                  "id": "e490049a-d9c8-4062-bf11-e2692550041e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id",
+                        "delete"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ae111686-257e-4d2c-affc-c6db6aee844a",
+                          "key": "id",
+                          "value": "",
+                          "description": "(Required) Beneficiary UUID"
+                        }
+                      ]
+                    },
+                    "description": "Delete a beneficiary associated with a sub-account. If the deletion is successful, the beneficiary's final state is returned."
+                  },
+                  "response": [
+                    {
+                      "id": "34689d66-89e3-4181-8c63-951951d8b223",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-34689d66-89e3-4181-8c63-951951d8b223"
+                    },
+                    {
+                      "id": "c88af510-1061-48bc-9711-245bb3b03ccc",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-c88af510-1061-48bc-9711-245bb3b03ccc"
+                    },
+                    {
+                      "id": "23f65acd-5da4-4bd7-b027-313690664b9f",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-23f65acd-5da4-4bd7-b027-313690664b9f"
+                    },
+                    {
+                      "id": "b536ace9-8b94-4af0-a3af-80ef754e1e52",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-b536ace9-8b94-4af0-a3af-80ef754e1e52"
+                    },
+                    {
+                      "id": "ce166188-4332-45e0-b82b-ed276b8b57ff",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-ce166188-4332-45e0-b82b-ed276b8b57ff"
+                    },
+                    {
+                      "id": "0db1eaec-5f96-46ff-8150-8c1e721acf32",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-0db1eaec-5f96-46ff-8150-8c1e721acf32"
+                    },
+                    {
+                      "id": "41f1a67f-6dce-4f4c-b232-c9dd52f06574",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-41f1a67f-6dce-4f4c-b232-c9dd52f06574"
+                    },
+                    {
+                      "id": "0f0af4c3-6d9e-4825-b076-0a843e064b8e",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/beneficiaries/:id/delete",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "beneficiaries",
+                            ":id",
+                            "delete"
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:27:43.000Z",
+                      "updatedAt": "2026-07-28T01:27:43.000Z",
+                      "uid": "35240-0f0af4c3-6d9e-4825-b076-0a843e064b8e"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-e490049a-d9c8-4062-bf11-e2692550041e"
+                }
+              ],
+              "id": "3f972ae4-cccc-4f63-92e7-9ac3bda0753f",
+              "createdAt": "2026-07-28T01:27:43.000Z",
+              "updatedAt": "2026-07-28T01:27:43.000Z",
+              "uid": "35240-3f972ae4-cccc-4f63-92e7-9ac3bda0753f"
+            },
+            {
+              "name": "Get Beneficiary",
+              "id": "d1a0e220-f143-4ef3-99f0-4714f35aea1c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "beneficiaries",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "eb6b6a81-9836-4789-b517-462ca4a16924",
+                      "key": "id",
+                      "value": "",
+                      "description": "(Required) Beneficiary UUID"
+                    }
+                  ]
+                },
+                "description": "Gets a beneficiary with the given ID."
+              },
+              "response": [
+                {
+                  "id": "1c24a51f-b631-4366-84f8-3cd7cf31af23",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-1c24a51f-b631-4366-84f8-3cd7cf31af23"
+                },
+                {
+                  "id": "e3438ae3-70d2-41f8-a982-7f2fefa64ddc",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-e3438ae3-70d2-41f8-a982-7f2fefa64ddc"
+                },
+                {
+                  "id": "8f0feaaa-17d4-405e-9464-7b7fe8e0fd12",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-8f0feaaa-17d4-405e-9464-7b7fe8e0fd12"
+                },
+                {
+                  "id": "7ed28595-b8bc-4486-86fd-c758f22f3d3c",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-7ed28595-b8bc-4486-86fd-c758f22f3d3c"
+                },
+                {
+                  "id": "83b66c71-d19d-45e8-881d-a514b5c6ede2",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-83b66c71-d19d-45e8-881d-a514b5c6ede2"
+                },
+                {
+                  "id": "0ba67504-fdd1-40f7-8c4a-d1ee6ee26bcd",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-0ba67504-fdd1-40f7-8c4a-d1ee6ee26bcd"
+                },
+                {
+                  "id": "7a869e6a-0786-4899-92f7-faa4e0818873",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-7a869e6a-0786-4899-92f7-faa4e0818873"
+                },
+                {
+                  "id": "6e630acb-eeba-4e87-826f-a45f75761240",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-6e630acb-eeba-4e87-826f-a45f75761240"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:43.000Z",
+              "updatedAt": "2026-07-28T01:27:43.000Z",
+              "uid": "35240-d1a0e220-f143-4ef3-99f0-4714f35aea1c"
+            },
+            {
+              "name": "Update Beneficiary",
+              "id": "82121e1b-c0f3-40b7-9456-fd0f589d12bc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/beneficiaries/:id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "beneficiaries",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "aff24fb4-eea8-4428-9182-1b5fc6b0a559",
+                      "key": "id",
+                      "value": "",
+                      "description": "(Required) Beneficiary UUID"
+                    }
+                  ]
+                },
+                "description": "Updates an existing beneficiary. Returns the updated beneficiary entity on success. <br> Please note that it's not possible to change a beneficiary's entity type (company or individual) by an update. To achieve this, you should create a new beneficiary."
+              },
+              "response": [
+                {
+                  "id": "9129e506-3db4-4aa4-ad9d-08569a40842a",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-9129e506-3db4-4aa4-ad9d-08569a40842a"
+                },
+                {
+                  "id": "cf4b4df3-d62d-4f9c-a269-8e13e52bb457",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-cf4b4df3-d62d-4f9c-a269-8e13e52bb457"
+                },
+                {
+                  "id": "da03755c-bf2d-47f2-ae65-bee594c9570f",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-da03755c-bf2d-47f2-ae65-bee594c9570f"
+                },
+                {
+                  "id": "be7c2ebf-2c4a-4879-b470-ac57f7173f14",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-be7c2ebf-2c4a-4879-b470-ac57f7173f14"
+                },
+                {
+                  "id": "78c7c4fb-40c4-440f-bdb9-1f3d08554146",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-78c7c4fb-40c4-440f-bdb9-1f3d08554146"
+                },
+                {
+                  "id": "8dcd3b4d-cd5d-4e1d-9228-b1931557b4bd",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-8dcd3b4d-cd5d-4e1d-9228-b1931557b4bd"
+                },
+                {
+                  "id": "37b4b0a5-b46a-47da-8931-7a546f6898c2",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-37b4b0a5-b46a-47da-8931-7a546f6898c2"
+                },
+                {
+                  "id": "920ea29c-054e-436f-aa3b-2c3acb5e0829",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/:id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        ":id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-920ea29c-054e-436f-aa3b-2c3acb5e0829"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:43.000Z",
+              "updatedAt": "2026-07-28T01:27:43.000Z",
+              "uid": "35240-82121e1b-c0f3-40b7-9456-fd0f589d12bc"
+            }
+          ],
+          "id": "316908a5-ba54-4621-ada3-e0064bd90690",
+          "createdAt": "2026-07-28T01:27:43.000Z",
+          "updatedAt": "2026-07-28T01:27:43.000Z",
+          "uid": "35240-316908a5-ba54-4621-ada3-e0064bd90690"
+        },
+        {
+          "name": "create",
+          "item": [
+            {
+              "name": "Create Beneficiary",
+              "id": "bafcdbbb-351d-4c48-acf0-a972c1bc99ce",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/beneficiaries/create",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "beneficiaries",
+                    "create"
+                  ]
+                },
+                "description": "Creates a new beneficiary. Returns the new beneficiary entity on success."
+              },
+              "response": [
+                {
+                  "id": "7c66d847-9357-404b-9772-1c77e04fe67e",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-7c66d847-9357-404b-9772-1c77e04fe67e"
+                },
+                {
+                  "id": "2f295779-e44b-4140-8af1-64bb5ab6405e",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-2f295779-e44b-4140-8af1-64bb5ab6405e"
+                },
+                {
+                  "id": "a4986764-f725-4ad0-9450-08a5534f0f0d",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-a4986764-f725-4ad0-9450-08a5534f0f0d"
+                },
+                {
+                  "id": "6af003fd-94de-4d55-8922-3580ee7ede88",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-6af003fd-94de-4d55-8922-3580ee7ede88"
+                },
+                {
+                  "id": "376d69c7-2658-4e51-9c77-1687e84b987f",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-376d69c7-2658-4e51-9c77-1687e84b987f"
+                },
+                {
+                  "id": "2a672e62-e243-49d8-a900-9e96835d6e68",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-2a672e62-e243-49d8-a900-9e96835d6e68"
+                },
+                {
+                  "id": "0dd71e79-bbde-46b2-8059-d7f4d90559a3",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-0dd71e79-bbde-46b2-8059-d7f4d90559a3"
+                },
+                {
+                  "id": "7204d03e-a006-4361-a2f0-073197a19087",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "create"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-7204d03e-a006-4361-a2f0-073197a19087"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:43.000Z",
+              "updatedAt": "2026-07-28T01:27:43.000Z",
+              "uid": "35240-bafcdbbb-351d-4c48-acf0-a972c1bc99ce"
+            }
+          ],
+          "id": "464b35b6-dd02-418c-9dcd-105570ad033b",
+          "createdAt": "2026-07-28T01:27:43.000Z",
+          "updatedAt": "2026-07-28T01:27:43.000Z",
+          "uid": "35240-464b35b6-dd02-418c-9dcd-105570ad033b"
+        },
+        {
+          "name": "validate",
+          "item": [
+            {
+              "name": "Validate Beneficiary",
+              "id": "f6b3d7aa-5d06-4f19-9006-9c097b66395c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/beneficiaries/validate",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "beneficiaries",
+                    "validate"
+                  ]
+                },
+                "description": "Validates a new beneficiary's bank details, without actually creating a record of the beneficiary. On success, returns an object that represents the entity that would be created if the beneficiary was saved."
+              },
+              "response": [
+                {
+                  "id": "5b745b89-511f-4ac3-9276-99a48ac04484",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-5b745b89-511f-4ac3-9276-99a48ac04484"
+                },
+                {
+                  "id": "50466f54-e4e3-4456-882f-ee388cdfdd75",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-50466f54-e4e3-4456-882f-ee388cdfdd75"
+                },
+                {
+                  "id": "d6d88b2d-d379-4fd8-aba3-873d31f31ab9",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-d6d88b2d-d379-4fd8-aba3-873d31f31ab9"
+                },
+                {
+                  "id": "ca015750-33ce-4786-af67-58dbf0c7a356",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-ca015750-33ce-4786-af67-58dbf0c7a356"
+                },
+                {
+                  "id": "18859532-826d-4a24-9ee8-0590345c9e53",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-18859532-826d-4a24-9ee8-0590345c9e53"
+                },
+                {
+                  "id": "a537f0a7-f1e9-475f-a7ff-e31de236de0b",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-a537f0a7-f1e9-475f-a7ff-e31de236de0b"
+                },
+                {
+                  "id": "390f51ab-f1ed-40da-a5ab-1cb9cadde179",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-390f51ab-f1ed-40da-a5ab-1cb9cadde179"
+                },
+                {
+                  "id": "1d8b870e-39bc-40b8-800a-32e4ad75f904",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/validate",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "validate"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-1d8b870e-39bc-40b8-800a-32e4ad75f904"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:43.000Z",
+              "updatedAt": "2026-07-28T01:27:43.000Z",
+              "uid": "35240-f6b3d7aa-5d06-4f19-9006-9c097b66395c"
+            }
+          ],
+          "id": "6279a827-244a-411a-b469-b831ddbd003c",
+          "createdAt": "2026-07-28T01:27:43.000Z",
+          "updatedAt": "2026-07-28T01:27:43.000Z",
+          "uid": "35240-6279a827-244a-411a-b469-b831ddbd003c"
+        },
+        {
+          "name": "account_verification",
+          "item": [
+            {
+              "name": "Verify Beneficiary Account",
+              "id": "8549c169-3e27-4f6b-8756-f22e32be574f",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "beneficiaries",
+                    "account_verification"
+                  ]
+                },
+                "description": "This service is currently only available to in-scope clients who must provide Confirmation of Payee (CoP) or Verification of Payee (VoP) services to their end-users making local GBP payments in the UK or SEPA EUR payments.<br><br> CoP and VoP are both peer-to-peer name-checking service designed to help reduce misdirected payments and provide greater assurance that payments are being sent, and collected from, the intended account holder for domestic payments. <br><br> Currently, access is restricted to UK and EU institutions and in-scope clients.<br><br> We plan to add more market coverage to this API in the future, thereby extending access to additional clients.<br><br> If you're interested in learning more or have received notification that you're in-scope, please contact your Account Manager or our support team."
+              },
+              "response": [
+                {
+                  "id": "ceab9592-d961-42be-ae83-b96fdeb62e9c",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-ceab9592-d961-42be-ae83-b96fdeb62e9c"
+                },
+                {
+                  "id": "25881c49-5239-4a08-8202-ee5b1781e06e",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-25881c49-5239-4a08-8202-ee5b1781e06e"
+                },
+                {
+                  "id": "625a1129-81c3-471c-89b4-2b18caf5bc01",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-625a1129-81c3-471c-89b4-2b18caf5bc01"
+                },
+                {
+                  "id": "8907b875-0de7-4068-8b63-481d01ed3a1e",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-8907b875-0de7-4068-8b63-481d01ed3a1e"
+                },
+                {
+                  "id": "756156fb-7bc8-4901-8fbc-bf1ebc9b1355",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-756156fb-7bc8-4901-8fbc-bf1ebc9b1355"
+                },
+                {
+                  "id": "15dea6f5-5bcf-4d75-8446-0fbbbe07bb8b",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-15dea6f5-5bcf-4d75-8446-0fbbbe07bb8b"
+                },
+                {
+                  "id": "ec892fe8-7d02-4ea4-a277-81d1bd918ffd",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-ec892fe8-7d02-4ea4-a277-81d1bd918ffd"
+                },
+                {
+                  "id": "b6919a88-14d2-4102-9eb0-65f17a7f0013",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/beneficiaries/account_verification",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "beneficiaries",
+                        "account_verification"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:43.000Z",
+                  "updatedAt": "2026-07-28T01:27:43.000Z",
+                  "uid": "35240-b6919a88-14d2-4102-9eb0-65f17a7f0013"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:43.000Z",
+              "updatedAt": "2026-07-28T01:27:43.000Z",
+              "uid": "35240-8549c169-3e27-4f6b-8756-f22e32be574f"
+            }
+          ],
+          "id": "0ceb7e76-69f9-49a6-8b80-4ece4b850590",
+          "createdAt": "2026-07-28T01:27:43.000Z",
+          "updatedAt": "2026-07-28T01:27:43.000Z",
+          "uid": "35240-0ceb7e76-69f9-49a6-8b80-4ece4b850590"
+        }
+      ],
+      "id": "c4c35d87-cdf4-46fd-848b-80e83746ca38",
+      "createdAt": "2026-07-28T01:27:43.000Z",
+      "updatedAt": "2026-07-28T01:27:43.000Z",
+      "uid": "35240-c4c35d87-cdf4-46fd-848b-80e83746ca38"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

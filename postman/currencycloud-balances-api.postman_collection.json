@@ -1,0 +1,1701 @@
+{
+  "info": {
+    "_postman_id": "8432806c-6d3b-49e6-a7a9-d73388f1744d",
+    "name": "api-onboarding Account Usage Balances API",
+    "description": "Provides access to view balance information. View the balances that you currently hold in different currencies on your Currencycloud account.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:41.000Z",
+    "updatedAt": "2026-07-28T01:27:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8432806c-6d3b-49e6-a7a9-d73388f1744d"
+  },
+  "item": [
+    {
+      "name": "balances",
+      "item": [
+        {
+          "name": "{currency}",
+          "item": [
+            {
+              "name": "Get Balance",
+              "id": "1aec4fdd-303c-458a-8ed5-28b9bc6de08a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "balances",
+                    ":currency"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "7e589fe8-812b-48bf-9212-6dcd0ed4371d",
+                      "key": "currency",
+                      "value": "",
+                      "description": "(Required) Three-letter ISO currency code."
+                    }
+                  ]
+                },
+                "description": "Gets the balance for a currency from the account of the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "63778f23-b962-4845-b988-9fc112f40b6f",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-63778f23-b962-4845-b988-9fc112f40b6f"
+                },
+                {
+                  "id": "2b5f76d9-c6a9-41fb-befd-5fdbfaa86fa3",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-2b5f76d9-c6a9-41fb-befd-5fdbfaa86fa3"
+                },
+                {
+                  "id": "66f682b0-c961-4ca6-9889-55d392729ff1",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-66f682b0-c961-4ca6-9889-55d392729ff1"
+                },
+                {
+                  "id": "6449d9fd-d9ee-4471-8c40-f711731981c5",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-6449d9fd-d9ee-4471-8c40-f711731981c5"
+                },
+                {
+                  "id": "69c6b2aa-37e4-4e51-b85c-1e1fb3236c0f",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-69c6b2aa-37e4-4e51-b85c-1e1fb3236c0f"
+                },
+                {
+                  "id": "65726730-60fb-4de4-b08c-7698decbb56a",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-65726730-60fb-4de4-b08c-7698decbb56a"
+                },
+                {
+                  "id": "9e17024b-1f2f-4690-b005-3a98ed1cd21c",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-9e17024b-1f2f-4690-b005-3a98ed1cd21c"
+                },
+                {
+                  "id": "34bc919e-3c41-4925-8e1b-fd82cf56e62e",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/:currency?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        ":currency"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "currency"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-34bc919e-3c41-4925-8e1b-fd82cf56e62e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:41.000Z",
+              "updatedAt": "2026-07-28T01:27:41.000Z",
+              "uid": "35240-1aec4fdd-303c-458a-8ed5-28b9bc6de08a"
+            }
+          ],
+          "id": "abc22564-5491-4fd8-bde6-933dfa4795d2",
+          "createdAt": "2026-07-28T01:27:41.000Z",
+          "updatedAt": "2026-07-28T01:27:41.000Z",
+          "uid": "35240-abc22564-5491-4fd8-bde6-933dfa4795d2"
+        },
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Find Balances",
+              "id": "9c8e2e43-df20-4dac-93ba-c7878610d779",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "balances",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "description": "Minimum balance amount.",
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "description": "Maximum balance amount.",
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                      "key": "as_at_date",
+                      "value": ""
+                    },
+                    {
+                      "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "description": "Page number",
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "description": "Number of results per page.",
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Searches for currency balances in the main account or a sub-account owned by the authenticated user."
+              },
+              "response": [
+                {
+                  "id": "c75c042b-fb8f-4d83-abff-65a569407c57",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-c75c042b-fb8f-4d83-abff-65a569407c57"
+                },
+                {
+                  "id": "cda9253e-49a7-4ab4-9f4a-6dab85b8d07b",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-cda9253e-49a7-4ab4-9f4a-6dab85b8d07b"
+                },
+                {
+                  "id": "a8793b64-ee03-471d-94c4-a480c1865c44",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-a8793b64-ee03-471d-94c4-a480c1865c44"
+                },
+                {
+                  "id": "51608a4d-c93b-48e0-ba35-62b0604f8c76",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-51608a4d-c93b-48e0-ba35-62b0604f8c76"
+                },
+                {
+                  "id": "c2601221-f454-4862-a3b5-926414097438",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-c2601221-f454-4862-a3b5-926414097438"
+                },
+                {
+                  "id": "a88060c0-c2c6-469d-9a0a-a25d7d6ab92e",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-a88060c0-c2c6-469d-9a0a-a25d7d6ab92e"
+                },
+                {
+                  "id": "858fb356-d904-4a5d-89c7-315bb6601cba",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-858fb356-d904-4a5d-89c7-315bb6601cba"
+                },
+                {
+                  "id": "158c4c5d-f791-417b-bc13-7c9e9f561050",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/find?on_behalf_of=&amount_from=&amount_to=&as_at_date=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum balance amount.",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum balance amount.",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\".",
+                          "key": "as_at_date",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\". (This can only be one of amount,created_at,currency,updated_at)",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-158c4c5d-f791-417b-bc13-7c9e9f561050"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:41.000Z",
+              "updatedAt": "2026-07-28T01:27:41.000Z",
+              "uid": "35240-9c8e2e43-df20-4dac-93ba-c7878610d779"
+            }
+          ],
+          "id": "24e26bc5-3992-4946-8540-767f5f5ea90d",
+          "createdAt": "2026-07-28T01:27:41.000Z",
+          "updatedAt": "2026-07-28T01:27:41.000Z",
+          "uid": "35240-24e26bc5-3992-4946-8540-767f5f5ea90d"
+        },
+        {
+          "name": "top_up_margin",
+          "item": [
+            {
+              "name": "Top Up Margin Balance",
+              "id": "3ef0dc3b-1bee-4893-8ab3-e6b765aad95e",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/balances/top_up_margin",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "balances",
+                    "top_up_margin"
+                  ]
+                },
+                "description": "Tops up the margin balance."
+              },
+              "response": [
+                {
+                  "id": "e5469874-675b-4dfe-aa99-eba5f95a29c2",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/top_up_margin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "top_up_margin"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-e5469874-675b-4dfe-aa99-eba5f95a29c2"
+                },
+                {
+                  "id": "3f354601-5820-41c0-a3e0-a39e9fe06490",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/top_up_margin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "top_up_margin"
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-3f354601-5820-41c0-a3e0-a39e9fe06490"
+                },
+                {
+                  "id": "4781a032-f3e4-439a-bfdd-9b9d0fcfa72e",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/top_up_margin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "top_up_margin"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-4781a032-f3e4-439a-bfdd-9b9d0fcfa72e"
+                },
+                {
+                  "id": "56b2ea6d-c8eb-4bfc-aa2a-1112e72a3925",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/top_up_margin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "top_up_margin"
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-56b2ea6d-c8eb-4bfc-aa2a-1112e72a3925"
+                },
+                {
+                  "id": "a6118155-4542-4f66-b223-10c39a2f704c",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/top_up_margin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "top_up_margin"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-a6118155-4542-4f66-b223-10c39a2f704c"
+                },
+                {
+                  "id": "090bbf3c-fe54-4369-b7dc-ed3eb13bc65f",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/top_up_margin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "top_up_margin"
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-090bbf3c-fe54-4369-b7dc-ed3eb13bc65f"
+                },
+                {
+                  "id": "c8d9ff1c-4d22-452e-b7ba-1eab188a6d7e",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/balances/top_up_margin",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "balances",
+                        "top_up_margin"
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:27:41.000Z",
+                  "updatedAt": "2026-07-28T01:27:41.000Z",
+                  "uid": "35240-c8d9ff1c-4d22-452e-b7ba-1eab188a6d7e"
+                }
+              ],
+              "createdAt": "2026-07-28T01:27:41.000Z",
+              "updatedAt": "2026-07-28T01:27:41.000Z",
+              "uid": "35240-3ef0dc3b-1bee-4893-8ab3-e6b765aad95e"
+            }
+          ],
+          "id": "c76956cc-428d-428e-bd3b-fe3c108886dc",
+          "createdAt": "2026-07-28T01:27:41.000Z",
+          "updatedAt": "2026-07-28T01:27:41.000Z",
+          "uid": "35240-c76956cc-428d-428e-bd3b-fe3c108886dc"
+        }
+      ],
+      "id": "bcc7536b-f40d-4c7b-8e0f-1ffb5be5e7e3",
+      "createdAt": "2026-07-28T01:27:41.000Z",
+      "updatedAt": "2026-07-28T01:27:41.000Z",
+      "uid": "35240-bcc7536b-f40d-4c7b-8e0f-1ffb5be5e7e3"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

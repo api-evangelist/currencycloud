@@ -1,0 +1,552 @@
+{
+  "info": {
+    "_postman_id": "1165d68e-5a02-4c64-b07f-99f125b8ae9a",
+    "name": "api-onboarding Account Usage Sender API",
+    "description": "Sender of funds.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:42.000Z",
+    "updatedAt": "2026-07-28T01:28:42.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-1165d68e-5a02-4c64-b07f-99f125b8ae9a"
+  },
+  "item": [
+    {
+      "name": "transactions",
+      "item": [
+        {
+          "name": "sender",
+          "item": [
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Get Sender Details",
+                  "id": "93ac4f79-5984-4b32-958e-b48b77bb8357",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "sender",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "4f7d0649-8d16-4eca-a525-c9b7d86a85fe",
+                          "key": "id",
+                          "value": "",
+                          "description": "(Required) The Related Entity UUID (related_entity_id) for the Transaction."
+                        }
+                      ]
+                    },
+                    "description": "Returns a JSON structure with details of the sender of funds."
+                  },
+                  "response": [
+                    {
+                      "id": "e4b4fa6b-f976-49b7-ab72-1af46d8ff561",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-e4b4fa6b-f976-49b7-ab72-1af46d8ff561"
+                    },
+                    {
+                      "id": "695cde7a-cda3-4e89-a1e3-f81ca6516573",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-695cde7a-cda3-4e89-a1e3-f81ca6516573"
+                    },
+                    {
+                      "id": "74deb0f4-81f6-468e-9209-c93137873d72",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-74deb0f4-81f6-468e-9209-c93137873d72"
+                    },
+                    {
+                      "id": "e8f07a5a-a7b1-43d7-9cf3-05efa23581ee",
+                      "name": "Sender not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-e8f07a5a-a7b1-43d7-9cf3-05efa23581ee"
+                    },
+                    {
+                      "id": "25d3fc83-4bca-4fc7-9b94-cf10e4f95afe",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-25d3fc83-4bca-4fc7-9b94-cf10e4f95afe"
+                    },
+                    {
+                      "id": "d4bc7671-4cc5-41c5-8605-e548bb562b46",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-d4bc7671-4cc5-41c5-8605-e548bb562b46"
+                    },
+                    {
+                      "id": "9523b929-d51a-48c5-b3a2-154d86a8c5fe",
+                      "name": "Service is temporary unavailable.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-9523b929-d51a-48c5-b3a2-154d86a8c5fe"
+                    },
+                    {
+                      "id": "f49f283b-a6da-4cd6-a6e6-683f32cf30d7",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/transactions/sender/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "transactions",
+                            "sender",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:43.000Z",
+                      "updatedAt": "2026-07-28T01:28:43.000Z",
+                      "uid": "35240-f49f283b-a6da-4cd6-a6e6-683f32cf30d7"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:43.000Z",
+                  "updatedAt": "2026-07-28T01:28:43.000Z",
+                  "uid": "35240-93ac4f79-5984-4b32-958e-b48b77bb8357"
+                }
+              ],
+              "id": "0619164d-cd1e-49da-9934-f173ccaf718a",
+              "createdAt": "2026-07-28T01:28:43.000Z",
+              "updatedAt": "2026-07-28T01:28:43.000Z",
+              "uid": "35240-0619164d-cd1e-49da-9934-f173ccaf718a"
+            }
+          ],
+          "id": "6274e0f4-a968-43ac-b8a6-cf51d67ca4fc",
+          "createdAt": "2026-07-28T01:28:43.000Z",
+          "updatedAt": "2026-07-28T01:28:43.000Z",
+          "uid": "35240-6274e0f4-a968-43ac-b8a6-cf51d67ca4fc"
+        }
+      ],
+      "id": "396cc40f-55a5-473a-b504-0cfcd9bcc7f4",
+      "createdAt": "2026-07-28T01:28:43.000Z",
+      "updatedAt": "2026-07-28T01:28:43.000Z",
+      "uid": "35240-396cc40f-55a5-473a-b504-0cfcd9bcc7f4"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

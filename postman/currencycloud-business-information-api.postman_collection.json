@@ -1,0 +1,761 @@
+{
+  "info": {
+    "_postman_id": "06501bf4-6a4e-4561-ad9d-e058297c5ece",
+    "name": "api-onboarding Account Usage Business Information API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:27:43.000Z",
+    "updatedAt": "2026-07-28T01:27:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-06501bf4-6a4e-4561-ad9d-e058297c5ece"
+  },
+  "item": [
+    {
+      "name": "v1",
+      "item": [
+        {
+          "name": "forms",
+          "item": [
+            {
+              "name": "{form_id}",
+              "item": [
+                {
+                  "name": "business_information",
+                  "item": [
+                    {
+                      "name": "Get Business Information",
+                      "id": "be2bb034-877b-4ead-a714-d1dc134f5f80",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Auth-Token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id",
+                            "business_information"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f22d7afa-d470-49bf-a08c-6b3a4419f87a",
+                              "key": "form_id",
+                              "value": "<string>",
+                              "description": "(Required) Form UUID"
+                            }
+                          ]
+                        },
+                        "description": "Gets the business information for the specified application form. Business information is only relevant to corporate applications."
+                      },
+                      "response": [
+                        {
+                          "id": "31a0e75a-60a8-45de-b4a1-fe9a504d566c",
+                          "name": "Business information found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"business_country\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"legal_entity_type\": \"<string>\",\n    \"sector\": \"<string>\",\n    \"incorporation_date\": \"<date>\",\n    \"business_activity_description\": \"<string>\",\n    \"registered_address\": {\n      \"city\": \"<string>\",\n      \"street\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"apartment_number\": \"<string>\",\n      \"building_name\": \"<string>\",\n      \"building_number\": \"<string>\",\n      \"state_or_province\": \"<string>\"\n    },\n    \"id\": \"<string>\",\n    \"form_id\": \"<string>\",\n    \"document_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"trading_name\": \"<string>\",\n    \"company_registration_number\": \"<string>\",\n    \"vat_number\": \"<string>\",\n    \"business_website\": \"<string>\",\n    \"trading_address\": {\n      \"city\": \"<string>\",\n      \"street\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"apartment_number\": \"<string>\",\n      \"building_name\": \"<string>\",\n      \"building_number\": \"<string>\",\n      \"state_or_province\": \"<string>\"\n    },\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-31a0e75a-60a8-45de-b4a1-fe9a504d566c"
+                        },
+                        {
+                          "id": "bddb6f09-96eb-4ace-8122-4a5fa7b89ad1",
+                          "name": "Returns error if form is not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-bddb6f09-96eb-4ace-8122-4a5fa7b89ad1"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:44.000Z",
+                      "updatedAt": "2026-07-28T01:27:44.000Z",
+                      "uid": "35240-be2bb034-877b-4ead-a714-d1dc134f5f80"
+                    },
+                    {
+                      "name": "Update Business Information",
+                      "id": "bb42b474-1820-4fcf-8ee4-ea2bd7d8ad82",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Auth-Token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"business_country\": \"MDA\",\n  \"company_name\": \"<string>\",\n  \"legal_entity_type\": \"sole_trader\",\n  \"sector\": \"mining_or_extractive_industries\",\n  \"incorporation_date\": \"<date>\",\n  \"registered_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  },\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trading_name\": \"<string>\",\n  \"company_registration_number\": \"<string>\",\n  \"vat_number\": \"<string>\",\n  \"business_website\": \"<string>\",\n  \"business_activity_description\": \"<string>\",\n  \"trading_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id",
+                            "business_information"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d7573ef1-55f1-4576-a91c-f29775248c61",
+                              "key": "form_id",
+                              "value": "<string>",
+                              "description": "(Required) Form UUID"
+                            }
+                          ]
+                        },
+                        "description": "Updates the business information for the specified application form. Business information is only relevant to corporate applications."
+                      },
+                      "response": [
+                        {
+                          "id": "dc388986-24d9-42a6-8cdd-e558ffd48750",
+                          "name": "Updates business information",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"business_country\": \"MDA\",\n  \"company_name\": \"<string>\",\n  \"legal_entity_type\": \"sole_trader\",\n  \"sector\": \"mining_or_extractive_industries\",\n  \"incorporation_date\": \"<date>\",\n  \"registered_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  },\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trading_name\": \"<string>\",\n  \"company_registration_number\": \"<string>\",\n  \"vat_number\": \"<string>\",\n  \"business_website\": \"<string>\",\n  \"business_activity_description\": \"<string>\",\n  \"trading_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"business_country\": \"<string>\",\n    \"company_name\": \"<string>\",\n    \"legal_entity_type\": \"<string>\",\n    \"sector\": \"<string>\",\n    \"incorporation_date\": \"<date>\",\n    \"business_activity_description\": \"<string>\",\n    \"registered_address\": {\n      \"city\": \"<string>\",\n      \"street\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"apartment_number\": \"<string>\",\n      \"building_name\": \"<string>\",\n      \"building_number\": \"<string>\",\n      \"state_or_province\": \"<string>\"\n    },\n    \"id\": \"<string>\",\n    \"form_id\": \"<string>\",\n    \"document_ids\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"trading_name\": \"<string>\",\n    \"company_registration_number\": \"<string>\",\n    \"vat_number\": \"<string>\",\n    \"business_website\": \"<string>\",\n    \"trading_address\": {\n      \"city\": \"<string>\",\n      \"street\": \"<string>\",\n      \"country\": \"<string>\",\n      \"postal_code\": \"<string>\",\n      \"apartment_number\": \"<string>\",\n      \"building_name\": \"<string>\",\n      \"building_number\": \"<string>\",\n      \"state_or_province\": \"<string>\"\n    },\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-dc388986-24d9-42a6-8cdd-e558ffd48750"
+                        },
+                        {
+                          "id": "63fe0be3-e4d9-49cf-bfaf-1e08d4118123",
+                          "name": "Returns error if any request body schema validation fails",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"business_country\": \"MDA\",\n  \"company_name\": \"<string>\",\n  \"legal_entity_type\": \"sole_trader\",\n  \"sector\": \"mining_or_extractive_industries\",\n  \"incorporation_date\": \"<date>\",\n  \"registered_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  },\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trading_name\": \"<string>\",\n  \"company_registration_number\": \"<string>\",\n  \"vat_number\": \"<string>\",\n  \"business_website\": \"<string>\",\n  \"business_activity_description\": \"<string>\",\n  \"trading_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-63fe0be3-e4d9-49cf-bfaf-1e08d4118123"
+                        },
+                        {
+                          "id": "306245fb-db3f-4dca-ad68-0ff123e12703",
+                          "name": "Returns error if form is not found",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"business_country\": \"MDA\",\n  \"company_name\": \"<string>\",\n  \"legal_entity_type\": \"sole_trader\",\n  \"sector\": \"mining_or_extractive_industries\",\n  \"incorporation_date\": \"<date>\",\n  \"registered_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  },\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trading_name\": \"<string>\",\n  \"company_registration_number\": \"<string>\",\n  \"vat_number\": \"<string>\",\n  \"business_website\": \"<string>\",\n  \"business_activity_description\": \"<string>\",\n  \"trading_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-306245fb-db3f-4dca-ad68-0ff123e12703"
+                        },
+                        {
+                          "id": "beadfac1-8cc8-48db-ab1e-8ef91c6f42a3",
+                          "name": "Returns error if form has already been submitted",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"business_country\": \"MDA\",\n  \"company_name\": \"<string>\",\n  \"legal_entity_type\": \"sole_trader\",\n  \"sector\": \"mining_or_extractive_industries\",\n  \"incorporation_date\": \"<date>\",\n  \"registered_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  },\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"trading_name\": \"<string>\",\n  \"company_registration_number\": \"<string>\",\n  \"vat_number\": \"<string>\",\n  \"business_website\": \"<string>\",\n  \"business_activity_description\": \"<string>\",\n  \"trading_address_attributes\": {\n    \"city\": \"<string>\",\n    \"street\": \"<string>\",\n    \"country\": \"<string>\",\n    \"postal_code\": \"<string>\",\n    \"apartment_number\": \"<string>\",\n    \"building_name\": \"<string>\",\n    \"building_number\": \"<string>\",\n    \"state_or_province\": \"<string>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-beadfac1-8cc8-48db-ab1e-8ef91c6f42a3"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:44.000Z",
+                      "updatedAt": "2026-07-28T01:27:44.000Z",
+                      "uid": "35240-bb42b474-1820-4fcf-8ee4-ea2bd7d8ad82"
+                    },
+                    {
+                      "name": "Delete Business Information",
+                      "id": "f55a0a5e-de1f-4e6a-9624-11b76e684f64",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "auth": {
+                          "type": "apikey",
+                          "apikey": [
+                            {
+                              "key": "key",
+                              "value": "X-Auth-Token",
+                              "type": "string"
+                            },
+                            {
+                              "key": "value",
+                              "value": "{{apiKey}}",
+                              "type": "string"
+                            },
+                            {
+                              "key": "in",
+                              "value": "header",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "v1",
+                            "forms",
+                            ":form_id",
+                            "business_information"
+                          ],
+                          "variable": [
+                            {
+                              "id": "bf1a9eb2-8a0a-4552-b94b-384351a5994e",
+                              "key": "form_id",
+                              "value": "<string>",
+                              "description": "(Required) Form UUID"
+                            }
+                          ]
+                        },
+                        "description": "Deletes the business information for the specified form."
+                      },
+                      "response": [
+                        {
+                          "id": "87e2a7d4-b195-4ded-8b2f-978761f99214",
+                          "name": "Deletes business information if it exists",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"data\": {\n    \"message\": \"<string>\",\n    \"form_id\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-87e2a7d4-b195-4ded-8b2f-978761f99214"
+                        },
+                        {
+                          "id": "6263fd28-400d-479e-a365-5f8e9c91de26",
+                          "name": "Form not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-6263fd28-400d-479e-a365-5f8e9c91de26"
+                        },
+                        {
+                          "id": "67585cd7-3664-4200-9ee6-ba1fc1f6ee8c",
+                          "name": "Form is already submitted",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: apikey",
+                                "key": "X-Auth-Token",
+                                "value": "<API Key>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/v1/forms/:form_id/business_information",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "v1",
+                                "forms",
+                                ":form_id",
+                                "business_information"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "form_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"status\": \"<string>\",\n  \"error_code\": \"<string>\",\n  \"reason\": \"<string>\",\n  \"error_messages\": {}\n}",
+                          "createdAt": "2026-07-28T01:27:44.000Z",
+                          "updatedAt": "2026-07-28T01:27:44.000Z",
+                          "uid": "35240-67585cd7-3664-4200-9ee6-ba1fc1f6ee8c"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:27:44.000Z",
+                      "updatedAt": "2026-07-28T01:27:44.000Z",
+                      "uid": "35240-f55a0a5e-de1f-4e6a-9624-11b76e684f64"
+                    }
+                  ],
+                  "id": "42a07368-f140-40f1-ab64-e669f19564d0",
+                  "createdAt": "2026-07-28T01:27:44.000Z",
+                  "updatedAt": "2026-07-28T01:27:44.000Z",
+                  "uid": "35240-42a07368-f140-40f1-ab64-e669f19564d0"
+                }
+              ],
+              "id": "b4538fb0-5e4a-4d56-bd33-e7fa72d9787d",
+              "createdAt": "2026-07-28T01:27:44.000Z",
+              "updatedAt": "2026-07-28T01:27:44.000Z",
+              "uid": "35240-b4538fb0-5e4a-4d56-bd33-e7fa72d9787d"
+            }
+          ],
+          "id": "0e4b340f-9cf2-4dbe-91c2-32af2b809702",
+          "createdAt": "2026-07-28T01:27:44.000Z",
+          "updatedAt": "2026-07-28T01:27:44.000Z",
+          "uid": "35240-0e4b340f-9cf2-4dbe-91c2-32af2b809702"
+        }
+      ],
+      "id": "85f0aabc-ae5d-4af8-8f0a-a378ca3bbb70",
+      "createdAt": "2026-07-28T01:27:44.000Z",
+      "updatedAt": "2026-07-28T01:27:44.000Z",
+      "uid": "35240-85f0aabc-ae5d-4af8-8f0a-a378ca3bbb70"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

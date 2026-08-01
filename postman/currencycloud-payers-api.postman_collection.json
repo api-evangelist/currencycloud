@@ -1,0 +1,534 @@
+{
+  "info": {
+    "_postman_id": "cb9691ef-07e7-464c-b60d-5186bfd05fe5",
+    "name": "api-onboarding Account Usage Payers API",
+    "description": "View information relating to the 'payer' for a payment that has been initiated through the platform.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:15.000Z",
+    "updatedAt": "2026-07-28T01:28:15.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cb9691ef-07e7-464c-b60d-5186bfd05fe5"
+  },
+  "item": [
+    {
+      "name": "payers",
+      "item": [
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Payer",
+              "id": "cfd2e283-2ab0-47de-8e98-60f90b9c7c6d",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "payers",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "ecfe9769-d51d-4546-96a7-660285202d7c",
+                      "key": "id",
+                      "value": "",
+                      "description": "(Required) Payer UUID."
+                    }
+                  ]
+                },
+                "description": "Get a payer record."
+              },
+              "response": [
+                {
+                  "id": "9d6852da-3b4e-4df9-82fa-d101960b901e",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-9d6852da-3b4e-4df9-82fa-d101960b901e"
+                },
+                {
+                  "id": "3dc0f83c-b891-4f52-9260-2ba3c5abaabc",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-3dc0f83c-b891-4f52-9260-2ba3c5abaabc"
+                },
+                {
+                  "id": "785ef95b-fcb9-42c0-afa8-5e20121c1c05",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-785ef95b-fcb9-42c0-afa8-5e20121c1c05"
+                },
+                {
+                  "id": "3bfaf85d-74c5-4c9f-8f53-57eaa6c7632d",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-3bfaf85d-74c5-4c9f-8f53-57eaa6c7632d"
+                },
+                {
+                  "id": "3cb32d51-c345-4f1c-95dc-bbf72305f6ef",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-3cb32d51-c345-4f1c-95dc-bbf72305f6ef"
+                },
+                {
+                  "id": "42b56f67-e725-4a7e-a168-6db644588825",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-42b56f67-e725-4a7e-a168-6db644588825"
+                },
+                {
+                  "id": "2354b84a-638b-4f17-bd7b-c7c3d596e96e",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-2354b84a-638b-4f17-bd7b-c7c3d596e96e"
+                },
+                {
+                  "id": "f469beee-f260-4ee9-86cb-68cb0bbc2b3b",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/payers/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "payers",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:15.000Z",
+                  "updatedAt": "2026-07-28T01:28:15.000Z",
+                  "uid": "35240-f469beee-f260-4ee9-86cb-68cb0bbc2b3b"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:15.000Z",
+              "updatedAt": "2026-07-28T01:28:15.000Z",
+              "uid": "35240-cfd2e283-2ab0-47de-8e98-60f90b9c7c6d"
+            }
+          ],
+          "id": "f38ba581-70cd-4943-b4bf-ff19b28b603b",
+          "createdAt": "2026-07-28T01:28:15.000Z",
+          "updatedAt": "2026-07-28T01:28:15.000Z",
+          "uid": "35240-f38ba581-70cd-4943-b4bf-ff19b28b603b"
+        }
+      ],
+      "id": "737b3cf0-0feb-4526-9aa4-0e981d1810c2",
+      "createdAt": "2026-07-28T01:28:15.000Z",
+      "updatedAt": "2026-07-28T01:28:15.000Z",
+      "uid": "35240-737b3cf0-0feb-4526-9aa4-0e981d1810c2"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

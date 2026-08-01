@@ -1,0 +1,2472 @@
+{
+  "info": {
+    "_postman_id": "251a5fd5-8a11-4f2a-9456-fbdba7ab4e09",
+    "name": "api-onboarding Account Usage Reporting API",
+    "description": "Ability to create and retrieve reports.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:41.000Z",
+    "updatedAt": "2026-07-28T01:28:41.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-251a5fd5-8a11-4f2a-9456-fbdba7ab4e09"
+  },
+  "item": [
+    {
+      "name": "reports",
+      "item": [
+        {
+          "name": "conversions",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Generate Conversion Report",
+                  "id": "cd205277-c619-4a18-a901-e9dc8fde5261",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/conversions/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        "conversions",
+                        "create"
+                      ]
+                    },
+                    "description": "Returns a JSON structure with details of the conversion report requested."
+                  },
+                  "response": [
+                    {
+                      "id": "e17f2385-d8c6-466c-b057-c6e0ac8f14d9",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-e17f2385-d8c6-466c-b057-c6e0ac8f14d9"
+                    },
+                    {
+                      "id": "50121c4d-03ab-49f6-8113-6e8c9b088280",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-50121c4d-03ab-49f6-8113-6e8c9b088280"
+                    },
+                    {
+                      "id": "cbc0923e-a7b0-4b3f-8a9a-b927de34b198",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-cbc0923e-a7b0-4b3f-8a9a-b927de34b198"
+                    },
+                    {
+                      "id": "161105f0-024d-4034-b563-afe23fbd3587",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-161105f0-024d-4034-b563-afe23fbd3587"
+                    },
+                    {
+                      "id": "5025ad5a-8272-4931-bd21-bc50826d87f9",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-5025ad5a-8272-4931-bd21-bc50826d87f9"
+                    },
+                    {
+                      "id": "684f8f32-6431-4c77-b02d-4a443c98885f",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-684f8f32-6431-4c77-b02d-4a443c98885f"
+                    },
+                    {
+                      "id": "9c639649-eb58-4f13-aab5-733da2dbe234",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-9c639649-eb58-4f13-aab5-733da2dbe234"
+                    },
+                    {
+                      "id": "9b0cb887-d883-41db-a363-9da2042b8a8b",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/conversions/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "conversions",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-9b0cb887-d883-41db-a363-9da2042b8a8b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:42.000Z",
+                  "updatedAt": "2026-07-28T01:28:42.000Z",
+                  "uid": "35240-cd205277-c619-4a18-a901-e9dc8fde5261"
+                }
+              ],
+              "id": "41b649bc-867a-46d3-89a1-e9f05c0c2764",
+              "createdAt": "2026-07-28T01:28:42.000Z",
+              "updatedAt": "2026-07-28T01:28:42.000Z",
+              "uid": "35240-41b649bc-867a-46d3-89a1-e9f05c0c2764"
+            }
+          ],
+          "id": "df9ebe14-c8c3-4473-82c1-787a1e54a888",
+          "createdAt": "2026-07-28T01:28:42.000Z",
+          "updatedAt": "2026-07-28T01:28:42.000Z",
+          "uid": "35240-df9ebe14-c8c3-4473-82c1-787a1e54a888"
+        },
+        {
+          "name": "payments",
+          "item": [
+            {
+              "name": "create",
+              "item": [
+                {
+                  "name": "Generate Payment Report",
+                  "id": "3c798a7f-69d5-4388-970a-8aec930f229c",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/payments/create",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        "payments",
+                        "create"
+                      ]
+                    },
+                    "description": "Returns a JSON structure with details of the payments report requested."
+                  },
+                  "response": [
+                    {
+                      "id": "d381ded2-0c45-4d48-8856-fd0d728f3d45",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-d381ded2-0c45-4d48-8856-fd0d728f3d45"
+                    },
+                    {
+                      "id": "e0cfc7c5-7b20-4182-b175-4a5ff5d22327",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-e0cfc7c5-7b20-4182-b175-4a5ff5d22327"
+                    },
+                    {
+                      "id": "5ec96b4c-790d-48c8-9f61-87ffc2cfa97a",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-5ec96b4c-790d-48c8-9f61-87ffc2cfa97a"
+                    },
+                    {
+                      "id": "c368435d-f7af-4287-88b5-4cf1c85b4b0b",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-c368435d-f7af-4287-88b5-4cf1c85b4b0b"
+                    },
+                    {
+                      "id": "0059abf5-17c5-4070-8cda-ac00c301782e",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-0059abf5-17c5-4070-8cda-ac00c301782e"
+                    },
+                    {
+                      "id": "95795fc2-cbb0-4249-82d9-b0a0b05e58f9",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-95795fc2-cbb0-4249-82d9-b0a0b05e58f9"
+                    },
+                    {
+                      "id": "bf049c3a-6c37-4fb9-8b12-1b8401673ea2",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-bf049c3a-6c37-4fb9-8b12-1b8401673ea2"
+                    },
+                    {
+                      "id": "e0715c94-81ba-47e4-aa9f-55ddcbbecc07",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/payments/create",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "payments",
+                            "create"
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-e0715c94-81ba-47e4-aa9f-55ddcbbecc07"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:42.000Z",
+                  "updatedAt": "2026-07-28T01:28:42.000Z",
+                  "uid": "35240-3c798a7f-69d5-4388-970a-8aec930f229c"
+                }
+              ],
+              "id": "757af80c-20a9-4950-afa7-862da471e071",
+              "createdAt": "2026-07-28T01:28:42.000Z",
+              "updatedAt": "2026-07-28T01:28:42.000Z",
+              "uid": "35240-757af80c-20a9-4950-afa7-862da471e071"
+            }
+          ],
+          "id": "6d148c41-e1eb-48bc-a483-c07baa403cd4",
+          "createdAt": "2026-07-28T01:28:42.000Z",
+          "updatedAt": "2026-07-28T01:28:42.000Z",
+          "uid": "35240-6d148c41-e1eb-48bc-a483-c07baa403cd4"
+        },
+        {
+          "name": "report_requests",
+          "item": [
+            {
+              "name": "find",
+              "item": [
+                {
+                  "name": "Find Report Requests",
+                  "id": "3836caea-936a-4c3f-86e6-941d8d2f9a68",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        "report_requests",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "Your unique short reference.",
+                          "key": "short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Description that was provided during the report creation process.",
+                          "key": "description",
+                          "value": ""
+                        },
+                        {
+                          "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                          "key": "expiration_date_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                          "key": "expiration_date_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                          "key": "report_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number.",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any field name to change the sort order.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        },
+                        {
+                          "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        }
+                      ]
+                    },
+                    "description": "Searches for report requests made. Returns a JSON structure with details of matching report requests."
+                  },
+                  "response": [
+                    {
+                      "id": "3e855bd3-f6aa-402f-b335-c19930fb8ef7",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-3e855bd3-f6aa-402f-b335-c19930fb8ef7"
+                    },
+                    {
+                      "id": "c003e3ff-2895-41b1-bbc8-7241cb6f775c",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-c003e3ff-2895-41b1-bbc8-7241cb6f775c"
+                    },
+                    {
+                      "id": "aa558b0f-0f39-45f1-becc-7884f846592c",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-aa558b0f-0f39-45f1-becc-7884f846592c"
+                    },
+                    {
+                      "id": "30909e85-05ed-4ccc-ac58-d83549f1e079",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-30909e85-05ed-4ccc-ac58-d83549f1e079"
+                    },
+                    {
+                      "id": "6c4705b3-32a5-4d2b-b887-797b27f63e8f",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-6c4705b3-32a5-4d2b-b887-797b27f63e8f"
+                    },
+                    {
+                      "id": "32caf861-2935-46fe-b7cd-3994dd9cdc94",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-32caf861-2935-46fe-b7cd-3994dd9cdc94"
+                    },
+                    {
+                      "id": "13e3aaa6-3d2d-46da-9a7d-57841fe872ff",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-13e3aaa6-3d2d-46da-9a7d-57841fe872ff"
+                    },
+                    {
+                      "id": "56664343-a2b4-4d31-9e83-6aaad7d300f5",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/find?short_reference=&description=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&expiration_date_from=&expiration_date_to=&status=&report_type=&page=&per_page=&order=&order_asc_desc=&scope=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            "find"
+                          ],
+                          "query": [
+                            {
+                              "description": "Your unique short reference.",
+                              "key": "short_reference",
+                              "value": ""
+                            },
+                            {
+                              "description": "Description that was provided during the report creation process.",
+                              "key": "description",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were created.",
+                              "key": "created_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the reports were updated.",
+                              "key": "updated_at_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_from",
+                              "value": ""
+                            },
+                            {
+                              "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired.",
+                              "key": "expiration_date_to",
+                              "value": ""
+                            },
+                            {
+                              "description": "Status of the report. (This can only be one of completed,expired,failed,processing)",
+                              "key": "status",
+                              "value": ""
+                            },
+                            {
+                              "description": "Type of reports, that we expect to receive in search results. (This can only be one of beneficiary,conversion,payment,transaction)",
+                              "key": "report_type",
+                              "value": ""
+                            },
+                            {
+                              "description": "Page number.",
+                              "key": "page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Number of results per page.",
+                              "key": "per_page",
+                              "value": ""
+                            },
+                            {
+                              "description": "Any field name to change the sort order.",
+                              "key": "order",
+                              "value": ""
+                            },
+                            {
+                              "description": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                              "key": "order_asc_desc",
+                              "value": ""
+                            },
+                            {
+                              "description": "Specify which account level will be used; 'own' is the default value. (This can only be one of all,clients,own)",
+                              "key": "scope",
+                              "value": ""
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-56664343-a2b4-4d31-9e83-6aaad7d300f5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:42.000Z",
+                  "updatedAt": "2026-07-28T01:28:42.000Z",
+                  "uid": "35240-3836caea-936a-4c3f-86e6-941d8d2f9a68"
+                }
+              ],
+              "id": "39ddb448-6fdf-44a2-80dc-e97c641780db",
+              "createdAt": "2026-07-28T01:28:42.000Z",
+              "updatedAt": "2026-07-28T01:28:42.000Z",
+              "uid": "35240-39ddb448-6fdf-44a2-80dc-e97c641780db"
+            },
+            {
+              "name": "{id}",
+              "item": [
+                {
+                  "name": "Retrieves a Report Request with the given ID",
+                  "id": "62818649-16b0-4f13-9707-31d6b3510574",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "reports",
+                        "report_requests",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "655ff165-5944-4b3f-b70d-fdde65e4e458",
+                          "key": "id",
+                          "value": "",
+                          "description": "(Required) ID of the report."
+                        }
+                      ]
+                    },
+                    "description": "Searches for a report by ID. Returns a JSON structure with details of the specified report request."
+                  },
+                  "response": [
+                    {
+                      "id": "5be5a04a-1363-4733-bfae-2a451e0626c5",
+                      "name": "Success.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-5be5a04a-1363-4733-bfae-2a451e0626c5"
+                    },
+                    {
+                      "id": "e018198b-eb7a-4804-b5c8-34af0c59dd81",
+                      "name": "Client error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-e018198b-eb7a-4804-b5c8-34af0c59dd81"
+                    },
+                    {
+                      "id": "83aa02d9-deb9-4946-8f06-ee55d9b862ed",
+                      "name": "Unauthorized.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-83aa02d9-deb9-4946-8f06-ee55d9b862ed"
+                    },
+                    {
+                      "id": "10e21d02-c5f2-4005-956c-e0b118175859",
+                      "name": "Resource not found.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-10e21d02-c5f2-4005-956c-e0b118175859"
+                    },
+                    {
+                      "id": "37bc4f6b-2417-42eb-8cda-7d30b9f30471",
+                      "name": "Too many requests.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Too Many Requests",
+                      "code": 429,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-37bc4f6b-2417-42eb-8cda-7d30b9f30471"
+                    },
+                    {
+                      "id": "538a38b7-14d5-4572-8712-5fa498b7ddfc",
+                      "name": "Internal server error",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-538a38b7-14d5-4572-8712-5fa498b7ddfc"
+                    },
+                    {
+                      "id": "0bce4ad4-b62f-4a12-ae2c-d89898e2895c",
+                      "name": "Service is temporary unavailable",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Service Unavailable",
+                      "code": 503,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-0bce4ad4-b62f-4a12-ae2c-d89898e2895c"
+                    },
+                    {
+                      "id": "adb23122-bb7d-45b2-a4e6-f3dd3b3551b3",
+                      "name": "Unexpected error.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "description": "(Required) Authentication token",
+                            "key": "X-Auth-Token",
+                            "value": ""
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/reports/report_requests/:id?on_behalf_of=",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "reports",
+                            "report_requests",
+                            ":id"
+                          ],
+                          "query": [
+                            {
+                              "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                              "key": "on_behalf_of",
+                              "value": ""
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Internal Server Error",
+                      "code": 500,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "A unique reference for the request.",
+                            "type": "text/plain"
+                          },
+                          "key": "X-Request-Id",
+                          "value": ""
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": null,
+                      "createdAt": "2026-07-28T01:28:42.000Z",
+                      "updatedAt": "2026-07-28T01:28:42.000Z",
+                      "uid": "35240-adb23122-bb7d-45b2-a4e6-f3dd3b3551b3"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:28:42.000Z",
+                  "updatedAt": "2026-07-28T01:28:42.000Z",
+                  "uid": "35240-62818649-16b0-4f13-9707-31d6b3510574"
+                }
+              ],
+              "id": "73fe0f20-131c-4ea9-8f83-529198c8ade4",
+              "createdAt": "2026-07-28T01:28:42.000Z",
+              "updatedAt": "2026-07-28T01:28:42.000Z",
+              "uid": "35240-73fe0f20-131c-4ea9-8f83-529198c8ade4"
+            }
+          ],
+          "id": "52770da3-8962-43b4-a690-47c2620659a4",
+          "createdAt": "2026-07-28T01:28:42.000Z",
+          "updatedAt": "2026-07-28T01:28:42.000Z",
+          "uid": "35240-52770da3-8962-43b4-a690-47c2620659a4"
+        }
+      ],
+      "id": "480d84c6-e761-49b3-989e-1ff9f5ebdd60",
+      "createdAt": "2026-07-28T01:28:42.000Z",
+      "updatedAt": "2026-07-28T01:28:42.000Z",
+      "uid": "35240-480d84c6-e761-49b3-989e-1ff9f5ebdd60"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}

@@ -1,0 +1,2116 @@
+{
+  "info": {
+    "_postman_id": "b8584f27-85c4-4380-9bb7-de1301cf5e27",
+    "name": "api-onboarding Account Usage Transactions API",
+    "description": "View balances and all pending and completed transactions in your Currencycloud account, as well as associated sub-account balances and transactions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:28:44.000Z",
+    "updatedAt": "2026-07-28T01:28:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-b8584f27-85c4-4380-9bb7-de1301cf5e27"
+  },
+  "item": [
+    {
+      "name": "transactions",
+      "item": [
+        {
+          "name": "find",
+          "item": [
+            {
+              "name": "Find Transactions",
+              "id": "b37cce40-a6a7-438b-ab10-9a54ea9d0d88",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "description": "Three-letter ISO currency code.",
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "description": "Amount the transaction is for.",
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "description": "Minimum amount",
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "description": "Maximum amount",
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "description": "UUID of the related entity.",
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Short reference code.",
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "description": "Page number",
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "description": "Number of results per page.",
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ]
+                },
+                "description": "Search for transactions."
+              },
+              "response": [
+                {
+                  "id": "506c3acc-b728-40a8-b270-7069c6c0542d",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-506c3acc-b728-40a8-b270-7069c6c0542d"
+                },
+                {
+                  "id": "b97e6429-8187-4a37-9aeb-fc34bb00c49d",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-b97e6429-8187-4a37-9aeb-fc34bb00c49d"
+                },
+                {
+                  "id": "19923c20-2709-43de-b6ee-0bf2d8b2e01f",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-19923c20-2709-43de-b6ee-0bf2d8b2e01f"
+                },
+                {
+                  "id": "ba4e975c-93c8-492a-8532-0d174f35321c",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-ba4e975c-93c8-492a-8532-0d174f35321c"
+                },
+                {
+                  "id": "764edb78-4195-4ffb-b62d-5cfeb0f36a4a",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-764edb78-4195-4ffb-b62d-5cfeb0f36a4a"
+                },
+                {
+                  "id": "8b05456d-20ea-442c-8a10-ad5dbeac9bf8",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-8b05456d-20ea-442c-8a10-ad5dbeac9bf8"
+                },
+                {
+                  "id": "2fb55c9a-7c10-437d-a1a4-adf5b172f697",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-2fb55c9a-7c10-437d-a1a4-adf5b172f697"
+                },
+                {
+                  "id": "cca88ba9-efc1-480b-bbb5-3174306bb29d",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/find?on_behalf_of=&currency=&amount=&amount_from=&amount_to=&action=&related_entity_type=&related_entity_id=&related_entity_short_reference=&status=&type=&settles_at_from=&settles_at_to=&created_at_from=&created_at_to=&updated_at_from=&updated_at_to=&completed_at_from=&completed_at_to=&beneficiary_id=&currency_pair=&scope=&page=&per_page=&order=&order_asc_desc=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        "find"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        },
+                        {
+                          "description": "Three-letter ISO currency code.",
+                          "key": "currency",
+                          "value": ""
+                        },
+                        {
+                          "description": "Amount the transaction is for.",
+                          "key": "amount",
+                          "value": ""
+                        },
+                        {
+                          "description": "Minimum amount",
+                          "key": "amount_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Maximum amount",
+                          "key": "amount_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                          "key": "action",
+                          "value": ""
+                        },
+                        {
+                          "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the \u2018action\u2019 field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                          "key": "related_entity_type",
+                          "value": ""
+                        },
+                        {
+                          "description": "UUID of the related entity.",
+                          "key": "related_entity_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Short reference code.",
+                          "key": "related_entity_short_reference",
+                          "value": ""
+                        },
+                        {
+                          "description": "Transaction status. (This can only be one of completed,deleted,pending)",
+                          "key": "status",
+                          "value": ""
+                        },
+                        {
+                          "description": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                          "key": "type",
+                          "value": ""
+                        },
+                        {
+                          "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "settles_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "created_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "updated_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_from",
+                          "value": ""
+                        },
+                        {
+                          "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                          "key": "completed_at_to",
+                          "value": ""
+                        },
+                        {
+                          "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                          "key": "beneficiary_id",
+                          "value": ""
+                        },
+                        {
+                          "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                          "key": "currency_pair",
+                          "value": ""
+                        },
+                        {
+                          "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                          "key": "scope",
+                          "value": ""
+                        },
+                        {
+                          "description": "Page number",
+                          "key": "page",
+                          "value": ""
+                        },
+                        {
+                          "description": "Number of results per page.",
+                          "key": "per_page",
+                          "value": ""
+                        },
+                        {
+                          "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                          "key": "order",
+                          "value": ""
+                        },
+                        {
+                          "description": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                          "key": "order_asc_desc",
+                          "value": ""
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-cca88ba9-efc1-480b-bbb5-3174306bb29d"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:44.000Z",
+              "updatedAt": "2026-07-28T01:28:44.000Z",
+              "uid": "35240-b37cce40-a6a7-438b-ab10-9a54ea9d0d88"
+            }
+          ],
+          "id": "7207864a-4937-45fc-b35b-017668cd386c",
+          "createdAt": "2026-07-28T01:28:44.000Z",
+          "updatedAt": "2026-07-28T01:28:44.000Z",
+          "uid": "35240-7207864a-4937-45fc-b35b-017668cd386c"
+        },
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Get Transaction",
+              "id": "91d42f4e-8f59-4bde-87cb-f1f34e3544e7",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "67003769-5b77-416c-bf97-bdfbd90e2404",
+                      "key": "id",
+                      "value": "",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "description": "Gets a transaction record."
+              },
+              "response": [
+                {
+                  "id": "660f19c5-ebd5-4761-a3a6-b6a43895c12a",
+                  "name": "Success.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-660f19c5-ebd5-4761-a3a6-b6a43895c12a"
+                },
+                {
+                  "id": "79031591-91cc-4039-86db-e1717aaf500c",
+                  "name": "Client error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-79031591-91cc-4039-86db-e1717aaf500c"
+                },
+                {
+                  "id": "39b98cb7-1800-4942-addc-672df5a31936",
+                  "name": "Unauthorized.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-39b98cb7-1800-4942-addc-672df5a31936"
+                },
+                {
+                  "id": "49468074-8b18-4b42-abdc-ac31d605f9c4",
+                  "name": "Resource not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-49468074-8b18-4b42-abdc-ac31d605f9c4"
+                },
+                {
+                  "id": "a8dc70d2-e2fb-479b-85ac-71803d8af055",
+                  "name": "Too many requests.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Too Many Requests",
+                  "code": 429,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-a8dc70d2-e2fb-479b-85ac-71803d8af055"
+                },
+                {
+                  "id": "76234c93-41c1-4c5f-aea8-95d4c67c7584",
+                  "name": "Internal server error",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-76234c93-41c1-4c5f-aea8-95d4c67c7584"
+                },
+                {
+                  "id": "2fe55840-5e18-406a-bc35-eebb1039817f",
+                  "name": "Service is temporary unavailable",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Service Unavailable",
+                  "code": 503,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-2fe55840-5e18-406a-bc35-eebb1039817f"
+                },
+                {
+                  "id": "3aed4cc6-0c4a-46c9-a0e4-a37c18d622d0",
+                  "name": "Unexpected error.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "description": "(Required) Authentication token",
+                        "key": "X-Auth-Token",
+                        "value": ""
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/transactions/:id?on_behalf_of=",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "transactions",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "A contact UUID for the sub-account you're acting on behalf of.",
+                          "key": "on_behalf_of",
+                          "value": ""
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Internal Server Error",
+                  "code": 500,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "A unique reference for the request.",
+                        "type": "text/plain"
+                      },
+                      "key": "X-Request-Id",
+                      "value": ""
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": null,
+                  "createdAt": "2026-07-28T01:28:45.000Z",
+                  "updatedAt": "2026-07-28T01:28:45.000Z",
+                  "uid": "35240-3aed4cc6-0c4a-46c9-a0e4-a37c18d622d0"
+                }
+              ],
+              "createdAt": "2026-07-28T01:28:44.000Z",
+              "updatedAt": "2026-07-28T01:28:44.000Z",
+              "uid": "35240-91d42f4e-8f59-4bde-87cb-f1f34e3544e7"
+            }
+          ],
+          "id": "15f89cae-22f8-4781-bae1-340977ba0e58",
+          "createdAt": "2026-07-28T01:28:44.000Z",
+          "updatedAt": "2026-07-28T01:28:44.000Z",
+          "uid": "35240-15f89cae-22f8-4781-bae1-340977ba0e58"
+        }
+      ],
+      "id": "b766749e-789b-455b-8a05-4d4b004c4db3",
+      "createdAt": "2026-07-28T01:28:44.000Z",
+      "updatedAt": "2026-07-28T01:28:44.000Z",
+      "uid": "35240-b766749e-789b-455b-8a05-4d4b004c4db3"
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "/onboarding"
+    }
+  ]
+}
