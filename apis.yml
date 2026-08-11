@@ -400,6 +400,8 @@ apis:
   - type: Sandbox
     url: sandbox/currencycloud-sandbox.yml
 common:
+- type: Overlay
+  url: overlays/currencycloud-reference-overlay.yaml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/currencycloud/overview
 - type: DeveloperPortal
