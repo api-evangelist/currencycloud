@@ -1,0 +1,1262 @@
+{
+  "item": [
+    {
+      "id": "faa444dd-59eb-4c8e-b0b0-f4c13e1b96e1",
+      "name": "Funding",
+      "description": {
+        "content": "Find funding accounts that can be used to settle and collect funds in each available currency.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8e094078-d5a8-4377-915a-71ccdde35e6b",
+          "name": "Find Funding Accounts",
+          "request": {
+            "name": "Find Funding Accounts",
+            "description": {
+              "content": "Gets details of the Standard Settlement Instructions (SSIs) that can be used to settle and collect funds in each available currency.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding_accounts",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types. (This can only be one of priority,regular)",
+                    "type": "text/plain"
+                  },
+                  "key": "payment_type",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) The currency of the account details required, ISO 4217 standard.",
+                    "type": "text/plain"
+                  },
+                  "key": "currency",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "UUID of a specific sub-account you want to see the SSIs for.",
+                    "type": "text/plain"
+                  },
+                  "key": "account_id",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "A contact UUID for the sub-account you're acting on behalf of.",
+                    "type": "text/plain"
+                  },
+                  "key": "on_behalf_of",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Page number",
+                    "type": "text/plain"
+                  },
+                  "key": "page",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Number of results per page.",
+                    "type": "text/plain"
+                  },
+                  "key": "per_page",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Any field name to change the sort order.",
+                    "type": "text/plain"
+                  },
+                  "key": "order",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Sort records in ascending or descending order. (This can only be one of asc,desc)",
+                    "type": "text/plain"
+                  },
+                  "key": "order_asc_desc",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token",
+                "key": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5df54077-a2c9-48a5-a2c7-c88fd5f6b9db",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "24823702-9107-42d1-ba50-1d9ae76ce78e",
+              "name": "Client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa0ab452-ccc9-4095-b912-a916d2e0a68e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3fa4e52b-a63f-49df-9e0e-68de67c4822a",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e5a05159-9623-4ff3-b9d5-5d8dbcd0305d",
+              "name": "Too many requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ff4a6bd7-9d04-4043-8203-97fd38faffd5",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67bff2a2-649f-4cc3-abc9-36477c9ffd7f",
+              "name": "Service is temporary unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "90c43ffd-e1ac-4f7d-a232-5ee74ffd2a8e",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_accounts",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "payment_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "account_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bb3ad6d3-e060-47c7-b0f4-80061823ce17",
+          "name": "Get Funding Transaction",
+          "request": {
+            "name": "Get Funding Transaction",
+            "description": {
+              "content": "\nGets the details of an approved funding transaction with the given ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "funding_transactions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "A contact UUID for the sub-account you're acting on behalf of.",
+                    "type": "text/plain"
+                  },
+                  "key": "on_behalf_of",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "id",
+                  "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token",
+                "key": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2b02c448-5dd8-46a0-bf44-e05a9e61bc22",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab8c6790-fc80-4d04-bc43-40ecb06a408b",
+              "name": "Client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f7361c11-22c7-478a-a323-51406d694a8d",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ca543109-47bc-4d6d-a717-f4e5b5b9aa28",
+              "name": "Transaction not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "16b719c9-2aa8-4b7e-8266-693ca246587e",
+              "name": "Too many requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd6f4ba8-ceb3-4e71-a045-72f8e4f64642",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a5993332-8589-4564-a87b-2c6ca0d73730",
+              "name": "Service is temporary unavailable.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd41aa54-17da-44ef-be40-302adb512130",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "funding_transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) The Related Entity UUID (related_entity_id) for the transaction."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/onboarding",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "27365ef4-9ab1-46ed-b99b-edeeed17194d",
+    "name": "api-onboarding Account Usage Funding API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Find funding accounts that can be used to settle and collect funds in each available currency.",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Business Information API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Business Information",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Business Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/v1/forms/:form_id/business_information",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the business information for the specified application form. Business information is only relevant to corporate applications."
+        },
+        {
+          "info": {
+            "name": "Update Business Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/onboarding/v1/forms/:form_id/business_information",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the business information for the specified application form. Business information is only relevant to corporate applications."
+        },
+        {
+          "info": {
+            "name": "Delete Business Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/onboarding/v1/forms/:form_id/business_information",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the business information for the specified form."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

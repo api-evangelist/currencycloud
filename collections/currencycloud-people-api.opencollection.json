@@ -1,0 +1,169 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage People API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "People",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get People",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/v1/forms/:form_id/people",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns all people associated with an application form."
+        },
+        {
+          "info": {
+            "name": "Create Person Entity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/v1/forms/:form_id/people",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Records a person's details associated with the specified application form. For more information, please see <a href=\"../guides/integration-guides/onboarding-api-pilot\">our guide.</a>"
+        },
+        {
+          "info": {
+            "name": "Get Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/v1/forms/:form_id/:person_id",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              },
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Person UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Retrieves the details of the person with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Update Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/onboarding/v1/forms/:form_id/:person_id",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              },
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Person UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates the person with the specified ID."
+        },
+        {
+          "info": {
+            "name": "Delete Person",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/onboarding/v1/forms/:form_id/:person_id",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              },
+              {
+                "name": "person_id",
+                "value": "",
+                "type": "path",
+                "description": "Person UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the details of the person with the specified ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

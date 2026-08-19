@@ -1,0 +1,311 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Reference API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Bank Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/reference/bank_details/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns the related bank details for the given account reference."
+        },
+        {
+          "info": {
+            "name": "Get Beneficiary Requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/beneficiary_required_details",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency in which money is held in the beneficiary's bank account. Three-letter ISO currency code."
+              },
+              {
+                "name": "bank_account_country",
+                "value": "",
+                "type": "query",
+                "description": "Two-letter ISO country code."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "beneficiary_country",
+                "value": "",
+                "type": "query",
+                "description": "Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which they are based."
+              }
+            ]
+          },
+          "docs": "Returns the information that is required to make payments to beneficiaries in specified currencies and countries."
+        },
+        {
+          "info": {
+            "name": "Get Conversion Dates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/conversion_dates",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "conversion_pair",
+                "value": "",
+                "type": "query",
+                "description": "Concatenated string of the currency codes for the two currencies involved, e.g. \"USDEUR\"."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Start date of conversion. ISO 8601 format YYYY-MM-DD."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Provides a list of upcoming non-trading dates, such as weekends or public holidays, for a specified currency pair. Common use cases include situations where this information needs to be provided, or for planning upcoming conversion bookings. <br><br> Many currencies are triangulated; this means that holidays affecting the intermediary currency, as well as the sale and purchase currencies, will impact transactions. Find out more at our <a href=\"https://support.currencycloud.com/hc/en-gb/articles/"
+        },
+        {
+          "info": {
+            "name": "Get Available Currencies",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/currencies",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Gets a list of all currencies that can be traded on the Currencycloud platform."
+        },
+        {
+          "info": {
+            "name": "Get Payer Requirements",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/payer_required_details",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "payer_country",
+                "value": "",
+                "type": "query",
+                "description": "Two-letter ISO country code."
+              },
+              {
+                "name": "payer_entity_type",
+                "value": "",
+                "type": "query",
+                "description": "Legal entity type - company or individual."
+              },
+              {
+                "name": "payment_type",
+                "value": "",
+                "type": "query",
+                "description": "Currencycloud supports two types of payments: \"priority\" (Swift), made using the Swift network; and \"regular\" (local), made using the local bank network."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO 4217 currency code."
+              }
+            ]
+          },
+          "docs": "Returns the payer information you need to provide to create a payment. Requirements vary depending on the location of the payer, the type of payment to be made (priority or regular), and other factors."
+        },
+        {
+          "info": {
+            "name": "Get Payment Dates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/payment_dates",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency in which payment made. Three-letter ISO currency code."
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Payment start date, defaults to today's date. ISO 8601 format YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "Gets a list of invalid payment dates for a given currency covering a two months period from the start_date specified. A payment date is when a payment will be executed by Currencycloud. Payments cannot be made on some days, for example when banks are closed."
+        },
+        {
+          "info": {
+            "name": "Get Payment Fee Rules",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/payment_fee_rules",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "Account UUID"
+              },
+              {
+                "name": "payment_type",
+                "value": "",
+                "type": "query",
+                "description": "Payment type value. Limits the search results to payments of the specified payment type - 'priority'(Swift) or 'regular'(local)."
+              },
+              {
+                "name": "charge_type",
+                "value": "",
+                "type": "query",
+                "description": "Payment charge value. Limits the search results to payments of the specified <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017430820-Selecting-payment-charges-for-SWIFT-payments-FAQ\">charge type</a> - 'ours' or 'shared'."
+              }
+            ]
+          },
+          "docs": "Gets the <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ\">payment fee</a> information set up for the account / payment type provided."
+        },
+        {
+          "info": {
+            "name": "Get Payment Purpose Codes",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/payment_purpose_codes",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO currency code for the currency in which payment will be made. No purpose codes will be returned if an invalid currency code is given."
+              },
+              {
+                "name": "entity_type",
+                "value": "",
+                "type": "query",
+                "description": "Legal entity type - company or individual."
+              },
+              {
+                "name": "bank_account_country",
+                "value": "",
+                "type": "query",
+                "description": "Two-letter ISO country code of the bank account."
+              }
+            ]
+          },
+          "docs": "Gets a list of payment purpose codes for a given currency and entity type. When initiating cross-border payments, the central bank of the country may require a purpose to be included with your transaction in order for your payment to be accepted and processed. If a payment purpose code is required but not provided, your payment may be delayed or rejected by the beneficiary bank."
+        },
+        {
+          "info": {
+            "name": "Get Settlement Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reference/settlement_accounts",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO currency code."
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "Account UUID"
+              }
+            ]
+          },
+          "docs": "Gets settlement account information - a list of accounts that require funding in order to allow for outstanding transactions to be processed."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

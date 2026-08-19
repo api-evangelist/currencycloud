@@ -1,0 +1,236 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Transfers API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transfers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/transfers/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Transfers funds from one account to another. No currency conversion is performed, so the sending and receiving accounts must hold money in the same currency."
+        },
+        {
+          "info": {
+            "name": "Get Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/transfers/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Transfer UUID, this was returned when the transfer was created."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Returns the money transfer record with the given ID."
+        },
+        {
+          "info": {
+            "name": "Find Transfers",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/transfers/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "short_reference",
+                "value": "",
+                "type": "query",
+                "description": "Short reference code."
+              },
+              {
+                "name": "source_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Account UUID of the paying account."
+              },
+              {
+                "name": "destination_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Account UUID of the receiving account."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Transfer status"
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO currency code."
+              },
+              {
+                "name": "amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum amount"
+              },
+              {
+                "name": "amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum amount"
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, no older than two years e.g. \"2024-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, no older than two years e.g. \"2024-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "updated_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, no older than two years e.g. \"2024-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "updated_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, no older than two years e.g. \"2024-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "completed_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, no older than two years e.g. \"2024-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "completed_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, no older than two years e.g. \"2024-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "creator_contact_id",
+                "value": "",
+                "type": "query",
+                "description": "Contact UUID of transfer instructor."
+              },
+              {
+                "name": "creator_account_id",
+                "value": "",
+                "type": "query",
+                "description": "Account UUID of transfer instructor."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The field name to sort by - \"created_at\", \"updated_at\" or \"completed_at\". Defaults to \"created_at\" if not specified..<br>"
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort records in ascending or descending order."
+              },
+              {
+                "name": "unique_request_id",
+                "value": "",
+                "type": "query",
+                "description": "User-generated idempotency key."
+              }
+            ]
+          },
+          "docs": "Searches for transfer records that meet the given criteria."
+        },
+        {
+          "info": {
+            "name": "Cancel Transfer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/transfers/:id/cancel",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the transfer to be cancelled."
+              }
+            ]
+          },
+          "docs": "Requests that a transfer be cancelled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

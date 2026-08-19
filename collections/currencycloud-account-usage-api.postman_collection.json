@@ -1,0 +1,749 @@
+{
+  "item": [
+    {
+      "id": "9beb328f-0005-4d86-ad54-7edaaed9cbba",
+      "name": "Account Usage",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1e9eb131-1f5b-4dd2-a52e-ac07a52caa24",
+          "name": "Get Account Usage",
+          "request": {
+            "name": "Get Account Usage",
+            "description": {
+              "content": "Gets the associated account usage for a form. The account usage outlines how the applicant intends to use their account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "forms",
+                ":form_id",
+                "account_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "form_id",
+                  "description": "(Required) Form UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "02212a3d-37b5-4d8c-959e-7fae79471bcb",
+              "name": "Account usage found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"collections_account\": true,\n    \"one_off_transaction\": false,\n    \"id\": \"string\",\n    \"form_id\": \"string\",\n    \"document_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"collection_currencies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"payment_currencies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"transaction_countries\": [\n      \"string\",\n      \"string\"\n    ],\n    \"estimated_monthly_transaction_currency\": \"string\",\n    \"estimated_monthly_transaction_value\": 8180,\n    \"estimated_monthly_transaction_volume\": 1574,\n    \"source_of_funds\": \"string\",\n    \"primary_purpose\": \"string\",\n    \"purpose_details\": \"string\",\n    \"created_at\": \"1988-05-17T11:45:59.763Z\",\n    \"updated_at\": \"1994-07-22T11:40:10.153Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3fcfbe6a-5004-4a78-ac97-67728e57f9a1",
+              "name": "Returns error if form not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error_code\": \"string\",\n  \"reason\": \"string\",\n  \"error_messages\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6fcdb4c-7333-4bcb-b1fd-4e7fad3f32b6",
+          "name": "Update Account Usage",
+          "request": {
+            "name": "Update Account Usage",
+            "description": {
+              "content": "Updates a form's associated account usage. The account usage outlines how the applicant intends to use their account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "forms",
+                ":form_id",
+                "account_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "form_id",
+                  "description": "(Required) Form UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"collections_account\": \"<boolean>\",\n  \"primary_purpose\": \"<string>\",\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"collection_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"payment_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"one_off_transaction\": \"<boolean>\",\n  \"estimated_monthly_transaction_currency\": \"<string>\",\n  \"estimated_monthly_transaction_value\": \"<integer>\",\n  \"estimated_monthly_transaction_volume\": \"<integer>\",\n  \"source_of_funds\": \"<string>\",\n  \"purpose_details\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c6da2382-46b4-4712-881a-84bb58097e63",
+              "name": "Updates account usage.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collections_account\": \"<boolean>\",\n  \"primary_purpose\": \"<string>\",\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"collection_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"payment_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"one_off_transaction\": \"<boolean>\",\n  \"estimated_monthly_transaction_currency\": \"<string>\",\n  \"estimated_monthly_transaction_value\": \"<integer>\",\n  \"estimated_monthly_transaction_volume\": \"<integer>\",\n  \"source_of_funds\": \"<string>\",\n  \"purpose_details\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"collections_account\": false,\n    \"one_off_transaction\": true,\n    \"id\": \"string\",\n    \"form_id\": \"string\",\n    \"document_ids\": [\n      \"string\",\n      \"string\"\n    ],\n    \"collection_currencies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"payment_currencies\": [\n      \"string\",\n      \"string\"\n    ],\n    \"transaction_countries\": [\n      \"string\",\n      \"string\"\n    ],\n    \"estimated_monthly_transaction_currency\": \"string\",\n    \"estimated_monthly_transaction_value\": 1981,\n    \"estimated_monthly_transaction_volume\": 2616,\n    \"source_of_funds\": \"string\",\n    \"primary_purpose\": \"string\",\n    \"purpose_details\": \"string\",\n    \"created_at\": \"2023-08-15T14:28:19.599Z\",\n    \"updated_at\": \"1996-05-06T11:57:31.351Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4e800482-8817-4850-bd12-41259d4a08b4",
+              "name": "Returns error if any request body schema validation fails",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collections_account\": \"<boolean>\",\n  \"primary_purpose\": \"<string>\",\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"collection_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"payment_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"one_off_transaction\": \"<boolean>\",\n  \"estimated_monthly_transaction_currency\": \"<string>\",\n  \"estimated_monthly_transaction_value\": \"<integer>\",\n  \"estimated_monthly_transaction_volume\": \"<integer>\",\n  \"source_of_funds\": \"<string>\",\n  \"purpose_details\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error_code\": \"string\",\n  \"reason\": \"string\",\n  \"error_messages\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "01bc30d6-2b24-42f4-917b-b157801fb891",
+              "name": "Form not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collections_account\": \"<boolean>\",\n  \"primary_purpose\": \"<string>\",\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"collection_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"payment_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"one_off_transaction\": \"<boolean>\",\n  \"estimated_monthly_transaction_currency\": \"<string>\",\n  \"estimated_monthly_transaction_value\": \"<integer>\",\n  \"estimated_monthly_transaction_volume\": \"<integer>\",\n  \"source_of_funds\": \"<string>\",\n  \"purpose_details\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error_code\": \"string\",\n  \"reason\": \"string\",\n  \"error_messages\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7cfdc2ef-ccc9-4e95-b9a7-95e1e4055935",
+              "name": "Form is already submitted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collections_account\": \"<boolean>\",\n  \"primary_purpose\": \"<string>\",\n  \"document_ids\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"collection_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"payment_currencies\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"transaction_countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"one_off_transaction\": \"<boolean>\",\n  \"estimated_monthly_transaction_currency\": \"<string>\",\n  \"estimated_monthly_transaction_value\": \"<integer>\",\n  \"estimated_monthly_transaction_volume\": \"<integer>\",\n  \"source_of_funds\": \"<string>\",\n  \"purpose_details\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error_code\": \"string\",\n  \"reason\": \"string\",\n  \"error_messages\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd80ab9c-9787-4c4b-a7b1-337aeae4bf1f",
+          "name": "Delete Account Usage",
+          "request": {
+            "name": "Delete Account Usage",
+            "description": {
+              "content": "Deletes the account usage for the specified application form.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "forms",
+                ":form_id",
+                "account_usage"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "form_id",
+                  "description": "(Required) Form UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "X-Auth-Token"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1bcaba24-343a-47d4-9cfb-5136e6160408",
+              "name": "Deletes account usage if it exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"message\": \"string\",\n    \"form_id\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "053018d7-9b5e-43f4-826a-fa999a721ea6",
+              "name": "Form not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error_code\": \"string\",\n  \"reason\": \"string\",\n  \"error_messages\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "18e15b4b-cd84-4414-b854-6ea2eb4450a1",
+              "name": "Form is already submitted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "forms",
+                    ":form_id",
+                    "account_usage"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "form_id",
+                      "description": "(Required) Form UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-Auth-Token",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"status\": \"string\",\n  \"error_code\": \"string\",\n  \"reason\": \"string\",\n  \"error_messages\": {}\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/onboarding",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "86cc0835-5cff-44d3-af55-a40073866b6f",
+    "name": "api-onboarding Account Usage API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "",
+      "type": "text/plain"
+    }
+  }
+}

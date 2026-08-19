@@ -1,0 +1,43 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Transaction Approval API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transaction Approval",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Accept or Reject Inbound Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/onboarding/collections_screening/:transactionId/complete",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "transactionId",
+                "value": "",
+                "type": "path",
+                "description": "The related_entity_id from the Cash Manager notification."
+              }
+            ]
+          },
+          "docs": "\nAllows you to accept or reject an inbound transaction before the funds are credited to the beneficiary’s account."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

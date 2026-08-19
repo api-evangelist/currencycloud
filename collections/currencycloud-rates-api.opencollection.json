@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Rates API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rates",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Basic Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/rates/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "currency_pair",
+                "value": "",
+                "type": "query",
+                "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\"."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "ignore_invalid_pairs",
+                "value": "",
+                "type": "query",
+                "description": "Ignore the validation of currency pairs."
+              }
+            ]
+          },
+          "docs": "Gets indicative foreign exchange rate information for one or more currency pairs in a single request. <br><br> This endpoint is intended to provide an indication of the rate available in the market and can support requests for multiple currency pairs, so is good for polling requirements such as live FX ticker widgets. This endpoint should be used where speed, availability and the ability to request multiple currency pairs is important."
+        },
+        {
+          "info": {
+            "name": "Get Detailed Rates",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/rates/detailed",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "buy_currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency purchased - three-letter ISO code."
+              },
+              {
+                "name": "sell_currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency sold - three-letter ISO code."
+              },
+              {
+                "name": "fixed_side",
+                "value": "",
+                "type": "query",
+                "description": "Fix the buy or sell currency."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Amount of the fixed buy or sell currency."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "conversion_date",
+                "value": "",
+                "type": "query",
+                "description": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days."
+              },
+              {
+                "name": "conversion_date_preference",
+                "value": "",
+                "type": "query",
+                "description": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others."
+              }
+            ]
+          },
+          "docs": "Gets a detailed, tradeable rate quote to convert money from one currency to another. The quotation provided will be based on the spread table of the authenticated user. There is also the option to provide a specific date for the conversion to occur. <br><br> This endpoint provides a current tradeable rate for a single currency pair. It should be used as the start of the flow before a conversion is booked. This endpoint should be used where accuracy is the most important aspect, such as when a tr"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

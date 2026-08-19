@@ -1,0 +1,192 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Reporting API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Generate Conversion Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/reports/conversions/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns a JSON structure with details of the conversion report requested."
+        },
+        {
+          "info": {
+            "name": "Generate Payment Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/reports/payments/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns a JSON structure with details of the payments report requested."
+        },
+        {
+          "info": {
+            "name": "Find Report Requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reports/report_requests/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "short_reference",
+                "value": "",
+                "type": "query",
+                "description": "Your unique short reference."
+              },
+              {
+                "name": "description",
+                "value": "",
+                "type": "query",
+                "description": "Description that was provided during the report creation process."
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date (for range), in ISO 8601 format, for when the reports were created."
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "End date (for range), in ISO 8601 format, for when the reports were created."
+              },
+              {
+                "name": "updated_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date (for range), in ISO 8601 format, for when the reports were updated."
+              },
+              {
+                "name": "updated_at_to",
+                "value": "",
+                "type": "query",
+                "description": "End date (for range), in ISO 8601 format, for when the reports were updated."
+              },
+              {
+                "name": "expiration_date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start date (for range), in ISO 8601 format, for when the report will be (was) expired."
+              },
+              {
+                "name": "expiration_date_to",
+                "value": "",
+                "type": "query",
+                "description": "End date (for range), in ISO 8601 format, for when the report will be (was) expired."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Status of the report."
+              },
+              {
+                "name": "report_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of reports, that we expect to receive in search results."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Any field name to change the sort order."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort records in ascending or descending order."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Specify which account level will be used; 'own' is the default value."
+              }
+            ]
+          },
+          "docs": "Searches for report requests made. Returns a JSON structure with details of matching report requests."
+        },
+        {
+          "info": {
+            "name": "Retrieves a Report Request with the given ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/reports/report_requests/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the report."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Searches for a report by ID. Returns a JSON structure with details of the specified report request."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,35 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Quotes API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Quotes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Held Rate Quote",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/quotes/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "<p style=\"color:#FF5000;\"><strong>BETA</strong></p><br> <p style=\"border-width:3px; border-style:solid; border-color:#FF5000; padding: 1em;\">Please note that this endpoint is currently in beta. For additional details, please contact your Account Manager or our <a href=\"mailto:support@currencycloud.com\">support team</a>.</p><br> Requests a new quote for the specified held-rate period and returns the details of the quote on success."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

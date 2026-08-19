@@ -1,0 +1,224 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Transactions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Transactions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Transactions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/transactions/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Three-letter ISO currency code."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Amount the transaction is for."
+              },
+              {
+                "name": "amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum amount"
+              },
+              {
+                "name": "amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum amount"
+              },
+              {
+                "name": "action",
+                "value": "",
+                "type": "query",
+                "description": "The action that triggered the transaction."
+              },
+              {
+                "name": "related_entity_type",
+                "value": "",
+                "type": "query",
+                "description": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the ‘action’ field and may be included in the response."
+              },
+              {
+                "name": "related_entity_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the related entity."
+              },
+              {
+                "name": "related_entity_short_reference",
+                "value": "",
+                "type": "query",
+                "description": "Short reference code."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Transaction status."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Whether the transaction debits or credits the account balance."
+              },
+              {
+                "name": "settles_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "settles_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "updated_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "updated_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "completed_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "completed_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\"."
+              },
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\"."
+              },
+              {
+                "name": "currency_pair",
+                "value": "",
+                "type": "query",
+                "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\"."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort results in ascending or descending order."
+              }
+            ]
+          },
+          "docs": "Search for transactions."
+        },
+        {
+          "info": {
+            "name": "Get Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/transactions/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Transaction UUID"
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Gets a transaction record."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

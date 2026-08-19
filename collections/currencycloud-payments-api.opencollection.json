@@ -1,0 +1,656 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Payments API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              },
+              {
+                "name": "x-sca-id",
+                "value": ""
+              },
+              {
+                "name": "x-sca-token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Submits a payment. On success, returns the new payment record. Use the <a href=\"/api-reference/#get-payer-requirements\">Get Payer Requirements</a> endpoint to find out what payer information needs to be provided.<br><br> Clients who are implementing Strong Customer Authentication (SCA) for payments should refer to our <a href=\"../guides/integration-guides/sca_sponsored_api_payments\">integration guide</a>."
+        },
+        {
+          "info": {
+            "name": "Find Payments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "short_reference",
+                "value": "",
+                "type": "query",
+                "description": "Short reference code."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency in which payment was made. Three-letter ISO currency code."
+              },
+              {
+                "name": "amount",
+                "value": "",
+                "type": "query",
+                "description": "Exact amount"
+              },
+              {
+                "name": "amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum amount"
+              },
+              {
+                "name": "amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum amount"
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Payment status"
+              },
+              {
+                "name": "reason",
+                "value": "",
+                "type": "query",
+                "description": "User-generated reason for payment. Freeform text."
+              },
+              {
+                "name": "payment_date_from",
+                "value": "",
+                "type": "query",
+                "description": "Earliest instructed payment date. Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "payment_date_to",
+                "value": "",
+                "type": "query",
+                "description": "Latest instructed payment date. Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "transferred_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Earliest date of payment processing. Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "transferred_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Latest date of payment processing. Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "updated_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "updated_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "beneficiary_id",
+                "value": "",
+                "type": "query",
+                "description": "Beneficiary UUID"
+              },
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "query",
+                "description": "Conversion UUID"
+              },
+              {
+                "name": "with_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Include deleted payments."
+              },
+              {
+                "name": "payment_group_id",
+                "value": "",
+                "type": "query",
+                "description": "Payment group."
+              },
+              {
+                "name": "unique_request_id",
+                "value": "",
+                "type": "query",
+                "description": "User-generated idempotency key."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts."
+              },
+              {
+                "name": "bulk_upload_id",
+                "value": "",
+                "type": "query",
+                "description": "Bulk upload reference code."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Any field name to change the sort order."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort records in ascending or descending order."
+              },
+              {
+                "name": "charge_type",
+                "value": "",
+                "type": "query",
+                "description": "Payment Charges Setting value (only applicable to Swift payments). Limits the search results to payments of the specified <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017430820-Selecting-payment-charges-for-SWIFT-payments-FAQ\">charge type</a>."
+              },
+              {
+                "name": "review_status",
+                "value": "",
+                "type": "query",
+                "description": "Compliance review status."
+              }
+            ]
+          },
+          "docs": "Searches for payment records."
+        },
+        {
+          "info": {
+            "name": "Get Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment UUID"
+              },
+              {
+                "name": "with_deleted",
+                "value": "",
+                "type": "query",
+                "description": "Include deleted payments."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "review_status",
+                "value": "",
+                "type": "query",
+                "description": "Compliance review status."
+              }
+            ]
+          },
+          "docs": "Gets a payment record."
+        },
+        {
+          "info": {
+            "name": "Update Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment UUID"
+              }
+            ]
+          },
+          "docs": "Updates a payment. On success, returns the updated payment entity."
+        },
+        {
+          "info": {
+            "name": "Get Payment Confirmation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/:id/confirmation",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment UUID"
+              }
+            ]
+          },
+          "docs": "Gets confirmation for a given payment."
+        },
+        {
+          "info": {
+            "name": "Get Payment Submission Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/:id/submission_info",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment UUID"
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Gets the pacs.008 or MT103 information for a Swift payment."
+        },
+        {
+          "info": {
+            "name": "Authorise Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/authorise",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "payment_ids[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more payment UUID identifiers to be authorised."
+              }
+            ]
+          },
+          "docs": "Authorises a payment pending authorisation."
+        },
+        {
+          "info": {
+            "name": "Delete Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/:id/delete",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment UUID."
+              }
+            ]
+          },
+          "docs": "Delete a payment. On success, returns the final payment record state."
+        },
+        {
+          "info": {
+            "name": "Get Payment Tracking Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/:id/tracking_info",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment UUID"
+              }
+            ]
+          },
+          "docs": "Gets the tracking information for a payment."
+        },
+        {
+          "info": {
+            "name": "Assign Payment Fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/assign_payment_fee",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Assigns a <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ\">payment fee</a> table to a specific sub-account."
+        },
+        {
+          "info": {
+            "name": "Get Payment Delivery Date",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/payment_delivery_date",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "payment_date",
+                "value": "",
+                "type": "query",
+                "description": "The date when the payment will be released. Any valid ISO 8601 format, e.g. \"2023-12-31\"."
+              },
+              {
+                "name": "payment_type",
+                "value": "",
+                "type": "query",
+                "description": "Currencycloud supports two types of payments: \"priority\", made using the Swift network; and \"regular\", made using the local bank network."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The three-letter ISO code of the currency of the payment."
+              },
+              {
+                "name": "bank_country",
+                "value": "",
+                "type": "query",
+                "description": "The two-letter ISO code of the country where the payment is sent."
+              }
+            ]
+          },
+          "docs": "Gets payment delivery date."
+        },
+        {
+          "info": {
+            "name": "Get Payment Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/payment_fees",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Any field name to change the sort order."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort records in ascending or descending order."
+              }
+            ]
+          },
+          "docs": "Gets the <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ\">payment fee</a> tables for the current authenticated account."
+        },
+        {
+          "info": {
+            "name": "Get Quote Payment Fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/payments/quote_payment_fee",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "Account UUID. If this is left empty, the account that is making the API call is used."
+              },
+              {
+                "name": "payment_currency",
+                "value": "",
+                "type": "query",
+                "description": "Currency of the payment."
+              },
+              {
+                "name": "payment_destination_country",
+                "value": "",
+                "type": "query",
+                "description": "Destination Country of the payment."
+              },
+              {
+                "name": "payment_type",
+                "value": "",
+                "type": "query",
+                "description": "Type of payment - priority(Swift) or regular(local)."
+              },
+              {
+                "name": "charge_type",
+                "value": "",
+                "type": "query",
+                "description": "Payment Charges type. if no value is provided the account's default value is used."
+              }
+            ]
+          },
+          "docs": "Gets the calculated quote for the fee that will be applied against a payment."
+        },
+        {
+          "info": {
+            "name": "Unassign Payment Fee",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/unassign_payment_fee",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Unassigns the <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017471459-Applying-fees-to-individual-payments-FAQ\">payment fee</a> tables for a specific sub-account."
+        },
+        {
+          "info": {
+            "name": "Validate Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/validate",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              },
+              {
+                "name": "x-sca-to-authenticated-user",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Validates the details of a new payment without creating a record of the payment. On success, returns an object containing a string validation_result with value \"success\".<br><br>\nClients who are implementing Strong Customer Authentication (SCA) for payments should refer to our <strong><a href=\"../guides/integration-guides/sca_sponsored_api_payments\">SCA for payments integration guide</a></strong>."
+        },
+        {
+          "info": {
+            "name": "Resend Payment Notification",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/payments/:id/notifications/retry",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Payment UUID"
+              },
+              {
+                "name": "notification_type",
+                "value": "",
+                "type": "query",
+                "description": "The notification to be resent."
+              }
+            ]
+          },
+          "docs": "Resends a payment notification for the specified payment ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

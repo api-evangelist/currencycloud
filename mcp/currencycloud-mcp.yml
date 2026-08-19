@@ -2,7 +2,9 @@ generated: '2026-07-18'
 method: derived
 status: candidate
 source: openapi/currencycloud-openapi-original.yml
-note: No official Currencycloud MCP server was found (searched docs, npm @modelcontextprotocol, MCP registries as of 2026-07-18). This is a candidate tool list derived one-to-one from the OpenAPI operations, to seed a future MCP server.
+note: No official Currencycloud MCP server was found (searched docs, npm @modelcontextprotocol, MCP registries
+  as of 2026-07-18). This is a candidate tool list derived one-to-one from the OpenAPI operations, to
+  seed a future MCP server.
 server:
   name: currencycloud
   transport: stdio
@@ -433,3 +435,9 @@ tools:
   source_operation: openapi/currencycloud-openapi-original.yml#CompleteCollectionsScreening
   method: PUT
   path: /collections_screening/{transactionId}/complete
+deployment:
+  mode: none
+  verified: derived
+  tools: 85
+  checked: '2026-08-12'
+  source: catalog MCP census

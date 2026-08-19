@@ -1,0 +1,97 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Account Usage",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Account Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/v1/forms/:form_id/account_usage",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Gets the associated account usage for a form. The account usage outlines how the applicant intends to use their account."
+        },
+        {
+          "info": {
+            "name": "Update Account Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/onboarding/v1/forms/:form_id/account_usage",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Updates a form's associated account usage. The account usage outlines how the applicant intends to use their account."
+        },
+        {
+          "info": {
+            "name": "Delete Account Usage",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/onboarding/v1/forms/:form_id/account_usage",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the account usage for the specified application form."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

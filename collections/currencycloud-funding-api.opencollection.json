@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Funding API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Funding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Funding Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/funding_accounts/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "payment_type",
+                "value": "",
+                "type": "query",
+                "description": "The type of SSI to be returned, priority (Swift) or regular (local). A null value returns all payment types."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency of the account details required, ISO 4217 standard."
+              },
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of a specific sub-account you want to see the SSIs for."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Any field name to change the sort order."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort records in ascending or descending order."
+              }
+            ]
+          },
+          "docs": "Gets details of the Standard Settlement Instructions (SSIs) that can be used to settle and collect funds in each available currency."
+        },
+        {
+          "info": {
+            "name": "Get Funding Transaction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/funding_transactions/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Related Entity UUID (related_entity_id) for the transaction."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "\nGets the details of an approved funding transaction with the given ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,46 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Authenticate API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Authenticate",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Login",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/authenticate/api"
+          },
+          "docs": "Authenticates and authorizes a user to the Currencycloud API.<br><br>\nSubmit a login ID and API key for a Currencycloud account, you can register for and API key <a href=\"https://developer.currencycloud.com/register-for-an-api-key/\">here</a>. A temporary authentication token is returned following a succesful login.<br><br>\nThe authentication token is required to make requests to all other endpoints in the Currencycloud API. Tokens expire after 30 minutes of inactivity.<br><br>\nToken requests are"
+        },
+        {
+          "info": {
+            "name": "Logout",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/authenticate/close_session",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Authentication tokens expire automatically after 30 minutes of inactivity. If a session is no longer required, it is good security practice to retire its authentication token early rather than leave it to time out."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

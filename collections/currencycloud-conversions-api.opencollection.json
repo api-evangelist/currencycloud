@@ -1,0 +1,543 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Conversions API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conversions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/conversions/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Creates a new conversion. Returns the details of the created conversion on success."
+        },
+        {
+          "info": {
+            "name": "Get Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/conversions/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion UUID, this is returned by a successful trade request when creating a conversion."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Gets a conversion record for the provided unique ID."
+        },
+        {
+          "info": {
+            "name": "Find Conversions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/conversions/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "short_reference",
+                "value": "",
+                "type": "query",
+                "description": "Short reference code."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Conversion status."
+              },
+              {
+                "name": "buy_currency",
+                "value": "",
+                "type": "query",
+                "description": "Three-character ISO code of the currency being purchased."
+              },
+              {
+                "name": "sell_currency",
+                "value": "",
+                "type": "query",
+                "description": "Three-character ISO code of the currency being sold."
+              },
+              {
+                "name": "conversion_ids[]",
+                "value": "",
+                "type": "query",
+                "description": "One or more conversion UUIDs to filter out of results."
+              },
+              {
+                "name": "created_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "created_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "updated_at_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "updated_at_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "conversion_date_from",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "conversion_date_to",
+                "value": "",
+                "type": "query",
+                "description": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "currency_pair",
+                "value": "",
+                "type": "query",
+                "description": "Concatenated string of the two three-character ISO codes for the currencies traded, e.g. \"USDEUR\"."
+              },
+              {
+                "name": "partner_buy_amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum buy amount (sub-accounts)."
+              },
+              {
+                "name": "partner_buy_amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum buy amount (sub-accounts)."
+              },
+              {
+                "name": "partner_sell_amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum sell amount (sub-accounts)."
+              },
+              {
+                "name": "partner_sell_amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum sell amount (sub-accounts)."
+              },
+              {
+                "name": "buy_amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum buy amount."
+              },
+              {
+                "name": "buy_amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum buy amount."
+              },
+              {
+                "name": "sell_amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum sell amount."
+              },
+              {
+                "name": "sell_amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum sell amount."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. Default is \"own\"."
+              },
+              {
+                "name": "settlement_date_from",
+                "value": "",
+                "type": "query",
+                "description": "Earliest date when sold currency debited. Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "settlement_date_to",
+                "value": "",
+                "type": "query",
+                "description": "Latest date when sold currency debited. Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59+00:00\"."
+              },
+              {
+                "name": "unique_request_id",
+                "value": "",
+                "type": "query",
+                "description": "User-generated idempotency key."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "Any field name to change the sort order."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort records in ascending or descending order."
+              }
+            ]
+          },
+          "docs": "Finds conversions based on search parameters. If no search parameters are provided, all conversions under the house account are returned."
+        },
+        {
+          "info": {
+            "name": "Quote Conversion Cancellation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/conversions/:id/cancellation_quote",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion UUID, this is returned by a successful trade request when creating a conversion."
+              }
+            ]
+          },
+          "docs": "Gets a quote of the projected cost to cancel a conversion identified by a provided unique ID {id}."
+        },
+        {
+          "info": {
+            "name": "Cancel a Conversion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/conversions/:id/cancel",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the conversion that is being cancelled. The UUID is returned by a successful trade request when creating a conversion."
+              }
+            ]
+          },
+          "docs": "Cancels the conversion identified by the provided unique ID {id}."
+        },
+        {
+          "info": {
+            "name": "Quote Conversion Date Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/conversions/:id/date_change_quote",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion UUID, this is returned by a successful trade request when creating a conversion."
+              },
+              {
+                "name": "new_settlement_date",
+                "value": "",
+                "type": "query",
+                "description": "Desired new settlement date of conversion, format YYYY-MM-DD."
+              }
+            ]
+          },
+          "docs": "Gets a quote of the projected cost to change the date of a conversion identified by a provided unique ID {id}."
+        },
+        {
+          "info": {
+            "name": "Conversion Date Change",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/conversions/:id/date_change",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the conversion that is being changed."
+              }
+            ]
+          },
+          "docs": "Changes the date of the conversion identified by the provided unique ID {id}."
+        },
+        {
+          "info": {
+            "name": "Retrieve Profit / Loss",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/conversions/profit_and_loss",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the Account that the Conversion belongs to."
+              },
+              {
+                "name": "contact_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the Contact that performed the action."
+              },
+              {
+                "name": "conversion_id",
+                "value": "",
+                "type": "query",
+                "description": "UUID of the conversion."
+              },
+              {
+                "name": "event_type",
+                "value": "",
+                "type": "query",
+                "description": "Event type, in this case 'self_service_cancellation'."
+              },
+              {
+                "name": "event_date_time_from",
+                "value": "",
+                "type": "query",
+                "description": "Allows you to return profit and losses that will be made from on or after a defined date/time. ISO 8601 standard."
+              },
+              {
+                "name": "event_date_time_to",
+                "value": "",
+                "type": "query",
+                "description": "Allows you to return profit and losses that will be made from on or before a defined date/time. ISO 8601 standard."
+              },
+              {
+                "name": "amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Allows you to return profit and losses based on a minimum profit or loss amount."
+              },
+              {
+                "name": "amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Allows you to return profit and losses based on a maximum profit or loss amount."
+              },
+              {
+                "name": "currency",
+                "value": "",
+                "type": "query",
+                "description": "The currency of the profit and loss. ISO 4217 standard."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "Scope allows contacts to search all profit and losses at all account levels. Defaults to own.<br> 'own' - search profit and losses on the main account <br> 'clients' - search profit and losses of account sub-accounts <br> 'all' - search profit and losses of main account and sub-accounts."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Returns a specific page within the results of a search."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of entries to return per page of results."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "The field to order entries by."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Whether the order is ascending (asc) or descending (desc)."
+              }
+            ]
+          },
+          "docs": "Returns the information of any actions related to a conversion that have generated profit or loss, including the profit or loss amount."
+        },
+        {
+          "info": {
+            "name": "Split Preview",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/conversions/:id/split_preview",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The UUID of the conversion to be split, the UUID is returned by a successful trade request when creating a conversion."
+              }
+            ]
+          },
+          "docs": "Gets a preview of the details of each part of a split conversion specified by the provided unique conversion ID {id}."
+        },
+        {
+          "info": {
+            "name": "Conversion Split",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/conversions/:id/split",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "UUID of the conversion that is being split. The conversion UUID is returned by a successful trade request when creating a conversion.\""
+              }
+            ]
+          },
+          "docs": "Splits the conversion specified by the unique ID {id}. Upon success, it returns the details of the parent and new child conversions."
+        },
+        {
+          "info": {
+            "name": "Conversion Split History",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/conversions/:id/split_history",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Conversion UUID - the UUID is returned by a successful trade request when creating a conversion."
+              }
+            ]
+          },
+          "docs": "Returns the history of executed conversion splits, specified by a unique conversion ID {id}."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

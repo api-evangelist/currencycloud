@@ -1,0 +1,1230 @@
+{
+  "item": [
+    {
+      "id": "91bc5b8d-af8d-4839-b884-e2bd2e5e3a29",
+      "name": "Rates",
+      "description": {
+        "content": "Super fast real-time access to live foreign exchange rates through the Currencycloud platform.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ba669c62-65f2-43c6-9bfe-4c37089fe0f5",
+          "name": "Get Basic Rates",
+          "request": {
+            "name": "Get Basic Rates",
+            "description": {
+              "content": "Gets indicative foreign exchange rate information for one or more currency pairs in a single request. <br><br> This endpoint is intended to provide an indication of the rate available in the market and can support requests for multiple currency pairs, so is good for polling requirements such as live FX ticker widgets. This endpoint should be used where speed, availability and the ability to request multiple currency pairs is important.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rates",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Concatenated string of the two currencies traded, e.g. \"USDEUR\". More than one pair can be entered, separated by a comma e.g. \"EURGBP,GBPUSD,EURUSD\".",
+                    "type": "text/plain"
+                  },
+                  "key": "currency_pair",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "A contact UUID for the sub-account you're acting on behalf of.",
+                    "type": "text/plain"
+                  },
+                  "key": "on_behalf_of",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Ignore the validation of currency pairs.",
+                    "type": "text/plain"
+                  },
+                  "key": "ignore_invalid_pairs",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token",
+                "key": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f89f8ec0-5219-466b-b00c-ae33af7132c7",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "88134d55-9ede-494a-87bf-bd569ab33dbe",
+              "name": "Client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2f0e8d7d-0aa7-4060-bf5f-dcc81b8458c2",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3dd1a99a-be44-4935-8e60-a157d061944e",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "df1e2ddb-3151-454c-aec8-622718b96cbc",
+              "name": "Too many requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9f21757d-6d64-4895-8bbc-2efb68d6e3e9",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aed9b095-492f-4229-b586-437c59bb7a41",
+              "name": "Service is temporary unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4d7816c4-8d9e-4aa0-9f58-1039834d3293",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "ignore_invalid_pairs",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "8d92e0df-8979-4324-962f-c19f8432d0ee",
+          "name": "Get Detailed Rates",
+          "request": {
+            "name": "Get Detailed Rates",
+            "description": {
+              "content": "Gets a detailed, tradeable rate quote to convert money from one currency to another. The quotation provided will be based on the spread table of the authenticated user. There is also the option to provide a specific date for the conversion to occur. <br><br> This endpoint provides a current tradeable rate for a single currency pair. It should be used as the start of the flow before a conversion is booked. This endpoint should be used where accuracy is the most important aspect, such as when a trade is about to be booked.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rates",
+                "detailed"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "(Required) Currency purchased - three-letter ISO code.",
+                    "type": "text/plain"
+                  },
+                  "key": "buy_currency",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Currency sold - three-letter ISO code.",
+                    "type": "text/plain"
+                  },
+                  "key": "sell_currency",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Fix the buy or sell currency. (This can only be one of buy,sell)",
+                    "type": "text/plain"
+                  },
+                  "key": "fixed_side",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "(Required) Amount of the fixed buy or sell currency.",
+                    "type": "text/plain"
+                  },
+                  "key": "amount",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "A contact UUID for the sub-account you're acting on behalf of.",
+                    "type": "text/plain"
+                  },
+                  "key": "on_behalf_of",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Date of delivery of purchased currency. ISO 8601 format YYYY-MM-DD. If not specified, deals settle in two working days.",
+                    "type": "text/plain"
+                  },
+                  "key": "conversion_date",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Available only if conversion_date is not provided. Must be one of the following:<br> 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> 'next_day' for next day available conversion date - T+1.<br> 'default' for conversion - T+1 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, T+2 for all others.<br> 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href=\"https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ\">APAC restricted currencies</a>, and T+1 or T+2 for all others. (This can only be one of default,earliest,next_day,optimize_liquidity)",
+                    "type": "text/plain"
+                  },
+                  "key": "conversion_date_preference",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token",
+                "key": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "87fecc69-d432-4a57-b942-b28ba73c0587",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d7575acc-0da6-43f8-9f07-26336aa41111",
+              "name": "Client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "024d2a6c-d0ea-4940-8efd-6c8d1e658217",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f5b0c72a-2871-441f-83bb-f081c44139ef",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a75372a1-9cb3-4284-9c7d-f338563e905d",
+              "name": "Too many requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bdd7301-ea5c-433f-833c-db4dc628e46a",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dd59e853-f534-4c9e-91bc-ed6b8b08d0be",
+              "name": "Service is temporary unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a9b4727d-9bbf-4c21-bc53-53f9469cae2f",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rates",
+                    "detailed"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "buy_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "sell_currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "fixed_side",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date",
+                      "value": ""
+                    },
+                    {
+                      "key": "conversion_date_preference",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/onboarding",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "35cd37e0-5fce-45ed-a700-b8a0e280e199",
+    "name": "api-onboarding Account Usage Rates API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Super fast real-time access to live foreign exchange rates through the Currencycloud platform.",
+      "type": "text/plain"
+    }
+  }
+}

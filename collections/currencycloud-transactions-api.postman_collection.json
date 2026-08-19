@@ -1,0 +1,1982 @@
+{
+  "item": [
+    {
+      "id": "a50162ed-f919-4a1a-a874-3b2c4d7dca30",
+      "name": "Transactions",
+      "description": {
+        "content": "View balances and all pending and completed transactions in your Currencycloud account, as well as associated sub-account balances and transactions.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81a08d76-f276-4ffd-b3a8-68a406c0a7e7",
+          "name": "Find Transactions",
+          "request": {
+            "name": "Find Transactions",
+            "description": {
+              "content": "Search for transactions.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                "find"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "A contact UUID for the sub-account you're acting on behalf of.",
+                    "type": "text/plain"
+                  },
+                  "key": "on_behalf_of",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Three-letter ISO currency code.",
+                    "type": "text/plain"
+                  },
+                  "key": "currency",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Amount the transaction is for.",
+                    "type": "text/plain"
+                  },
+                  "key": "amount",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Minimum amount",
+                    "type": "text/plain"
+                  },
+                  "key": "amount_from",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Maximum amount",
+                    "type": "text/plain"
+                  },
+                  "key": "amount_to",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "The action that triggered the transaction. (This can only be one of conversion,conversion_deposit,deposit_refund,funding,margin,manual_transaction,payment,payment_failure,payment_fee,payment_unrelease,transfer)",
+                    "type": "text/plain"
+                  },
+                  "key": "action",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "The related entity that created the transaction.<br> For information, the related_entity_type for margin transactions is <b>'margin_transaction'</b>. While it isn't possible to search directly by this value, margin transactions can be filtered using the ‘action’ field and may be included in the response. (This can only be one of conversion,deposit,inbound_funds,payment,transfer)",
+                    "type": "text/plain"
+                  },
+                  "key": "related_entity_type",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "UUID of the related entity.",
+                    "type": "text/plain"
+                  },
+                  "key": "related_entity_id",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Short reference code.",
+                    "type": "text/plain"
+                  },
+                  "key": "related_entity_short_reference",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Transaction status. (This can only be one of completed,deleted,pending)",
+                    "type": "text/plain"
+                  },
+                  "key": "status",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Whether the transaction debits or credits the account balance. (This can only be one of credit,debit)",
+                    "type": "text/plain"
+                  },
+                  "key": "type",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Earliest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "settles_at_from",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Latest processing date. Any valid ISO 8601 format, e.g. \"e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "settles_at_to",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "created_at_from",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "created_at_to",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "updated_at_from",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "updated_at_to",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "completed_at_from",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Any valid ISO 8601 format, e.g. \"2023-12-31T23:59:59Z\".",
+                    "type": "text/plain"
+                  },
+                  "key": "completed_at_to",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Beneficiary UUID. Required if \"related_entity_type\" is \"payment\".",
+                    "type": "text/plain"
+                  },
+                  "key": "beneficiary_id",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Concatenated string of the two currencies traded, e.g. \"USDEUR\". Required if \"related_entity_type\" is \"conversion\".",
+                    "type": "text/plain"
+                  },
+                  "key": "currency_pair",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts. (This can only be one of all,clients,own)",
+                    "type": "text/plain"
+                  },
+                  "key": "scope",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Page number",
+                    "type": "text/plain"
+                  },
+                  "key": "page",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Number of results per page.",
+                    "type": "text/plain"
+                  },
+                  "key": "per_page",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "The field to sort by. Defaults to 'created_at' if not specified.<br><br> Please note that if you choose to order by 'completed_at', it's important to populate the query parameter 'status' with the value 'completed' in order to ensure that transactions are sequenced in the order they were processed. Without this, transactions that completed within the same second may not be ordered correctly.",
+                    "type": "text/plain"
+                  },
+                  "key": "order",
+                  "value": ""
+                },
+                {
+                  "description": {
+                    "content": "Sort results in ascending or descending order. (This can only be one of asc,desc)",
+                    "type": "text/plain"
+                  },
+                  "key": "order_asc_desc",
+                  "value": ""
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token",
+                "key": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "12e207ed-aed4-4967-8be5-434d9358b4ba",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82b57e7f-d591-4c90-a139-521c48fbe4cb",
+              "name": "Client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2dd4596b-0293-459b-b112-375fdeedbe9c",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1df71727-91a0-42c8-aa85-d66447f6b816",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5796e04c-c98b-4db5-8572-c1d5c874e251",
+              "name": "Too many requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b7d7f333-1a5f-4c48-a43d-7f019a07253b",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b835a07b-d362-496f-a466-02c5886e0775",
+              "name": "Service is temporary unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1fa7025f-e909-4838-8f12-6926de35a0d6",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    "find"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "amount_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "action",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_type",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "related_entity_short_reference",
+                      "value": ""
+                    },
+                    {
+                      "key": "status",
+                      "value": ""
+                    },
+                    {
+                      "key": "type",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "settles_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "created_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "updated_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_from",
+                      "value": ""
+                    },
+                    {
+                      "key": "completed_at_to",
+                      "value": ""
+                    },
+                    {
+                      "key": "beneficiary_id",
+                      "value": ""
+                    },
+                    {
+                      "key": "currency_pair",
+                      "value": ""
+                    },
+                    {
+                      "key": "scope",
+                      "value": ""
+                    },
+                    {
+                      "key": "page",
+                      "value": ""
+                    },
+                    {
+                      "key": "per_page",
+                      "value": ""
+                    },
+                    {
+                      "key": "order",
+                      "value": ""
+                    },
+                    {
+                      "key": "order_asc_desc",
+                      "value": ""
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "db917c95-43f5-4be6-94bb-9ea23282e6c7",
+          "name": "Get Transaction",
+          "request": {
+            "name": "Get Transaction",
+            "description": {
+              "content": "Gets a transaction record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "description": {
+                    "content": "A contact UUID for the sub-account you're acting on behalf of.",
+                    "type": "text/plain"
+                  },
+                  "key": "on_behalf_of",
+                  "value": ""
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "",
+                  "key": "id",
+                  "description": "(Required) Transaction UUID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) Authentication token",
+                "key": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bac7179a-d558-4b9c-9f83-3d0c0a55f467",
+              "name": "Success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c4928ec5-6889-4f8c-92be-37dd92856a45",
+              "name": "Client error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b9463472-18f1-4fba-89bd-7fb72f4c3911",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7bbe7d66-bf88-4df9-a5e1-79fb135e13c5",
+              "name": "Resource not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "079cd431-3d3e-4212-b2fd-0203b0a1b43d",
+              "name": "Too many requests.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c299383b-9c2e-497a-9bec-358a5fc13074",
+              "name": "Internal server error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7eca1e86-43cb-49c3-b221-1160774b17b5",
+              "name": "Service is temporary unavailable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Service Unavailable",
+              "code": 503,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "de48e5c3-5b22-4aad-9687-2fa8a714971d",
+              "name": "Unexpected error.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "on_behalf_of",
+                      "value": ""
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "",
+                      "key": "id",
+                      "description": "(Required) Transaction UUID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "disabled": false,
+                    "description": "(Required) Authentication token",
+                    "key": "X-Auth-Token",
+                    "value": ""
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "A unique reference for the request.",
+                  "key": "X-Request-Id",
+                  "value": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/onboarding",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ab979cdc-15e7-4810-82b9-57792d0fc9f5",
+    "name": "api-onboarding Account Usage Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "View balances and all pending and completed transactions in your Currencycloud account, as well as associated sub-account balances and transactions.",
+      "type": "text/plain"
+    }
+  }
+}

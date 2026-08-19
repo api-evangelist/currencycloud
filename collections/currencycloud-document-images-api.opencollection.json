@@ -1,0 +1,121 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Document Images API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Document Images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Document Images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/v1/forms/:form_id/documents/:document_id/document_images",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "Document UUID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Returns all document images for the specified document."
+        },
+        {
+          "info": {
+            "name": "Create Document Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/v1/forms/:form_id/documents/:document_id/document_images",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "Document UUID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Records an image of a document that's required for the specified application form. For more information, see the \"Uploading documents\" section of <a href=\"../guides/integration-guides/onboarding-api-pilot\">our guide.</a>"
+        },
+        {
+          "info": {
+            "name": "Delete Document Image",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/onboarding/v1/forms/:form_id/documents/:document_id/document_images/:document_image_id",
+            "params": [
+              {
+                "name": "form_id",
+                "value": "",
+                "type": "path",
+                "description": "Form UUID"
+              },
+              {
+                "name": "document_id",
+                "value": "",
+                "type": "path",
+                "description": "Document UUID"
+              },
+              {
+                "name": "document_image_id",
+                "value": "",
+                "type": "path",
+                "description": "Document Image UUID."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "X-Auth-Token",
+              "value": "{{X-Auth-Token}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deletes the specified image of a document attached to the specified form."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

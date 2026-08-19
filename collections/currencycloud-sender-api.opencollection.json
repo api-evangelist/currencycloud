@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Sender API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sender",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Sender Details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/transactions/sender/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The Related Entity UUID (related_entity_id) for the Transaction."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Returns a JSON structure with details of the sender of funds."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

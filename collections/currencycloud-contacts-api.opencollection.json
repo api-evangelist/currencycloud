@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Contacts API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Authenticating Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/contacts/current",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Gets the contact record for the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Find Contacts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/contacts/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns contacts that match the parameters."
+        },
+        {
+          "info": {
+            "name": "Get Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/contacts/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact UUID"
+              }
+            ]
+          },
+          "docs": "Gets the contact for the given ID."
+        },
+        {
+          "info": {
+            "name": "Update Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/contacts/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Contact UUID"
+              },
+              {
+                "name": "first_name",
+                "value": "",
+                "type": "query",
+                "description": "The contact's first name."
+              },
+              {
+                "name": "last_name",
+                "value": "",
+                "type": "query",
+                "description": "The contact's last name."
+              },
+              {
+                "name": "email_address",
+                "value": "",
+                "type": "query",
+                "description": "The contact's email address. A request to update a contact's email address does not immediately update the value. Instead, an email change request flow is initiated, sending notifications to both the old and new email addresses. The value will be updated when the change is confirmed via a link sent to the new email address."
+              },
+              {
+                "name": "your_reference",
+                "value": "",
+                "type": "query",
+                "description": "User-generated reference code."
+              },
+              {
+                "name": "phone_number",
+                "value": "",
+                "type": "query",
+                "description": "The contact's phone number."
+              },
+              {
+                "name": "mobile_phone_number",
+                "value": "",
+                "type": "query",
+                "description": "The contact's mobile phone number."
+              },
+              {
+                "name": "login_id",
+                "value": "",
+                "type": "query",
+                "description": "The contact's Currencycloud login ID."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "Contact status - \"enabled\" allows the contact to conduct activity on the sub-account, \"not_enabled\" disables the contact."
+              },
+              {
+                "name": "locale",
+                "value": "",
+                "type": "query",
+                "description": "Locale code (\"en\", \"en-US\", \"fr-FR\")."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "Timezone (\"Europe/London\", \"America/New_York\")."
+              },
+              {
+                "name": "date_of_birth",
+                "value": "",
+                "type": "query",
+                "description": "Contact's date of birth. ISO 8601 format YYYY-MM-DD. Required if account type is individual."
+              }
+            ]
+          },
+          "docs": "Updates an existing contact. Returns the updated contact entity on success."
+        },
+        {
+          "info": {
+            "name": "Create Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/contacts/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Creates a new contact and attaches it to a sub-account. Returns the new contact entity on success."
+        },
+        {
+          "info": {
+            "name": "Generate HMAC Key for Contact",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/contacts/generate_hmac_key",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Generates a new account HMAC key for the current contact."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

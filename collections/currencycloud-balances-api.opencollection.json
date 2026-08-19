@@ -1,0 +1,139 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Balances API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Balances",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/balances/:currency",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "currency",
+                "value": "",
+                "type": "path",
+                "description": "Three-letter ISO currency code."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Gets the balance for a currency from the account of the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Find Balances",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/balances/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              },
+              {
+                "name": "amount_from",
+                "value": "",
+                "type": "query",
+                "description": "Minimum balance amount."
+              },
+              {
+                "name": "amount_to",
+                "value": "",
+                "type": "query",
+                "description": "Maximum balance amount."
+              },
+              {
+                "name": "as_at_date",
+                "value": "",
+                "type": "query",
+                "description": "A valid ISO 8601 format, e.g. \"2019-12-31T23:59:59\"."
+              },
+              {
+                "name": "scope",
+                "value": "",
+                "type": "query",
+                "description": "\"Own\" account, \"clients\" sub-accounts, or \"all\" accounts."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page."
+              },
+              {
+                "name": "order",
+                "value": "",
+                "type": "query",
+                "description": "A field name to change the sort order - \"created_at\", \"amount\", \"updated_at\" or \"currency\"."
+              },
+              {
+                "name": "order_asc_desc",
+                "value": "",
+                "type": "query",
+                "description": "Sort records in ascending or descending order."
+              }
+            ]
+          },
+          "docs": "Searches for currency balances in the main account or a sub-account owned by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Top Up Margin Balance",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/balances/top_up_margin",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Tops up the margin balance."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

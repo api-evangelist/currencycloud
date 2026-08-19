@@ -1,0 +1,254 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Accounts API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Accounts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/accounts/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Creates a new sub-account. Returns the new account entity on success."
+        },
+        {
+          "info": {
+            "name": "Get Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/accounts/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Account UUID, returned by the create account endpoint."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Gets an account or sub-account owned by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Update Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/accounts/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Account UUID, returned by the create account endpoint."
+              }
+            ]
+          },
+          "docs": "Updates a sub-account owned by the authenticated user. The updated account entity is returned on success."
+        },
+        {
+          "info": {
+            "name": "Get Account's Compliance Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/accounts/:id/compliance_settings",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Account UUID, returned by the create account endpoint."
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Gets the compliance settings for the account with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update Account's Compliance Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/accounts/:id/compliance_settings",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Account UUID."
+              }
+            ]
+          },
+          "docs": "Update the compliance settings for a sub-account owned by the authenticating user. On success, returns the updated account entity."
+        },
+        {
+          "info": {
+            "name": "Get Authenticating Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/accounts/current",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Gets the authenticated user's main account."
+        },
+        {
+          "info": {
+            "name": "Find Accounts",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/accounts/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns account and any sub-accounts owned by the authenticated user. Optionally filter by account status and other criteria."
+        },
+        {
+          "info": {
+            "name": "Get Payment Charges Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/accounts/:account_id/payment_charges_settings",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "A UUID of a sub-account or house account visible to the authenticated user."
+              }
+            ]
+          },
+          "docs": "Retrieves the Payment Charges Settings for the given account."
+        },
+        {
+          "info": {
+            "name": "Manage Account Payment Charges Settings",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/accounts/:account_id/payment_charges_settings/:charge_settings_id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "account_id",
+                "value": "",
+                "type": "path",
+                "description": "Account UUID"
+              },
+              {
+                "name": "charge_settings_id",
+                "value": "",
+                "type": "path",
+                "description": "Account Payment Charges Setting UUID. Can be retrieved via appropriate GET call for the given Account UUID."
+              }
+            ]
+          },
+          "docs": "Manage a given account's Payment Charge Settings (enable, disable, set as default)."
+        },
+        {
+          "info": {
+            "name": "Accept Terms of Use",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/terms_and_conditions/accept",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Endpoint for accounts using our Outsourced KYC model to accept Terms of Use."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,167 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "api-onboarding Account Usage Beneficiaries API",
+    "version": "v1"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Beneficiaries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Find Beneficiaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/beneficiaries/find",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Returns beneficiaries attached to the account or any sub-account owned by the authenticated user."
+        },
+        {
+          "info": {
+            "name": "Get Beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/onboarding/beneficiaries/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Beneficiary UUID"
+              },
+              {
+                "name": "on_behalf_of",
+                "value": "",
+                "type": "query",
+                "description": "A contact UUID for the sub-account you're acting on behalf of."
+              }
+            ]
+          },
+          "docs": "Gets a beneficiary with the given ID."
+        },
+        {
+          "info": {
+            "name": "Update Beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/beneficiaries/:id",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Beneficiary UUID"
+              }
+            ]
+          },
+          "docs": "Updates an existing beneficiary. Returns the updated beneficiary entity on success. <br> Please note that it's not possible to change a beneficiary's entity type (company or individual) by an update. To achieve this, you should create a new beneficiary."
+        },
+        {
+          "info": {
+            "name": "Create Beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/beneficiaries/create",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Creates a new beneficiary. Returns the new beneficiary entity on success."
+        },
+        {
+          "info": {
+            "name": "Delete Beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/beneficiaries/:id/delete",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Beneficiary UUID"
+              }
+            ]
+          },
+          "docs": "Delete a beneficiary associated with a sub-account. If the deletion is successful, the beneficiary's final state is returned."
+        },
+        {
+          "info": {
+            "name": "Validate Beneficiary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/beneficiaries/validate",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Validates a new beneficiary's bank details, without actually creating a record of the beneficiary. On success, returns an object that represents the entity that would be created if the beneficiary was saved."
+        },
+        {
+          "info": {
+            "name": "Verify Beneficiary Account",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/onboarding/beneficiaries/account_verification",
+            "headers": [
+              {
+                "name": "X-Auth-Token",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "This service is currently only available to in-scope clients who must provide Confirmation of Payee (CoP) or Verification of Payee (VoP) services to their end-users making local GBP payments in the UK or SEPA EUR payments.<br><br> CoP and VoP are both peer-to-peer name-checking service designed to help reduce misdirected payments and provide greater assurance that payments are being sent, and collected from, the intended account holder for domestic payments. <br><br> Currently, access is restric"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
