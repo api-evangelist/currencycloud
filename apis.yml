@@ -171,6 +171,8 @@ apis:
   humanURL: https://developer.currencycloud.com/api-reference/
   baseURL: https://api.currencycloud.com/v2
   tags:
+  - Conversion
+  tags_raw:
   - Conversions
   properties:
   - type: OpenAPI
