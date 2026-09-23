@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Country API
+  title: api-onboarding Country API
   version: v1
 servers:
 - url: /onboarding
@@ -77,6 +77,8 @@ paths:
                           - name
                           - eea_country
                           - permitted_jurisdiction
+      operationId: getV1Countries
+      x-operation-id-source: derived
   /v1/countries/{country_code}/document_types:
     get:
       summary: Get Document Types
@@ -115,6 +117,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1CountriesByCountryCodeDocumentTypes
+      x-operation-id-source: derived
 components:
   schemas:
     not_found_response:
@@ -127,8 +131,9 @@ components:
         reason:
           type: string
         error_messages:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
       required:
       - status
       - error_code

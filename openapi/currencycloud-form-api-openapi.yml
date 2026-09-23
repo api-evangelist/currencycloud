@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Form API
+  title: api-onboarding Form API
   version: v1
 servers:
 - url: /onboarding
@@ -44,6 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/validation_error_response'
+      operationId: postV1FormsByFormIdSubmit
+      x-operation-id-source: derived
   /v1/forms:
     get:
       summary: Get Forms
@@ -116,13 +118,15 @@ paths:
                         type: integer
                         minimum: 1
                       previous_page:
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                         minimum: 1
-                        nullable: true
                       next_page:
-                        type: integer
+                        type:
+                        - integer
+                        - 'null'
                         minimum: 1
-                        nullable: true
                       order:
                         type: string
                       order_asc_desc:
@@ -142,6 +146,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/validation_error_response'
+      operationId: getV1Forms
+      x-operation-id-source: derived
     post:
       summary: Create Form
       description: Creates a new application form. Returns the new form entity on success.
@@ -172,6 +178,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/create_form_request'
+      operationId: postV1Forms
+      x-operation-id-source: derived
   /v1/forms/{form_id}:
     get:
       summary: Get Form
@@ -204,6 +212,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1FormsByFormId
+      x-operation-id-source: derived
     put:
       summary: Update Form
       description: Updates an application form.
@@ -255,8 +265,9 @@ paths:
               properties:
                 affiliate_code:
                   description: Client's own use, e.g. to track lead source.
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 country:
                   description: Home country for individual applicants or country of registered address for corporate applicants. Two or three character ISO country code.
                   type: string
@@ -760,16 +771,21 @@ paths:
                   - corporate
                 referred_by:
                   description: How did the applicant hear about us.
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 phone_number:
                   description: The applicant's phone number.
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
                 contact_name:
                   description: The applicant's name.
-                  type: string
-                  nullable: true
+                  type:
+                  - string
+                  - 'null'
+      operationId: putV1FormsByFormId
+      x-operation-id-source: derived
     delete:
       summary: Delete Form
       description: Deletes the application form with the given ID.
@@ -816,90 +832,188 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: deleteV1FormsByFormId
+      x-operation-id-source: derived
 components:
   schemas:
-    form_with_associations:
+    person:
       type: object
       properties:
         id:
           type: string
-          description: The form's UUID.
-        detached_document_ids:
+        form_id:
+          type: string
+        document_ids:
           type: array
           description: List of IDs for any uploaded supporting documents.
           items:
             type: string
-        affiliate_code:
-          type: string
-          description: Client's own use, e.g. to track lead source.
-          nullable: true
-        agreed_to_marketing_emails:
-          type: boolean
-          description: Agreed to marketing emails.
-        agreed_to_terms_and_conditions:
-          type: boolean
-          description: Agreed to terms and conditions.
-        agreed_to_corporate_authority:
-          type: boolean
-          description: Confirmed authority to act on behalf of company.
-        country:
-          description: Home country for individual applicants or country of registered address for corporate applicants. Two or three character ISO country code.
-          type: string
-        email:
-          description: The applicant's email address.
-          type: string
-        entity_type:
-          type: string
-          description: Type of applicant - individual or corporate.
-        brand_name:
-          type: string
-        brand_key:
-          type: string
-        referred_by:
-          description: How did the applicant hear about us.
-          type: string
-          nullable: true
-        products_required:
+        roles:
           type: array
           items:
             type: string
-        state:
+        first_name:
           type: string
+        middle_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type: string
+        dob:
+          type:
+          - string
+          - 'null'
+          format: date
         phone_number:
-          description: The applicant's phone number.
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        ownership_percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+        id_number:
+          type:
+          - string
+          - 'null'
+        home_country:
           type: string
-        contact_name:
-          description: The applicant's name.
-          type: string
+        passport_number:
+          type:
+          - string
+          - 'null'
+        passport_country_of_issue:
+          type:
+          - string
+          - 'null'
+        personal_address:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type:
+              - string
+              - 'null'
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            state_or_province:
+              type:
+              - string
+              - 'null'
         created_at:
           type: string
           format: date-time
-          description: Date and time the form was created.
         updated_at:
           type: string
           format: date-time
-          description: Date and time the form was last updated.
-        business_information:
-          description: Further information about corporate applicants.
-          $ref: '#/components/schemas/business_information'
-        account_usage:
-          description: Information about the intended use of the account.
-          $ref: '#/components/schemas/account_usage'
-        people:
-          description: Information about people associated with the application.
-          type: array
-          items:
-            $ref: '#/components/schemas/person'
       required:
       - id
-      - agreed_to_marketing_emails
-      - agreed_to_terms_and_conditions
-      - country
-      - entity_type
-      - brand_name
-      - products_required
-      - created_at
-      - updated_at
+      - roles
+      - first_name
+      - last_name
+      - home_country
+    account_usage:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: UUID for the Account Usage entity.
+        form_id:
+          type: string
+          description: Form UUID
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        collections_account:
+          description: Does the account receive funds from third parties.
+          type: boolean
+        collection_currencies:
+          description: List of currencies to fund the account with.
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+        payment_currencies:
+          type: array
+          description: List of payout currencies.
+          items:
+            type:
+            - string
+            - 'null'
+        transaction_countries:
+          type: array
+          description: List of countries that corporate accounts want to send/receive money to/from.
+          items:
+            type:
+            - string
+            - 'null'
+        one_off_transaction:
+          type: boolean
+          description: Will it be a single one-off transaction.
+        estimated_monthly_transaction_currency:
+          description: Currency of the estimated monthly transaction value.
+          type:
+          - string
+          - 'null'
+        estimated_monthly_transaction_value:
+          description: Estimated monthly value of what a corporate account is going to transact on the platform.
+          type:
+          - integer
+          - 'null'
+        estimated_monthly_transaction_volume:
+          description: How often do corporates expect to send or receive funds.
+          type:
+          - integer
+          - 'null'
+        source_of_funds:
+          description: The source of money that will be sent through the platform.
+          type:
+          - string
+          - 'null'
+        primary_purpose:
+          description: The reason for opening an account with Currencycloud.
+          type:
+          - string
+          - 'null'
+        purpose_details:
+          description: Additional details if primary_purpose is 'other'.
+          type:
+          - string
+          - 'null'
+        created_at:
+          description: Date the Account Usage record created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Date the Account Usage record was last updated.
+          type: string
+          format: date-time
+      required:
+      - collections_account
+      - one_off_transaction
     form:
       type: object
       properties:
@@ -913,8 +1027,9 @@ components:
             type: string
         affiliate_code:
           description: Client's own use, e.g. to track lead source.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         agreed_to_marketing_emails:
           description: Agreed to marketing emails.
           type: boolean
@@ -939,8 +1054,9 @@ components:
           type: string
         referred_by:
           description: How did the applicant hear about us.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         products_required:
           type: array
           items:
@@ -971,129 +1087,14 @@ components:
       - products_required
       - created_at
       - updated_at
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    person:
-      type: object
-      properties:
-        id:
-          type: string
-        form_id:
-          type: string
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        roles:
-          type: array
-          items:
-            type: string
-        first_name:
-          type: string
-        middle_name:
-          type: string
-          nullable: true
-        last_name:
-          type: string
-        dob:
-          type: string
-          format: date
-          nullable: true
-        phone_number:
-          type: string
-          nullable: true
-        email:
-          type: string
-          nullable: true
-        ownership_percentage:
-          type: number
-          minimum: 0
-          maximum: 100
-        id_number:
-          type: string
-          nullable: true
-        home_country:
-          type: string
-        passport_number:
-          type: string
-          nullable: true
-        passport_country_of_issue:
-          type: string
-          nullable: true
-        personal_address:
-          type: object
-          properties:
-            city:
-              type: string
-            street:
-              type: string
-            country:
-              type: string
-            postal_code:
-              type: string
-            apartment_number:
-              type: string
-              nullable: true
-            building_name:
-              type: string
-              nullable: true
-            building_number:
-              type: string
-              nullable: true
-            state_or_province:
-              type: string
-              nullable: true
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      required:
-      - id
-      - roles
-      - first_name
-      - last_name
-      - home_country
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-          nullable: true
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     create_form_request:
       type: object
       properties:
         affiliate_code:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Client's own use, e.g. to track lead source.
-          nullable: true
         agreed_to_marketing_emails:
           type: boolean
           description: Agreed to marketing emails.
@@ -1610,16 +1611,19 @@ components:
           type: string
         referred_by:
           description: How did the applicant hear about us.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         phone_number:
           description: The applicant's phone number.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         contact_name:
           description: The applicant's name.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       required:
       - agreed_to_marketing_emails
       - agreed_to_terms_and_conditions
@@ -1627,8 +1631,112 @@ components:
       - email
       - entity_type
       - brand_name
-    business_information:
+    form_with_associations:
       type: object
+      properties:
+        id:
+          type: string
+          description: The form's UUID.
+        detached_document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        affiliate_code:
+          type:
+          - string
+          - 'null'
+          description: Client's own use, e.g. to track lead source.
+        agreed_to_marketing_emails:
+          type: boolean
+          description: Agreed to marketing emails.
+        agreed_to_terms_and_conditions:
+          type: boolean
+          description: Agreed to terms and conditions.
+        agreed_to_corporate_authority:
+          type: boolean
+          description: Confirmed authority to act on behalf of company.
+        country:
+          description: Home country for individual applicants or country of registered address for corporate applicants. Two or three character ISO country code.
+          type: string
+        email:
+          description: The applicant's email address.
+          type: string
+        entity_type:
+          type: string
+          description: Type of applicant - individual or corporate.
+        brand_name:
+          type: string
+        brand_key:
+          type: string
+        referred_by:
+          description: How did the applicant hear about us.
+          type:
+          - string
+          - 'null'
+        products_required:
+          type: array
+          items:
+            type: string
+        state:
+          type: string
+        phone_number:
+          description: The applicant's phone number.
+          type: string
+        contact_name:
+          description: The applicant's name.
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Date and time the form was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date and time the form was last updated.
+        business_information:
+          description: Further information about corporate applicants.
+          $ref: '#/components/schemas/business_information'
+        account_usage:
+          description: Information about the intended use of the account.
+          $ref: '#/components/schemas/account_usage'
+        people:
+          description: Information about people associated with the application.
+          type: array
+          items:
+            $ref: '#/components/schemas/person'
+      required:
+      - id
+      - agreed_to_marketing_emails
+      - agreed_to_terms_and_conditions
+      - country
+      - entity_type
+      - brand_name
+      - products_required
+      - created_at
+      - updated_at
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    business_information:
+      type:
+      - object
+      - 'null'
       properties:
         id:
           type: string
@@ -1649,8 +1757,9 @@ components:
           type: string
         trading_name:
           description: The company's trading name.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         legal_entity_type:
           description: Company's legal entity type e.g. "limited_liability_company"
           type: string
@@ -1659,20 +1768,23 @@ components:
           type: string
         company_registration_number:
           description: An official number that identifies the company.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         vat_number:
           description: The company's VAT number or Tax ID  number.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         incorporation_date:
           description: The date the company was incorporated.
           type: string
           format: date
         business_website:
           description: The company's website URL or other online presence.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         business_activity_description:
           description: Description of the company's activities.
           type: string
@@ -1689,17 +1801,21 @@ components:
             postal_code:
               type: string
             apartment_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_name:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             state_or_province:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
           required:
           - city
           - street
@@ -1717,17 +1833,21 @@ components:
             postal_code:
               type: string
             apartment_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_name:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             state_or_province:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
           required:
           - city
           - street
@@ -1749,81 +1869,22 @@ components:
       - incorporation_date
       - business_activity_description
       - registered_address
-      nullable: true
-    account_usage:
+    validation_error_response:
       type: object
       properties:
-        id:
+        status:
           type: string
-          description: UUID for the Account Usage entity.
-        form_id:
+        error_code:
           type: string
-          description: Form UUID
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        collections_account:
-          description: Does the account receive funds from third parties.
-          type: boolean
-        collection_currencies:
-          description: List of currencies to fund the account with.
-          type: array
-          items:
-            type: string
-            nullable: true
-        payment_currencies:
-          type: array
-          description: List of payout currencies.
-          items:
-            type: string
-            nullable: true
-        transaction_countries:
-          type: array
-          description: List of countries that corporate accounts want to send/receive money to/from.
-          items:
-            type: string
-            nullable: true
-        one_off_transaction:
-          type: boolean
-          description: Will it be a single one-off transaction.
-        estimated_monthly_transaction_currency:
-          description: Currency of the estimated monthly transaction value.
+        reason:
           type: string
-          nullable: true
-        estimated_monthly_transaction_value:
-          description: Estimated monthly value of what a corporate account is going to transact on the platform.
-          type: integer
-          nullable: true
-        estimated_monthly_transaction_volume:
-          description: How often do corporates expect to send or receive funds.
-          type: integer
-          nullable: true
-        source_of_funds:
-          description: The source of money that will be sent through the platform.
-          type: string
-          nullable: true
-        primary_purpose:
-          description: The reason for opening an account with Currencycloud.
-          type: string
-          nullable: true
-        purpose_details:
-          description: Additional details if primary_purpose is 'other'.
-          type: string
-          nullable: true
-        created_at:
-          description: Date the Account Usage record created.
-          type: string
-          format: date-time
-        updated_at:
-          description: Date the Account Usage record was last updated.
-          type: string
-          format: date-time
+        error_messages:
+          type: object
       required:
-      - collections_account
-      - one_off_transaction
-      nullable: true
+      - status
+      - error_code
+      - reason
+      - error_messages
   securitySchemes:
     AuthToken:
       type: apiKey

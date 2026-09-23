@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage People API
+  title: api-onboarding People API
   version: v1
 servers:
 - url: /onboarding
@@ -15,7 +15,7 @@ paths:
   /v1/forms/{form_id}/people:
     post:
       summary: Create Person Entity
-      description: Records a person's details associated with the specified application form. For more information, please see <a href="../guides/integration-guides/onboarding-api-pilot">our guide.</a>
+      description: Records a person's details associated with the specified application form. For more information, please see our guide.
       tags:
       - People
       x-api-group: Onboard
@@ -55,6 +55,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/create_person_request'
+      operationId: postV1FormsByFormIdPeople
+      x-operation-id-source: derived
     get:
       summary: Get People
       description: Returns all people associated with an application form.
@@ -88,6 +90,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1FormsByFormIdPeople
+      x-operation-id-source: derived
   /v1/forms/{form_id}/{person_id}:
     get:
       summary: Get Person
@@ -126,6 +130,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1FormsByFormIdByPersonId
+      x-operation-id-source: derived
     put:
       summary: Update Person
       description: Updates the person with the specified ID.
@@ -174,6 +180,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/create_person_request'
+      operationId: putV1FormsByFormIdByPersonId
+      x-operation-id-source: derived
     delete:
       summary: Delete Person
       description: Deletes the details of the person with the specified ID.
@@ -225,8 +233,122 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: deleteV1FormsByFormIdByPersonId
+      x-operation-id-source: derived
 components:
   schemas:
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    person:
+      type: object
+      properties:
+        id:
+          type: string
+        form_id:
+          type: string
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+        first_name:
+          type: string
+        middle_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type: string
+        dob:
+          type:
+          - string
+          - 'null'
+          format: date
+        phone_number:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        ownership_percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+        id_number:
+          type:
+          - string
+          - 'null'
+        home_country:
+          type: string
+        passport_number:
+          type:
+          - string
+          - 'null'
+        passport_country_of_issue:
+          type:
+          - string
+          - 'null'
+        personal_address:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type:
+              - string
+              - 'null'
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            state_or_province:
+              type:
+              - string
+              - 'null'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
+      - roles
+      - first_name
+      - last_name
+      - home_country
     create_person_request:
       type: object
       properties:
@@ -240,55 +362,64 @@ components:
             - ultimate_business_owner
             - user
         document_ids:
-          type: array
+          type:
+          - array
+          - 'null'
           description: List of IDs for any uploaded supporting documents.
           items:
             type: string
-          nullable: true
         first_name:
           description: First name
           type: string
         middle_name:
           description: Middle name
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         last_name:
           description: Surname
           type: string
         dob:
           description: Date of Birth
-          type: string
+          type:
+          - string
+          - 'null'
           format: date
-          nullable: true
         phone_number:
           description: Phone number
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         email:
           description: Email address
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         ownership_percentage:
           description: Percentage of company owned.
-          type: number
-          nullable: true
+          type:
+          - number
+          - 'null'
           minimum: 0
           maximum: 100
         id_number:
           description: Social security number if home_country=US.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         home_country:
           description: Country of permanent address.
           type: string
         passport_number:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Passport number
-          nullable: true
         passport_country_of_issue:
-          type: string
+          type:
+          - string
+          - 'null'
           description: Country code for where the passport was issued.
-          nullable: true
         personal_address_attributes:
           type: object
           properties:
@@ -795,20 +926,24 @@ components:
               description: Post Code
             apartment_number:
               description: Apartment number
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_name:
               description: Building name
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_number:
               description: Building number
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             state_or_province:
               description: State or province
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
           required:
           - city
           - street
@@ -835,106 +970,6 @@ components:
       - error_code
       - reason
       - error_messages
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-          nullable: true
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    person:
-      type: object
-      properties:
-        id:
-          type: string
-        form_id:
-          type: string
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        roles:
-          type: array
-          items:
-            type: string
-        first_name:
-          type: string
-        middle_name:
-          type: string
-          nullable: true
-        last_name:
-          type: string
-        dob:
-          type: string
-          format: date
-          nullable: true
-        phone_number:
-          type: string
-          nullable: true
-        email:
-          type: string
-          nullable: true
-        ownership_percentage:
-          type: number
-          minimum: 0
-          maximum: 100
-        id_number:
-          type: string
-          nullable: true
-        home_country:
-          type: string
-        passport_number:
-          type: string
-          nullable: true
-        passport_country_of_issue:
-          type: string
-          nullable: true
-        personal_address:
-          type: object
-          properties:
-            city:
-              type: string
-            street:
-              type: string
-            country:
-              type: string
-            postal_code:
-              type: string
-            apartment_number:
-              type: string
-              nullable: true
-            building_name:
-              type: string
-              nullable: true
-            building_number:
-              type: string
-              nullable: true
-            state_or_province:
-              type: string
-              nullable: true
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      required:
-      - id
-      - roles
-      - first_name
-      - last_name
-      - home_country
   securitySchemes:
     AuthToken:
       type: apiKey

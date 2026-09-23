@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Documents API
+  title: api-onboarding Documents API
   version: v1
 servers:
 - url: /onboarding
@@ -15,7 +15,7 @@ paths:
   /v1/forms/{form_id}/documents:
     post:
       summary: Create Document
-      description: Adds a validation document to the specified form. For more information on uploading documents, see <a href="../guides/integration-guides/onboarding-api-pilot/#uploading-documents">our guide.</a>
+      description: Adds a validation document to the specified form. For more information on uploading documents, see our guide.
       tags:
       - Documents
       x-api-group: Onboard
@@ -61,6 +61,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/create_document_request'
+      operationId: postV1FormsByFormIdDocuments
+      x-operation-id-source: derived
     get:
       summary: Get Documents
       description: Returns the uploaded documents for the specified application form.
@@ -94,6 +96,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1FormsByFormIdDocuments
+      x-operation-id-source: derived
   /v1/forms/{form_id}/documents/{document_id}:
     delete:
       summary: Delete Document
@@ -145,6 +149,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: deleteV1FormsByFormIdDocumentsByDocumentId
+      x-operation-id-source: derived
 components:
   schemas:
     create_document_request:
@@ -199,11 +205,13 @@ components:
           items:
             type: string
         form_section_type:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         form_section_id:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         created_at:
           type: string
           format: date-time
@@ -213,6 +221,24 @@ components:
       required:
       - document_type
       - category
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
     validation_error_response:
       type: object
       properties:
@@ -224,23 +250,6 @@ components:
           type: string
         error_messages:
           type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-          nullable: true
       required:
       - status
       - error_code

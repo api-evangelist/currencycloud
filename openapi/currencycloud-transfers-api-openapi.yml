@@ -1,15 +1,14 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Transfers API
-  version: v1
-  description: Search, retrieve and create a transfer of funds between your Currencycloud account and associated sub-accounts.
+  description: The Currencycloud API is a robust, predictable, easy-to-use API for converting money between currencies and making payments around the world. Dynamically register sub-accounts to provide white labeled money transfer services to your own customers.
+  version: 2.43.0
+  title: Currencycloud Transfers API
+  termsOfService: https://www.currencycloud.com/terms-and-conditions/
+  contact:
+    name: support
+    email: support@currencycloud.com
 servers:
-- url: /onboarding
-  description: Relative URL
-- url: https://api.currencycloud.com/onboarding
-  description: Production server (uses live data)
-- url: https://devapi.currencycloud.com/onboarding
-  description: Dev server (uses test data)
+- url: https://devapi.currencycloud.com/v2
 tags:
 - name: Transfers
   description: Search, retrieve and create a transfer of funds between your Currencycloud account and associated sub-accounts.
@@ -22,65 +21,26 @@ paths:
       summary: Create Transfer
       description: Transfers funds from one account to another. No currency conversion is performed, so the sending and receiving accounts must hold money in the same currency.
       operationId: CreateTransfer
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: source_account_id
-        in: formData
-        required: true
-        type: string
-        description: Account UUID of the paying account.
-        format: uuid
-      - name: destination_account_id
-        in: formData
-        required: true
-        type: string
-        description: Account UUID of the receiving account.
-        format: uuid
-      - name: currency
-        in: formData
-        required: true
-        type: string
-        description: Three-letter ISO currency code.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: amount
-        in: formData
-        required: true
-        type: number
-        description: Amount
-        pattern: ^\d+(\.\d{1,3})?$
-      - name: reason
-        in: formData
-        required: false
-        type: string
-        description: User-generated reason for transfer, freeform text.
-        minLength: 1
-        maxLength: 255
-      - name: unique_request_id
-        in: formData
-        required: false
-        type: string
-        description: User-generated idempotency key. The value must be 100 characters or fewer.
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Transfer'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
         '400':
           description: Client error.
           x-errors:
@@ -180,12 +140,15 @@ paths:
             category: unique_request_id
             message: The unique_request_id provided is longer than 100 characters, please provide a shorter one
             params: ''
-          schema:
-            $ref: '#/definitions/CreateTransferError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTransferError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -193,18 +156,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -212,12 +179,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -227,8 +197,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -238,14 +209,54 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                source_account_id:
+                  type: string
+                  format: uuid
+                  description: Account UUID of the paying account.
+                destination_account_id:
+                  type: string
+                  format: uuid
+                  description: Account UUID of the receiving account.
+                currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Three-letter ISO currency code.
+                amount:
+                  type: number
+                  pattern: ^\d+(\.\d{1,3})?$
+                  description: Amount
+                reason:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: User-generated reason for transfer, freeform text.
+                unique_request_id:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: User-generated idempotency key. The value must be 100 characters or fewer.
+              required:
+              - source_account_id
+              - destination_account_id
+              - currency
+              - amount
   /transfers/{id}:
     get:
       tags:
@@ -254,36 +265,40 @@ paths:
       summary: Get Transfer
       description: Returns the money transfer record with the given ID.
       operationId: GetTransfer
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Transfer UUID, this was returned when the transfer was created.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Transfer'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
         '400':
           description: Client error.
           x-errors:
@@ -299,12 +314,15 @@ paths:
             category: null
             message: Transfer was not found for this ID
             params: ''
-          schema:
-            $ref: '#/definitions/GetTransferError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetTransferError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -312,20 +330,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -333,12 +357,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -348,8 +375,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -359,14 +387,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /transfers/find:
     get:
       tags:
@@ -375,172 +405,195 @@ paths:
       summary: Find Transfers
       description: Searches for transfer records that meet the given criteria.
       operationId: FindTransfers
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: short_reference
         in: query
         required: false
-        type: string
         description: Short reference code.
-        minLength: 1
-        maxLength: 25
+        schema:
+          type: string
+          maxLength: 25
+          minLength: 1
       - name: source_account_id
         in: query
         required: false
-        type: string
         description: Account UUID of the paying account.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: destination_account_id
         in: query
         required: false
-        type: string
         description: Account UUID of the receiving account.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: status
         in: query
         required: false
-        type: string
-        enum:
-        - cancelled
-        - completed
-        - pending
         description: Transfer status
+        schema:
+          type: string
+          enum:
+          - cancelled
+          - completed
+          - pending
       - name: currency
         in: query
         required: false
-        type: string
         description: Three-letter ISO currency code.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
+        schema:
+          type: string
+          format: iso-4217
+          pattern: ^[A-Z]{3}$
       - name: amount_from
         in: query
         required: false
-        type: number
         description: Minimum amount
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: number
+          pattern: ^\d+(\.\d{1,3})?$
       - name: amount_to
         in: query
         required: false
-        type: number
         description: Maximum amount
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: number
+          pattern: ^\d+(\.\d{1,3})?$
       - name: created_at_from
         in: query
         required: false
-        type: string
-        format: date-time
         description: Any valid ISO 8601 format, no older than two years e.g. "2024-12-31T23:59:59Z".
+        schema:
+          type: string
+          format: date-time
       - name: created_at_to
         in: query
         required: false
-        type: string
-        format: date-time
         description: Any valid ISO 8601 format, no older than two years e.g. "2024-12-31T23:59:59Z".
+        schema:
+          type: string
+          format: date-time
       - name: updated_at_from
         in: query
         required: false
-        type: string
-        format: date-time
         description: Any valid ISO 8601 format, no older than two years e.g. "2024-12-31T23:59:59Z".
+        schema:
+          type: string
+          format: date-time
       - name: updated_at_to
         in: query
         required: false
-        type: string
-        format: date-time
         description: Any valid ISO 8601 format, no older than two years e.g. "2024-12-31T23:59:59Z".
+        schema:
+          type: string
+          format: date-time
       - name: completed_at_from
         in: query
         required: false
-        type: string
-        format: date-time
         description: Any valid ISO 8601 format, no older than two years e.g. "2024-12-31T23:59:59Z".
+        schema:
+          type: string
+          format: date-time
       - name: completed_at_to
         in: query
         required: false
-        type: string
-        format: date-time
         description: Any valid ISO 8601 format, no older than two years e.g. "2024-12-31T23:59:59Z".
+        schema:
+          type: string
+          format: date-time
       - name: creator_contact_id
         in: query
         required: false
-        type: string
         description: Contact UUID of transfer instructor.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: creator_account_id
         in: query
         required: false
-        type: string
         description: Account UUID of transfer instructor.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: page
         in: query
         required: false
-        type: integer
         description: Page number
-        pattern: ^\d+$
+        schema:
+          type: integer
+          pattern: ^\d+$
       - name: per_page
         in: query
         required: false
-        type: integer
         description: Number of results per page.
-        pattern: ^\d+$
+        schema:
+          type: integer
+          pattern: ^\d+$
       - name: order
         in: query
         required: false
-        type: string
-        default: created_at
         description: The field name to sort by - "created_at", "updated_at" or "completed_at". Defaults to "created_at" if not specified..<br>
-        enum:
-        - created_at
-        - updated_at
-        - completed_at
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          enum:
+          - created_at
+          - updated_at
+          - completed_at
+          default: created_at
+          maxLength: 255
+          minLength: 1
       - name: order_asc_desc
         in: query
         required: false
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
         description: Sort records in ascending or descending order.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
       - name: unique_request_id
         in: query
         required: false
-        type: string
         description: User-generated idempotency key.
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          maxLength: 255
+          minLength: 1
       responses:
         '200':
           description: Success.
-          schema:
-            type: object
-            properties:
-              transfers:
-                type: array
-                items:
-                  $ref: '#/definitions/Transfer'
-              pagination:
-                $ref: '#/definitions/Pagination'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  transfers:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Transfer'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
         '400':
           description: Client error.
           x-errors:
@@ -624,12 +677,15 @@ paths:
             category: updated_at_to
             message: updated_at_from should be in ISO 8601 format
             params: ''
-          schema:
-            $ref: '#/definitions/FindTransfersError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindTransfersError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -637,18 +693,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -656,12 +716,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -671,8 +734,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -682,14 +746,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /transfers/{id}/cancel:
     post:
       tags:
@@ -698,32 +764,33 @@ paths:
       summary: Cancel Transfer
       description: Requests that a transfer be cancelled.
       operationId: CancelTransfer
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: ID of the transfer to be cancelled.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Transfer'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
         '400':
           description: Client error.
           x-errors:
@@ -751,12 +818,15 @@ paths:
             category: id
             message: Transfer was not found for this ID
             params: ''
-          schema:
-            $ref: '#/definitions/CancelTransferError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelTransferError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -764,30 +834,37 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '403':
           description: Forbidden.
           x-errors:
           - code: permission_denied
             message: You do not have permission 'transfer_write' to perform this operation
             params: ''
-          schema:
-            $ref: '#/definitions/ForbiddenError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -795,12 +872,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -810,8 +890,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -821,411 +902,411 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
 components:
-  securitySchemes:
-    AuthToken:
-      type: apiKey
-      in: header
-      name: X-Auth-Token
-definitions:
-  Transfer:
-    type: object
-    description: Transfer
-    properties:
-      id:
-        type: string
-        description: Transfer UUID
-      short_reference:
-        type: string
-        description: Short reference code.
-      source_account_id:
-        type: string
-        description: Account UUID of the paying account.
-      destination_account_id:
-        type: string
-        description: Account UUID of the receiving account.
-      currency:
-        type: string
-        description: Three-letter ISO currency code.
-      amount:
-        type: string
-        description: Transfer amount
-      status:
-        type: string
-        description: Status of the transfer - completed, pending or cancelled.
-      created_at:
-        type: string
-        description: Date/time the transfer was created.
-      updated_at:
-        type: string
-        description: Date/time the transfer was last updated.
-      completed_at:
-        type: string
-        description: Date/time the transfer was completed.
-      creator_account_id:
-        type: string
-        description: Account UUID of transfer instructor.
-      creator_contact_id:
-        type: string
-        description: Contact UUID of transfer instructor.
-      reason:
-        type: string
-        description: Reason for the transfer.
-      unique_request_id:
-        type: string
-        description: The user-generated idempotency key given to the transfer.
-    example:
-      id: 993d63bd-e151-11e6-a5af-080027a79e8f
-      short_reference: BT-20200118-VMSCBS
-      source_account_id: a7117404-e150-11e6-a5af-080027a79e8f
-      destination_account_id: 946f2d58-e150-11e6-a5af-080027a79e8f
-      currency: GBP
-      amount: '1250.00'
-      status: completed
-      created_at: '2023-01-18T14:08:34.000Z'
-      updated_at: '2023-01-18T14:08:34.000Z'
-      completed_at: '2023-01-18T14:08:34.000Z'
-      creator_account_id: 30cb8632-e152-11e6-a5af-080027a79e8f
-      creator_contact_id: 262e3d2a-e152-11e6-a5af-080027a79e8f
-      reason: Director's fees for March
-      unique_request_id: 1234567890abc
-  RateLimitError:
-    type: object
-    description: Too many requests.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this validation/error.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  UnauthorizedError:
-    type: object
-    description: Authorization error.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-        enum:
-        - auth_failed
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-    example:
-      error_code: auth_failed
-      error_messages:
-        api_key:
-        - code: invalid_supplied_credentials
-          message: Authentication failed with the supplied credentials
-          params: {}
-  CreateTransferError:
-    type: object
-    description: Client error information for the Create Transfer endpoint.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  CancelTransferError:
-    type: object
-    description: 'Client error information for the Cancel Transfer endpoint.
+  schemas:
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
+    CreateTransferError:
+      type: object
+      description: Client error information for the Create Transfer endpoint.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    FindTransfersError:
+      type: object
+      description: 'Client error information for the Find Transfers endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  FindTransfersError:
-    type: object
-    description: 'Client error information for the Find Transfers endpoint.
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    CancelTransferError:
+      type: object
+      description: 'Client error information for the Cancel Transfer endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  NotFoundError:
-    type: object
-    description: Resource not found.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  ForbiddenError:
-    type: object
-    description: Permission error.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-        enum:
-        - auth_failed
-      error_messages:
-        type: object
-        description: Detailed error information on what permissions are missing so that the request could not be fulfilled
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents the reasons why the request was not permitted.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  GetTransferError:
-    type: object
-    description: 'Client error information for the Get Transfer endpoint.
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Transfer:
+      type: object
+      description: Transfer
+      properties:
+        id:
+          type: string
+          description: Transfer UUID
+        short_reference:
+          type: string
+          description: Short reference code.
+        source_account_id:
+          type: string
+          description: Account UUID of the paying account.
+        destination_account_id:
+          type: string
+          description: Account UUID of the receiving account.
+        currency:
+          type: string
+          description: Three-letter ISO currency code.
+        amount:
+          type: string
+          description: Transfer amount
+        status:
+          type: string
+          description: Status of the transfer - completed, pending or cancelled.
+        created_at:
+          type: string
+          description: Date/time the transfer was created.
+        updated_at:
+          type: string
+          description: Date/time the transfer was last updated.
+        completed_at:
+          type: string
+          description: Date/time the transfer was completed.
+        creator_account_id:
+          type: string
+          description: Account UUID of transfer instructor.
+        creator_contact_id:
+          type: string
+          description: Contact UUID of transfer instructor.
+        reason:
+          type: string
+          description: Reason for the transfer.
+        unique_request_id:
+          type: string
+          description: The user-generated idempotency key given to the transfer.
+      example:
+        id: 993d63bd-e151-11e6-a5af-080027a79e8f
+        short_reference: BT-20200118-VMSCBS
+        source_account_id: a7117404-e150-11e6-a5af-080027a79e8f
+        destination_account_id: 946f2d58-e150-11e6-a5af-080027a79e8f
+        currency: GBP
+        amount: '1250.00'
+        status: completed
+        created_at: '2023-01-18T14:08:34.000Z'
+        updated_at: '2023-01-18T14:08:34.000Z'
+        completed_at: '2023-01-18T14:08:34.000Z'
+        creator_account_id: 30cb8632-e152-11e6-a5af-080027a79e8f
+        creator_contact_id: 262e3d2a-e152-11e6-a5af-080027a79e8f
+        reason: Director's fees for March
+        unique_request_id: 1234567890abc
+    GetTransferError:
+      type: object
+      description: 'Client error information for the Get Transfer endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  Pagination:
-    type: object
-    description: Pagination.
-    properties:
-      total_entries:
-        type: integer
-      total_pages:
-        type: integer
-      current_page:
-        type: integer
-      per_page:
-        type: integer
-        description: Number of results per page.
-      previous_page:
-        type: integer
-      next_page:
-        type: integer
-      order:
-        type: string
-        description: The field name by which the results are sorted.
-      order_asc_desc:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
-        description: Whether results are sorted in ascending or descending order.
-    example:
-      total_entries: 1
-      total_pages: 1
-      current_page: 1
-      per_page: 25
-      previous_page: -1
-      next_page: 2
-      order: created_at
-      order_asc_desc: asc
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    ForbiddenError:
+      type: object
+      description: Permission error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents the reasons why the request was not permitted.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+externalDocs:
+  description: API overview
+  url: https://www.currencycloud.com/developers/

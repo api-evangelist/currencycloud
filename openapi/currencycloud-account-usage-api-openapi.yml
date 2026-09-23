@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: api-onboarding Account Usage API
   version: v1
@@ -44,6 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1FormsByFormIdAccountUsage
+      x-operation-id-source: derived
     put:
       summary: Update Account Usage
       description: Updates a form's associated account usage. The account usage outlines how the applicant intends to use their account.
@@ -92,6 +94,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/create_account_usage_request'
+      operationId: putV1FormsByFormIdAccountUsage
+      x-operation-id-source: derived
     delete:
       summary: Delete Account Usage
       description: Deletes the account usage for the specified application form.
@@ -138,17 +142,122 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: deleteV1FormsByFormIdAccountUsage
+      x-operation-id-source: derived
 components:
   schemas:
-    create_account_usage_request:
+    not_found_response:
       type: object
       properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    account_usage:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: UUID for the Account Usage entity.
+        form_id:
+          type: string
+          description: Form UUID
         document_ids:
           type: array
           description: List of IDs for any uploaded supporting documents.
           items:
             type: string
-          nullable: true
+        collections_account:
+          description: Does the account receive funds from third parties.
+          type: boolean
+        collection_currencies:
+          description: List of currencies to fund the account with.
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+        payment_currencies:
+          type: array
+          description: List of payout currencies.
+          items:
+            type:
+            - string
+            - 'null'
+        transaction_countries:
+          type: array
+          description: List of countries that corporate accounts want to send/receive money to/from.
+          items:
+            type:
+            - string
+            - 'null'
+        one_off_transaction:
+          type: boolean
+          description: Will it be a single one-off transaction.
+        estimated_monthly_transaction_currency:
+          description: Currency of the estimated monthly transaction value.
+          type:
+          - string
+          - 'null'
+        estimated_monthly_transaction_value:
+          description: Estimated monthly value of what a corporate account is going to transact on the platform.
+          type:
+          - integer
+          - 'null'
+        estimated_monthly_transaction_volume:
+          description: How often do corporates expect to send or receive funds.
+          type:
+          - integer
+          - 'null'
+        source_of_funds:
+          description: The source of money that will be sent through the platform.
+          type:
+          - string
+          - 'null'
+        primary_purpose:
+          description: The reason for opening an account with Currencycloud.
+          type:
+          - string
+          - 'null'
+        purpose_details:
+          description: Additional details if primary_purpose is 'other'.
+          type:
+          - string
+          - 'null'
+        created_at:
+          description: Date the Account Usage record created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Date the Account Usage record was last updated.
+          type: string
+          format: date-time
+      required:
+      - collections_account
+      - one_off_transaction
+    create_account_usage_request:
+      type: object
+      properties:
+        document_ids:
+          type:
+          - array
+          - 'null'
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
         collections_account:
           description: Does the account receive funds from third parties.
           type: boolean
@@ -156,8 +265,9 @@ components:
           description: List of currencies to fund account with. Three character ISO currency codes.
           type: array
           items:
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
             enum:
             - AED
             - AFN
@@ -322,8 +432,9 @@ components:
           type: array
           description: List of payout currencies. Three character ISO currency codes.
           items:
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
             enum:
             - AED
             - AFN
@@ -488,8 +599,9 @@ components:
           type: array
           description: List of countries that corporate accounts want to send/receive money to/from.
           items:
-            type: string
-            nullable: true
+            type:
+            - string
+            - 'null'
             enum:
             - AD
             - AN
@@ -984,20 +1096,24 @@ components:
           description: Do corporate accounts just want to send a single one-off transaction.
         estimated_monthly_transaction_currency:
           description: Currency of the estimated monthly transaction value.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         estimated_monthly_transaction_value:
-          type: integer
+          type:
+          - integer
+          - 'null'
           description: Estimated monthly value of what a corporate account will transact on the platform.
-          nullable: true
         estimated_monthly_transaction_volume:
           description: How often do corporates expect to send or receive funds.
-          type: integer
-          nullable: true
+          type:
+          - integer
+          - 'null'
         source_of_funds:
           description: The source of the funds that will be sent through the platform.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           enum:
           - business_revenue
           - external_investment
@@ -1021,28 +1137,12 @@ components:
           - other
         purpose_details:
           description: Additional details if primary_purpose is 'other'.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
       required:
       - collections_account
       - primary_purpose
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-          nullable: true
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     validation_error_response:
       type: object
       properties:
@@ -1059,80 +1159,6 @@ components:
       - error_code
       - reason
       - error_messages
-    account_usage:
-      type: object
-      properties:
-        id:
-          type: string
-          description: UUID for the Account Usage entity.
-        form_id:
-          type: string
-          description: Form UUID
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        collections_account:
-          description: Does the account receive funds from third parties.
-          type: boolean
-        collection_currencies:
-          description: List of currencies to fund the account with.
-          type: array
-          items:
-            type: string
-            nullable: true
-        payment_currencies:
-          type: array
-          description: List of payout currencies.
-          items:
-            type: string
-            nullable: true
-        transaction_countries:
-          type: array
-          description: List of countries that corporate accounts want to send/receive money to/from.
-          items:
-            type: string
-            nullable: true
-        one_off_transaction:
-          type: boolean
-          description: Will it be a single one-off transaction.
-        estimated_monthly_transaction_currency:
-          description: Currency of the estimated monthly transaction value.
-          type: string
-          nullable: true
-        estimated_monthly_transaction_value:
-          description: Estimated monthly value of what a corporate account is going to transact on the platform.
-          type: integer
-          nullable: true
-        estimated_monthly_transaction_volume:
-          description: How often do corporates expect to send or receive funds.
-          type: integer
-          nullable: true
-        source_of_funds:
-          description: The source of money that will be sent through the platform.
-          type: string
-          nullable: true
-        primary_purpose:
-          description: The reason for opening an account with Currencycloud.
-          type: string
-          nullable: true
-        purpose_details:
-          description: Additional details if primary_purpose is 'other'.
-          type: string
-          nullable: true
-        created_at:
-          description: Date the Account Usage record created.
-          type: string
-          format: date-time
-        updated_at:
-          description: Date the Account Usage record was last updated.
-          type: string
-          format: date-time
-      required:
-      - collections_account
-      - one_off_transaction
-      nullable: true
   securitySchemes:
     AuthToken:
       type: apiKey

@@ -1,15 +1,14 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Conversions API
-  version: v1
-  description: Find, retrieve and create a live currency conversion. You can also create and manage the live conversion of funds between two currencies.
+  description: The Currencycloud API is a robust, predictable, easy-to-use API for converting money between currencies and making payments around the world. Dynamically register sub-accounts to provide white labeled money transfer services to your own customers.
+  version: 2.43.0
+  title: Currencycloud Conversions API
+  termsOfService: https://www.currencycloud.com/terms-and-conditions/
+  contact:
+    name: support
+    email: support@currencycloud.com
 servers:
-- url: /onboarding
-  description: Relative URL
-- url: https://api.currencycloud.com/onboarding
-  description: Production server (uses live data)
-- url: https://devapi.currencycloud.com/onboarding
-  description: Dev server (uses test data)
+- url: https://devapi.currencycloud.com/v2
 tags:
 - name: Conversions
   description: Find, retrieve and create a live currency conversion. You can also create and manage the live conversion of funds between two currencies.
@@ -22,115 +21,26 @@ paths:
       summary: Create Conversion
       description: Creates a new conversion. Returns the details of the created conversion on success.
       operationId: CreateConversion
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: buy_currency
-        in: formData
-        required: true
-        type: string
-        description: Three-character ISO code of the currency being purchased.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: sell_currency
-        in: formData
-        required: true
-        type: string
-        description: Three-character ISO code for currency sold.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: fixed_side
-        in: formData
-        required: true
-        type: string
-        enum:
-        - buy
-        - sell
-        description: Fix the buy or sell currency.
-      - name: amount
-        in: formData
-        required: true
-        type: string
-        description: Amount of the fixed buy or sell currency.
-        pattern: ^\d+(\.\d{1,3})?$
-      - name: term_agreement
-        in: formData
-        required: true
-        type: boolean
-        enum:
-        - true
-        - false
-        description: Indicates agreement to terms and conditions.
-      - name: conversion_date
-        in: formData
-        required: false
-        type: string
-        format: date
-        description: Earliest delivery date in UTC time zone. Format YYYY-MM-DD.
-      - name: client_buy_amount
-        in: formData
-        required: false
-        type: string
-        description: Client buy amount.
-        pattern: ^\d+(\.\d{1,2})?$
-      - name: client_sell_amount
-        in: formData
-        required: false
-        type: string
-        description: Client sell amount.
-        pattern: ^\d+(\.\d{1,2})?$
-      - name: reason
-        in: formData
-        required: false
-        type: string
-        description: User-generated reason for conversion - freeform text.
-        minLength: 1
-        maxLength: 255
-      - name: unique_request_id
-        in: formData
-        required: false
-        type: string
-        description: User-generated idempotency key. Beneficial for request tracking / management.
-        minLength: 1
-        maxLength: 255
-      - name: on_behalf_of
-        in: formData
-        required: false
-        type: string
-        description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
-      - name: conversion_date_preference
-        in: formData
-        required: false
-        type: string
-        enum:
-        - default
-        - earliest
-        - next_day
-        - optimize_liquidity
-        description: Available and required only if conversion_date is not provided.<br> Must be one of the following:<br> - 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> - 'next_day' for next day available conversion date - T+1.<br> - 'default' for conversion - T+1 for <a href="https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ">APAC restricted currencies</a>, T+2 for all others.<br> - 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href="https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ">APAC restricted currencies</a>, and T+1 or T+2 for all others.
-      - name: quote_id
-        in: formData
-        required: false
-        type: string
-        description: The UUID of a previously created conversion quote.
+        schema:
+          type: string
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Conversion'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
         '400':
           description: Client error.
           x-errors:
@@ -300,12 +210,15 @@ paths:
             category: base
             message: not a valid conversion date preference, possible options are earliest, optimize_liquidity, default, next_day
             params: ''
-          schema:
-            $ref: '#/definitions/CreateConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -313,18 +226,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -332,12 +249,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -347,8 +267,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -358,14 +279,91 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                buy_currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Three-character ISO code of the currency being purchased.
+                sell_currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Three-character ISO code for currency sold.
+                fixed_side:
+                  type: string
+                  enum:
+                  - buy
+                  - sell
+                  description: Fix the buy or sell currency.
+                amount:
+                  type: string
+                  pattern: ^\d+(\.\d{1,3})?$
+                  description: Amount of the fixed buy or sell currency.
+                term_agreement:
+                  type: boolean
+                  enum:
+                  - true
+                  - false
+                  description: Indicates agreement to terms and conditions.
+                conversion_date:
+                  type: string
+                  format: date
+                  description: Earliest delivery date in UTC time zone. Format YYYY-MM-DD.
+                client_buy_amount:
+                  type: string
+                  pattern: ^\d+(\.\d{1,2})?$
+                  description: Client buy amount.
+                client_sell_amount:
+                  type: string
+                  pattern: ^\d+(\.\d{1,2})?$
+                  description: Client sell amount.
+                reason:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: User-generated reason for conversion - freeform text.
+                unique_request_id:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: User-generated idempotency key. Beneficial for request tracking / management.
+                on_behalf_of:
+                  type: string
+                  format: uuid
+                  description: A contact UUID for the sub-account you're acting on behalf of.
+                conversion_date_preference:
+                  type: string
+                  enum:
+                  - default
+                  - earliest
+                  - next_day
+                  - optimize_liquidity
+                  description: Available and required only if conversion_date is not provided.<br> Must be one of the following:<br> - 'earliest' for earliest available conversion date. Make sure there is sufficient time to send funds to Currencycloud.<br> - 'next_day' for next day available conversion date - T+1.<br> - 'default' for conversion - T+1 for <a href="https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ">APAC restricted currencies</a>, T+2 for all others.<br> - 'optimize_liquidity' for maximizing chances of getting a successful rate. Most relevant for exotic pairs. Conversion is T+0 for <a href="https://support.currencycloud.com/hc/en-gb/articles/360017419080-Making-payments-to-India-Indonesia-Malaysia-and-the-Philippines-INR-IDR-MYR-PHP-FAQ">APAC restricted currencies</a>, and T+1 or T+2 for all others.
+                quote_id:
+                  type: string
+                  description: The UUID of a previously created conversion quote.
+              required:
+              - buy_currency
+              - sell_currency
+              - fixed_side
+              - amount
+              - term_agreement
   /conversions/{id}:
     get:
       tags:
@@ -374,36 +372,40 @@ paths:
       summary: Get Conversion
       description: Gets a conversion record for the provided unique ID.
       operationId: GetConversion
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Conversion UUID, this is returned by a successful trade request when creating a conversion.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Conversion'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Conversion'
         '400':
           description: Client error.
           x-errors:
@@ -419,12 +421,15 @@ paths:
             category: on_behalf_of
             message: Contact was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -432,20 +437,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -453,12 +464,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -468,8 +482,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -479,14 +494,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /conversions/find:
     get:
       tags:
@@ -495,224 +512,255 @@ paths:
       summary: Find Conversions
       description: Finds conversions based on search parameters. If no search parameters are provided, all conversions under the house account are returned.
       operationId: FindConversions
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: short_reference
         in: query
         required: false
-        type: string
         description: Short reference code.
-        minLength: 1
-        maxLength: 25
+        schema:
+          type: string
+          maxLength: 25
+          minLength: 1
       - name: status
         in: query
         required: false
-        type: string
-        enum:
-        - awaiting_funds
-        - closed
-        - funds_arrived
-        - funds_sent
-        - trade_settled
         description: Conversion status.
+        schema:
+          type: string
+          enum:
+          - awaiting_funds
+          - closed
+          - funds_arrived
+          - funds_sent
+          - trade_settled
       - name: buy_currency
         in: query
         required: false
-        type: string
         description: Three-character ISO code of the currency being purchased.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
+        schema:
+          type: string
+          format: iso-4217
+          pattern: ^[A-Z]{3}$
       - name: sell_currency
         in: query
         required: false
-        type: string
         description: Three-character ISO code of the currency being sold.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
+        schema:
+          type: string
+          format: iso-4217
+          pattern: ^[A-Z]{3}$
       - name: conversion_ids[]
         in: query
         required: false
-        type: array
-        items:
-          type: string
         description: One or more conversion UUIDs to filter out of results.
-        format: uuid
+        schema:
+          type: array
+          format: uuid
+          items:
+            type: string
       - name: created_at_from
         in: query
         required: false
-        type: string
         description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: created_at_to
         in: query
         required: false
-        type: string
         description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: updated_at_from
         in: query
         required: false
-        type: string
         description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: updated_at_to
         in: query
         required: false
-        type: string
         description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: conversion_date_from
         in: query
         required: false
-        type: string
         description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: conversion_date_to
         in: query
         required: false
-        type: string
         description: Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: currency_pair
         in: query
         required: false
-        type: string
         description: Concatenated string of the two three-character ISO codes for the currencies traded, e.g. "USDEUR".
-        pattern: ^[A-Z]{6}$
+        schema:
+          type: string
+          pattern: ^[A-Z]{6}$
       - name: partner_buy_amount_from
         in: query
         required: false
-        type: string
         description: Minimum buy amount (sub-accounts).
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: partner_buy_amount_to
         in: query
         required: false
-        type: string
         description: Maximum buy amount (sub-accounts).
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: partner_sell_amount_from
         in: query
         required: false
-        type: string
         description: Minimum sell amount (sub-accounts).
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: partner_sell_amount_to
         in: query
         required: false
-        type: string
         description: Maximum sell amount (sub-accounts).
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: buy_amount_from
         in: query
         required: false
-        type: string
         description: Minimum buy amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: buy_amount_to
         in: query
         required: false
-        type: string
         description: Maximum buy amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: sell_amount_from
         in: query
         required: false
-        type: string
         description: Minimum sell amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: sell_amount_to
         in: query
         required: false
-        type: string
         description: Maximum sell amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: scope
         in: query
         required: false
-        type: string
-        enum:
-        - all
-        - clients
-        - own
-        default: own
         description: '"Own" account, "clients" sub-accounts, or "all" accounts. Default is "own".'
+        schema:
+          type: string
+          enum:
+          - all
+          - clients
+          - own
+          default: own
       - name: settlement_date_from
         in: query
         required: false
-        type: string
         description: Earliest date when sold currency debited. Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: settlement_date_to
         in: query
         required: false
-        type: string
         description: Latest date when sold currency debited. Any valid ISO 8601 format, e.g. "2023-12-31T23:59:59+00:00".
-        format: date
+        schema:
+          type: string
+          format: date
       - name: unique_request_id
         in: query
         required: false
-        type: string
         description: User-generated idempotency key.
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          maxLength: 255
+          minLength: 1
       - name: page
         in: query
         required: false
-        type: integer
         description: Page number.
-        pattern: ^\d+$
+        schema:
+          type: integer
+          pattern: ^\d+$
       - name: per_page
         in: query
         required: false
-        type: integer
         description: Number of results per page.
-        pattern: ^\d+$
+        schema:
+          type: integer
+          pattern: ^\d+$
       - name: order
         in: query
         required: false
-        type: string
         description: Any field name to change the sort order.
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          maxLength: 255
+          minLength: 1
       - name: order_asc_desc
         in: query
         required: false
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
         description: Sort records in ascending or descending order.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
       responses:
         '200':
           description: Success.
-          schema:
-            type: object
-            properties:
-              conversions:
-                type: array
-                items:
-                  $ref: '#/definitions/Conversion'
-              pagination:
-                $ref: '#/definitions/Pagination'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversions:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Conversion'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
         '400':
           description: Client error.
           x-errors:
@@ -724,12 +772,15 @@ paths:
             category: on_behalf_of
             message: Contact was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/FindConversionsError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindConversionsError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -737,18 +788,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -756,12 +811,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -771,8 +829,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -782,14 +841,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /conversions/{id}/cancellation_quote:
     get:
       tags:
@@ -798,30 +859,33 @@ paths:
       summary: Quote Conversion Cancellation
       description: Gets a quote of the projected cost to cancel a conversion identified by a provided unique ID {id}.
       operationId: ConversionCancellationQuote
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Conversion UUID, this is returned by a successful trade request when creating a conversion.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/ConversionCancellationQuote'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionCancellationQuote'
         '400':
           description: Client error.
           x-errors:
@@ -837,12 +901,15 @@ paths:
             category: on_behalf_of
             message: Contact was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -850,20 +917,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -871,12 +944,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -886,8 +962,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -897,14 +974,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /conversions/{id}/cancel:
     post:
       tags:
@@ -913,39 +992,33 @@ paths:
       summary: Cancel a Conversion
       description: Cancels the conversion identified by the provided unique ID {id}.
       operationId: CancelConversion
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: UUID of the conversion that is being cancelled. The UUID is returned by a successful trade request when creating a conversion.
-        format: uuid
-      - name: notes
-        required: false
-        type: string
-        in: formData
-        description: Notes describing the reason for cancellation.
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/ConversionProfitAndLoss'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionProfitAndLoss'
         '400':
           description: Client error.
           x-errors:
@@ -965,12 +1038,15 @@ paths:
             category: base
             message: Invalid extra parameters extra_parameter
             params: '{ "parameters" => "extra_parameter" }'
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -978,18 +1054,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -997,12 +1077,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1012,8 +1095,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1023,14 +1107,27 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                notes:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Notes describing the reason for cancellation.
   /conversions/{id}/date_change_quote:
     get:
       tags:
@@ -1039,36 +1136,40 @@ paths:
       summary: Quote Conversion Date Change
       description: Gets a quote of the projected cost to change the date of a conversion identified by a provided unique ID {id}.
       operationId: ConversionDateChangeQuote
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Conversion UUID, this is returned by a successful trade request when creating a conversion.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: new_settlement_date
         in: query
         required: true
-        type: string
         description: Desired new settlement date of conversion, format YYYY-MM-DD.
-        format: date
+        schema:
+          type: string
+          format: date
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/ConversionDateChange'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionDateChange'
         '400':
           description: Client error.
           x-errors:
@@ -1084,12 +1185,15 @@ paths:
             category: contact_id
             message: Contact was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1097,20 +1201,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -1118,12 +1228,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1133,8 +1246,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1144,14 +1258,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /conversions/{id}/date_change:
     post:
       tags:
@@ -1160,38 +1276,33 @@ paths:
       summary: Conversion Date Change
       description: Changes the date of the conversion identified by the provided unique ID {id}.
       operationId: ConversionDateChange
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: The UUID of the conversion that is being changed.
-        format: uuid
-      - name: new_settlement_date
-        required: true
-        type: string
-        in: formData
-        description: New conversion settlement date, format YYYY-MM-DD.
-        format: date
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/ConversionDateChange'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionDateChange'
         '400':
           description: Client error.
           x-errors:
@@ -1219,12 +1330,15 @@ paths:
             category: new_settlement_date
             message: Invalid new settlement date, next valid date time is - YYYY-MM-DDT15:30:00Z
             params: ''
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1232,18 +1346,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -1251,12 +1369,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1266,8 +1387,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1277,14 +1399,28 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                new_settlement_date:
+                  type: string
+                  format: date
+                  description: New conversion settlement date, format YYYY-MM-DD.
+              required:
+              - new_settlement_date
   /conversions/profit_and_loss:
     get:
       tags:
@@ -1293,117 +1429,132 @@ paths:
       summary: Retrieve Profit / Loss
       description: Returns the information of any actions related to a conversion that have generated profit or loss, including the profit or loss amount.
       operationId: ConversionProfitAndLoss
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: account_id
         in: query
         required: false
-        type: string
         description: UUID of the Account that the Conversion belongs to.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: contact_id
         in: query
         required: false
-        type: string
         description: UUID of the Contact that performed the action.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: conversion_id
         in: query
         required: false
-        type: string
         description: UUID of the conversion.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: event_type
         in: query
         required: false
-        type: string
         description: Event type, in this case 'self_service_cancellation'.
+        schema:
+          type: string
       - name: event_date_time_from
         in: query
         required: false
-        type: string
         description: Allows you to return profit and losses that will be made from on or after a defined date/time. ISO 8601 standard.
-        format: date-time
+        schema:
+          type: string
+          format: date-time
       - name: event_date_time_to
         in: query
         required: false
-        type: string
         description: Allows you to return profit and losses that will be made from on or before a defined date/time. ISO 8601 standard.
-        format: date-time
+        schema:
+          type: string
+          format: date-time
       - name: amount_from
         in: query
         required: false
-        type: string
         description: Allows you to return profit and losses based on a minimum profit or loss amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: amount_to
         in: query
         required: false
-        type: string
         description: Allows you to return profit and losses based on a maximum profit or loss amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          pattern: ^\d+(\.\d{1,3})?$
       - name: currency
         in: query
         required: false
-        type: string
         description: The currency of the profit and loss. ISO 4217 standard.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
+        schema:
+          type: string
+          format: iso-4217
+          pattern: ^[A-Z]{3}$
       - name: scope
         in: query
         required: false
-        type: string
         description: Scope allows contacts to search all profit and losses at all account levels. Defaults to own.<br> 'own' - search profit and losses on the main account <br> 'clients' - search profit and losses of account sub-accounts <br> 'all' - search profit and losses of main account and sub-accounts.
-        enum:
-        - all
-        - client
-        - own
+        schema:
+          type: string
+          enum:
+          - all
+          - client
+          - own
       - name: page
         in: query
         required: false
-        type: string
         description: Returns a specific page within the results of a search.
-        pattern: ^\d+$
+        schema:
+          type: string
+          pattern: ^\d+$
       - name: per_page
         in: query
         required: false
-        type: string
         description: Maximum number of entries to return per page of results.
-        pattern: ^\d+$
+        schema:
+          type: string
+          pattern: ^\d+$
       - name: order
         in: query
         required: false
-        type: string
         description: The field to order entries by.
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          maxLength: 255
+          minLength: 1
       - name: order_asc_desc
         in: query
         required: false
-        type: string
         description: Whether the order is ascending (asc) or descending (desc).
-        enum:
-        - asc
-        - desc
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
       responses:
         '200':
           description: Success.
-          schema:
-            type: object
-            properties:
-              conversion_profit_and_losses:
-                type: array
-                items:
-                  $ref: '#/definitions/ConversionProfitAndLoss'
-              pagination:
-                $ref: '#/definitions/Pagination'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  conversion_profit_and_losses:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ConversionProfitAndLoss'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
         '400':
           description: Client error.
           x-errors:
@@ -1423,12 +1574,15 @@ paths:
             category: base
             message: Invalid extra parameters extra_parameter
             params: '{ "parameters" => "extra_parameter" }'
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1436,18 +1590,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -1455,12 +1613,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1470,8 +1631,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1481,14 +1643,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /conversions/{id}/split_preview:
     get:
       tags:
@@ -1497,36 +1661,33 @@ paths:
       summary: Split Preview
       description: Gets a preview of the details of each part of a split conversion specified by the provided unique conversion ID {id}.
       operationId: GetConversionSplitPreview
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: The UUID of the conversion to be split, the UUID is returned by a successful trade request when creating a conversion.
-        format: uuid
-      - name: amount
-        required: true
-        type: string
-        in: formData
-        description: The amount at which to split this conversion.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/ConversionSplit'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionSplit'
         '400':
           description: Client error.
           x-errors:
@@ -1578,12 +1739,15 @@ paths:
             category: amount
             message: Amount precision is too low for currency GBP
             params: ''
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1591,24 +1755,30 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '403':
           description: Forbidden.
           x-errors:
           - code: permission_denied
             message: You do not have permission 'split_conversion' to perform this operation
             params: ''
-          schema:
-            $ref: '#/definitions/ForbiddenError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: Resource not found.
           x-errors:
@@ -1616,12 +1786,15 @@ paths:
             category: id
             message: Conversion was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -1629,12 +1802,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1644,8 +1820,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1655,14 +1832,28 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: string
+                  pattern: ^\d+(\.\d{1,3})?$
+                  description: The amount at which to split this conversion.
+              required:
+              - amount
   /conversions/{id}/split:
     post:
       tags:
@@ -1671,38 +1862,33 @@ paths:
       summary: Conversion Split
       description: Splits the conversion specified by the unique ID {id}. Upon success, it returns the details of the parent and new child conversions.
       operationId: SplitConversion
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: UUID of the conversion that is being split. The conversion UUID is returned by a successful trade request when creating a conversion."
-        format: uuid
-      - name: amount
-        required: true
-        type: string
-        in: formData
-        description: The amount at which to split this conversion.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/ConversionSplit'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionSplit'
         '400':
           description: Client error.
           x-errors:
@@ -1722,12 +1908,15 @@ paths:
             category: base
             message: Invalid extra parameters extra_parameter
             params: '{ "parameters" => "extra_parameter" }'
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1735,30 +1924,37 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '403':
           description: Forbidden.
           x-errors:
           - code: permission_denied
             message: You do not have permission 'split_conversion' to perform this operation
             params: ''
-          schema:
-            $ref: '#/definitions/ForbiddenError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -1766,12 +1962,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1781,8 +1980,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1792,14 +1992,28 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: string
+                  pattern: ^\d+(\.\d{1,3})?$
+                  description: The amount at which to split this conversion.
+              required:
+              - amount
   /conversions/{id}/split_history:
     get:
       tags:
@@ -1808,30 +2022,33 @@ paths:
       summary: Conversion Split History
       description: Returns the history of executed conversion splits, specified by a unique conversion ID {id}.
       operationId: GetConversionSplitHistory
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Conversion UUID - the UUID is returned by a successful trade request when creating a conversion.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/ConversionSplitHistory'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConversionSplitHistory'
         '400':
           description: Client error.
           x-errors:
@@ -1843,12 +2060,15 @@ paths:
             category: on_behalf_of
             message: Invalid extra parameters extra_parameter
             params: '{ "parameters" => "extra_parameter" }'
-          schema:
-            $ref: '#/definitions/GetConversionError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetConversionError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1856,36 +2076,45 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '403':
           description: Forbidden.
           x-errors:
           - code: permission_denied
             message: You do not have permission 'split_conversion' to perform this operation
             params: ''
-          schema:
-            $ref: '#/definitions/ForbiddenError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
         '404':
           description: Resource not found.
           x-errors:
           - code: conversion_not_found
             message: Conversion was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -1893,12 +2122,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1908,8 +2140,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1919,432 +2152,55 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
 components:
-  securitySchemes:
-    AuthToken:
-      type: apiKey
-      in: header
-      name: X-Auth-Token
-definitions:
-  ConversionCancellation:
-    type: object
-    description: Cancelled Conversion
-    properties:
-      account_id:
-        type: string
-        description: UUID of the Account that the Conversion belongs to.
-      contact_id:
-        type: string
-        description: UUID of the Contact that performed the action that generated profit or loss.
-      event_account_id:
-        type: string
-        description: The account_id of the trade's account.
-      event_contact_id:
-        type: string
-        description: The contact_id of the trade's contact.
-      conversion_id:
-        type: string
-        description: UUID of the Conversion.
-      amount:
-        type: string
-        description: The amount of the profit or loss.
-      currency:
-        type: string
-        description: Three-letter ISO currency code for the currency the amount is shown in.
-      notes:
-        type: string
-        description: Additional information regarding the event.
-      event_type:
-        type: string
-        description: The type of event (e.g. cancellation).
-      event_date_time:
-        type: string
-        format: date-time
-        description: The date and time of the quote.
-    example:
-      account_id: 2090939e-b2f7-3f2b-1363-4d235b3f58af
-      contact_id: 8a98ebac-6f88-e205-a685-4d235b1b088b
-      event_account_id: 2090939e-b2f7-3f2b-1363-4d235b3f58af
-      event_contact_id: 8a98ebac-6f88-e205-a685-4d235b1b088b
-      conversion_id: 648945d7-1cff-4dae-a432-7d5501c77a8a
-      amount: '-0.28'
-      currency: GBP
-      notes: Cancel the conversion due to personal issues
-      event_type: self_service_cancellation
-      event_date_time: '2023-11-10T12:18:56.000Z'
-  GetConversionError:
-    type: object
-    description: 'Client error information for the Get Conversion endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  ConversionDateChange:
-    type: object
-    description: Conversion Date change record
-    properties:
-      conversion_id:
-        type: string
-        description: UUID of the Conversion.
-      amount:
-        type: string
-        description: The cost of changing the date of the conversion.
-      currency:
-        type: string
-        description: The currency of the cost to change the conversion date. A three-letter ISO currency code.
-      new_conversion_date:
-        type: string
-        description: The new date the conversion will be made.
-      new_settlement_date:
-        type: string
-        description: The new date and time by which funds need to be available to settle the trade.
-      old_conversion_date:
-        type: string
-        description: The previous date the conversion was to be made.
-      old_settlement_date:
-        type: string
-        description: The previous date and time by which funds needed to be available to settle the trade.
-      event_date_time:
-        type: string
-        description: The date and time of the date change or date change quote.
-  RateLimitError:
-    type: object
-    description: Too many requests.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this validation/error.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  CreateConversionError:
-    type: object
-    description: 'Client error information for the Create Conversion endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  UnauthorizedError:
-    type: object
-    description: Authorization error.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-        enum:
-        - auth_failed
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-    example:
-      error_code: auth_failed
-      error_messages:
-        api_key:
-        - code: invalid_supplied_credentials
-          message: Authentication failed with the supplied credentials
-          params: {}
-  ConversionSplitDetails:
-    properties:
-      id:
-        type: string
-        description: Conversion ID
-      short_reference:
-        type: string
-        description: A human readable unique trade indentifier, in the format YYYYMMDD-XXXXXX.
-      sell_currency:
-        type: string
-        description: Three character ISO code for currency sold.
-      buy_currency:
-        type: string
-        description: Three character ISO code for currency bought.
-      buy_amount:
-        type: string
-        description: The amount of the buy_currency being bought.
-      sell_amount:
-        type: string
-        description: The amount of the sell_currency being sold.
-      settlement_date:
-        type: string
-        format: date-time
-        description: The date and time by which funds need to be available to settle the trade.
-      conversion_date:
-        type: string
-        format: date-time
-        description: The date the conversion will be made.
-      status:
-        type: string
-        description: Status of the related trade.
-        enum:
-        - awaiting_authorisation
-        - awaiting_funds
-        - closed
-        - funds_arrived
-        - funds_being_processed
-        - funds_sent
-        - trade_settled
-        - trade_settling
-  FindConversionsError:
-    type: object
-    description: 'Client error information for the Find Conversions endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  NotFoundError:
-    type: object
-    description: Resource not found.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  ConversionSplitHistory:
-    type: object
-    properties:
-      origin_conversion:
-        $ref: '#/definitions/ConversionSplitDetails'
-        description: The original conversion (before split).
-      parent_conversion:
-        $ref: '#/definitions/ConversionSplitDetails'
-        description: The parent conversion (after split).
-      child_conversions:
-        type: array
-        items:
-          $ref: '#/definitions/ConversionSplitDetails'
-        description: The child conversion (after split).
-  ForbiddenError:
-    type: object
-    description: Permission error.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-        enum:
-        - auth_failed
-      error_messages:
-        type: object
-        description: Detailed error information on what permissions are missing so that the request could not be fulfilled
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents the reasons why the request was not permitted.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  ConversionSplit:
-    type: object
-    properties:
-      parent_conversion:
-        $ref: '#/definitions/ConversionSplitDetails'
-        description: The parent conversion.
-      child_conversion:
-        $ref: '#/definitions/ConversionSplitDetails'
-        description: The child conversion.
-  ConversionProfitAndLoss:
-    type: object
-    description: Recognised profit / loss on a conversion.
-    properties:
-      conversion_profit_and_losses:
-        type: array
-        items:
-          $ref: '#/definitions/ConversionCancellation'
-      pagination:
-        $ref: '#/definitions/Pagination'
-    example:
-      conversion_profit_and_losses:
-      - account_id: 2090939e-b2f7-3f2b-1363-4d235b3f58af
+  schemas:
+    ConversionCancellation:
+      type: object
+      description: Cancelled Conversion
+      properties:
+        account_id:
+          type: string
+          description: UUID of the Account that the Conversion belongs to.
+        contact_id:
+          type: string
+          description: UUID of the Contact that performed the action that generated profit or loss.
+        event_account_id:
+          type: string
+          description: The account_id of the trade's account.
+        event_contact_id:
+          type: string
+          description: The contact_id of the trade's contact.
+        conversion_id:
+          type: string
+          description: UUID of the Conversion.
+        amount:
+          type: string
+          description: The amount of the profit or loss.
+        currency:
+          type: string
+          description: Three-letter ISO currency code for the currency the amount is shown in.
+        notes:
+          type: string
+          description: Additional information regarding the event.
+        event_type:
+          type: string
+          description: The type of event (e.g. cancellation).
+        event_date_time:
+          type: string
+          format: date-time
+          description: The date and time of the quote.
+      example:
+        account_id: 2090939e-b2f7-3f2b-1363-4d235b3f58af
         contact_id: 8a98ebac-6f88-e205-a685-4d235b1b088b
         event_account_id: 2090939e-b2f7-3f2b-1363-4d235b3f58af
         event_contact_id: 8a98ebac-6f88-e205-a685-4d235b1b088b
@@ -2354,18 +2210,303 @@ definitions:
         notes: Cancel the conversion due to personal issues
         event_type: self_service_cancellation
         event_date_time: '2023-11-10T12:18:56.000Z'
-      - account_id: 67e1b252-40a7-454d-a097-8f77d385889d
-        contact_id: 04d0c252-7b78-4d72-b408-df78841e3ddc
-        event_account_id: 67e1b252-40a7-454d-a097-8f77d385889d
-        event_contact_id: 04d0c252-7b78-4d72-b408-df78841e3ddc
-        conversion_id: 540c2ea3-9916-4efb-9cd9-0f8ce63a5c04
-        amount: '-0.83'
-        currency: USD
-        notes: Cancel due to very important reason
-        event_type: self_service_cancellation
-        event_date_time: '2023-11-10T12:18:56.000Z'
-      pagination:
-        total_entries: 2
+    CreateConversionError:
+      type: object
+      description: 'Client error information for the Create Conversion endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
+    ForbiddenError:
+      type: object
+      description: Permission error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents the reasons why the request was not permitted.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    ConversionCancellationQuote:
+      type: object
+      description: Projected cost to cancel a conversion.
+      properties:
+        amount:
+          type: string
+          description: The cost to cancel the conversion.
+        currency:
+          type: string
+          description: The currency of the cost to cancel the conversio - a three-letter ISO currency code.
+        event_date_time:
+          type: string
+          format: date-time
+          description: The date and time of the conversion cancellation quote.
+      example:
+        amount: 100
+        currency: GBP
+        event_date_time: '2023-07-14T17:03:11.000Z'
+    ConversionDateChange:
+      type: object
+      description: Conversion Date change record
+      properties:
+        conversion_id:
+          type: string
+          description: UUID of the Conversion.
+        amount:
+          type: string
+          description: The cost of changing the date of the conversion.
+        currency:
+          type: string
+          description: The currency of the cost to change the conversion date. A three-letter ISO currency code.
+        new_conversion_date:
+          type: string
+          description: The new date the conversion will be made.
+        new_settlement_date:
+          type: string
+          description: The new date and time by which funds need to be available to settle the trade.
+        old_conversion_date:
+          type: string
+          description: The previous date the conversion was to be made.
+        old_settlement_date:
+          type: string
+          description: The previous date and time by which funds needed to be available to settle the trade.
+        event_date_time:
+          type: string
+          description: The date and time of the date change or date change quote.
+    ConversionSplit:
+      type: object
+      properties:
+        parent_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The parent conversion.
+        child_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The child conversion.
+    ConversionSplitDetails:
+      properties:
+        id:
+          type: string
+          description: Conversion ID
+        short_reference:
+          type: string
+          description: A human readable unique trade indentifier, in the format YYYYMMDD-XXXXXX.
+        sell_currency:
+          type: string
+          description: Three character ISO code for currency sold.
+        buy_currency:
+          type: string
+          description: Three character ISO code for currency bought.
+        buy_amount:
+          type: string
+          description: The amount of the buy_currency being bought.
+        sell_amount:
+          type: string
+          description: The amount of the sell_currency being sold.
+        settlement_date:
+          type: string
+          format: date-time
+          description: The date and time by which funds need to be available to settle the trade.
+        conversion_date:
+          type: string
+          format: date-time
+          description: The date the conversion will be made.
+        status:
+          type: string
+          description: Status of the related trade.
+          enum:
+          - awaiting_authorisation
+          - awaiting_funds
+          - closed
+          - funds_arrived
+          - funds_being_processed
+          - funds_sent
+          - trade_settled
+          - trade_settling
+    ConversionProfitAndLoss:
+      type: object
+      description: Recognised profit / loss on a conversion.
+      properties:
+        conversion_profit_and_losses:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversionCancellation'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+      example:
+        conversion_profit_and_losses:
+        - account_id: 2090939e-b2f7-3f2b-1363-4d235b3f58af
+          contact_id: 8a98ebac-6f88-e205-a685-4d235b1b088b
+          event_account_id: 2090939e-b2f7-3f2b-1363-4d235b3f58af
+          event_contact_id: 8a98ebac-6f88-e205-a685-4d235b1b088b
+          conversion_id: 648945d7-1cff-4dae-a432-7d5501c77a8a
+          amount: '-0.28'
+          currency: GBP
+          notes: Cancel the conversion due to personal issues
+          event_type: self_service_cancellation
+          event_date_time: '2023-11-10T12:18:56.000Z'
+        - account_id: 67e1b252-40a7-454d-a097-8f77d385889d
+          contact_id: 04d0c252-7b78-4d72-b408-df78841e3ddc
+          event_account_id: 67e1b252-40a7-454d-a097-8f77d385889d
+          event_contact_id: 04d0c252-7b78-4d72-b408-df78841e3ddc
+          conversion_id: 540c2ea3-9916-4efb-9cd9-0f8ce63a5c04
+          amount: '-0.83'
+          currency: USD
+          notes: Cancel due to very important reason
+          event_type: self_service_cancellation
+          event_date_time: '2023-11-10T12:18:56.000Z'
+        pagination:
+          total_entries: 2
+          total_pages: 1
+          current_page: 1
+          per_page: 25
+          previous_page: -1
+          next_page: 2
+          order: created_at
+          order_asc_desc: asc
+    ConversionSplitHistory:
+      type: object
+      properties:
+        origin_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The original conversion (before split).
+        parent_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The parent conversion (after split).
+        child_conversions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The child conversion (after split).
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
         total_pages: 1
         current_page: 1
         per_page: 25
@@ -2373,200 +2514,292 @@ definitions:
         next_page: 2
         order: created_at
         order_asc_desc: asc
-  Conversion:
-    type: object
-    description: Conversion.
-    properties:
-      id:
-        type: string
-        description: Conversion UUID
-      account_id:
-        type: string
-        description: UUID of the Account that the Conversion belongs to.
-      creator_contact_id:
-        type: string
-        description: UUID of the Contact that requested the conversion.
-      short_reference:
-        type: string
-        description: A human readable unique trade indentifier, in the format YYYYMMDD-XXXXXX.
-      settlement_date:
-        type: string
-        description: The date and time by which funds need to be available to settle the trade.
-      conversion_date:
-        type: string
-        description: The date the conversion will be made.
-      status:
-        type: string
-        description: Current conversion status.
-        enum:
-        - awaiting_authorisation
-        - awaiting_funds
-        - closed
-        - funds_arrived
-        - funds_being_processed
-        - funds_sent
-        - trade_settled
-        - trade_settling
-      currency_pair:
-        description: Concatenated string of the two currencies traded, eg. "USDEUR".
-        type: string
-      buy_currency:
-        type: string
-        description: The three-character ISO code of the currency being purchased.
-      sell_currency:
-        type: string
-        description: Three character ISO code for the currency being sold.
-      fixed_side:
-        type: string
-        description: Which currency side is fixed -  the buy or sell one.
-        enum:
-        - buy
-        - sell
-      partner_buy_amount:
-        type: string
-        description: The amount of buy currency for a partner.
-      partner_sell_amount:
-        type: string
-        description: The amount of sell currency for a partner.
-      client_buy_amount:
-        type: string
-        description: The amount of buy currency for a client.
-      client_sell_amount:
-        type: string
-        description: The amount of sell currency for a client.
-      mid_market_rate:
-        type: string
-        description: The midpoint between the buy and sell rates.
-      core_rate:
-        type: string
-        description: The market rate.
-      partner_rate:
-        type: string
-        description: The market rate + Currencycloud commission (if applicable).
-      client_rate:
-        type: string
-        description: The rate that will be returned to your customer after all spread has been applied.
-      deposit_required:
-        type: boolean
-        description: Is a deposit required for the conversion?
-        enum:
-        - true
-        - false
-      deposit_amount:
-        type: string
-        description: The amount of a deposit required.
-      deposit_currency:
-        type: string
-        description: Three-letter ISO currency code for the currency the deposit is shown in.
-      deposit_status:
-        type: string
-        description: Deposit status
-        enum:
-        - awaiting_deposit
-        - deposit_received
-        - not_required
-      deposit_required_at:
-        type: string
-        description: Date by which deposit is required, format YYYY-MM-DDThh:mm:ss.SSSZ.
-      unallocated_funds:
-        type: string
-        description: The buy amount from the trade, that has not been allocated towards funding a payment.
-      payment_ids:
-        type: array
-        description: The id of payments linked with this conversion - these payments won’t be processed until the conversion settles.
-        items:
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
           type: string
-      unique_request_id:
-        description: User-generated idempotency key. Beneficial for request tracking / management.
-        type: string
-      created_at:
-        type: string
-        description: Date the conversion was created.
-      updated_at:
-        type: string
-        description: Date the conversion was last updated.
-    example:
-      id: c9b6b851-10f9-4bbf-881e-1d8a49adf7d8
-      account_id: 0386e472-8d2b-45a8-9c14-a393dce5bf3a
-      creator_contact_id: ac743762-5860-4b78-9c6a-82c5bca68867
-      short_reference: 20140507-VRTNFC
-      settlement_date: '2023-12-31T23:59:59.000Z'
-      conversion_date: '2023-12-31T23:59:59.000Z'
-      status: awaiting_funds
-      currency_pair: GBPUSD
-      buy_currency: GBP
-      sell_currency: USD
-      fixed_side: buy
-      partner_buy_amount: '1000.00'
-      partner_sell_amount: '1587.80'
-      client_buy_amount: '1000.00'
-      client_sell_amount: '1594.90'
-      mid_market_rate: '1.5868'
-      core_rate: '1.5871'
-      partner_rate: '1.5878'
-      client_rate: '1.5949'
-      deposit_required: true
-      deposit_amount: '47.85'
-      deposit_currency: GBP
-      deposit_status: awaiting_deposit
-      deposit_required_at: '2023-12-31T23:59:59.000Z'
-      unallocated_funds: '1000.00'
-      payment_ids:
-      - b934794f-d810-4b4a-b360-5a0f47b7126e
-      unique_request_id: 1234567890abc
-      created_at: '2023-12-31T23:59:59.000Z'
-      updated_at: '2023-12-31T23:59:59.000Z'
-  ConversionCancellationQuote:
-    type: object
-    description: Projected cost to cancel a conversion.
-    properties:
-      amount:
-        type: string
-        description: The cost to cancel the conversion.
-      currency:
-        type: string
-        description: The currency of the cost to cancel the conversio - a three-letter ISO currency code.
-      event_date_time:
-        type: string
-        format: date-time
-        description: The date and time of the conversion cancellation quote.
-    example:
-      amount: 100
-      currency: GBP
-      event_date_time: '2023-07-14T17:03:11.000Z'
-  Pagination:
-    type: object
-    description: Pagination.
-    properties:
-      total_entries:
-        type: integer
-      total_pages:
-        type: integer
-      current_page:
-        type: integer
-      per_page:
-        type: integer
-        description: Number of results per page.
-      previous_page:
-        type: integer
-      next_page:
-        type: integer
-      order:
-        type: string
-        description: The field name by which the results are sorted.
-      order_asc_desc:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
-        description: Whether results are sorted in ascending or descending order.
-    example:
-      total_entries: 1
-      total_pages: 1
-      current_page: 1
-      per_page: 25
-      previous_page: -1
-      next_page: 2
-      order: created_at
-      order_asc_desc: asc
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Conversion:
+      type: object
+      description: Conversion.
+      properties:
+        id:
+          type: string
+          description: Conversion UUID
+        account_id:
+          type: string
+          description: UUID of the Account that the Conversion belongs to.
+        creator_contact_id:
+          type: string
+          description: UUID of the Contact that requested the conversion.
+        short_reference:
+          type: string
+          description: A human readable unique trade indentifier, in the format YYYYMMDD-XXXXXX.
+        settlement_date:
+          type: string
+          description: The date and time by which funds need to be available to settle the trade.
+        conversion_date:
+          type: string
+          description: The date the conversion will be made.
+        status:
+          type: string
+          description: Current conversion status.
+          enum:
+          - awaiting_authorisation
+          - awaiting_funds
+          - closed
+          - funds_arrived
+          - funds_being_processed
+          - funds_sent
+          - trade_settled
+          - trade_settling
+        currency_pair:
+          description: Concatenated string of the two currencies traded, eg. "USDEUR".
+          type: string
+        buy_currency:
+          type: string
+          description: The three-character ISO code of the currency being purchased.
+        sell_currency:
+          type: string
+          description: Three character ISO code for the currency being sold.
+        fixed_side:
+          type: string
+          description: Which currency side is fixed -  the buy or sell one.
+          enum:
+          - buy
+          - sell
+        partner_buy_amount:
+          type: string
+          description: The amount of buy currency for a partner.
+        partner_sell_amount:
+          type: string
+          description: The amount of sell currency for a partner.
+        client_buy_amount:
+          type: string
+          description: The amount of buy currency for a client.
+        client_sell_amount:
+          type: string
+          description: The amount of sell currency for a client.
+        mid_market_rate:
+          type: string
+          description: The midpoint between the buy and sell rates.
+        core_rate:
+          type: string
+          description: The market rate.
+        partner_rate:
+          type: string
+          description: The market rate + Currencycloud commission (if applicable).
+        client_rate:
+          type: string
+          description: The rate that will be returned to your customer after all spread has been applied.
+        deposit_required:
+          type: boolean
+          description: Is a deposit required for the conversion?
+          enum:
+          - true
+          - false
+        deposit_amount:
+          type: string
+          description: The amount of a deposit required.
+        deposit_currency:
+          type: string
+          description: Three-letter ISO currency code for the currency the deposit is shown in.
+        deposit_status:
+          type: string
+          description: Deposit status
+          enum:
+          - awaiting_deposit
+          - deposit_received
+          - not_required
+        deposit_required_at:
+          type: string
+          description: Date by which deposit is required, format YYYY-MM-DDThh:mm:ss.SSSZ.
+        unallocated_funds:
+          type: string
+          description: The buy amount from the trade, that has not been allocated towards funding a payment.
+        payment_ids:
+          type: array
+          description: The id of payments linked with this conversion - these payments won’t be processed until the conversion settles.
+          items:
+            type: string
+        unique_request_id:
+          description: User-generated idempotency key. Beneficial for request tracking / management.
+          type: string
+        created_at:
+          type: string
+          description: Date the conversion was created.
+        updated_at:
+          type: string
+          description: Date the conversion was last updated.
+      example:
+        id: c9b6b851-10f9-4bbf-881e-1d8a49adf7d8
+        account_id: 0386e472-8d2b-45a8-9c14-a393dce5bf3a
+        creator_contact_id: ac743762-5860-4b78-9c6a-82c5bca68867
+        short_reference: 20140507-VRTNFC
+        settlement_date: '2023-12-31T23:59:59.000Z'
+        conversion_date: '2023-12-31T23:59:59.000Z'
+        status: awaiting_funds
+        currency_pair: GBPUSD
+        buy_currency: GBP
+        sell_currency: USD
+        fixed_side: buy
+        partner_buy_amount: '1000.00'
+        partner_sell_amount: '1587.80'
+        client_buy_amount: '1000.00'
+        client_sell_amount: '1594.90'
+        mid_market_rate: '1.5868'
+        core_rate: '1.5871'
+        partner_rate: '1.5878'
+        client_rate: '1.5949'
+        deposit_required: true
+        deposit_amount: '47.85'
+        deposit_currency: GBP
+        deposit_status: awaiting_deposit
+        deposit_required_at: '2023-12-31T23:59:59.000Z'
+        unallocated_funds: '1000.00'
+        payment_ids:
+        - b934794f-d810-4b4a-b360-5a0f47b7126e
+        unique_request_id: 1234567890abc
+        created_at: '2023-12-31T23:59:59.000Z'
+        updated_at: '2023-12-31T23:59:59.000Z'
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    FindConversionsError:
+      type: object
+      description: 'Client error information for the Find Conversions endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetConversionError:
+      type: object
+      description: 'Client error information for the Get Conversion endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+externalDocs:
+  description: API overview
+  url: https://www.currencycloud.com/developers/

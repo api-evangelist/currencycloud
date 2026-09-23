@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Business Information API
+  title: api-onboarding Business Information API
   version: v1
 servers:
 - url: /onboarding
@@ -44,6 +44,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1FormsByFormIdBusinessInformation
+      x-operation-id-source: derived
     put:
       summary: Update Business Information
       description: Updates the business information for the specified application form. Business information is only relevant to corporate applications.
@@ -92,6 +94,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/create_business_information_request'
+      operationId: putV1FormsByFormIdBusinessInformation
+      x-operation-id-source: derived
     delete:
       summary: Delete Business Information
       description: Deletes the business information for the specified form.
@@ -138,173 +142,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: deleteV1FormsByFormIdBusinessInformation
+      x-operation-id-source: derived
 components:
   schemas:
-    business_information:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique ID for the Business Information entity.
-        form_id:
-          type: string
-          description: Form UUID
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        business_country:
-          description: The country the business is registered in.
-          type: string
-        company_name:
-          description: The company name.
-          type: string
-        trading_name:
-          description: The company's trading name.
-          type: string
-          nullable: true
-        legal_entity_type:
-          description: Company's legal entity type e.g. "limited_liability_company"
-          type: string
-        sector:
-          description: The primary sector the company operates in.
-          type: string
-        company_registration_number:
-          description: An official number that identifies the company.
-          type: string
-          nullable: true
-        vat_number:
-          description: The company's VAT number or Tax ID  number.
-          type: string
-          nullable: true
-        incorporation_date:
-          description: The date the company was incorporated.
-          type: string
-          format: date
-        business_website:
-          description: The company's website URL or other online presence.
-          type: string
-          nullable: true
-        business_activity_description:
-          description: Description of the company's activities.
-          type: string
-        registered_address:
-          description: The company's registered address.
-          type: object
-          properties:
-            city:
-              type: string
-            street:
-              type: string
-            country:
-              type: string
-            postal_code:
-              type: string
-            apartment_number:
-              type: string
-              nullable: true
-            building_name:
-              type: string
-              nullable: true
-            building_number:
-              type: string
-              nullable: true
-            state_or_province:
-              type: string
-              nullable: true
-          required:
-          - city
-          - street
-          - country
-          - postal_code
-        trading_address:
-          type: object
-          properties:
-            city:
-              type: string
-            street:
-              type: string
-            country:
-              type: string
-            postal_code:
-              type: string
-            apartment_number:
-              type: string
-              nullable: true
-            building_name:
-              type: string
-              nullable: true
-            building_number:
-              type: string
-              nullable: true
-            state_or_province:
-              type: string
-              nullable: true
-          required:
-          - city
-          - street
-          - country
-          - postal_code
-        created_at:
-          type: string
-          format: date-time
-          description: Date the Business Information record was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: Date the Business Information record was last updated.
-      required:
-      - business_country
-      - company_name
-      - legal_entity_type
-      - sector
-      - incorporation_date
-      - business_activity_description
-      - registered_address
-      nullable: true
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-          nullable: true
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     create_business_information_request:
       type: object
       properties:
         document_ids:
           description: List of IDs for any uploaded supporting documents.
-          type: array
+          type:
+          - array
+          - 'null'
           items:
             type: string
-          nullable: true
         business_country:
           description: ISO country code for the country the business is registered in.
           type: string
@@ -802,8 +653,9 @@ components:
           type: string
         trading_name:
           description: The company's trading name.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         legal_entity_type:
           type: string
           description: Company's legal entity type.
@@ -912,25 +764,29 @@ components:
           - hedge_fund_or_family_office
           - mining_or_extractive_industries
         company_registration_number:
-          type: string
+          type:
+          - string
+          - 'null'
           description: An official number that identifies the company.
-          nullable: true
         vat_number:
           description: The company's VAT number or Tax ID  number.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         incorporation_date:
           description: The date the company was incorporated.
           type: string
           format: date
         business_website:
           description: The company's website URL or other online presence.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         business_activity_description:
           description: Description of the company's activities.
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
         registered_address_attributes:
           type: object
           properties:
@@ -943,23 +799,142 @@ components:
             postal_code:
               type: string
             apartment_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_name:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             state_or_province:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
           required:
           - city
           - street
           - country
           - postal_code
         trading_address_attributes:
+          type:
+          - object
+          - 'null'
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type:
+              - string
+              - 'null'
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            state_or_province:
+              type:
+              - string
+              - 'null'
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+      required:
+      - business_country
+      - company_name
+      - legal_entity_type
+      - sector
+      - incorporation_date
+      - registered_address_attributes
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    business_information:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: Unique ID for the Business Information entity.
+        form_id:
+          type: string
+          description: Form UUID
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        business_country:
+          description: The country the business is registered in.
+          type: string
+        company_name:
+          description: The company name.
+          type: string
+        trading_name:
+          description: The company's trading name.
+          type:
+          - string
+          - 'null'
+        legal_entity_type:
+          description: Company's legal entity type e.g. "limited_liability_company"
+          type: string
+        sector:
+          description: The primary sector the company operates in.
+          type: string
+        company_registration_number:
+          description: An official number that identifies the company.
+          type:
+          - string
+          - 'null'
+        vat_number:
+          description: The company's VAT number or Tax ID  number.
+          type:
+          - string
+          - 'null'
+        incorporation_date:
+          description: The date the company was incorporated.
+          type: string
+          format: date
+        business_website:
+          description: The company's website URL or other online presence.
+          type:
+          - string
+          - 'null'
+        business_activity_description:
+          description: Description of the company's activities.
+          type: string
+        registered_address:
+          description: The company's registered address.
           type: object
           properties:
             city:
@@ -971,30 +946,90 @@ components:
             postal_code:
               type: string
             apartment_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_name:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             building_number:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
             state_or_province:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
           required:
           - city
           - street
           - country
           - postal_code
-          nullable: true
+        trading_address:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type:
+              - string
+              - 'null'
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            state_or_province:
+              type:
+              - string
+              - 'null'
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+        created_at:
+          type: string
+          format: date-time
+          description: Date the Business Information record was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date the Business Information record was last updated.
       required:
       - business_country
       - company_name
       - legal_entity_type
       - sector
       - incorporation_date
-      - registered_address_attributes
+      - business_activity_description
+      - registered_address
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
   securitySchemes:
     AuthToken:
       type: apiKey

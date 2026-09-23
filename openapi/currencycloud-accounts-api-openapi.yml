@@ -1,15 +1,14 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Accounts API
-  version: v1
-  description: Create, search and update your Currencycloud account and any associated sub-accounts. Also provides you with the ability to use your own reference IDs for easy reconciliation with your internal systems.
+  description: The Currencycloud API is a robust, predictable, easy-to-use API for converting money between currencies and making payments around the world. Dynamically register sub-accounts to provide white labeled money transfer services to your own customers.
+  version: 2.43.0
+  title: Currencycloud Accounts API
+  termsOfService: https://www.currencycloud.com/terms-and-conditions/
+  contact:
+    name: support
+    email: support@currencycloud.com
 servers:
-- url: /onboarding
-  description: Relative URL
-- url: https://api.currencycloud.com/onboarding
-  description: Production server (uses live data)
-- url: https://devapi.currencycloud.com/onboarding
-  description: Dev server (uses test data)
+- url: https://devapi.currencycloud.com/v2
 tags:
 - name: Accounts
   description: Create, search and update your Currencycloud account and any associated sub-accounts. Also provides you with the ability to use your own reference IDs for easy reconciliation with your internal systems.
@@ -22,309 +21,26 @@ paths:
       summary: Create Account
       description: Creates a new sub-account. Returns the new account entity on success.
       operationId: CreateAccount
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: account_name
-        in: formData
-        required: true
-        type: string
-        description: Account name.
-        pattern: \S+
-        minLength: 1
-        maxLength: 150
-      - name: legal_entity_type
-        in: formData
-        required: true
-        type: string
-        enum:
-        - company
-        - individual
-        description: Legal entity.
-      - name: street
-        in: formData
-        required: true
-        type: string
-        description: First line of address.
-        maxLength: 150
-      - name: city
-        in: formData
-        required: true
-        type: string
-        description: City
-        maxLength: 100
-      - name: postal_code
-        in: formData
-        required: false
-        type: string
-        description: Postal code. Required for sub-accounts on our outsourced KYC model, also required where country code = "US", "CA" or "MX".
-        maxLength: 20
-      - name: country
-        in: formData
-        required: true
-        type: string
-        description: Two-letter ISO country code.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: brand
-        in: formData
-        required: false
-        type: string
-        description: The value of this field is used for white labeling the Currencycloud user interface. If nothing is specified then the account will inherit the house account's brand.
-        minLength: 1
-        maxLength: 255
-      - name: your_reference
-        in: formData
-        required: false
-        type: string
-        description: User-generated reference code.
-        minLength: 1
-        maxLength: 255
-      - name: status
-        in: formData
-        required: false
-        type: string
-        enum:
-        - disabled
-        - enabled
-        default: enabled
-        description: Account status.
-      - name: state_or_province
-        in: formData
-        required: false
-        type: string
-        description: State or province two-letter ISO 3166 code. Only applicable to some countries, required where country code = "US", "CA" or "MX".
-        maxLength: 100
-      - name: spread_table
-        in: formData
-        required: false
-        type: string
-        default: flat_0.00
-        description: The name of the spread table assigned to the account. This is needed if they intend to apply markup.
-        maxLength: 100
-      - name: api_trading
-        in: formData
-        required: false
-        type: boolean
-        description: Allow the account to make trades via the Currencycloud API.
-      - name: online_trading
-        in: formData
-        required: false
-        type: boolean
-        description: Allow the account to make trades via Currencycloud Direct.
-      - name: phone_trading
-        in: formData
-        required: false
-        type: boolean
-        description: Allow the account to make trades via phone.
-      - name: identification_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - none
-        - others
-        - asylum_registration_card
-        - citizenship_papers
-        - consular_id
-        - credential_de_elector
-        - drivers_license
-        - drivers_license_canadian
-        - employer_identification_number
-        - existing_credit_card_details
-        - green_card
-        - immigration_status_document
-        - indigenous_card
-        - international_driving_licence
-        - matricula_consular
-        - municipality_identity_card
-        - national_health_insurance_card
-        - national_id
-        - national_identity_card
-        - passport
-        - passport_card
-        - postal_identity_card
-        - private_operators_card
-        - professional_qualification_card
-        - proof_of_citizenship
-        - registro_federal_de_contribuyentes
-        - residence_permit
-        - residence_status_document
-        - service_id_card
-        - social_insurance_number
-        - social_security_card
-        - social_security_number
-        - tax_id
-        - visa
-        - voter_id
-        - work_permit
-        - incorporation_number
-        description: A legal document that verifies the identity of the account owner. Required for individual sub-accounts on our outsourced KYC model, optional otherwise.
-      - name: identification_value
-        in: formData
-        required: false
-        type: string
-        description: Unique reference code for the identification document, such as a passport number. Required if "identification_type" is provided.
-        minLength: 1
-        maxLength: 255
-      - name: terms_and_conditions_accepted
-        in: formData
-        required: false
-        type: boolean
-        description: Acceptance of the terms and conditions. Required for sub-accounts that are on our Outsourced KYC model, optional otherwise.
-      - name: industry_type
-        in: formData
-        required: false
-        maxLength: 255
-        type: string
-        description: The industry the account operates in. Required if "linked_account_id" is present. Required if extended compliance fields are present.
-      - name: business_website_url
-        in: formData
-        required: false
-        type: string
-        maxLength: 400
-        description: A fully qualified URL (including scheme) indicating a marketplace homepage, a link to a government page concerning the company or the literal string 'no_website_available'. Required if extended compliance fields are present.
-      - name: identification_expiration
-        in: formData
-        required: false
-        type: string
-        format: date
-        description: 'The expiration date for the identification information provided. Format YYYY-MM-DD. Part of extended compliance for "legal_entity_type: individual" accounts.'
-      - name: identification_issuer
-        in: formData
-        maxLength: 255
-        required: false
-        type: string
-        description: 'ISO country code indicating the issuer of the identification information provided. Part of extended compliance for "legal_entity_type: individual" accounts.'
-      - name: country_of_citizenship
-        in: formData
-        required: false
-        type: string
-        description: 'ISO country code indicating the citizenship of the individual the account belongs to. Provide the longest held citizenship for individuals with multiple. Part of extended compliance for "legal_entity_type: individual" accounts.'
-      - name: country_of_incorporation
-        in: formData
-        required: false
-        type: string
-        maxLength: 2
-        minLength: 2
-        description: 'Two-letter ISO country code indicating the country the company is incorpated in. Part of extended compliance for "legal_entity_type: company" accounts.'
-      - name: date_of_incorporation
-        in: formData
-        required: false
-        type: string
-        format: date
-        description: 'Date of the company''s incorporation. Part of extended compliance for "legal_entity_type: company" accounts.'
-      - name: legal_entity_sub_type
-        in: formData
-        required: false
-        type: string
-        description: 'The type of company this account represents. Part of extended compliance for "legal_entity_type: company" accounts.'
-        enum:
-        - sole_trader
-        - limited_liability_company
-        - public_limited_company
-        - limited_liability_partnership
-        - unincorporated_partnership
-        - unregistered_charity
-        - registered_charity
-        - trust
-        - company_with_nominee_shareholders_or_shares_in_bearer_form
-        - scottish_limited_partnership
-        - other
-      - name: trading_address_street
-        in: formData
-        required: false
-        type: string
-        maxLength: 150
-        description: 'The street portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
-      - name: trading_address_city
-        in: formData
-        required: false
-        type: string
-        description: 'The city portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
-      - name: trading_address_state
-        in: formData
-        required: false
-        type: string
-        maxLength: 100
-        description: 'The state portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
-      - name: trading_address_postalcode
-        in: formData
-        required: false
-        type: string
-        maxLength: 20
-        description: 'The postal code portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
-      - name: trading_address_country
-        in: formData
-        required: false
-        maxLength: 2
-        minLength: 2
-        type: string
-        description: 'Two-letter ISO country code representing the country portion of the company''s trading address. Part of extended compliance for accounts with "legal_entity_type: company".'
-      - name: tax_identification
-        in: formData
-        required: false
-        type: string
-        maxLength: 100
-        description: 'Tax identification number for the company. Part of extended compliance for accounts with "legal_entity_type: company". Required for companies based in "US" or "AU".'
-      - name: national_identification
-        in: formData
-        required: false
-        type: string
-        maxLength: 100
-        description: 'National identification (e.g SSN for U.S. individuals). Part of extended compliance for "legal_entity_type: individual" accounts. Required for "US" based companies.'
-      - name: customer_risk
-        in: formData
-        required: false
-        type: string
-        description: 'The risk classification for this account''s expected behaviour. Part of extended compliance for "legal_entity_type: individual | company" accounts.'
-        enum:
-        - LOW
-        - MEDIUM
-        - HIGH
-      - name: expected_monthly_activity_volume
-        in: formData
-        required: false
-        type: number
-        description: 'The expected number of money moving actions this account will conduct monthly. Part of extended compliance for "legal_entity_type: individual | company" accounts.'
-      - name: expected_monthly_activity_value
-        in: formData
-        required: false
-        type: number
-        description: 'The expected sum value of money moving actions this account will conduct monthly. The currency basis of the value is submitted as part of "expected_transaction_currencies". Part of extended compliance for "legal_entity_type: individual | company" accounts.'
-      - name: expected_transaction_currencies[]
-        in: formData
-        required: false
-        description: 'An array holding a single ISO currency code for the expected currency this account will mainly transact in. Part of extended compliance for "legal_entity_type: individual | company" accounts.'
-        type: array
-        items:
+        schema:
           type: string
-      - name: expected_transaction_countries[]
-        in: formData
-        required: false
-        type: array
-        description: Array of two-letter ISO-3166 country codes indicating the countries this account is expected to transact to and from.
-        items:
-          type: string
-          minLength: 2
-          maxLength: 2
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Account'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
         '400':
           description: Client error.
           x-errors:
@@ -440,12 +156,15 @@ paths:
             category: base
             message: Invalid extra parameters extra_parameter
             params: '{ "parameters" => "extra_parameter" }'
-          schema:
-            $ref: '#/definitions/CreateAccountError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateAccountError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -453,18 +172,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -472,12 +195,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -487,8 +213,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -498,14 +225,237 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                account_name:
+                  type: string
+                  maxLength: 150
+                  minLength: 1
+                  pattern: \S+
+                  description: Account name.
+                legal_entity_type:
+                  type: string
+                  enum:
+                  - company
+                  - individual
+                  description: Legal entity.
+                street:
+                  type: string
+                  maxLength: 150
+                  description: First line of address.
+                city:
+                  type: string
+                  maxLength: 100
+                  description: City
+                postal_code:
+                  type: string
+                  maxLength: 20
+                  description: Postal code. Required for sub-accounts on our outsourced KYC model, also required where country code = "US", "CA" or "MX".
+                country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter ISO country code.
+                brand:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: The value of this field is used for white labeling the Currencycloud user interface. If nothing is specified then the account will inherit the house account's brand.
+                your_reference:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: User-generated reference code.
+                status:
+                  type: string
+                  enum:
+                  - disabled
+                  - enabled
+                  default: enabled
+                  description: Account status.
+                state_or_province:
+                  type: string
+                  maxLength: 100
+                  description: State or province two-letter ISO 3166 code. Only applicable to some countries, required where country code = "US", "CA" or "MX".
+                spread_table:
+                  type: string
+                  default: flat_0.00
+                  maxLength: 100
+                  description: The name of the spread table assigned to the account. This is needed if they intend to apply markup.
+                api_trading:
+                  type: boolean
+                  description: Allow the account to make trades via the Currencycloud API.
+                online_trading:
+                  type: boolean
+                  description: Allow the account to make trades via Currencycloud Direct.
+                phone_trading:
+                  type: boolean
+                  description: Allow the account to make trades via phone.
+                identification_type:
+                  type: string
+                  enum:
+                  - none
+                  - others
+                  - asylum_registration_card
+                  - citizenship_papers
+                  - consular_id
+                  - credential_de_elector
+                  - drivers_license
+                  - drivers_license_canadian
+                  - employer_identification_number
+                  - existing_credit_card_details
+                  - green_card
+                  - immigration_status_document
+                  - indigenous_card
+                  - international_driving_licence
+                  - matricula_consular
+                  - municipality_identity_card
+                  - national_health_insurance_card
+                  - national_id
+                  - national_identity_card
+                  - passport
+                  - passport_card
+                  - postal_identity_card
+                  - private_operators_card
+                  - professional_qualification_card
+                  - proof_of_citizenship
+                  - registro_federal_de_contribuyentes
+                  - residence_permit
+                  - residence_status_document
+                  - service_id_card
+                  - social_insurance_number
+                  - social_security_card
+                  - social_security_number
+                  - tax_id
+                  - visa
+                  - voter_id
+                  - work_permit
+                  - incorporation_number
+                  description: A legal document that verifies the identity of the account owner. Required for individual sub-accounts on our outsourced KYC model, optional otherwise.
+                identification_value:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Unique reference code for the identification document, such as a passport number. Required if "identification_type" is provided.
+                terms_and_conditions_accepted:
+                  type: boolean
+                  description: Acceptance of the terms and conditions. Required for sub-accounts that are on our Outsourced KYC model, optional otherwise.
+                industry_type:
+                  type: string
+                  maxLength: 255
+                  description: The industry the account operates in. Required if "linked_account_id" is present. Required if extended compliance fields are present.
+                business_website_url:
+                  type: string
+                  maxLength: 400
+                  description: A fully qualified URL (including scheme) indicating a marketplace homepage, a link to a government page concerning the company or the literal string 'no_website_available'. Required if extended compliance fields are present.
+                identification_expiration:
+                  type: string
+                  format: date
+                  description: 'The expiration date for the identification information provided. Format YYYY-MM-DD. Part of extended compliance for "legal_entity_type: individual" accounts.'
+                identification_issuer:
+                  type: string
+                  maxLength: 255
+                  description: 'ISO country code indicating the issuer of the identification information provided. Part of extended compliance for "legal_entity_type: individual" accounts.'
+                country_of_citizenship:
+                  type: string
+                  description: 'ISO country code indicating the citizenship of the individual the account belongs to. Provide the longest held citizenship for individuals with multiple. Part of extended compliance for "legal_entity_type: individual" accounts.'
+                country_of_incorporation:
+                  type: string
+                  maxLength: 2
+                  minLength: 2
+                  description: 'Two-letter ISO country code indicating the country the company is incorpated in. Part of extended compliance for "legal_entity_type: company" accounts.'
+                date_of_incorporation:
+                  type: string
+                  format: date
+                  description: 'Date of the company''s incorporation. Part of extended compliance for "legal_entity_type: company" accounts.'
+                legal_entity_sub_type:
+                  type: string
+                  enum:
+                  - sole_trader
+                  - limited_liability_company
+                  - public_limited_company
+                  - limited_liability_partnership
+                  - unincorporated_partnership
+                  - unregistered_charity
+                  - registered_charity
+                  - trust
+                  - company_with_nominee_shareholders_or_shares_in_bearer_form
+                  - scottish_limited_partnership
+                  - other
+                  description: 'The type of company this account represents. Part of extended compliance for "legal_entity_type: company" accounts.'
+                trading_address_street:
+                  type: string
+                  maxLength: 150
+                  description: 'The street portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
+                trading_address_city:
+                  type: string
+                  description: 'The city portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
+                trading_address_state:
+                  type: string
+                  maxLength: 100
+                  description: 'The state portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
+                trading_address_postalcode:
+                  type: string
+                  maxLength: 20
+                  description: 'The postal code portion of the company''s trading address. Part of extended compliance for "legal_entity_type: company" accounts.'
+                trading_address_country:
+                  type: string
+                  maxLength: 2
+                  minLength: 2
+                  description: 'Two-letter ISO country code representing the country portion of the company''s trading address. Part of extended compliance for accounts with "legal_entity_type: company".'
+                tax_identification:
+                  type: string
+                  maxLength: 100
+                  description: 'Tax identification number for the company. Part of extended compliance for accounts with "legal_entity_type: company". Required for companies based in "US" or "AU".'
+                national_identification:
+                  type: string
+                  maxLength: 100
+                  description: 'National identification (e.g SSN for U.S. individuals). Part of extended compliance for "legal_entity_type: individual" accounts. Required for "US" based companies.'
+                customer_risk:
+                  type: string
+                  enum:
+                  - LOW
+                  - MEDIUM
+                  - HIGH
+                  description: 'The risk classification for this account''s expected behaviour. Part of extended compliance for "legal_entity_type: individual | company" accounts.'
+                expected_monthly_activity_volume:
+                  type: number
+                  description: 'The expected number of money moving actions this account will conduct monthly. Part of extended compliance for "legal_entity_type: individual | company" accounts.'
+                expected_monthly_activity_value:
+                  type: number
+                  description: 'The expected sum value of money moving actions this account will conduct monthly. The currency basis of the value is submitted as part of "expected_transaction_currencies". Part of extended compliance for "legal_entity_type: individual | company" accounts.'
+                expected_transaction_currencies[]:
+                  type: array
+                  items:
+                    type: string
+                  description: 'An array holding a single ISO currency code for the expected currency this account will mainly transact in. Part of extended compliance for "legal_entity_type: individual | company" accounts.'
+                expected_transaction_countries[]:
+                  type: array
+                  items:
+                    type: string
+                    minLength: 2
+                    maxLength: 2
+                  description: Array of two-letter ISO-3166 country codes indicating the countries this account is expected to transact to and from.
+              required:
+              - account_name
+              - legal_entity_type
+              - street
+              - city
+              - country
   /accounts/{id}:
     get:
       tags:
@@ -514,33 +464,37 @@ paths:
       summary: Get Account
       description: Gets an account or sub-account owned by the authenticated user.
       operationId: GetAccount
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
+        schema:
+          type: string
       - name: id
         in: path
         required: true
-        type: string
         description: Account UUID, returned by the create account endpoint.
+        schema:
+          type: string
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
+        schema:
+          type: string
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Account'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
         '400':
           description: Client error.
           x-errors:
@@ -560,12 +514,15 @@ paths:
             category: on_behalf_of
             message: Contact was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/GetAccountError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountError'
         '401':
           description: Unauthorized
           x-errors:
@@ -573,20 +530,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -594,12 +557,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -609,8 +575,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable.
           x-errors:
@@ -620,14 +587,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
     post:
       tags:
       - Accounts
@@ -635,194 +604,31 @@ paths:
       summary: Update Account
       description: Updates a sub-account owned by the authenticated user. The updated account entity is returned on success.
       operationId: UpdateAccount
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
+        schema:
+          type: string
       - name: id
         in: path
         required: true
-        type: string
         description: Account UUID, returned by the create account endpoint.
-      - name: account_name
-        in: formData
-        required: false
-        type: string
-        description: Account name.
-      - name: legal_entity_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - company
-        - individual
-        description: Legal entity.
-      - name: brand
-        in: formData
-        required: false
-        type: string
-        description: The value of this field is used for white labeling the Currencycloud user interface.
-      - name: your_reference
-        in: formData
-        required: false
-        type: string
-        description: User-generated reference code.
-      - name: status
-        in: formData
-        required: false
-        type: string
-        enum:
-        - disabled
-        - enabled
-        default: enabled
-        description: Status of the account.
-      - name: street
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-      - name: city
-        in: formData
-        required: false
-        type: string
-        description: City name
-      - name: state_or_province
-        in: formData
-        required: false
-        type: string
-        description: State or province two-letter ISO 3166 code. Only applicable to some countries.
-      - name: postal_code
-        in: formData
-        required: false
-        type: string
-        description: Postal code.
-      - name: country
-        in: formData
-        required: false
-        type: string
-        description: Two-letter ISO country code.
-      - name: spread_table
-        in: formData
-        required: false
-        type: string
-        default: fxcg_rfx_default
-        description: The name of the spread table assigned to the account.
-      - name: api_trading
-        in: formData
-        required: false
-        type: boolean
-        default: true
-        description: Whether trading via the Currencycloud API is to be enabled on the account.
-      - name: online_trading
-        in: formData
-        required: false
-        type: boolean
-        default: true
-        description: Enable online trading on the account.
-      - name: phone_trading
-        in: formData
-        required: false
-        default: true
-        type: boolean
-        description: Enable phone trading on the account.
-      - name: identification_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - none
-        - others
-        - asylum_registration_card
-        - citizenship_papers
-        - consular_id
-        - credential_de_elector
-        - drivers_license
-        - drivers_license_canadian
-        - employer_identification_number
-        - existing_credit_card_details
-        - green_card
-        - immigration_status_document
-        - indigenous_card
-        - international_driving_licence
-        - matricula_consular
-        - municipality_identity_card
-        - national_health_insurance_card
-        - national_id
-        - national_identity_card
-        - passport
-        - passport_card
-        - postal_identity_card
-        - private_operators_card
-        - professional_qualification_card
-        - proof_of_citizenship
-        - registro_federal_de_contribuyentes
-        - residence_permit
-        - residence_status_document
-        - service_id_card
-        - social_insurance_number
-        - social_security_card
-        - social_security_number
-        - tax_id
-        - visa
-        - voter_id
-        - work_permit
-        - incorporation_number
-        description: A legal document that verifies the identity of the account owner.
-      - name: identification_value
-        in: formData
-        required: false
-        type: string
-        description: A unique reference code for the identification document, such as a passport number.
-        maxLength: 255
-      - name: terms_and_conditions_accepted
-        in: formData
-        required: false
-        type: boolean
-        description: Acceptance of the terms and conditions.
-      - name: identification_expiration
-        in: formData
-        required: false
-        type: string
-        format: date
-        description: 'The expiration date for the identification information provided. Format YYYY-MM-DD. Part of extended compliance for "legal_entity_type: individual" accounts.'
-      - name: identification_issuer
-        in: formData
-        required: false
-        type: string
-        maxLength: 255
-        description: 'ISO country code indicating the issuer of the identification information provided. Part of extended compliance for "legal_entity_type: individual" accounts.'
-      - name: legal_entity_sub_type
-        in: formData
-        required: false
-        type: string
-        description: 'The type of company this account represents. Part of extended compliance for "legal_entity_type: company" accounts'
-        enum:
-        - sole_trader
-        - limited_liability_company
-        - public_limited_company
-        - limited_liability_partnership
-        - unincorporated_partnership
-        - unregistered_charity
-        - registered_charity
-        - trust
-        - company_with_nominee_shareholders_or_shares_in_bearer_form
-        - scottish_limited_partnership
-        - other
+        schema:
+          type: string
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Account'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
         '400':
           description: Client error.
           x-errors:
@@ -930,12 +736,15 @@ paths:
             category: country
             message: You cannot edit country. Please contact support for additional information
             params: ''
-          schema:
-            $ref: '#/definitions/UpdateAccountError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAccountError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -943,20 +752,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -964,12 +779,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -979,8 +797,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -990,14 +809,146 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                account_name:
+                  type: string
+                  description: Account name.
+                legal_entity_type:
+                  type: string
+                  enum:
+                  - company
+                  - individual
+                  description: Legal entity.
+                brand:
+                  type: string
+                  description: The value of this field is used for white labeling the Currencycloud user interface.
+                your_reference:
+                  type: string
+                  description: User-generated reference code.
+                status:
+                  type: string
+                  enum:
+                  - disabled
+                  - enabled
+                  default: enabled
+                  description: Status of the account.
+                street:
+                  type: string
+                  description: First line of address.
+                city:
+                  type: string
+                  description: City name
+                state_or_province:
+                  type: string
+                  description: State or province two-letter ISO 3166 code. Only applicable to some countries.
+                postal_code:
+                  type: string
+                  description: Postal code.
+                country:
+                  type: string
+                  description: Two-letter ISO country code.
+                spread_table:
+                  type: string
+                  default: fxcg_rfx_default
+                  description: The name of the spread table assigned to the account.
+                api_trading:
+                  type: boolean
+                  default: true
+                  description: Whether trading via the Currencycloud API is to be enabled on the account.
+                online_trading:
+                  type: boolean
+                  default: true
+                  description: Enable online trading on the account.
+                phone_trading:
+                  type: boolean
+                  default: true
+                  description: Enable phone trading on the account.
+                identification_type:
+                  type: string
+                  enum:
+                  - none
+                  - others
+                  - asylum_registration_card
+                  - citizenship_papers
+                  - consular_id
+                  - credential_de_elector
+                  - drivers_license
+                  - drivers_license_canadian
+                  - employer_identification_number
+                  - existing_credit_card_details
+                  - green_card
+                  - immigration_status_document
+                  - indigenous_card
+                  - international_driving_licence
+                  - matricula_consular
+                  - municipality_identity_card
+                  - national_health_insurance_card
+                  - national_id
+                  - national_identity_card
+                  - passport
+                  - passport_card
+                  - postal_identity_card
+                  - private_operators_card
+                  - professional_qualification_card
+                  - proof_of_citizenship
+                  - registro_federal_de_contribuyentes
+                  - residence_permit
+                  - residence_status_document
+                  - service_id_card
+                  - social_insurance_number
+                  - social_security_card
+                  - social_security_number
+                  - tax_id
+                  - visa
+                  - voter_id
+                  - work_permit
+                  - incorporation_number
+                  description: A legal document that verifies the identity of the account owner.
+                identification_value:
+                  type: string
+                  maxLength: 255
+                  description: A unique reference code for the identification document, such as a passport number.
+                terms_and_conditions_accepted:
+                  type: boolean
+                  description: Acceptance of the terms and conditions.
+                identification_expiration:
+                  type: string
+                  format: date
+                  description: 'The expiration date for the identification information provided. Format YYYY-MM-DD. Part of extended compliance for "legal_entity_type: individual" accounts.'
+                identification_issuer:
+                  type: string
+                  maxLength: 255
+                  description: 'ISO country code indicating the issuer of the identification information provided. Part of extended compliance for "legal_entity_type: individual" accounts.'
+                legal_entity_sub_type:
+                  type: string
+                  enum:
+                  - sole_trader
+                  - limited_liability_company
+                  - public_limited_company
+                  - limited_liability_partnership
+                  - unincorporated_partnership
+                  - unregistered_charity
+                  - registered_charity
+                  - trust
+                  - company_with_nominee_shareholders_or_shares_in_bearer_form
+                  - scottish_limited_partnership
+                  - other
+                  description: 'The type of company this account represents. Part of extended compliance for "legal_entity_type: company" accounts'
   /accounts/{id}/compliance_settings:
     get:
       tags:
@@ -1007,36 +958,40 @@ paths:
       summary: Get Account's Compliance Settings
       description: Gets the compliance settings for the account with the given ID.
       operationId: GetAccountComplianceSettings
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Account UUID, returned by the create account endpoint.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/AccountComplianceSettings'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountComplianceSettings'
         '400':
           description: Client error.
           x-errors:
@@ -1056,12 +1011,15 @@ paths:
             category: on_behalf_of
             message: Contact was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/GetAccountComplianceSettingsError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountComplianceSettingsError'
         '401':
           description: Unauthorized
           x-errors:
@@ -1069,20 +1027,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -1090,12 +1054,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1105,8 +1072,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable.
           x-errors:
@@ -1116,14 +1084,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
     post:
       tags:
       - Accounts
@@ -1132,143 +1102,32 @@ paths:
       summary: Update Account's Compliance Settings
       description: Update the compliance settings for a sub-account owned by the authenticating user. On success, returns the updated account entity.
       operationId: UpdateAccountComplianceSettings
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Account UUID.
-      - name: industry_type
-        in: formData
-        required: false
-        type: string
-        maxLength: 255
-        description: String describing the account's main industry. See merchant category codes for examples.
-      - name: country_of_incorporation
-        in: formData
-        required: false
-        type: string
-        maxLength: 2
-        minLength: 2
-        description: 'Two-letter ISO-3166 Country Code indicating the country the account is incorporated in. Should only be present for ''legal_entity_type: company'' accounts.'
-      - name: date_of_incorporation
-        in: formData
-        required: false
-        type: string
-        format: date
-        description: 'The date of the account''s incorporation. Should only be present for ''legal_entity_type: company'' accounts.'
-      - name: business_website_url
-        in: formData
-        required: false
-        type: string
-        maxLength: 400
-        description: A fully qualified URL (including scheme) indicating a marketplace homepage, a link to a government page concerning the company or the literal string 'no_website_available'.
-      - name: expected_transaction_countries[]
-        in: formData
-        required: false
-        type: array
-        description: Array of two-letter ISO-3166 country codes indicating the countries this account is expected to transact to and from.
-        items:
+        schema:
           type: string
-          minLength: 2
-          maxLength: 2
-      - name: expected_transaction_currencies[]
-        in: formData
-        required: false
-        type: array
-        description: Array of ISO-4217 currency codes that these accounts will transact with. Limited to a single item.
-        items:
-          type: string
-      - name: expected_monthly_activity_volume
-        in: formData
-        required: false
-        type: integer
-        format: int32
-        description: The number of transactions this account is expected to conduct.
-      - name: expected_monthly_activity_value
-        in: formData
-        required: false
-        type: number
-        format: float
-        description: The value of transactions this account is expected to conduct. The currency for this is the single item in 'expected_transaction_currencies'.
-      - name: tax_identification
-        in: formData
-        required: false
-        type: string
-        maxLength: 100
-        description: 'A tax identification value for companies in the United States or Australia; determined by ''accounts.country''. Should only be present for ''legal_entity_type: company'' accounts.'
-      - name: national_identification
-        in: formData
-        required: false
-        type: string
-        maxLength: 100
-        description: 'A national identification value for an individual in the United States; determined by ''accounts.country''. Should only be present for ''legal_entity_type: individual'' accounts.'
-      - name: country_of_citizenship
-        in: formData
-        required: false
-        type: string
-        maxLength: 2
-        minLength: 2
-        description: 'Two-letter ISO-3166 country code for an individual''s citizenship. Should only be provided for ''legal_entity_type: individual'' accounts.'
-      - name: trading_address_street
-        in: formData
-        required: false
-        type: string
-        maxLength: 150
-        description: 'The street address of the company''s trading location. Should only be provided for ''legal_entity_type: company'' accounts.'
-      - name: trading_address_city
-        in: formData
-        required: false
-        type: string
-        maxLength: 100
-        description: 'The city of the company''s trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      - name: trading_address_state
-        in: formData
-        required: false
-        maxLength: 100
-        type: string
-        description: 'The state of the company''s trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      - name: trading_address_postalcode
-        in: formData
-        required: false
-        type: string
-        maxLength: 20
-        description: 'The postal code of the company''s trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      - name: trading_address_country
-        in: formData
-        required: false
-        type: string
-        maxLength: 2
-        minLength: 2
-        description: 'Two-letter ISO-3166 country code representing the country portion of the company''s trading location. Should only be provided for ''legal_entity_type: company'' accounts.'
-      - name: customer_risk
-        in: formData
-        required: false
-        description: Risk classification for this account's expected behaviour, required for individuals and companies on the Correspondent or OKYC service model.
-        type: string
-        enum:
-        - LOW
-        - MEDIUM
-        - HIGH
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/AccountComplianceSettings'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountComplianceSettings'
         '400':
           description: Client error.
           x-errors:
@@ -1396,12 +1255,15 @@ paths:
             category: customer_risk
             message: customer_risk invalid value
             params: ''
-          schema:
-            $ref: '#/definitions/UpdateAccountComplianceSettingsError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateAccountComplianceSettingsError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1409,20 +1271,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -1430,12 +1298,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1445,8 +1316,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1456,14 +1328,100 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                industry_type:
+                  type: string
+                  maxLength: 255
+                  description: String describing the account's main industry. See merchant category codes for examples.
+                country_of_incorporation:
+                  type: string
+                  maxLength: 2
+                  minLength: 2
+                  description: 'Two-letter ISO-3166 Country Code indicating the country the account is incorporated in. Should only be present for ''legal_entity_type: company'' accounts.'
+                date_of_incorporation:
+                  type: string
+                  format: date
+                  description: 'The date of the account''s incorporation. Should only be present for ''legal_entity_type: company'' accounts.'
+                business_website_url:
+                  type: string
+                  maxLength: 400
+                  description: A fully qualified URL (including scheme) indicating a marketplace homepage, a link to a government page concerning the company or the literal string 'no_website_available'.
+                expected_transaction_countries[]:
+                  type: array
+                  items:
+                    type: string
+                    minLength: 2
+                    maxLength: 2
+                  description: Array of two-letter ISO-3166 country codes indicating the countries this account is expected to transact to and from.
+                expected_transaction_currencies[]:
+                  type: array
+                  items:
+                    type: string
+                  description: Array of ISO-4217 currency codes that these accounts will transact with. Limited to a single item.
+                expected_monthly_activity_volume:
+                  type: integer
+                  format: int32
+                  description: The number of transactions this account is expected to conduct.
+                expected_monthly_activity_value:
+                  type: number
+                  format: float
+                  description: The value of transactions this account is expected to conduct. The currency for this is the single item in 'expected_transaction_currencies'.
+                tax_identification:
+                  type: string
+                  maxLength: 100
+                  description: 'A tax identification value for companies in the United States or Australia; determined by ''accounts.country''. Should only be present for ''legal_entity_type: company'' accounts.'
+                national_identification:
+                  type: string
+                  maxLength: 100
+                  description: 'A national identification value for an individual in the United States; determined by ''accounts.country''. Should only be present for ''legal_entity_type: individual'' accounts.'
+                country_of_citizenship:
+                  type: string
+                  maxLength: 2
+                  minLength: 2
+                  description: 'Two-letter ISO-3166 country code for an individual''s citizenship. Should only be provided for ''legal_entity_type: individual'' accounts.'
+                trading_address_street:
+                  type: string
+                  maxLength: 150
+                  description: 'The street address of the company''s trading location. Should only be provided for ''legal_entity_type: company'' accounts.'
+                trading_address_city:
+                  type: string
+                  maxLength: 100
+                  description: 'The city of the company''s trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+                trading_address_state:
+                  type: string
+                  maxLength: 100
+                  description: 'The state of the company''s trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+                trading_address_postalcode:
+                  type: string
+                  maxLength: 20
+                  description: 'The postal code of the company''s trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+                trading_address_country:
+                  type: string
+                  maxLength: 2
+                  minLength: 2
+                  description: 'Two-letter ISO-3166 country code representing the country portion of the company''s trading location. Should only be provided for ''legal_entity_type: company'' accounts.'
+                customer_risk:
+                  type: string
+                  enum:
+                  - LOW
+                  - MEDIUM
+                  - HIGH
+                  description: Risk classification for this account's expected behaviour, required for individuals and companies on the Correspondent or OKYC service model.
   /accounts/current:
     get:
       tags:
@@ -1472,24 +1430,26 @@ paths:
       summary: Get Authenticating Account
       description: Gets the authenticated user's main account.
       operationId: GetAuthenticatingAccount
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
-        type: string
         required: true
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Account'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1497,18 +1457,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -1516,12 +1480,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1531,8 +1498,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1542,14 +1510,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /accounts/find:
     post:
       tags:
@@ -1558,135 +1528,33 @@ paths:
       summary: Find Accounts
       description: Returns account and any sub-accounts owned by the authenticated user. Optionally filter by account status and other criteria.
       operationId: FindAccountsPost
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: account_name
-        in: formData
-        required: false
-        type: string
-        description: Account name.
-        pattern: \S+
-        minLength: 1
-        maxLength: 150
-      - name: brand
-        in: formData
-        required: false
-        type: string
-        description: The value of this field is used for white labeling the Currencycloud user interface.
-        minLength: 1
-        maxLength: 255
-      - name: your_reference
-        in: formData
-        required: false
-        type: string
-        description: User-generated reference code.
-        minLength: 1
-        maxLength: 255
-      - name: status
-        in: formData
-        required: false
-        type: string
-        enum:
-        - disabled
-        - enabled
-        description: Account status.
-      - name: street
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-        maxLength: 150
-      - name: city
-        in: formData
-        required: false
-        type: string
-        description: City.
-        maxLength: 100
-      - name: state_or_province
-        in: formData
-        required: false
-        type: string
-        description: State or province two-letter ISO 3166 code. Only applicable to some countries.
-        maxLength: 100
-      - name: postal_code
-        in: formData
-        required: false
-        type: string
-        description: Postal code.
-        maxLength: 20
-      - name: country
-        in: formData
-        required: false
-        type: string
-        description: Two-letter country code.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: spread_table
-        in: formData
-        required: false
-        type: string
-        description: The name of the spread table assigned to the account.
-        maxLength: 100
-      - name: bank_account_verified
-        in: formData
-        required: false
-        type: string
-        enum:
-        - true
-        - false
-        - not required
-        description: Has the bank account been verified?
-      - name: page
-        in: formData
-        required: false
-        type: integer
-        description: Page number.
-        pattern: ^\d+$
-      - name: per_page
-        in: formData
-        required: false
-        type: integer
-        description: Number of results per page.
-        pattern: ^\d+$
-      - name: order
-        in: formData
-        required: false
-        type: string
-        description: Any field name to change the sort order.
-        minLength: 1
-        maxLength: 255
-      - name: order_asc_desc
-        in: formData
-        required: false
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
-        description: Sort records in ascending or descending order.
+        schema:
+          type: string
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            type: object
-            properties:
-              accounts:
-                type: array
-                items:
-                  $ref: '#/definitions/Account'
-              pagination:
-                $ref: '#/definitions/Pagination'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accounts:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Account'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
         '400':
           description: Client error.
           x-errors:
@@ -1750,12 +1618,15 @@ paths:
             category: bank_account_verified
             message: 'bank_account_verified should be in range: yes, no, not required'
             params: '{ "range" => "yes, no, not required" }'
-          schema:
-            $ref: '#/definitions/FindAccountsError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindAccountsError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1763,18 +1634,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -1782,12 +1657,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1797,8 +1675,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1808,14 +1687,96 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                account_name:
+                  type: string
+                  maxLength: 150
+                  minLength: 1
+                  pattern: \S+
+                  description: Account name.
+                brand:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: The value of this field is used for white labeling the Currencycloud user interface.
+                your_reference:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: User-generated reference code.
+                status:
+                  type: string
+                  enum:
+                  - disabled
+                  - enabled
+                  description: Account status.
+                street:
+                  type: string
+                  maxLength: 150
+                  description: First line of address.
+                city:
+                  type: string
+                  maxLength: 100
+                  description: City.
+                state_or_province:
+                  type: string
+                  maxLength: 100
+                  description: State or province two-letter ISO 3166 code. Only applicable to some countries.
+                postal_code:
+                  type: string
+                  maxLength: 20
+                  description: Postal code.
+                country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter country code.
+                spread_table:
+                  type: string
+                  maxLength: 100
+                  description: The name of the spread table assigned to the account.
+                bank_account_verified:
+                  type: string
+                  enum:
+                  - true
+                  - false
+                  - not required
+                  description: Has the bank account been verified?
+                page:
+                  type: integer
+                  pattern: ^\d+$
+                  description: Page number.
+                per_page:
+                  type: integer
+                  pattern: ^\d+$
+                  description: Number of results per page.
+                order:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Any field name to change the sort order.
+                order_asc_desc:
+                  type: string
+                  enum:
+                  - asc
+                  - desc
+                  default: asc
+                  description: Sort records in ascending or descending order.
   /accounts/{account_id}/payment_charges_settings:
     get:
       tags:
@@ -1824,35 +1785,38 @@ paths:
       summary: Get Payment Charges Settings
       description: Retrieves the Payment Charges Settings for the given account.
       operationId: GetAccountPaymentChargesSettings
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: account_id
         in: path
         required: true
-        type: string
         description: A UUID of a sub-account or house account visible to the authenticated user.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            type: object
-            properties:
-              payment_charges_settings:
-                type: array
-                items:
-                  $ref: '#/definitions/AccountPaymentChargesSetting'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  payment_charges_settings:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/AccountPaymentChargesSetting'
         '400':
           description: Client error.
           x-errors:
@@ -1864,12 +1828,15 @@ paths:
             category: account_id
             message: Account was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/GetAccountPaymentChargesSettingsError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountPaymentChargesSettingsError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1877,20 +1844,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -1898,12 +1871,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1913,8 +1889,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable.
           x-errors:
@@ -1924,14 +1901,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /accounts/{account_id}/payment_charges_settings/{charge_settings_id}:
     post:
       tags:
@@ -1940,46 +1919,40 @@ paths:
       summary: Manage Account Payment Charges Settings
       description: Manage a given account's Payment Charge Settings (enable, disable, set as default).
       operationId: ManageAccountPaymentChargesSettings
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: account_id
         in: path
         required: true
-        type: string
         description: Account UUID
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: charge_settings_id
         in: path
         required: true
-        type: string
         description: Account Payment Charges Setting UUID. Can be retrieved via appropriate GET call for the given Account UUID.
-        format: uuid
-      - name: enabled
-        in: formData
-        required: false
-        type: boolean
-        description: Enable or disable the given Account Payment Charges Setting.
-      - name: default
-        in: formData
-        required: false
-        type: boolean
-        description: Set the given Account Payment Charges Setting as default. This will be used when the 'charge_type' parameter is not specified for a payment.
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/AccountPaymentChargesSetting'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccountPaymentChargesSetting'
         '400':
           description: Client error.
           x-errors:
@@ -2023,12 +1996,15 @@ paths:
             category: invalid_value
             message: You cannot disable a default charge type. Please update the charge type not to be default and then disable it
             params: ''
-          schema:
-            $ref: '#/definitions/ManageAccountPaymentChargesSettingsError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManageAccountPaymentChargesSettingsError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -2036,20 +2012,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -2057,12 +2039,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -2072,8 +2057,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -2083,14 +2069,28 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                enabled:
+                  type: boolean
+                  description: Enable or disable the given Account Payment Charges Setting.
+                default:
+                  type: boolean
+                  description: Set the given Account Payment Charges Setting as default. This will be used when the 'charge_type' parameter is not specified for a payment.
   /terms_and_conditions/accept:
     post:
       tags:
@@ -2098,73 +2098,26 @@ paths:
       x-api-group: manage
       summary: Accept Terms of Use
       description: Endpoint for accounts using our Outsourced KYC model to accept Terms of Use.
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
-        type: string
         required: true
         description: Authentication token
-        minLength: 32
-      - name: type
-        in: formData
-        type: string
-        description: The type of Terms of Use the user is accepting.
-        required: true
-        enum:
-        - VGSI
-      - name: version
-        in: formData
-        type: string
-        description: The version of the Terms of Use the user is accepting.
-        required: true
-        enum:
-        - '1.0'
-      - name: reference_type
-        in: formData
-        type: string
-        description: The type of reference accepting the Terms of Use.
-        required: true
-        enum:
-        - ACCOUNT
-      - name: reference_id
-        in: formData
-        type: string
-        description: The account / sub-account UUID that the Terms of Use are being accepted for.
-        required: true
-        format: uuid
-      - name: first_name
-        in: formData
-        type: string
-        description: The first name of the user accepting the Terms of Use. Must be between 1 and 100 characters in length and not contain < or >.
-        required: true
-        minLength: 1
-        maxLength: 100
-      - name: last_name
-        in: formData
-        type: string
-        description: The last name of the user accepting the Terms of Use. Must be between 1 and 100 characters in length and not contain < or >.
-        required: true
-        minLength: 1
-        maxLength: 100
-      - name: email
-        in: formData
-        type: string
-        description: 'The email of the user accepting the Terms of Use. Length must be between 6 and 255 characters. <br> Regex:  /^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$/'
-        required: true
-        pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
-        minLength: 6
-        maxLength: 255
+        schema:
+          type: string
+          minLength: 32
       responses:
         200:
           description: Success.
-          schema:
-            $ref: '#/definitions/AcceptTermsResponse'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AcceptTermsResponse'
         400:
           description: Client error.
           x-errors:
@@ -2178,18 +2131,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         404:
           description: Contact ID or Terms of Use type not found
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         429:
           description: Too many requests.
           x-errors:
@@ -2197,12 +2154,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         500:
           description: Internal server error
           x-errors:
@@ -2212,8 +2172,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         503:
           description: Service is temporary unavailable.
           x-errors:
@@ -2223,750 +2184,801 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - VGSI
+                  description: The type of Terms of Use the user is accepting.
+                version:
+                  type: string
+                  enum:
+                  - '1.0'
+                  description: The version of the Terms of Use the user is accepting.
+                reference_type:
+                  type: string
+                  enum:
+                  - ACCOUNT
+                  description: The type of reference accepting the Terms of Use.
+                reference_id:
+                  type: string
+                  format: uuid
+                  description: The account / sub-account UUID that the Terms of Use are being accepted for.
+                first_name:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  description: The first name of the user accepting the Terms of Use. Must be between 1 and 100 characters in length and not contain < or >.
+                last_name:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  description: The last name of the user accepting the Terms of Use. Must be between 1 and 100 characters in length and not contain < or >.
+                email:
+                  type: string
+                  maxLength: 255
+                  minLength: 6
+                  pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
+                  description: 'The email of the user accepting the Terms of Use. Length must be between 6 and 255 characters. <br> Regex:  /^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$/'
+              required:
+              - type
+              - version
+              - reference_type
+              - reference_id
+              - first_name
+              - last_name
+              - email
+      operationId: postTermsAndConditionsAccept
+      x-operation-id-source: derived
 components:
-  securitySchemes:
-    AuthToken:
-      type: apiKey
-      in: header
-      name: X-Auth-Token
-definitions:
-  Account:
-    type: object
-    description: Account.
-    properties:
-      id:
-        type: string
-        description: Account ID
-      account_name:
-        type: string
-        description: Account name
-      brand:
-        type: string
-        description: The value of this field is used for white labeling the Currencycloud user interface.
-      your_reference:
-        type: string
-        description: User-generated reference code.
-      status:
-        type: string
-        enum:
-        - disabled
-        - enabled
-        description: Account status
-      street:
-        type: string
-        description: First line of address.
-      city:
-        type: string
-        description: City
-      state_or_province:
-        type: string
-        description: State or province two-letter ISO 3166 code. Only applicable to some countries.
-      country:
-        type: string
-        description: Two-letter ISO country code.
-      postal_code:
-        type: string
-        description: Postal code
-      spread_table:
-        type: string
-        description: The name of the spread table assigned to the account.
-      legal_entity_type:
-        type: string
-        description: The type of entity - individual or company.
-      legal_entity_sub_type:
-        type: string
-        enum:
-        - sole_trader
-        - limited_liability_company
-        - public_limited_company
-        - limited_liability_partnership
-        - unincorporated_partnership
-        - unregistered_charity
-        - registered_charity
-        - trust
-        - company_with_nominee_shareholders_or_shares_in_bearer_form
-        - scottish_limited_partnership
-        - other
-      created_at:
-        type: string
-        description: The date/time the account was created.
-        format: date-time
-      updated_at:
-        type: string
-        description: The date/time the account was last updated.
-        format: date-time
-      identification_type:
-        type: string
-        description: The legal document that verifies the identity of the account owner, e.g. passport.
-        enum:
-        - citizenship_papers
-        - credential_de_elector
-        - drivers_license
-        - drivers_license_canadian
-        - employer_identification_number
-        - existing_credit_card_details
-        - green_card
-        - incorporation_number
-        - matricula_consular
-        - national_id
-        - none
-        - others
-        - passport
-        - registro_federal_de_contribuyentes
-        - social_insurance_number
-        - social_security_number
-        - visa
-      identification_value:
-        type: string
-        description: The unique reference code for the identification document, e.g. passport number.
-      identification_issuer:
-        type: string
-        description: ISO-3116 country code for the issuer of the identification document
-      identification_expiration:
-        type: string
-        format: date
-        description: Date of expiration for the identification document
-      short_reference:
-        description: The account's reference number.
-        type: string
-      api_trading:
-        description: Is trading via the Currencycloud API enabled?
-        type: boolean
-      online_trading:
-        description: Is trading via Currencycloud Direct enabled?
-        type: boolean
-      phone_trading:
-        description: Is trading via phone enabled?
-        type: boolean
-      process_third_party_funds:
-        description: Is the account enabled for third party funds?
-        type: boolean
-      settlement_type:
-        description: The settlement type - bulk or net.
-        enum:
-        - bulk
-        - net
-        type: string
-      terms_and_conditions_accepted:
-        description: Have the terms and conditions been accepted?
-        type: boolean
-      agent_or_reliance:
-        description: True for clients using Currencycloud’s regulatory coverage, false otherwise.
-        type: boolean
-      bank_account_verified:
-        description: Has the bank account been verified?
-        type: string
-        enum:
-        - true
-        - false
-        - not required
-    example:
-      id: B7DE235A-FF5D-4252-83C2-06A605267FEA
-      account_name: Company PLC
-      brand: currencycloud
-      your_reference: 0012345564ABC
-      status: enabled
-      street: 1 London Road
-      city: London
-      state_or_province: ''
-      country: GB
-      postal_code: AB12 CD1
-      spread_table: flat_0.5_percent
-      legal_entity_type: company
-      legal_entity_sub_type: limited_liability_company
-      created_at: '2023-12-31T23:59:59.000Z'
-      updated_at: '2023-12-31T23:59:59.000Z'
-      identification_type: green_card
-      identification_value: 123456789
-      identification_issuer: US
-      identification_expiration: '2020-12-31'
-      short_reference: 110104-00004
-      api_trading: true
-      online_trading: true
-      phone_trading: true
-      process_third_party_funds: false
-      settlement_type: bulk
-      terms_and_conditions_accepted: true
-      agent_or_reliance: true
-      bank_account_verified: false
-  ManageAccountPaymentChargesSettingsError:
-    type: object
-    description: 'Client error information for the Manage Account Payment Charges Settings endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  CreateAccountError:
-    type: object
-    description: 'Client error information for the Create Account endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  RateLimitError:
-    type: object
-    description: Too many requests.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this validation/error.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  UnauthorizedError:
-    type: object
-    description: Authorization error.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-        enum:
-        - auth_failed
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-    example:
-      error_code: auth_failed
-      error_messages:
-        api_key:
-        - code: invalid_supplied_credentials
-          message: Authentication failed with the supplied credentials
-          params: {}
-  AcceptTermsResponse:
-    type: object
-    description: Accept Terms of Use response.
-    properties:
-      acceptance_id:
-        type: string
-        description: The ID of the acceptance.
-      accepted_at:
-        type: string
-        format: date-time
-        description: The date and time that the Terms of Use were accepted.
-  GetAccountError:
-    type: object
-    description: 'Client error information for the Get Account endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  NotFoundError:
-    type: object
-    description: Resource not found.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  GetAccountPaymentChargesSettingsError:
-    type: object
-    description: 'Client error information for the Get Account Payment Charges Settings endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  AccountPaymentChargesSetting:
-    type: object
-    description: Account Payment Charges Setting.
-    properties:
-      charge_settings_id:
-        description: Unique ID
-        type: string
-      account_id:
-        description: Account ID
-        type: string
-      charge_type:
-        description: The charge type - shared or ours.
-        enum:
-        - ours
-        - shared
-        type: string
-      enabled:
-        description: Is this charge type enabled for this account?
-        type: boolean
-      default:
-        description: Is this the default charge type for this account?
-        type: boolean
-    example:
-      charge_settings_id: 2b7db581-a810-0132-a8c2-10b11cb33cfc
-      account_id: 2b6db571-a810-0144-a9b2-10a22cb33cf9
-      charge_type: shared
-      enabled: true
-      default: true
-  UpdateAccountComplianceSettingsError:
-    type: object
-    description: 'Client error information for the Get Compliance Settings endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  FindAccountsError:
-    type: object
-    description: 'Client error information for the Find Accounts endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  GetAccountComplianceSettingsError:
-    type: object
-    description: 'Client error information for the Get Compliance Settings endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  UpdateAccountError:
-    type: object
-    description: 'Client error information for the Update Account endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  AccountComplianceSettings:
-    type: object
-    description: Account compliance settings.
-    properties:
-      account_id:
-        type: string
-        description: Account UUID.
-      industry_type:
-        type: string
-        description: String describing the accounts main industry. See merchant category codes for examples
-      country_of_incorporation:
-        type: string
-        description: 'Two-letter ISO-3166 Country Code indicating the country the account is incorporated in. Should only be present for ''legal_entity_type: company'' accounts'
-      date_of_incorporation:
-        type: string
-        format: date
-        description: 'The date of the accounts incorporation. Should only be present for ''legal_entity_type: company'' accounts'
-      business_website_url:
-        type: string
-        description: A fully qualified URL (including scheme) indicating a marketplace homepage, a link to a government page concerning the company or the literal string 'no_website_available'.
-      expected_transaction_countries:
-        type: array
-        description: Array of ISO-3166 country codes that these accounts will transact to/from.
-        items:
+  schemas:
+    AccountComplianceSettings:
+      type: object
+      description: Account compliance settings.
+      properties:
+        account_id:
           type: string
-      expected_transaction_currencies:
-        type: array
-        description: Array of ISO-4217 currency codes that these accounts will transact with. Limited to a single item.
-        items:
+          description: Account UUID.
+        industry_type:
           type: string
-      expected_monthly_activity_volume:
-        type: integer
-        description: The number of transactions this account is expected to conduct.
-      expected_monthly_activity_value:
-        type: number
-        description: The value of transactions this account is expected to conduct. The currency for this is the single item in 'expected_transaction_currencies'.
-      tax_identification:
-        type: string
-        description: 'A tax identification value for companies in the United States or Australia; determined by ''accounts.country''. Should only be present for ''legal_entity_type: company'' accounts.'
-      national_identification:
-        type: string
-        description: 'A National identification value for an individual in the United States; determined by ''accounts.country''. Should only be present for ''legal_entity_type: individual'' accounts.'
-      country_of_citizenship:
-        type: string
-        description: 'An ISO-3166 country code for an individuals citizenship. Should only be present for ''legal_entity_type: individual'' accounts.'
-      trading_address_street:
-        type: string
-        description: 'The street address of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      trading_address_city:
-        type: string
-        description: 'The city of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      trading_address_state:
-        type: string
-        description: 'The state of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      trading_address_postalcode:
-        type: string
-        description: 'The postal code of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      trading_address_country:
-        type: string
-        description: 'The ISO-3166 country code of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
-      customer_risk:
-        description: The risk classification for this account's behaviour.
-        type: string
-        enum:
-        - LOW
-        - MEDIUM
-        - HIGH
-    example:
-      account_id: B7DE235A-FF5D-4252-83C2-06A605267FEA
-      industry_type: Telecom Services
-      country_of_incorporation: US
-      date_of_incorporation: 2020-01-30
-      business_website_url: https://currencycloud.com
-      expected_transaction_countries:
-      - US
-      - GB
-      expected_transaction_currencies:
-      - USD
-      expected_monthly_activity_volume: 10
-      expected_monthly_activity_value: 30.0
-      tax_identification: some-tax-id
-      national_identification: some-national-id
-      country_of_citizenship: US
-      trading_address_street: some-street
-      trading_address_city: some-city
-      trading_address_state: NY
-      trading_address_postalcode: 90210
-      trading_address_country: US
-      customer_risk: LOW
-  Pagination:
-    type: object
-    description: Pagination.
-    properties:
-      total_entries:
-        type: integer
-      total_pages:
-        type: integer
-      current_page:
-        type: integer
-      per_page:
-        type: integer
-        description: Number of results per page.
-      previous_page:
-        type: integer
-      next_page:
-        type: integer
-      order:
-        type: string
-        description: The field name by which the results are sorted.
-      order_asc_desc:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
-        description: Whether results are sorted in ascending or descending order.
-    example:
-      total_entries: 1
-      total_pages: 1
-      current_page: 1
-      per_page: 25
-      previous_page: -1
-      next_page: 2
-      order: created_at
-      order_asc_desc: asc
+          description: String describing the accounts main industry. See merchant category codes for examples
+        country_of_incorporation:
+          type: string
+          description: 'Two-letter ISO-3166 Country Code indicating the country the account is incorporated in. Should only be present for ''legal_entity_type: company'' accounts'
+        date_of_incorporation:
+          type: string
+          format: date
+          description: 'The date of the accounts incorporation. Should only be present for ''legal_entity_type: company'' accounts'
+        business_website_url:
+          type: string
+          description: A fully qualified URL (including scheme) indicating a marketplace homepage, a link to a government page concerning the company or the literal string 'no_website_available'.
+        expected_transaction_countries:
+          type: array
+          description: Array of ISO-3166 country codes that these accounts will transact to/from.
+          items:
+            type: string
+        expected_transaction_currencies:
+          type: array
+          description: Array of ISO-4217 currency codes that these accounts will transact with. Limited to a single item.
+          items:
+            type: string
+        expected_monthly_activity_volume:
+          type: integer
+          description: The number of transactions this account is expected to conduct.
+        expected_monthly_activity_value:
+          type: number
+          description: The value of transactions this account is expected to conduct. The currency for this is the single item in 'expected_transaction_currencies'.
+        tax_identification:
+          type: string
+          description: 'A tax identification value for companies in the United States or Australia; determined by ''accounts.country''. Should only be present for ''legal_entity_type: company'' accounts.'
+        national_identification:
+          type: string
+          description: 'A National identification value for an individual in the United States; determined by ''accounts.country''. Should only be present for ''legal_entity_type: individual'' accounts.'
+        country_of_citizenship:
+          type: string
+          description: 'An ISO-3166 country code for an individuals citizenship. Should only be present for ''legal_entity_type: individual'' accounts.'
+        trading_address_street:
+          type: string
+          description: 'The street address of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+        trading_address_city:
+          type: string
+          description: 'The city of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+        trading_address_state:
+          type: string
+          description: 'The state of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+        trading_address_postalcode:
+          type: string
+          description: 'The postal code of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+        trading_address_country:
+          type: string
+          description: 'The ISO-3166 country code of the companies trading location. Should only be present for ''legal_entity_type: company'' accounts.'
+        customer_risk:
+          description: The risk classification for this account's behaviour.
+          type: string
+          enum:
+          - LOW
+          - MEDIUM
+          - HIGH
+      example:
+        account_id: B7DE235A-FF5D-4252-83C2-06A605267FEA
+        industry_type: Telecom Services
+        country_of_incorporation: US
+        date_of_incorporation: 2020-01-30
+        business_website_url: https://currencycloud.com
+        expected_transaction_countries:
+        - US
+        - GB
+        expected_transaction_currencies:
+        - USD
+        expected_monthly_activity_volume: 10
+        expected_monthly_activity_value: 30.0
+        tax_identification: some-tax-id
+        national_identification: some-national-id
+        country_of_citizenship: US
+        trading_address_street: some-street
+        trading_address_city: some-city
+        trading_address_state: NY
+        trading_address_postalcode: 90210
+        trading_address_country: US
+        customer_risk: LOW
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
+    GetAccountPaymentChargesSettingsError:
+      type: object
+      description: 'Client error information for the Get Account Payment Charges Settings endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    ManageAccountPaymentChargesSettingsError:
+      type: object
+      description: 'Client error information for the Manage Account Payment Charges Settings endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    UpdateAccountError:
+      type: object
+      description: 'Client error information for the Update Account endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetAccountError:
+      type: object
+      description: 'Client error information for the Get Account endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetAccountComplianceSettingsError:
+      type: object
+      description: 'Client error information for the Get Compliance Settings endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    UpdateAccountComplianceSettingsError:
+      type: object
+      description: 'Client error information for the Get Compliance Settings endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    AccountPaymentChargesSetting:
+      type: object
+      description: Account Payment Charges Setting.
+      properties:
+        charge_settings_id:
+          description: Unique ID
+          type: string
+        account_id:
+          description: Account ID
+          type: string
+        charge_type:
+          description: The charge type - shared or ours.
+          enum:
+          - ours
+          - shared
+          type: string
+        enabled:
+          description: Is this charge type enabled for this account?
+          type: boolean
+        default:
+          description: Is this the default charge type for this account?
+          type: boolean
+      example:
+        charge_settings_id: 2b7db581-a810-0132-a8c2-10b11cb33cfc
+        account_id: 2b6db571-a810-0144-a9b2-10a22cb33cf9
+        charge_type: shared
+        enabled: true
+        default: true
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    FindAccountsError:
+      type: object
+      description: 'Client error information for the Find Accounts endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Account:
+      type: object
+      description: Account.
+      properties:
+        id:
+          type: string
+          description: Account ID
+        account_name:
+          type: string
+          description: Account name
+        brand:
+          type: string
+          description: The value of this field is used for white labeling the Currencycloud user interface.
+        your_reference:
+          type: string
+          description: User-generated reference code.
+        status:
+          type: string
+          enum:
+          - disabled
+          - enabled
+          description: Account status
+        street:
+          type: string
+          description: First line of address.
+        city:
+          type: string
+          description: City
+        state_or_province:
+          type: string
+          description: State or province two-letter ISO 3166 code. Only applicable to some countries.
+        country:
+          type: string
+          description: Two-letter ISO country code.
+        postal_code:
+          type: string
+          description: Postal code
+        spread_table:
+          type: string
+          description: The name of the spread table assigned to the account.
+        legal_entity_type:
+          type: string
+          description: The type of entity - individual or company.
+        legal_entity_sub_type:
+          type: string
+          enum:
+          - sole_trader
+          - limited_liability_company
+          - public_limited_company
+          - limited_liability_partnership
+          - unincorporated_partnership
+          - unregistered_charity
+          - registered_charity
+          - trust
+          - company_with_nominee_shareholders_or_shares_in_bearer_form
+          - scottish_limited_partnership
+          - other
+        created_at:
+          type: string
+          description: The date/time the account was created.
+          format: date-time
+        updated_at:
+          type: string
+          description: The date/time the account was last updated.
+          format: date-time
+        identification_type:
+          type: string
+          description: The legal document that verifies the identity of the account owner, e.g. passport.
+          enum:
+          - citizenship_papers
+          - credential_de_elector
+          - drivers_license
+          - drivers_license_canadian
+          - employer_identification_number
+          - existing_credit_card_details
+          - green_card
+          - incorporation_number
+          - matricula_consular
+          - national_id
+          - none
+          - others
+          - passport
+          - registro_federal_de_contribuyentes
+          - social_insurance_number
+          - social_security_number
+          - visa
+        identification_value:
+          type: string
+          description: The unique reference code for the identification document, e.g. passport number.
+        identification_issuer:
+          type: string
+          description: ISO-3116 country code for the issuer of the identification document
+        identification_expiration:
+          type: string
+          format: date
+          description: Date of expiration for the identification document
+        short_reference:
+          description: The account's reference number.
+          type: string
+        api_trading:
+          description: Is trading via the Currencycloud API enabled?
+          type: boolean
+        online_trading:
+          description: Is trading via Currencycloud Direct enabled?
+          type: boolean
+        phone_trading:
+          description: Is trading via phone enabled?
+          type: boolean
+        process_third_party_funds:
+          description: Is the account enabled for third party funds?
+          type: boolean
+        settlement_type:
+          description: The settlement type - bulk or net.
+          enum:
+          - bulk
+          - net
+          type: string
+        terms_and_conditions_accepted:
+          description: Have the terms and conditions been accepted?
+          type: boolean
+        agent_or_reliance:
+          description: True for clients using Currencycloud’s regulatory coverage, false otherwise.
+          type: boolean
+        bank_account_verified:
+          description: Has the bank account been verified?
+          type: string
+          enum:
+          - true
+          - false
+          - not required
+      example:
+        id: B7DE235A-FF5D-4252-83C2-06A605267FEA
+        account_name: Company PLC
+        brand: currencycloud
+        your_reference: 0012345564ABC
+        status: enabled
+        street: 1 London Road
+        city: London
+        state_or_province: ''
+        country: GB
+        postal_code: AB12 CD1
+        spread_table: flat_0.5_percent
+        legal_entity_type: company
+        legal_entity_sub_type: limited_liability_company
+        created_at: '2023-12-31T23:59:59.000Z'
+        updated_at: '2023-12-31T23:59:59.000Z'
+        identification_type: green_card
+        identification_value: 123456789
+        identification_issuer: US
+        identification_expiration: '2020-12-31'
+        short_reference: 110104-00004
+        api_trading: true
+        online_trading: true
+        phone_trading: true
+        process_third_party_funds: false
+        settlement_type: bulk
+        terms_and_conditions_accepted: true
+        agent_or_reliance: true
+        bank_account_verified: false
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    AcceptTermsResponse:
+      type: object
+      description: Accept Terms of Use response.
+      properties:
+        acceptance_id:
+          type: string
+          description: The ID of the acceptance.
+        accepted_at:
+          type: string
+          format: date-time
+          description: The date and time that the Terms of Use were accepted.
+    CreateAccountError:
+      type: object
+      description: 'Client error information for the Create Account endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+externalDocs:
+  description: API overview
+  url: https://www.currencycloud.com/developers/

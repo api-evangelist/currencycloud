@@ -1,15 +1,14 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Balances API
-  version: v1
-  description: Provides access to view balance information. View the balances that you currently hold in different currencies on your Currencycloud account.
+  description: The Currencycloud API is a robust, predictable, easy-to-use API for converting money between currencies and making payments around the world. Dynamically register sub-accounts to provide white labeled money transfer services to your own customers.
+  version: 2.43.0
+  title: Currencycloud Balances API
+  termsOfService: https://www.currencycloud.com/terms-and-conditions/
+  contact:
+    name: support
+    email: support@currencycloud.com
 servers:
-- url: /onboarding
-  description: Relative URL
-- url: https://api.currencycloud.com/onboarding
-  description: Production server (uses live data)
-- url: https://devapi.currencycloud.com/onboarding
-  description: Dev server (uses test data)
+- url: https://devapi.currencycloud.com/v2
 tags:
 - name: Balances
   description: Provides access to view balance information. View the balances that you currently hold in different currencies on your Currencycloud account.
@@ -22,37 +21,41 @@ paths:
       summary: Get Balance
       description: Gets the balance for a currency from the account of the authenticated user.
       operationId: GetBalance
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: currency
         in: path
         required: true
-        type: string
         description: Three-letter ISO currency code.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
+        schema:
+          type: string
+          format: iso-4217
+          pattern: ^[A-Z]{3}$
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Balance'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Balance'
         '400':
           description: Client error.
           x-errors:
@@ -80,12 +83,15 @@ paths:
             category: currency
             message: Unsupported currency XYZ
             params: '{ "currency": "UAH" }'
-          schema:
-            $ref: '#/definitions/GetBalanceError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBalanceError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -93,20 +99,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -114,12 +126,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -129,8 +144,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -140,14 +156,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /balances/find:
     get:
       tags:
@@ -156,99 +174,110 @@ paths:
       summary: Find Balances
       description: Searches for currency balances in the main account or a sub-account owned by the authenticated user.
       operationId: FindBalances
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: amount_from
         in: query
         required: false
-        type: number
         description: Minimum balance amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: number
+          pattern: ^\d+(\.\d{1,3})?$
       - name: amount_to
         in: query
         required: false
-        type: number
         description: Maximum balance amount.
-        pattern: ^\d+(\.\d{1,3})?$
+        schema:
+          type: number
+          pattern: ^\d+(\.\d{1,3})?$
       - name: as_at_date
         in: query
         required: false
-        type: string
-        format: date-time
         description: A valid ISO 8601 format, e.g. "2019-12-31T23:59:59".
+        schema:
+          type: string
+          format: date-time
       - name: scope
         in: query
         required: false
-        type: string
-        enum:
-        - all
-        - clients
-        - own
-        default: own
         description: '"Own" account, "clients" sub-accounts, or "all" accounts.'
+        schema:
+          type: string
+          enum:
+          - all
+          - clients
+          - own
+          default: own
       - name: page
         in: query
         required: false
-        type: integer
         description: Page number
-        pattern: ^\d+$
+        schema:
+          type: integer
+          pattern: ^\d+$
       - name: per_page
         in: query
         required: false
-        type: integer
         description: Number of results per page.
-        pattern: ^\d+$
+        schema:
+          type: integer
+          pattern: ^\d+$
       - name: order
         in: query
         required: false
-        type: string
-        default: created_at
         description: A field name to change the sort order - "created_at", "amount", "updated_at" or "currency".
-        enum:
-        - amount
-        - created_at
-        - currency
-        - updated_at
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          enum:
+          - amount
+          - created_at
+          - currency
+          - updated_at
+          default: created_at
+          maxLength: 255
+          minLength: 1
       - name: order_asc_desc
         in: query
         required: false
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
         description: Sort records in ascending or descending order.
+        schema:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
       responses:
         '200':
           description: Success.
-          schema:
-            type: object
-            properties:
-              balances:
-                type: array
-                items:
-                  $ref: '#/definitions/Balance'
-              pagination:
-                $ref: '#/definitions/Pagination'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  balances:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Balance'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
         '400':
           description: Client error.
           x-errors:
@@ -280,12 +309,15 @@ paths:
             category: order_asc_desc
             message: 'order_asc_desc should be in range: asc, desc'
             params: '{"range": "asc, desc"}'
-          schema:
-            $ref: '#/definitions/FindBalancesError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindBalancesError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -293,18 +325,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -312,12 +348,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -327,8 +366,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -338,14 +378,16 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
   /balances/top_up_margin:
     post:
       tags:
@@ -354,47 +396,26 @@ paths:
       summary: Top Up Margin Balance
       description: Tops up the margin balance.
       operationId: TopUpMarginBalance
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: currency
-        in: formData
-        required: true
-        type: string
-        description: Three-letter ISO currency code for the currency to top up.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: amount
-        in: formData
-        required: true
-        type: string
-        description: Amount to top up.
-        pattern: ^\d+(\.\d{1,3})?$
-      - name: on_behalf_of
-        in: formData
-        required: false
-        type: string
-        description: A contact UUID for the sub-account you're acting on behalf of.
-        format: UUID
-        minLength: 36
-        maxLength: 36
+        schema:
+          type: string
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/TopUpMarginBalance'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopUpMarginBalance'
         '400':
           description: Client error.
           x-errors:
@@ -426,12 +447,15 @@ paths:
             category: on_behalf_of
             message: on_behalf_of should be in UUID format
             params: ''
-          schema:
-            $ref: '#/definitions/TopUpMarginBalanceError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopUpMarginBalanceError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -439,12 +463,15 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '429':
           description: Too many requests.
           x-errors:
@@ -452,12 +479,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -467,8 +497,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -478,333 +509,357 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Three-letter ISO currency code for the currency to top up.
+                amount:
+                  type: string
+                  pattern: ^\d+(\.\d{1,3})?$
+                  description: Amount to top up.
+                on_behalf_of:
+                  type: string
+                  format: UUID
+                  maxLength: 36
+                  minLength: 36
+                  description: A contact UUID for the sub-account you're acting on behalf of.
+              required:
+              - currency
+              - amount
 components:
-  securitySchemes:
-    AuthToken:
-      type: apiKey
-      in: header
-      name: X-Auth-Token
-definitions:
-  RateLimitError:
-    type: object
-    description: Too many requests.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this validation/error.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  TopUpMarginBalance:
-    type: object
-    description: Bank Details.
-    required:
-    - account_id
-    - currency
-    - transferred_amount
-    additionalProperties: false
-    properties:
-      account_id:
-        type: string
-        description: Account identifier
-      currency:
-        type: string
-        description: Currency code for currency transferred.
-      transferred_amount:
-        type: string
-        description: Amount of transfer.
-    example:
-      account_id: 6c046c51-2387-4004-8e87-4bf97102e36d
-      currency: EUR
-      transferred_amount: 100.0
-  UnauthorizedError:
-    type: object
-    description: Authorization error.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-        enum:
-        - auth_failed
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-    example:
-      error_code: auth_failed
-      error_messages:
-        api_key:
-        - code: invalid_supplied_credentials
-          message: Authentication failed with the supplied credentials
-          params: {}
-  NotFoundError:
-    type: object
-    description: Resource not found.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  FindBalancesError:
-    type: object
-    description: 'Client error information for the Find Balances endpoint.
+  schemas:
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
+    FindBalancesError:
+      type: object
+      description: 'Client error information for the Find Balances endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  Balance:
-    type: object
-    description: Balance.
-    properties:
-      id:
-        type: string
-        description: Balance UUID
-        format: UUID
-      account_id:
-        type: string
-        description: Account UUID
-        format: UUID
-      currency:
-        type: string
-        description: Three-letter ISO currency code for the currency the amount is shown in.
-      amount:
-        type: string
-        description: The balance amount.
-      created_at:
-        type: string
-        format: date-time
-        description: Date/time the record was created.
-      updated_at:
-        type: string
-        format: date-time
-        description: Date/time the record was last updated.
-    example:
-      id: 18230F1D-648A-406A-AD1F-A09CBC02E9E9
-      account_id: TcC
-      currency: USD
-      amount: '1000.00'
-      created_at: '2023-12-31T23:59:59.000Z'
-      updated_at: '2023-12-31T23:59:59.000Z'
-  TopUpMarginBalanceError:
-    type: object
-    description: 'Client error information for the Top Up Margin Balance endpoint.
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Balance:
+      type: object
+      description: Balance.
+      properties:
+        id:
+          type: string
+          description: Balance UUID
+          format: UUID
+        account_id:
+          type: string
+          description: Account UUID
+          format: UUID
+        currency:
+          type: string
+          description: Three-letter ISO currency code for the currency the amount is shown in.
+        amount:
+          type: string
+          description: The balance amount.
+        created_at:
+          type: string
+          format: date-time
+          description: Date/time the record was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date/time the record was last updated.
+      example:
+        id: 18230F1D-648A-406A-AD1F-A09CBC02E9E9
+        account_id: TcC
+        currency: USD
+        amount: '1000.00'
+        created_at: '2023-12-31T23:59:59.000Z'
+        updated_at: '2023-12-31T23:59:59.000Z'
+    TopUpMarginBalance:
+      type: object
+      description: Bank Details.
+      required:
+      - account_id
+      - currency
+      - transferred_amount
+      additionalProperties: false
+      properties:
+        account_id:
+          type: string
+          description: Account identifier
+        currency:
+          type: string
+          description: Currency code for currency transferred.
+        transferred_amount:
+          type: string
+          description: Amount of transfer.
+      example:
+        account_id: 6c046c51-2387-4004-8e87-4bf97102e36d
+        currency: EUR
+        transferred_amount: 100.0
+    GetBalanceError:
+      type: object
+      description: 'Client error information for the Get Balance endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  GetBalanceError:
-    type: object
-    description: 'Client error information for the Get Balance endpoint.
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    TopUpMarginBalanceError:
+      type: object
+      description: 'Client error information for the Top Up Margin Balance endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  Pagination:
-    type: object
-    description: Pagination.
-    properties:
-      total_entries:
-        type: integer
-      total_pages:
-        type: integer
-      current_page:
-        type: integer
-      per_page:
-        type: integer
-        description: Number of results per page.
-      previous_page:
-        type: integer
-      next_page:
-        type: integer
-      order:
-        type: string
-        description: The field name by which the results are sorted.
-      order_asc_desc:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
-        description: Whether results are sorted in ascending or descending order.
-    example:
-      total_entries: 1
-      total_pages: 1
-      current_page: 1
-      per_page: 25
-      previous_page: -1
-      next_page: 2
-      order: created_at
-      order_asc_desc: asc
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+externalDocs:
+  description: API overview
+  url: https://www.currencycloud.com/developers/

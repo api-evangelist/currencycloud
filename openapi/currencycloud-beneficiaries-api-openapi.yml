@@ -1,15 +1,14 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Beneficiaries API
-  version: v1
-  description: Create, search and manage the list of individuals or companies that you send payments to.
+  description: The Currencycloud API is a robust, predictable, easy-to-use API for converting money between currencies and making payments around the world. Dynamically register sub-accounts to provide white labeled money transfer services to your own customers.
+  version: 2.43.0
+  title: Currencycloud Beneficiaries API
+  termsOfService: https://www.currencycloud.com/terms-and-conditions/
+  contact:
+    name: support
+    email: support@currencycloud.com
 servers:
-- url: /onboarding
-  description: Relative URL
-- url: https://api.currencycloud.com/onboarding
-  description: Production server (uses live data)
-- url: https://devapi.currencycloud.com/onboarding
-  description: Dev server (uses test data)
+- url: https://devapi.currencycloud.com/v2
 tags:
 - name: Beneficiaries
   description: Create, search and manage the list of individuals or companies that you send payments to.
@@ -22,226 +21,33 @@ paths:
       summary: Find Beneficiaries
       description: Returns beneficiaries attached to the account or any sub-account owned by the authenticated user.
       operationId: FindBeneficiariesPost
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: on_behalf_of
-        in: formData
-        required: false
-        type: string
-        description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
-      - name: bank_account_holder_name
-        in: formData
-        required: false
-        type: string
-        description: Bank account holder's name.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_country
-        in: formData
-        required: false
-        type: string
-        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: currency
-        in: formData
-        required: false
-        type: string
-        description: Currency in which money is held in the beneficiary's bank account. Three-letter currency code.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: account_number
-        in: formData
-        required: false
-        type: string
-        description: Bank account number.
-        minLength: 1
-        maxLength: 50
-      - name: routing_code_type[0]
-        in: formData
-        required: false
-        type: string
-        enum:
-        - aba
-        - bank_code
-        - branch_code
-        - bsb_code
-        - clabe
-        - cnaps
-        - ifsc
-        - institution_no
-        - sort_code
-        description: Local payment routing system. If supplied, a value for routing_code_value[0] must also be supplied.
-      - name: routing_code_value[0]
-        in: formData
-        required: false
-        type: string
-        description: The value for any routing system specified in routing_code_type[0]. If supplied, a value for routing_code_type[0] must also be supplied.
-        minLength: 1
-        maxLength: 50
-      - name: bic_swift
-        in: formData
-        required: false
-        type: string
-        description: BIC/Swift code
-        pattern: ^(\w{8}|\w{11})$
-      - name: iban
-        in: formData
-        required: false
-        type: string
-        description: IBAN code
-        pattern: ([A-Z0-9]\s*){15,34}
-      - name: default_beneficiary
-        in: formData
-        required: false
-        type: boolean
-        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
-      - name: bank_name
-        in: formData
-        required: false
-        type: string
-        description: Bank name
-        minLength: 1
-      - name: bank_account_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - checking
-        - savings
-        description: Bank account type.
-      - name: name
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary's name.
-        pattern: \S+
-        minLength: 1
-        maxLength: 100
-      - name: beneficiary_entity_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - company
-        - individual
-        description: Beneficiary's legal entity type - individual or company.
-      - name: beneficiary_company_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "company".
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_first_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual".
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_last_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual".
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_city
-        in: formData
-        required: false
-        type: string
-        description: City
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_postcode
-        in: formData
-        required: false
-        type: string
-        description: Post code
-        maxLength: 12
-      - name: beneficiary_state_or_province
-        in: formData
-        required: false
-        type: string
-        description: State or province.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_date_of_birth
-        in: formData
-        required: false
-        type: string
-        format: date
-        description: If "beneficiary_entity_type" is "company", date of registration. If "beneficiary_entity_type" is "individual", date of birth. ISO 8601 format YYYY-MM-DD.
-      - name: scope
-        in: formData
-        required: false
-        type: string
-        enum:
-        - all
-        - clients
-        - own
-        default: own
-        description: Search "own" account, "clients" sub-accounts, or "all" accounts.
-      - name: page
-        in: formData
-        required: false
-        type: integer
-        description: Page number
-        pattern: ^\d+$
-      - name: per_page
-        in: formData
-        required: false
-        type: integer
-        description: Number of results per page.
-        pattern: ^\d+$
-      - name: order
-        in: formData
-        required: false
-        type: string
-        description: Any field name to change the sort order.
-        minLength: 1
-        maxLength: 255
-      - name: order_asc_desc
-        in: formData
-        required: false
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
-        description: Sort records in ascending or descending order.
-      - name: beneficiary_external_reference
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary external reference.
-        minLength: 1
-        maxLength: 255
+        schema:
+          type: string
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            type: object
-            properties:
-              beneficiaries:
-                type: array
-                items:
-                  $ref: '#/definitions/Beneficiary'
-              pagination:
-                $ref: '#/definitions/Pagination'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  beneficiaries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Beneficiary'
+                  pagination:
+                    $ref: '#/components/schemas/Pagination'
         '400':
           description: Client error.
           x-errors:
@@ -449,12 +255,15 @@ paths:
             category: order_asc_desc
             message: 'order_asc_desc should be in range: asc, desc'
             params: '{ "range" => "asc, desc" }'
-          schema:
-            $ref: '#/definitions/FindBeneficiariesError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FindBeneficiariesError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -462,18 +271,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -481,12 +294,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -496,8 +312,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -507,14 +324,163 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                on_behalf_of:
+                  type: string
+                  format: uuid
+                  description: A contact UUID for the sub-account you're acting on behalf of.
+                bank_account_holder_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Bank account holder's name.
+                beneficiary_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+                currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Currency in which money is held in the beneficiary's bank account. Three-letter currency code.
+                account_number:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Bank account number.
+                routing_code_type[0]:
+                  type: string
+                  enum:
+                  - aba
+                  - bank_code
+                  - branch_code
+                  - bsb_code
+                  - clabe
+                  - cnaps
+                  - ifsc
+                  - institution_no
+                  - sort_code
+                  description: Local payment routing system. If supplied, a value for routing_code_value[0] must also be supplied.
+                routing_code_value[0]:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: The value for any routing system specified in routing_code_type[0]. If supplied, a value for routing_code_type[0] must also be supplied.
+                bic_swift:
+                  type: string
+                  pattern: ^(\w{8}|\w{11})$
+                  description: BIC/Swift code
+                iban:
+                  type: string
+                  pattern: ([A-Z0-9]\s*){15,34}
+                  description: IBAN code
+                default_beneficiary:
+                  type: boolean
+                  description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+                bank_name:
+                  type: string
+                  minLength: 1
+                  description: Bank name
+                bank_account_type:
+                  type: string
+                  enum:
+                  - checking
+                  - savings
+                  description: Bank account type.
+                name:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  pattern: \S+
+                  description: Beneficiary's name.
+                beneficiary_entity_type:
+                  type: string
+                  enum:
+                  - company
+                  - individual
+                  description: Beneficiary's legal entity type - individual or company.
+                beneficiary_company_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "company".
+                beneficiary_first_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual".
+                beneficiary_last_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual".
+                beneficiary_city:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: City
+                beneficiary_postcode:
+                  type: string
+                  maxLength: 12
+                  description: Post code
+                beneficiary_state_or_province:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: State or province.
+                beneficiary_date_of_birth:
+                  type: string
+                  format: date
+                  description: If "beneficiary_entity_type" is "company", date of registration. If "beneficiary_entity_type" is "individual", date of birth. ISO 8601 format YYYY-MM-DD.
+                scope:
+                  type: string
+                  enum:
+                  - all
+                  - clients
+                  - own
+                  default: own
+                  description: Search "own" account, "clients" sub-accounts, or "all" accounts.
+                page:
+                  type: integer
+                  pattern: ^\d+$
+                  description: Page number
+                per_page:
+                  type: integer
+                  pattern: ^\d+$
+                  description: Number of results per page.
+                order:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Any field name to change the sort order.
+                order_asc_desc:
+                  type: string
+                  enum:
+                  - asc
+                  - desc
+                  default: asc
+                  description: Sort records in ascending or descending order.
+                beneficiary_external_reference:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Beneficiary external reference.
   /beneficiaries/{id}:
     get:
       tags:
@@ -523,36 +489,40 @@ paths:
       summary: Get Beneficiary
       description: Gets a beneficiary with the given ID.
       operationId: GetBeneficiary
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Beneficiary UUID
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       - name: on_behalf_of
         in: query
         required: false
-        type: string
         description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Beneficiary'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
         '400':
           description: Client error.
           x-errors:
@@ -568,12 +538,15 @@ paths:
             category: on_behalf_of
             message: You cannot act on behalf of your own Contact
             params: ''
-          schema:
-            $ref: '#/definitions/GetBeneficiaryError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBeneficiaryError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -581,20 +554,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -602,12 +581,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -617,8 +599,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -628,309 +611,52 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
     post:
       tags:
       - Beneficiaries
       x-api-group: pay
       summary: Update Beneficiary
-      description: Updates an existing beneficiary. Returns the updated beneficiary entity on success. <br> Please note that it's not possible to change a beneficiary's entity type (company or individual) by an update. To achieve this, you should create a new beneficiary.
+      description: 'Updates an existing beneficiary. Returns the updated beneficiary entity on success.
+
+        Please note that it''s not possible to change a beneficiary''s entity type (company or individual) by an update. To achieve this, you should create a new beneficiary.'
       operationId: UpdateBeneficiary
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Beneficiary UUID
-        format: uuid
-      - name: name
-        in: formData
-        required: false
-        type: string
-        description: A nickname for the beneficiary.
-        pattern: \S+
-        minLength: 1
-        maxLength: 100
-      - name: bank_account_holder_name
-        in: formData
-        required: false
-        type: string
-        description: Bank account holder's name.
-        minLength: 1
-        maxLength: 255
-      - name: bank_country
-        in: formData
-        required: false
-        type: string
-        description: Country in which the beneficiary's bank account is held. Two-letter ISO country code.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: currency
-        in: formData
-        required: false
-        type: string
-        description: Currency in which money is held in the beneficiary's bank account. Three-letter ISO currency code.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: email
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary's email address.
-        pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
-        minLength: 6
-        maxLength: 255
-      - name: beneficiary_address
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_country
-        in: formData
-        required: false
-        type: string
-        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: account_number
-        in: formData
-        required: false
-        type: string
-        description: Bank account number.
-        minLength: 1
-        maxLength: 50
-      - name: routing_code_type_1
-        in: formData
-        required: false
-        type: string
-        enum:
-        - aba
-        - bank_code
-        - branch_code
-        - bsb_code
-        - clabe
-        - cnaps
-        - ifsc
-        - institution_no
-        - sort_code
-        description: Local payment routing system.
-      - name: routing_code_value_1
-        in: formData
-        required: false
-        type: string
-        description: Routing code for "routing_code_type_1".
-        minLength: 1
-        maxLength: 50
-      - name: routing_code_type_2
-        in: formData
-        required: false
-        type: string
-        enum:
-        - aba
-        - bank_code
-        - branch_code
-        - bsb_code
-        - clabe
-        - cnaps
-        - ifsc
-        - institution_no
-        - sort_code
-        description: Local payment routing system.
-      - name: routing_code_value_2
-        in: formData
-        required: false
-        type: string
-        description: Routing code for "routing_code_type_2".
-        minLength: 1
-        maxLength: 50
-      - name: payment_types[]
-        in: formData
-        required: false
-        type: array
-        items:
+        schema:
           type: string
-          enum:
-          - priority
-          - regular
-        default:
-        - regular
-        description: Currencycloud supports two types of payment - "priority" (Swift) made using the Swift network, and "regular" (local) made using the local bank network.
-      - name: bic_swift
-        in: formData
-        required: false
-        type: string
-        description: BIC/Swift code
-        pattern: ^(\w{8}|\w{11})$
-      - name: iban
-        in: formData
-        required: false
-        type: string
-        description: IBAN code
-        pattern: ([A-Z0-9]\s*){15,34}
-      - name: default_beneficiary
-        in: formData
-        required: false
-        type: boolean
-        default: false
-        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
-      - name: bank_address
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-        minLength: 1
-        maxLength: 100
-      - name: bank_name
-        in: formData
-        required: false
-        type: string
-        description: Bank name
-        minLength: 1
-      - name: bank_account_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - checking
-        - savings
-        description: Bank account type.
-      - name: beneficiary_entity_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - company
-        - individual
-        description: Legal entity
-      - name: beneficiary_company_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_first_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_last_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers or company signifiers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_city
-        in: formData
-        required: false
-        type: string
-        description: City name, should not consist of only numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_postcode
-        in: formData
-        required: false
-        type: string
-        description: Postal code
-        maxLength: 12
-      - name: beneficiary_state_or_province
-        in: formData
-        required: false
-        type: string
-        format: date
-        description: State or province.
-      - name: beneficiary_date_of_birth
-        in: formData
-        required: false
-        type: string
-        description: If "beneficiary_entity_type" is "company", date of registration.<br> If "beneficiary_entity_type" is "individual", date of birth. The date of birth for the individual should not exceed 125 years and cannot be a date in the future.<br> ISO 8601 format YYYY-MM-DD.
-        format: date
-      - name: beneficiary_identification_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - citizenship_papers
-        - credential_de_elector
-        - drivers_license
-        - drivers_license_canadian
-        - employer_identification_number
-        - existing_credit_card_details
-        - green_card
-        - incorporation_number
-        - matricula_consular
-        - national_id
-        - none
-        - others
-        - passport
-        - registro_federal_de_contribuyentes
-        - social_insurance_number
-        - social_security_number
-        - visa
-        description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiary's bank account is held.
-      - name: beneficiary_identification_value
-        in: formData
-        required: false
-        type: string
-        description: A unique reference code for the identification document, such as a passport number.
-        minLength: 1
-        maxLength: 255
-      - name: on_behalf_of
-        in: formData
-        required: false
-        type: string
-        description: Contact UUID.
-        format: uuid
-      - name: beneficiary_external_reference
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary external reference.
-        minLength: 1
-        maxLength: 255
-      - name: business_nature
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary nature of business.
-        maxLength: 255
-      - name: company_website
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary company website.
-        maxLength: 255
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Beneficiary'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
         '400':
           description: Client error.
           x-errors:
@@ -1258,12 +984,15 @@ paths:
             category: base
             message: This request contains fields that are not permitted for this route
             params: '{ "blocked fields": [Fields that are not permitted for this route] }'
-          schema:
-            $ref: '#/definitions/UpdateBeneficiaryError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdateBeneficiaryError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1271,18 +1000,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -1290,12 +1023,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -1305,8 +1041,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -1316,14 +1053,218 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  pattern: \S+
+                  description: A nickname for the beneficiary.
+                bank_account_holder_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Bank account holder's name.
+                bank_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Country in which the beneficiary's bank account is held. Two-letter ISO country code.
+                currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Currency in which money is held in the beneficiary's bank account. Three-letter ISO currency code.
+                email:
+                  type: string
+                  maxLength: 255
+                  minLength: 6
+                  pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
+                  description: Beneficiary's email address.
+                beneficiary_address:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: First line of address.
+                beneficiary_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+                account_number:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Bank account number.
+                routing_code_type_1:
+                  type: string
+                  enum:
+                  - aba
+                  - bank_code
+                  - branch_code
+                  - bsb_code
+                  - clabe
+                  - cnaps
+                  - ifsc
+                  - institution_no
+                  - sort_code
+                  description: Local payment routing system.
+                routing_code_value_1:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing code for "routing_code_type_1".
+                routing_code_type_2:
+                  type: string
+                  enum:
+                  - aba
+                  - bank_code
+                  - branch_code
+                  - bsb_code
+                  - clabe
+                  - cnaps
+                  - ifsc
+                  - institution_no
+                  - sort_code
+                  description: Local payment routing system.
+                routing_code_value_2:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing code for "routing_code_type_2".
+                payment_types[]:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - priority
+                    - regular
+                  default:
+                  - regular
+                  description: Currencycloud supports two types of payment - "priority" (Swift) made using the Swift network, and "regular" (local) made using the local bank network.
+                bic_swift:
+                  type: string
+                  pattern: ^(\w{8}|\w{11})$
+                  description: BIC/Swift code
+                iban:
+                  type: string
+                  pattern: ([A-Z0-9]\s*){15,34}
+                  description: IBAN code
+                default_beneficiary:
+                  type: boolean
+                  default: false
+                  description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+                bank_address:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  description: First line of address.
+                bank_name:
+                  type: string
+                  minLength: 1
+                  description: Bank name
+                bank_account_type:
+                  type: string
+                  enum:
+                  - checking
+                  - savings
+                  description: Bank account type.
+                beneficiary_entity_type:
+                  type: string
+                  enum:
+                  - company
+                  - individual
+                  description: Legal entity
+                beneficiary_company_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
+                beneficiary_first_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+                beneficiary_last_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers or company signifiers.
+                beneficiary_city:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: City name, should not consist of only numbers.
+                beneficiary_postcode:
+                  type: string
+                  maxLength: 12
+                  description: Postal code
+                beneficiary_state_or_province:
+                  type: string
+                  format: date
+                  description: State or province.
+                beneficiary_date_of_birth:
+                  type: string
+                  format: date
+                  description: If "beneficiary_entity_type" is "company", date of registration.<br> If "beneficiary_entity_type" is "individual", date of birth. The date of birth for the individual should not exceed 125 years and cannot be a date in the future.<br> ISO 8601 format YYYY-MM-DD.
+                beneficiary_identification_type:
+                  type: string
+                  enum:
+                  - citizenship_papers
+                  - credential_de_elector
+                  - drivers_license
+                  - drivers_license_canadian
+                  - employer_identification_number
+                  - existing_credit_card_details
+                  - green_card
+                  - incorporation_number
+                  - matricula_consular
+                  - national_id
+                  - none
+                  - others
+                  - passport
+                  - registro_federal_de_contribuyentes
+                  - social_insurance_number
+                  - social_security_number
+                  - visa
+                  description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiary's bank account is held.
+                beneficiary_identification_value:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: A unique reference code for the identification document, such as a passport number.
+                on_behalf_of:
+                  type: string
+                  format: uuid
+                  description: Contact UUID.
+                beneficiary_external_reference:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Beneficiary external reference.
+                business_nature:
+                  type: string
+                  maxLength: 255
+                  description: Beneficiary nature of business.
+                company_website:
+                  type: string
+                  maxLength: 255
+                  description: Beneficiary company website.
   /beneficiaries/create:
     post:
       tags:
@@ -1332,289 +1273,26 @@ paths:
       summary: Create Beneficiary
       description: Creates a new beneficiary. Returns the new beneficiary entity on success.
       operationId: CreateBeneficiary
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: name
-        in: formData
-        required: true
-        type: string
-        description: A nickname for the beneficiary.
-        pattern: \S+
-        minLength: 1
-        maxLength: 100
-      - name: bank_account_holder_name
-        in: formData
-        required: true
-        type: string
-        description: Bank account holder's name.
-        minLength: 1
-        maxLength: 255
-      - name: bank_country
-        in: formData
-        required: true
-        type: string
-        description: Two-letter code for the country in which the beneficiary's bank account is held.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: currency
-        in: formData
-        required: true
-        type: string
-        description: Currency in which money is held in the beneficiary's bank account. Three-letter IDO currency code.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: email
-        in: formData
-        required: false
-        type: string
-        description: Email address
-        pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
-        minLength: 6
-        maxLength: 255
-      - name: beneficiary_address
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_country
-        in: formData
-        required: false
-        type: string
-        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: account_number
-        in: formData
-        required: false
-        type: string
-        description: Bank account number.
-        minLength: 1
-        maxLength: 50
-      - name: routing_code_type_1
-        in: formData
-        required: false
-        type: string
-        enum:
-        - aba
-        - bank_code
-        - branch_code
-        - bsb_code
-        - clabe
-        - cnaps
-        - ifsc
-        - institution_no
-        - sort_code
-        description: Local payment routing system. If supplied, routing_code_value_1 should also be supplied.
-      - name: routing_code_value_1
-        in: formData
-        required: false
-        type: string
-        description: Routing code for routing_code_type_1. If supplied, routing_code_type_1 should also be supplied.
-        minLength: 1
-        maxLength: 50
-      - name: routing_code_type_2
-        in: formData
-        required: false
-        type: string
-        enum:
-        - aba
-        - bank_code
-        - branch_code
-        - bsb_code
-        - clabe
-        - cnaps
-        - ifsc
-        - institution_no
-        - sort_code
-        description: Local payment routing system. If supplied, routing_code_value_2 should also be supplied.
-      - name: routing_code_value_2
-        in: formData
-        required: false
-        type: string
-        description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
-        minLength: 1
-        maxLength: 50
-      - name: bic_swift
-        in: formData
-        required: false
-        type: string
-        description: BIC/Swift code
-        pattern: ^(\w{8}|\w{11})$
-      - name: iban
-        in: formData
-        required: false
-        type: string
-        description: IBAN code
-        pattern: ([A-Z0-9]\s*){15,34}
-      - name: default_beneficiary
-        in: formData
-        required: false
-        type: boolean
-        default: false
-        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
-      - name: bank_address
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-        minLength: 1
-        maxLength: 100
-      - name: bank_name
-        in: formData
-        required: false
-        type: string
-        description: Bank name
-        minLength: 1
-      - name: bank_account_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - checking
-        - savings
-        description: Bank account type.
-      - name: beneficiary_entity_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - company
-        - individual
-        description: Legal entity
-      - name: beneficiary_company_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_first_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_last_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers or company signifiers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_city
-        in: formData
-        required: false
-        type: string
-        description: City name, should not consists of only numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_postcode
-        in: formData
-        required: false
-        type: string
-        description: Postal code
-        maxLength: 12
-      - name: beneficiary_state_or_province
-        in: formData
-        required: false
-        type: string
-        description: State or province.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_date_of_birth
-        in: formData
-        required: false
-        type: string
-        description: If "beneficiary_entity_type" is "company", date of registration.<br> If "beneficiary_entity_type" is "individual", date of birth. The date of birth for the individual should not exceed 125 years and cannot be a date in the future.<br> ISO 8601 format YYYY-MM-DD.
-        format: date
-      - name: beneficiary_identification_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - citizenship_papers
-        - credential_de_elector
-        - drivers_license
-        - drivers_license_canadian
-        - employer_identification_number
-        - existing_credit_card_details
-        - green_card
-        - incorporation_number
-        - matricula_consular
-        - national_id
-        - none
-        - others
-        - passport
-        - registro_federal_de_contribuyentes
-        - social_insurance_number
-        - social_security_number
-        - visa
-        description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiar's bank account is held and on whether "beneficiary_entity_type" is "individual" or "company".
-      - name: beneficiary_identification_value
-        in: formData
-        required: false
-        type: string
-        description: A unique reference code for the identification document, such as a passport number.
-        minLength: 1
-        maxLength: 255
-      - name: payment_types[]
-        in: formData
-        required: false
-        type: array
-        items:
+        schema:
           type: string
-          enum:
-          - priority
-          - regular
-        default:
-        - regular
-        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
-      - name: on_behalf_of
-        in: formData
-        required: false
-        type: string
-        description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
-      - name: beneficiary_external_reference
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary external reference.
-        minLength: 1
-        maxLength: 255
-      - name: business_nature
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary nature of business.
-        maxLength: 255
-      - name: company_website
-        in: formData
-        required: false
-        type: string
-        description: Beneficiary company website.
-        maxLength: 255
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Beneficiary'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
         '400':
           description: Client error.
           x-errors:
@@ -1958,12 +1636,15 @@ paths:
             category: base
             message: This request contains fields that are not permitted for this route
             params: '{ "blocked fields": [Fields that are not permitted for this route] }'
-          schema:
-            $ref: '#/definitions/CreateBeneficiaryError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateBeneficiaryError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -1971,18 +1652,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -1990,12 +1675,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -2005,8 +1693,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -2016,14 +1705,224 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  pattern: \S+
+                  description: A nickname for the beneficiary.
+                bank_account_holder_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Bank account holder's name.
+                bank_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter code for the country in which the beneficiary's bank account is held.
+                currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Currency in which money is held in the beneficiary's bank account. Three-letter IDO currency code.
+                email:
+                  type: string
+                  maxLength: 255
+                  minLength: 6
+                  pattern: ^[\w\.\_\%\-\+]+@([\w-]+\.)+\w{2,}+$
+                  description: Email address
+                beneficiary_address:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: First line of address.
+                beneficiary_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+                account_number:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Bank account number.
+                routing_code_type_1:
+                  type: string
+                  enum:
+                  - aba
+                  - bank_code
+                  - branch_code
+                  - bsb_code
+                  - clabe
+                  - cnaps
+                  - ifsc
+                  - institution_no
+                  - sort_code
+                  description: Local payment routing system. If supplied, routing_code_value_1 should also be supplied.
+                routing_code_value_1:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing code for routing_code_type_1. If supplied, routing_code_type_1 should also be supplied.
+                routing_code_type_2:
+                  type: string
+                  enum:
+                  - aba
+                  - bank_code
+                  - branch_code
+                  - bsb_code
+                  - clabe
+                  - cnaps
+                  - ifsc
+                  - institution_no
+                  - sort_code
+                  description: Local payment routing system. If supplied, routing_code_value_2 should also be supplied.
+                routing_code_value_2:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
+                bic_swift:
+                  type: string
+                  pattern: ^(\w{8}|\w{11})$
+                  description: BIC/Swift code
+                iban:
+                  type: string
+                  pattern: ([A-Z0-9]\s*){15,34}
+                  description: IBAN code
+                default_beneficiary:
+                  type: boolean
+                  default: false
+                  description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+                bank_address:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  description: First line of address.
+                bank_name:
+                  type: string
+                  minLength: 1
+                  description: Bank name
+                bank_account_type:
+                  type: string
+                  enum:
+                  - checking
+                  - savings
+                  description: Bank account type.
+                beneficiary_entity_type:
+                  type: string
+                  enum:
+                  - company
+                  - individual
+                  description: Legal entity
+                beneficiary_company_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
+                beneficiary_first_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+                beneficiary_last_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers or company signifiers.
+                beneficiary_city:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: City name, should not consists of only numbers.
+                beneficiary_postcode:
+                  type: string
+                  maxLength: 12
+                  description: Postal code
+                beneficiary_state_or_province:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: State or province.
+                beneficiary_date_of_birth:
+                  type: string
+                  format: date
+                  description: If "beneficiary_entity_type" is "company", date of registration.<br> If "beneficiary_entity_type" is "individual", date of birth. The date of birth for the individual should not exceed 125 years and cannot be a date in the future.<br> ISO 8601 format YYYY-MM-DD.
+                beneficiary_identification_type:
+                  type: string
+                  enum:
+                  - citizenship_papers
+                  - credential_de_elector
+                  - drivers_license
+                  - drivers_license_canadian
+                  - employer_identification_number
+                  - existing_credit_card_details
+                  - green_card
+                  - incorporation_number
+                  - matricula_consular
+                  - national_id
+                  - none
+                  - others
+                  - passport
+                  - registro_federal_de_contribuyentes
+                  - social_insurance_number
+                  - social_security_number
+                  - visa
+                  description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiar's bank account is held and on whether "beneficiary_entity_type" is "individual" or "company".
+                beneficiary_identification_value:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: A unique reference code for the identification document, such as a passport number.
+                payment_types[]:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - priority
+                    - regular
+                  default:
+                  - regular
+                  description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+                on_behalf_of:
+                  type: string
+                  format: uuid
+                  description: A contact UUID for the sub-account you're acting on behalf of.
+                beneficiary_external_reference:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Beneficiary external reference.
+                business_nature:
+                  type: string
+                  maxLength: 255
+                  description: Beneficiary nature of business.
+                company_website:
+                  type: string
+                  maxLength: 255
+                  description: Beneficiary company website.
+              required:
+              - name
+              - bank_account_holder_name
+              - bank_country
+              - currency
   /beneficiaries/{id}/delete:
     post:
       tags:
@@ -2032,38 +1931,33 @@ paths:
       summary: Delete Beneficiary
       description: Delete a beneficiary associated with a sub-account. If the deletion is successful, the beneficiary's final state is returned.
       operationId: DeleteBeneficiary
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
+        schema:
+          type: string
+          minLength: 32
       - name: id
         in: path
         required: true
-        type: string
         description: Beneficiary UUID
-        format: uuid
-      - name: on_behalf_of
-        in: formData
-        required: false
-        type: string
-        description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+        schema:
+          type: string
+          format: uuid
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Beneficiary'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
         '400':
           description: Client error.
           x-errors:
@@ -2083,12 +1977,15 @@ paths:
             category: on_behalf_of
             message: Contact was not found for this id
             params: ''
-          schema:
-            $ref: '#/definitions/DeleteBeneficiaryError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteBeneficiaryError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -2096,20 +1993,26 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
-          schema:
-            $ref: '#/definitions/NotFoundError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
         '429':
           description: Too many requests.
           x-errors:
@@ -2117,12 +2020,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -2132,8 +2038,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -2143,14 +2050,26 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                on_behalf_of:
+                  type: string
+                  format: uuid
+                  description: A contact UUID for the sub-account you're acting on behalf of.
   /beneficiaries/validate:
     post:
       tags:
@@ -2159,241 +2078,26 @@ paths:
       summary: Validate Beneficiary
       description: Validates a new beneficiary's bank details, without actually creating a record of the beneficiary. On success, returns an object that represents the entity that would be created if the beneficiary was saved.
       operationId: ValidateBeneficiary
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: bank_country
-        in: formData
-        required: true
-        type: string
-        description: Two-letter code for the country in which the beneficiary's bank account is held.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: currency
-        in: formData
-        required: true
-        type: string
-        description: Currency in which money is held in the beneficiary's bank account. Three-digit currency code.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: beneficiary_address
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_country
-        in: formData
-        required: false
-        type: string
-        description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: account_number
-        in: formData
-        required: false
-        type: string
-        description: Bank account number.
-        minLength: 1
-        maxLength: 50
-      - name: routing_code_type_1
-        in: formData
-        required: false
-        type: string
-        enum:
-        - aba
-        - bank_code
-        - branch_code
-        - bsb_code
-        - clabe
-        - cnaps
-        - ifsc
-        - institution_no
-        - sort_code
-        description: Local payment routing system. If supplied, routing_code_value_1 should also be supplied.
-      - name: routing_code_value_1
-        in: formData
-        required: false
-        type: string
-        description: Routing code for routing_code_type_1. If supplied, routing_code_type_1 should also be supplied.
-        minLength: 1
-        maxLength: 50
-      - name: routing_code_type_2
-        in: formData
-        required: false
-        type: string
-        enum:
-        - aba
-        - bank_code
-        - branch_code
-        - bsb_code
-        - clabe
-        - cnaps
-        - ifsc
-        - institution_no
-        - sort_code
-        description: Local payment routing system. If supplied, routing_code_value_2 should also be supplied.
-      - name: routing_code_value_2
-        in: formData
-        required: false
-        type: string
-        description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
-        minLength: 1
-        maxLength: 50
-      - name: bic_swift
-        in: formData
-        required: false
-        type: string
-        description: BIC/Swift code
-        pattern: ^(\w{8}|\w{11})$
-      - name: iban
-        in: formData
-        required: false
-        type: string
-        description: IBAN code
-        pattern: ([A-Z0-9]\s*){15,34}
-      - name: bank_address
-        in: formData
-        required: false
-        type: string
-        description: First line of address.
-        minLength: 1
-        maxLength: 100
-      - name: bank_name
-        in: formData
-        required: false
-        type: string
-        description: Bank name
-        minLength: 1
-      - name: bank_account_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - checking
-        - savings
-        description: Bank account type.
-      - name: beneficiary_entity_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - company
-        - individual
-        description: Legal entity
-      - name: beneficiary_company_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_first_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_last_name
-        in: formData
-        required: false
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_city
-        in: formData
-        required: false
-        type: string
-        description: City
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_postcode
-        in: formData
-        required: false
-        type: string
-        description: Postal code
-        maxLength: 12
-      - name: beneficiary_state_or_province
-        in: formData
-        required: false
-        type: string
-        description: State or province.
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_date_of_birth
-        in: formData
-        required: false
-        type: string
-        description: If "beneficiary_entity_type" is "company", date of registration. If "beneficiary_entity_type" is "individual", date of birth. ISO 8601 format YYYY-MM-DD.
-        format: date
-      - name: beneficiary_identification_type
-        in: formData
-        required: false
-        type: string
-        enum:
-        - citizenship_papers
-        - credential_de_elector
-        - drivers_license
-        - drivers_license_canadian
-        - employer_identification_number
-        - existing_credit_card_details
-        - green_card
-        - incorporation_number
-        - matricula_consular
-        - national_id
-        - none
-        - others
-        - passport
-        - registro_federal_de_contribuyentes
-        - social_insurance_number
-        - social_security_number
-        - visa
-        description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiary's bank account is held.
-      - name: beneficiary_identification_value
-        in: formData
-        required: false
-        type: string
-        description: A unique reference code for the identification document, such as a passport number.
-        minLength: 1
-        maxLength: 255
-      - name: payment_types[]
-        in: formData
-        required: false
-        type: array
-        items:
+        schema:
           type: string
-          enum:
-          - priority
-          - regular
-        default:
-        - regular
-        description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
-      - name: on_behalf_of
-        in: formData
-        required: false
-        type: string
-        description: A contact UUID for the sub-account you're acting on behalf of.
-        format: uuid
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/Beneficiary'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Beneficiary'
         '400':
           description: Client error.
           x-errors:
@@ -2661,12 +2365,15 @@ paths:
             category: base
             message: This request contains fields that are not permitted for this route
             params: '{ "blocked fields": [Fields that are not permitted for this route] }'
-          schema:
-            $ref: '#/definitions/ValidateBeneficiaryError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ValidateBeneficiaryError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -2674,18 +2381,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -2693,12 +2404,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -2708,8 +2422,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -2719,137 +2434,228 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                bank_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter code for the country in which the beneficiary's bank account is held.
+                currency:
+                  type: string
+                  format: iso-4217
+                  pattern: ^[A-Z]{3}$
+                  description: Currency in which money is held in the beneficiary's bank account. Three-digit currency code.
+                beneficiary_address:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: First line of address.
+                beneficiary_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter ISO country code. If the beneficiary is a company, this is the country in which the company is registered. If the beneficiary is an individual, this is the country in which the beneficiary is based.
+                account_number:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Bank account number.
+                routing_code_type_1:
+                  type: string
+                  enum:
+                  - aba
+                  - bank_code
+                  - branch_code
+                  - bsb_code
+                  - clabe
+                  - cnaps
+                  - ifsc
+                  - institution_no
+                  - sort_code
+                  description: Local payment routing system. If supplied, routing_code_value_1 should also be supplied.
+                routing_code_value_1:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing code for routing_code_type_1. If supplied, routing_code_type_1 should also be supplied.
+                routing_code_type_2:
+                  type: string
+                  enum:
+                  - aba
+                  - bank_code
+                  - branch_code
+                  - bsb_code
+                  - clabe
+                  - cnaps
+                  - ifsc
+                  - institution_no
+                  - sort_code
+                  description: Local payment routing system. If supplied, routing_code_value_2 should also be supplied.
+                routing_code_value_2:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
+                bic_swift:
+                  type: string
+                  pattern: ^(\w{8}|\w{11})$
+                  description: BIC/Swift code
+                iban:
+                  type: string
+                  pattern: ([A-Z0-9]\s*){15,34}
+                  description: IBAN code
+                bank_address:
+                  type: string
+                  maxLength: 100
+                  minLength: 1
+                  description: First line of address.
+                bank_name:
+                  type: string
+                  minLength: 1
+                  description: Bank name
+                bank_account_type:
+                  type: string
+                  enum:
+                  - checking
+                  - savings
+                  description: Bank account type.
+                beneficiary_entity_type:
+                  type: string
+                  enum:
+                  - company
+                  - individual
+                  description: Legal entity
+                beneficiary_company_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "company". Company names cannot consist entirely of numbers.
+                beneficiary_first_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+                beneficiary_last_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual". Individual names cannot contain any numbers.
+                beneficiary_city:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: City
+                beneficiary_postcode:
+                  type: string
+                  maxLength: 12
+                  description: Postal code
+                beneficiary_state_or_province:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: State or province.
+                beneficiary_date_of_birth:
+                  type: string
+                  format: date
+                  description: If "beneficiary_entity_type" is "company", date of registration. If "beneficiary_entity_type" is "individual", date of birth. ISO 8601 format YYYY-MM-DD.
+                beneficiary_identification_type:
+                  type: string
+                  enum:
+                  - citizenship_papers
+                  - credential_de_elector
+                  - drivers_license
+                  - drivers_license_canadian
+                  - employer_identification_number
+                  - existing_credit_card_details
+                  - green_card
+                  - incorporation_number
+                  - matricula_consular
+                  - national_id
+                  - none
+                  - others
+                  - passport
+                  - registro_federal_de_contribuyentes
+                  - social_insurance_number
+                  - social_security_number
+                  - visa
+                  description: A legal document that verifies the identity of the beneficiary. Required documentation will vary depending on the country in which the beneficiary's bank account is held.
+                beneficiary_identification_value:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: A unique reference code for the identification document, such as a passport number.
+                payment_types[]:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - priority
+                    - regular
+                  default:
+                  - regular
+                  description: 'Currencycloud supports two types of payments: "priority", made using the Swift network; and "regular", made using the local bank network.'
+                on_behalf_of:
+                  type: string
+                  format: uuid
+                  description: A contact UUID for the sub-account you're acting on behalf of.
+              required:
+              - bank_country
+              - currency
   /beneficiaries/account_verification:
     post:
       tags:
       - Beneficiaries
       x-api-group: pay
       summary: Verify Beneficiary Account
-      description: This service is currently only available to in-scope clients who must provide Confirmation of Payee (CoP) or Verification of Payee (VoP) services to their end-users making local GBP payments in the UK or SEPA EUR payments.<br><br> CoP and VoP are both peer-to-peer name-checking service designed to help reduce misdirected payments and provide greater assurance that payments are being sent, and collected from, the intended account holder for domestic payments. <br><br> Currently, access is restricted to UK and EU institutions and in-scope clients.<br><br> We plan to add more market coverage to this API in the future, thereby extending access to additional clients.<br><br> If you're interested in learning more or have received notification that you're in-scope, please contact your Account Manager or our support team.
+      description: 'This service is currently only available to in-scope clients who must provide Confirmation of Payee (CoP) or Verification of Payee (VoP) services to their end-users making local GBP payments in the UK or SEPA EUR payments.
+
+
+        CoP and VoP are both peer-to-peer name-checking service designed to help reduce misdirected payments and provide greater assurance that payments are being sent, and collected from, the intended account holder for domestic payments.
+
+
+        Currently, access is restricted to UK and EU institutions and in-scope clients.
+
+
+        We plan to add more market coverage to this API in the future, thereby extending access to additional clients.
+
+
+        If you''re interested in learning more or have received notification that you''re in-scope, please contact your Account Manager or our support team.'
       operationId: BeneficiaryAccountVerification
-      consumes:
-      - multipart/form-data
-      produces:
-      - application/json
       parameters:
       - name: X-Auth-Token
         in: header
         required: true
-        type: string
         description: Authentication token
-        minLength: 32
-      - name: payment_type
-        in: formData
-        type: string
-        required: false
-        enum:
-        - regular
-        - priority (not supported for this endpoint)
-        description: 'Currencycloud supports two types of payments: ''priority'', made using the Swift network and ''regular'', made using the local bank network. Confirmation of Payee and Verification of Payee checks only apply to local transactions so this field should always be set to ''regular''.'
-      - name: bank_country
-        in: formData
-        type: string
-        required: false
-        description: Two-letter code for the country in which the beneficiary's bank account is held.
-        format: iso3166-1-alpha-2
-        pattern: ^[A-Z]{2}$
-      - name: currency
-        in: formData
-        type: string
-        required: true
-        default: GBP
-        enum:
-        - GBP
-        - EUR
-        description: Currency in which money will be sent to the beneficiary's bank account. Three-character currency code. 'GBP' for Confirmation of Payee, 'EUR' for Verification of Payee.
-        format: iso-4217
-        pattern: ^[A-Z]{3}$
-      - name: account_number
-        in: formData
-        required: false
-        type: string
-        minLength: 1
-        maxLength: 50
-        description: Bank account number. Required when currency is 'GBP' (Confirmation of Payee).
-      - name: beneficiary_entity_type
-        in: formData
-        type: string
-        required: false
-        description: Legal entity - 'individual' or 'company'.<br> - If 'individual' then 'beneficiary_first_name' and 'beneficiary_last_name' are required.<br> - If 'company' then 'beneficiary_company_name' is required.<br> - Required when currency is 'GBP' (Confirmation of Payee).<br> - Not required when currency is 'EUR' (Verification of Payee).
-        enum:
-        - company
-        - individual
-      - name: beneficiary_company_name
-        in: formData
-        type: string
-        description: Required if "beneficiary_entity_type" is "company".
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_first_name
-        in: formData
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual".
-        minLength: 1
-        maxLength: 255
-      - name: beneficiary_last_name
-        in: formData
-        type: string
-        description: Required if "beneficiary_entity_type" is "individual".
-        minLength: 1
-        maxLength: 255
-      - name: routing_code_type_1
-        in: formData
-        type: string
-        description: Local payment routing system. Defaults to 'sort_code'.
-      - name: routing_code_value_1
-        in: formData
-        required: false
-        type: string
-        minLength: 1
-        maxLength: 50
-        description: Routing system value i.e. the account's sort code. Required when currency is 'GBP' (Confirmation of Payee).
-      - name: routing_code_type_2
-        in: formData
-        type: string
-        description: Second local payment routing system. If supplied, routing_code_value_2 should also be supplied. Necessary for when more than one routing code is required.
-      - name: routing_code_value_2
-        in: formData
-        type: string
-        description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
-        minLength: 1
-        maxLength: 50
-      - name: bic_swift
-        in: formData
-        type: string
-        description: BIC/Swift code
-        pattern: ^(\w{8}|\w{11})$
-      - name: iban
-        in: formData
-        type: string
-        pattern: ([A-Z0-9]\s*){15,34}
-        description: IBAN code. Required when currency is 'EUR' (Verification of Payee). Must match <code>^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}$</code>
-      - name: secondary_reference_data
-        pattern: ^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}$
-        in: formData
-        type: string
-        description: For customer accounts that are not uniquely addressable by a sort code and account number, but instead rely on their PSP to credit their account via SRD – i.e. using the reference field in the payment with a further unique identifier.
+        schema:
+          type: string
+          minLength: 32
       responses:
         '200':
           description: Success.
-          schema:
-            $ref: '#/definitions/BeneficiaryAccountVerificationResult'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeneficiaryAccountVerificationResult'
         '400':
           description: Client error.
           x-errors:
@@ -2918,12 +2724,15 @@ paths:
             category: base
             message: Invalid extra parameters extra_parameter
             params: '{ "parameters" => "extra_parameter" }'
-          schema:
-            $ref: '#/definitions/BeneficiaryAccountVerificationError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeneficiaryAccountVerificationError'
         '401':
           description: Unauthorized.
           x-errors:
@@ -2931,18 +2740,22 @@ paths:
             category: username
             message: Authentication failed with the supplied credentials
             params: ''
-          schema:
-            $ref: '#/definitions/UnauthorizedError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UnauthorizedError'
         '404':
           description: Resource not found.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '429':
           description: Too many requests.
           x-errors:
@@ -2950,12 +2763,15 @@ paths:
             category: base
             message: Too many requests have been made to the api. Please refer to the Developer Center for more information
             params: ''
-          schema:
-            $ref: '#/definitions/RateLimitError'
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RateLimitError'
         '500':
           description: Internal server error
           x-errors:
@@ -2965,8 +2781,9 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         '503':
           description: Service is temporary unavailable
           x-errors:
@@ -2976,629 +2793,711 @@ paths:
             params: ''
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
         default:
           description: Unexpected error.
           headers:
             X-Request-Id:
-              type: string
               description: A unique reference for the request.
+              schema:
+                type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                payment_type:
+                  type: string
+                  enum:
+                  - regular
+                  - priority (not supported for this endpoint)
+                  description: 'Currencycloud supports two types of payments: ''priority'', made using the Swift network and ''regular'', made using the local bank network. Confirmation of Payee and Verification of Payee checks only apply to local transactions so this field should always be set to ''regular''.'
+                bank_country:
+                  type: string
+                  format: iso3166-1-alpha-2
+                  pattern: ^[A-Z]{2}$
+                  description: Two-letter code for the country in which the beneficiary's bank account is held.
+                currency:
+                  type: string
+                  format: iso-4217
+                  enum:
+                  - GBP
+                  - EUR
+                  default: GBP
+                  pattern: ^[A-Z]{3}$
+                  description: Currency in which money will be sent to the beneficiary's bank account. Three-character currency code. 'GBP' for Confirmation of Payee, 'EUR' for Verification of Payee.
+                account_number:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Bank account number. Required when currency is 'GBP' (Confirmation of Payee).
+                beneficiary_entity_type:
+                  type: string
+                  enum:
+                  - company
+                  - individual
+                  description: Legal entity - 'individual' or 'company'.<br> - If 'individual' then 'beneficiary_first_name' and 'beneficiary_last_name' are required.<br> - If 'company' then 'beneficiary_company_name' is required.<br> - Required when currency is 'GBP' (Confirmation of Payee).<br> - Not required when currency is 'EUR' (Verification of Payee).
+                beneficiary_company_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "company".
+                beneficiary_first_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual".
+                beneficiary_last_name:
+                  type: string
+                  maxLength: 255
+                  minLength: 1
+                  description: Required if "beneficiary_entity_type" is "individual".
+                routing_code_type_1:
+                  type: string
+                  description: Local payment routing system. Defaults to 'sort_code'.
+                routing_code_value_1:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing system value i.e. the account's sort code. Required when currency is 'GBP' (Confirmation of Payee).
+                routing_code_type_2:
+                  type: string
+                  description: Second local payment routing system. If supplied, routing_code_value_2 should also be supplied. Necessary for when more than one routing code is required.
+                routing_code_value_2:
+                  type: string
+                  maxLength: 50
+                  minLength: 1
+                  description: Routing code for routing_code_type_2. If supplied, routing_code_type_2 should also be supplied.
+                bic_swift:
+                  type: string
+                  pattern: ^(\w{8}|\w{11})$
+                  description: BIC/Swift code
+                iban:
+                  type: string
+                  pattern: ([A-Z0-9]\s*){15,34}
+                  description: IBAN code. Required when currency is 'EUR' (Verification of Payee). Must match <code>^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}$</code>
+                secondary_reference_data:
+                  type: string
+                  pattern: ^[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{1,30}$
+                  description: For customer accounts that are not uniquely addressable by a sort code and account number, but instead rely on their PSP to credit their account via SRD – i.e. using the reference field in the payment with a further unique identifier.
+              required:
+              - currency
 components:
-  securitySchemes:
-    AuthToken:
-      type: apiKey
-      in: header
-      name: X-Auth-Token
-definitions:
-  DeleteBeneficiaryError:
-    type: object
-    description: 'Client error information for the Delete Beneficiary endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  FindBeneficiariesError:
-    type: object
-    description: 'Client error information for the Find Beneficiaries endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  RateLimitError:
-    type: object
-    description: Too many requests.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this validation/error.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  CreateBeneficiaryError:
-    type: object
-    description: 'Client error information for the Create Beneficiary endpoint.
-
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  UnauthorizedError:
-    type: object
-    description: Authorization error.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-        enum:
-        - auth_failed
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-    example:
-      error_code: auth_failed
-      error_messages:
-        api_key:
-        - code: invalid_supplied_credentials
-          message: Authentication failed with the supplied credentials
-          params: {}
-  Beneficiary:
-    type: object
-    description: Beneficiary
-    properties:
-      id:
-        type: string
-        description: Beneficiary UUID
-      bank_account_holder_name:
-        type: string
-        description: Bank account holder's name.
-      name:
-        type: string
-        description: Beneficiary's name
-      email:
-        type: string
-        description: Beneficiary's email address
-      payment_types:
-        type: array
-        items:
+  schemas:
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
           type: string
-          description: The payment type - regular (local) or priority (Swift).
+          description: A high-level error code for the whole request.
           enum:
-          - priority
-          - regular
-      beneficiary_address:
-        type: array
-        items:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
+    BeneficiaryAccountVerificationResult:
+      type: object
+      description: Beneficiary account verification result.
+      properties:
+        answer:
+          description: The account verification result - 'full_match', 'close_match' or 'no_match'.
           type: string
-          description: Line of address.
-      beneficiary_country:
-        type: string
-        description: Two-letter ISO country code.
-      beneficiary_entity_type:
-        type: string
-        description: Beneficiary legal entity type - company or individual.
-        enum:
-        - company
-        - individual
-      beneficiary_company_name:
-        type: string
-        description: For companies
-      beneficiary_first_name:
-        type: string
-        description: For individuals
-      beneficiary_last_name:
-        type: string
-        description: For individuals
-      beneficiary_city:
-        type: string
-        description: City
-      beneficiary_postcode:
-        type: string
-        description: Postal code
-      beneficiary_state_or_province:
-        type: string
-        description: State or province.
-      beneficiary_date_of_birth:
-        type: string
-        description: For companies, this is the foundation date of the company. For individuals, it is their date of birth.
-      beneficiary_identification_type:
-        type: string
-        description: A legal document that verifies the identity of the beneficiary.
-      beneficiary_identification_value:
-        type: string
-        description: A unique reference code for the identification document, such as a passport number.
-      bank_country:
-        type: string
-        description: Two-letter ISO code for the country in which the beneficiary's bank account is held.
-      bank_name:
-        type: string
-        description: Bank name
-      bank_account_type:
-        type: string
-        description: Bank account type.
-        enum:
-        - checking
-        - savings
-      currency:
-        type: string
-        description: Currency in which money is held in the beneficiary's bank account. Three-digit currency code.
-      account_number:
-        type: string
-        description: Bank account number.
-      routing_code_type_1:
-        type: string
-        description: Local payment routing system.
-      routing_code_value_1:
-        type: string
-        description: Value for "routing_code_type_1".
-      routing_code_type_2:
-        type: string
-        description: Local payment routing system.
-      routing_code_value_2:
-        type: string
-        description: Value for "routing_code_type_2".
-      bic_swift:
-        type: string
-        description: BIC/Swift code
-      iban:
-        type: string
-        description: IBAN code
-      default_beneficiary:
-        type: string
-        description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
-        enum:
-        - 'true'
-        - 'false'
-      creator_contact_id:
-        type: string
-        description: Contact UUID of beneficiary creator.
-      bank_address:
-        type: array
-        items:
+          enum:
+          - close_match
+          - full_match
+          - no_match
+        actual_name:
           type: string
-          description: Line of address.
-      created_at:
-        type: string
-        description: Date the beneficiary record was created.
-        format: date-time
-      updated_at:
-        type: string
-        description: Date the beneficiary record was last updated.
-        format: date-time
-      beneficiary_external_reference:
-        type: string
-        description: Beneficiary external reference.
-      business_nature:
-        type: string
-        description: Beneficiary nature of business.
-      company_website:
-        type: string
-        description: Beneficiary company website.
-    example:
-      id: a6000ce9-46b8-49a7-9f5b-325ed3f047c2
-      bank_account_holder_name: Company PLC
-      name: Sample name
-      email: ''
-      payment_types:
-      - regular
-      beneficiary_address:
-      - 1 My Road
-      - London
-      beneficiary_country: AU
-      beneficiary_entity_type: company
-      beneficiary_company_name: Sample Company Name
-      beneficiary_first_name: ''
-      beneficiary_last_name: ''
-      beneficiary_city: ''
-      beneficiary_postcode: ''
-      beneficiary_state_or_province: ''
-      beneficiary_date_of_birth: ''
-      beneficiary_identification_type: none
-      beneficiary_identification_value: ''
-      bank_country: AU
-      bank_name: Sample Bank Name
-      bank_account_type: checking
-      currency: AUD
-      account_number: '123456783'
-      routing_code_type_1: bsb_code
-      routing_code_value_1: '123456'
-      routing_code_type_2: ''
-      routing_code_value_2: ''
-      bic_swift: ''
-      iban: ''
-      default_beneficiary: 'false'
-      creator_contact_id: 58e78791-e0e5-012c-2dee-001e52f3c730
-      bank_address:
-      - Line 1
-      - Line 2
-      created_at: '2023-12-31T23:59:59.000Z'
-      updated_at: '2023-12-31T23:59:59.000Z'
-      beneficiary_external_reference: B-5847789
-      business_nature: Government agency
-      company_website: https://www.gov.uk/
-  BeneficiaryAccountVerificationResult:
-    type: object
-    description: Beneficiary account verification result.
-    properties:
-      answer:
-        description: The account verification result - 'full_match', 'close_match' or 'no_match'.
-        type: string
-        enum:
-        - close_match
-        - full_match
-        - no_match
-      actual_name:
-        type: string
-        description: The actual name of the account holder.
-      reason_code:
-        type: string
-        description: Encoded reason.
-      reason:
-        type: string
-        description: Description of the reason.
-      reason_type:
-        type: string
-        description: Category of reason - 'okay', 'warning' or 'rejected'.
-    example:
-      answer: full_match
-      actual_name: Joe Bloggs
-      reason_code: AV100
-      reason: Full match
-      reason_type: okay
-  GetBeneficiaryError:
-    type: object
-    description: 'Client error information for the Get Beneficiary endpoint.
+          description: The actual name of the account holder.
+        reason_code:
+          type: string
+          description: Encoded reason.
+        reason:
+          type: string
+          description: Description of the reason.
+        reason_type:
+          type: string
+          description: Category of reason - 'okay', 'warning' or 'rejected'.
+      example:
+        answer: full_match
+        actual_name: Joe Bloggs
+        reason_code: AV100
+        reason: Full match
+        reason_type: okay
+    Beneficiary:
+      type: object
+      description: Beneficiary
+      properties:
+        id:
+          type: string
+          description: Beneficiary UUID
+        bank_account_holder_name:
+          type: string
+          description: Bank account holder's name.
+        name:
+          type: string
+          description: Beneficiary's name
+        email:
+          type: string
+          description: Beneficiary's email address
+        payment_types:
+          type: array
+          items:
+            type: string
+            description: The payment type - regular (local) or priority (Swift).
+            enum:
+            - priority
+            - regular
+        beneficiary_address:
+          type: array
+          items:
+            type: string
+            description: Line of address.
+        beneficiary_country:
+          type: string
+          description: Two-letter ISO country code.
+        beneficiary_entity_type:
+          type: string
+          description: Beneficiary legal entity type - company or individual.
+          enum:
+          - company
+          - individual
+        beneficiary_company_name:
+          type: string
+          description: For companies
+        beneficiary_first_name:
+          type: string
+          description: For individuals
+        beneficiary_last_name:
+          type: string
+          description: For individuals
+        beneficiary_city:
+          type: string
+          description: City
+        beneficiary_postcode:
+          type: string
+          description: Postal code
+        beneficiary_state_or_province:
+          type: string
+          description: State or province.
+        beneficiary_date_of_birth:
+          type: string
+          description: For companies, this is the foundation date of the company. For individuals, it is their date of birth.
+        beneficiary_identification_type:
+          type: string
+          description: A legal document that verifies the identity of the beneficiary.
+        beneficiary_identification_value:
+          type: string
+          description: A unique reference code for the identification document, such as a passport number.
+        bank_country:
+          type: string
+          description: Two-letter ISO code for the country in which the beneficiary's bank account is held.
+        bank_name:
+          type: string
+          description: Bank name
+        bank_account_type:
+          type: string
+          description: Bank account type.
+          enum:
+          - checking
+          - savings
+        currency:
+          type: string
+          description: Currency in which money is held in the beneficiary's bank account. Three-digit currency code.
+        account_number:
+          type: string
+          description: Bank account number.
+        routing_code_type_1:
+          type: string
+          description: Local payment routing system.
+        routing_code_value_1:
+          type: string
+          description: Value for "routing_code_type_1".
+        routing_code_type_2:
+          type: string
+          description: Local payment routing system.
+        routing_code_value_2:
+          type: string
+          description: Value for "routing_code_type_2".
+        bic_swift:
+          type: string
+          description: BIC/Swift code
+        iban:
+          type: string
+          description: IBAN code
+        default_beneficiary:
+          type: string
+          description: Payments are made automatically to default beneficiaries when a beneficiary is not specified.
+          enum:
+          - 'true'
+          - 'false'
+        creator_contact_id:
+          type: string
+          description: Contact UUID of beneficiary creator.
+        bank_address:
+          type: array
+          items:
+            type: string
+            description: Line of address.
+        created_at:
+          type: string
+          description: Date the beneficiary record was created.
+          format: date-time
+        updated_at:
+          type: string
+          description: Date the beneficiary record was last updated.
+          format: date-time
+        beneficiary_external_reference:
+          type: string
+          description: Beneficiary external reference.
+        business_nature:
+          type: string
+          description: Beneficiary nature of business.
+        company_website:
+          type: string
+          description: Beneficiary company website.
+      example:
+        id: a6000ce9-46b8-49a7-9f5b-325ed3f047c2
+        bank_account_holder_name: Company PLC
+        name: Sample name
+        email: ''
+        payment_types:
+        - regular
+        beneficiary_address:
+        - 1 My Road
+        - London
+        beneficiary_country: AU
+        beneficiary_entity_type: company
+        beneficiary_company_name: Sample Company Name
+        beneficiary_first_name: ''
+        beneficiary_last_name: ''
+        beneficiary_city: ''
+        beneficiary_postcode: ''
+        beneficiary_state_or_province: ''
+        beneficiary_date_of_birth: ''
+        beneficiary_identification_type: none
+        beneficiary_identification_value: ''
+        bank_country: AU
+        bank_name: Sample Bank Name
+        bank_account_type: checking
+        currency: AUD
+        account_number: '123456783'
+        routing_code_type_1: bsb_code
+        routing_code_value_1: '123456'
+        routing_code_type_2: ''
+        routing_code_value_2: ''
+        bic_swift: ''
+        iban: ''
+        default_beneficiary: 'false'
+        creator_contact_id: 58e78791-e0e5-012c-2dee-001e52f3c730
+        bank_address:
+        - Line 1
+        - Line 2
+        created_at: '2023-12-31T23:59:59.000Z'
+        updated_at: '2023-12-31T23:59:59.000Z'
+        beneficiary_external_reference: B-5847789
+        business_nature: Government agency
+        company_website: https://www.gov.uk/
+    ValidateBeneficiaryError:
+      type: object
+      description: 'Client error information for the Validate Beneficiary endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  NotFoundError:
-    type: object
-    description: Resource not found.
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  ValidateBeneficiaryError:
-    type: object
-    description: 'Client error information for the Validate Beneficiary endpoint.
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    CreateBeneficiaryError:
+      type: object
+      description: 'Client error information for the Create Beneficiary endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  UpdateBeneficiaryError:
-    type: object
-    description: 'Client error information for the Update Beneficiary endpoint.
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    BeneficiaryAccountVerificationError:
+      type: object
+      description: 'Client error information for the Beneficiary Account Verification (CoP) endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  BeneficiaryAccountVerificationError:
-    type: object
-    description: 'Client error information for the Beneficiary Account Verification (CoP) endpoint.
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetBeneficiaryError:
+      type: object
+      description: 'Client error information for the Get Beneficiary endpoint.
 
-      '
-    required:
-    - error_code
-    - error_messages
-    properties:
-      error_code:
-        type: string
-        description: A high-level error code for the whole request.
-      error_messages:
-        type: object
-        description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-        additionalProperties:
-          type: array
-          items:
-            type: object
-            description: An object that represents one of the reasons why the input parameter failed.
-            required:
-            - code
-            - message
-            properties:
-              code:
-                type: string
-                description: A unique code that identifies this error. It can be used for translations.
-              message:
-                type: string
-                description: An explanation of the error in English.
-              params:
-                type: object
-                default: {}
-                description: Relevant validation rules that failed. This can be used for translations.
-                example:
-                  minlength: 1
-                  maxlength: 255
-  Pagination:
-    type: object
-    description: Pagination.
-    properties:
-      total_entries:
-        type: integer
-      total_pages:
-        type: integer
-      current_page:
-        type: integer
-      per_page:
-        type: integer
-        description: Number of results per page.
-      previous_page:
-        type: integer
-      next_page:
-        type: integer
-      order:
-        type: string
-        description: The field name by which the results are sorted.
-      order_asc_desc:
-        type: string
-        enum:
-        - asc
-        - desc
-        default: asc
-        description: Whether results are sorted in ascending or descending order.
-    example:
-      total_entries: 1
-      total_pages: 1
-      current_page: 1
-      per_page: 25
-      previous_page: -1
-      next_page: 2
-      order: created_at
-      order_asc_desc: asc
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    UpdateBeneficiaryError:
+      type: object
+      description: 'Client error information for the Update Beneficiary endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    DeleteBeneficiaryError:
+      type: object
+      description: 'Client error information for the Delete Beneficiary endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    FindBeneficiariesError:
+      type: object
+      description: 'Client error information for the Find Beneficiaries endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+externalDocs:
+  description: API overview
+  url: https://www.currencycloud.com/developers/

@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: api-onboarding Account Usage Document Images API
+  title: api-onboarding Document Images API
   version: v1
 servers:
 - url: /onboarding
@@ -15,7 +15,7 @@ paths:
   /v1/forms/{form_id}/documents/{document_id}/document_images:
     post:
       summary: Create Document Image
-      description: Records an image of a document that's required for the specified application form. For more information, see the "Uploading documents" section of <a href="../guides/integration-guides/onboarding-api-pilot">our guide.</a>
+      description: Records an image of a document that's required for the specified application form. For more information, see the "Uploading documents" section of our guide.
       tags:
       - Document Images
       x-api-group: Onboard
@@ -63,6 +63,8 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/create_document_image_request'
+      operationId: postV1FormsByFormIdDocumentsByDocumentIdDocumentImages
+      x-operation-id-source: derived
     get:
       summary: Get Document Images
       description: Returns all document images for the specified document.
@@ -102,6 +104,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: getV1FormsByFormIdDocumentsByDocumentIdDocumentImages
+      x-operation-id-source: derived
   /v1/forms/{form_id}/documents/{document_id}/document_images/{document_image_id}:
     delete:
       summary: Delete Document Image
@@ -161,25 +165,27 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/not_found_response'
+      operationId: deleteV1FormsByFormIdDocumentsByDocumentIdDocumentImagesByDocumentImageId
+      x-operation-id-source: derived
 components:
   schemas:
-    document_image:
+    create_document_image_request:
       type: object
       properties:
-        id:
+        image:
+          description: Image encoder used e.g. base64.
           type: string
-          description: Document image UUID.
+          format: byte
         side:
-          type: string
           description: Image of which document side.
-        created_at:
-          description: Date the document image entity was created.
           type: string
-          format: date-time
-        updated_at:
-          description: Date the document image entity was last updated.
-          type: string
-          format: date-time
+          enum:
+          - front
+          - back
+          - face
+      required:
+      - image
+      - side
     not_found_response:
       type: object
       properties:
@@ -190,8 +196,9 @@ components:
         reason:
           type: string
         error_messages:
-          type: object
-          nullable: true
+          type:
+          - object
+          - 'null'
       required:
       - status
       - error_code
@@ -213,23 +220,23 @@ components:
       - error_code
       - reason
       - error_messages
-    create_document_image_request:
+    document_image:
       type: object
       properties:
-        image:
-          description: Image encoder used e.g. base64.
+        id:
           type: string
-          format: byte
+          description: Document image UUID.
         side:
-          description: Image of which document side.
           type: string
-          enum:
-          - front
-          - back
-          - face
-      required:
-      - image
-      - side
+          description: Image of which document side.
+        created_at:
+          description: Date the document image entity was created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Date the document image entity was last updated.
+          type: string
+          format: date-time
   securitySchemes:
     AuthToken:
       type: apiKey
