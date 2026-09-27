@@ -1381,6 +1381,216 @@ paths:
                 type: string
 components:
   schemas:
+    BankDetails:
+      type: object
+      description: Bank Details
+      required:
+      - identifier_type
+      - identifier_value
+      additionalProperties: false
+      properties:
+        identifier_type:
+          type: string
+          description: The type of identifier used to identify the account (e.g. IBAN).
+        identifier_value:
+          type: string
+          description: The value of the identifier of the account in the format of the identifier_type (e.g. IBAN code).
+        account_number:
+          type: string
+          description: Account number
+        bic_swift:
+          type: string
+          description: BIC/Swift code.
+        bank_name:
+          type: string
+          description: Bank name
+        bank_branch:
+          type: string
+          description: Bank branch
+        bank_address:
+          type: string
+          description: Bank address
+        bank_city:
+          type: string
+          description: City of the bank.
+        bank_state:
+          type: string
+          description: State the bank is situated in. Available in all countries using states.
+        bank_post_code:
+          type: string
+          description: The bank's post code or the zip code for USA banks.
+        bank_country:
+          type: string
+          description: Full country name.
+        bank_country_ISO:
+          type: string
+          description: Two-letter ISO country code.
+        currency:
+          type: string
+          description: Three-letter ISO currency code.
+      example:
+        identifier_type: iban
+        identifier_value: FR7530002002460000012345X12
+        account_number: FR7530002002460000012345X12
+        bic_swift: CRLYFRPPXXX
+        bank_name: CREDIT LYONNAIS
+        bank_branch: AG STALINGRAD
+        bank_address: 212 BOULEVARD DE LA VILLETTE
+        bank_city: PARIS
+        bank_state: PARIS
+        bank_post_code: 75019
+        bank_country: FRANCE
+        bank_country_ISO: FR
+        currency: null
+    GetPayerRequirementsError:
+      type: object
+      description: 'Client error information for the Get Payer Requirements endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PaymentFeeRule:
+      type: object
+      description: Payment fee rule.
+      required:
+      - payment_type
+      - charge_type
+      - fee_amount
+      - fee_currency
+      - payment_fee_id
+      - payment_fee_name
+      additionalProperties: false
+      properties:
+        payment_type:
+          type: string
+          description: The payment type the fee is applicable to, priority(Swift) or regular(local).
+        charge_type:
+          type: string
+          description: The charge type the fee is applicable to.
+        fee_amount:
+          type: string
+          description: The fee amount.
+        fee_currency:
+          type: string
+          description: The fee currency.
+        payment_fee_id:
+          type: string
+          format: uuid
+          description: The ID of payment level rule.
+        payment_fee_name:
+          type: string
+          description: The name of payment level fee table.
+      example:
+        payment_type: priority
+        charge_type: shared
+        fee_amount: '2.00'
+        fee_currency: AED
+        payment_fee_id: 5c3b8754-406d-4e7e-a80e-606fa273ab80
+        payment_fee_name: fee_table_AED
+    PaymentDates:
+      type: object
+      description: Payment dates.
+      properties:
+        invalid_payment_dates:
+          type: object
+          description: Invalid payment dates with reason.
+          additionalProperties:
+            type: string
+            description: Maps dates (eg. "2023-12-31") to string values that explains why payments cannot be made on this date (eg. "No trading on Sunday").
+        first_payment_date:
+          description: Frist possible payment date.
+          type: string
+      example:
+        invalid_payment_dates:
+          '2013-04-18': Good Friday
+          '2013-04-19': No trading on Saturday
+          '2013-04-20': No trading on Sunday
+          '2013-04-21': Easter Monday
+          '2013-04-26': No trading on Saturday
+          '2013-04-27': No trading on Sunday
+          '2013-05-03': No trading on Saturday
+          '2013-05-04': No trading on Sunday
+          '2013-05-05': Early May Bank Holiday
+          '2013-05-10': No trading on Saturday
+          '2013-05-11': No trading on Sunday
+          '2013-05-17': No trading on Saturday
+          '2013-05-18': No trading on Sunday
+          '2013-05-24': No trading on Saturday
+          '2013-05-25': No trading on Sunday
+          '2013-05-26': Spring Bank Holiday
+          '2013-05-31': No trading on Saturday
+          '2013-06-01': No trading on Sunday
+          '2013-06-07': No trading on Saturday
+          '2013-06-08': No trading on Sunday
+          '2013-06-14': No trading on Saturday
+        first_payment_date: '2013-04-15T00:00:00.000Z'
+    GetPaymentDatesError:
+      type: object
+      description: 'Client error information for the Get Payment Dates endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
     BeneficiaryRequirements:
       type: object
       description: Beneficiary requirements.
@@ -1460,144 +1670,96 @@ components:
         beneficiary_first_name: ^.{1,255}
         beneficiary_last_name: ^.{1,255}
         beneficiary_entity_type: individual
-    GetPaymentDatesError:
+    PaymentPurposeCodes:
       type: object
-      description: 'Client error information for the Get Payment Dates endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
+      description: Payment purpose codes.
       properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetBankDetailsError:
-      type: object
-      description: 'Client error information for the Get Bank Details endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    BankDetails:
-      type: object
-      description: Bank Details
-      required:
-      - identifier_type
-      - identifier_value
-      additionalProperties: false
-      properties:
-        identifier_type:
-          type: string
-          description: The type of identifier used to identify the account (e.g. IBAN).
-        identifier_value:
-          type: string
-          description: The value of the identifier of the account in the format of the identifier_type (e.g. IBAN code).
-        account_number:
-          type: string
-          description: Account number
-        bic_swift:
-          type: string
-          description: BIC/Swift code.
-        bank_name:
-          type: string
-          description: Bank name
-        bank_branch:
-          type: string
-          description: Bank branch
-        bank_address:
-          type: string
-          description: Bank address
-        bank_city:
-          type: string
-          description: City of the bank.
-        bank_state:
-          type: string
-          description: State the bank is situated in. Available in all countries using states.
-        bank_post_code:
-          type: string
-          description: The bank's post code or the zip code for USA banks.
-        bank_country:
-          type: string
-          description: Full country name.
-        bank_country_ISO:
-          type: string
-          description: Two-letter ISO country code.
         currency:
           type: string
-          description: Three-letter ISO currency code.
+          description: Payment currency
+        entity_type:
+          type: string
+          description: Legal entity type - 'company' or 'individual'.
+        purpose_code:
+          type: string
+          description: Purpose code
+        purpose_description:
+          type: string
+          description: A description of the purpose code.
+        bank_account_country:
+          type: string
+          description: Two-letter country code for the country of the bank account.
       example:
-        identifier_type: iban
-        identifier_value: FR7530002002460000012345X12
-        account_number: FR7530002002460000012345X12
-        bic_swift: CRLYFRPPXXX
-        bank_name: CREDIT LYONNAIS
-        bank_branch: AG STALINGRAD
-        bank_address: 212 BOULEVARD DE LA VILLETTE
-        bank_city: PARIS
-        bank_state: PARIS
-        bank_post_code: 75019
-        bank_country: FRANCE
-        bank_country_ISO: FR
-        currency: null
-    UnauthorizedError:
+        currency: INR
+        entity_type: Company
+        purpose_code: delivery
+        purpose_description: Delivery fees for goods
+        bank_account_country: IN
+    ConversionDates:
       type: object
-      description: Authorization error.
+      description: Conversion dates.
+      properties:
+        first_conversion_cutoff_datetime:
+          type: string
+          format: date-time
+          description: The first conversion date and cutoff time by when conversions can be created.
+        first_conversion_date:
+          type: string
+          format: date
+          description: The first available date that a trade can be made on, in the format YYYY-MM-DD.
+        next_day_conversion_date:
+          type: string
+          format: date
+          description: The next available date that a trade can be made on, in the format YYYY-MM-DD.
+        default_conversion_date:
+          type: string
+          format: date
+          description: The default available date that a trade can be made on, in the format YYYY-MM-DD.
+        optimize_liquidity_conversion_date:
+          type: string
+          format: date
+          description: Optimal conversion date for maximizing chances of getting a successful rate.
+        invalid_conversion_dates:
+          type: object
+          additionalProperties:
+            type: string
+            description: Maps dates (eg. "2020-12-27") to string values that explain why trading is not available on the date (eg. "No trading on Sunday").
+        offline_conversion_dates:
+          type: array
+          items:
+            type: string
+            description: The list of available offline conversion dates.
+      example:
+        first_conversion_cutoff_datetime: '2020-11-18T15:50:00+00:00'
+        first_conversion_date: '2020-11-18'
+        next_day_conversion_date: '2020-11-19'
+        default_conversion_date: '2020-11-20'
+        optimize_liquidity_conversion_date: '2020-11-23'
+        invalid_conversion_dates:
+          '2020-11-21': No trading on Saturday
+          '2020-11-22': No trading on Sunday
+          '2020-11-28': No trading on Saturday
+          '2020-11-29': No trading on Sunday
+          '2020-12-05': No trading on Saturday
+          '2020-12-06': No trading on Sunday
+          '2020-12-12': No trading on Saturday
+          '2020-12-13': No trading on Sunday
+          '2020-12-19': No trading on Saturday
+          '2020-12-20': No trading on Sunday
+          '2020-12-25': Christmas Day
+          '2020-12-26': No trading on Saturday
+          '2020-12-27': No trading on Sunday
+          '2020-12-28': Boxing Day OBS
+          '2021-01-01': New Year's Day
+          '2021-01-02': No trading on Saturday
+          '2021-01-03': No trading on Sunday
+        offline_conversion_dates:
+        - '2020-11-23'
+    GetSettlementAccountsError:
+      type: object
+      description: 'Client error information for the Get Settlement Accounts endpoint.
+
+        '
       required:
       - error_code
       - error_messages
@@ -1605,8 +1767,6 @@ components:
         error_code:
           type: string
           description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
         error_messages:
           type: object
           description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
@@ -1632,13 +1792,6 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-      example:
-        error_code: auth_failed
-        error_messages:
-          api_key:
-          - code: invalid_supplied_credentials
-            message: Authentication failed with the supplied credentials
-            params: {}
     GetPaymentPurposeCodesError:
       type: object
       description: 'Client error information for the Get Payment Purpose Codes endpoint.
@@ -1676,232 +1829,78 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    GetPayerRequirementsError:
+    AvailableCurrencies:
       type: object
-      description: 'Client error information for the Get Payer Requirements endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
+      description: Available currencies
       properties:
-        error_code:
+        code:
+          description: Three-letter ISO currency code.
           type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetPaymentFeeRulesError:
-      type: object
-      description: 'Client error information for the Get Payment Fee Rules endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
+        decimal_places:
+          description: The number of decimal places used by the currency.
+          type: integer
+        name:
+          description: The name of the currency.
           type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetConversionDatesError:
-      type: object
-      description: 'Client error information for the Get Conversion Dates endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetBeneficiaryRequirementsError:
-      type: object
-      description: 'Client error information for the Get Beneficiary Requirements endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentFeeRule:
-      type: object
-      description: Payment fee rule.
-      required:
-      - payment_type
-      - charge_type
-      - fee_amount
-      - fee_currency
-      - payment_fee_id
-      - payment_fee_name
-      additionalProperties: false
-      properties:
-        payment_type:
-          type: string
-          description: The payment type the fee is applicable to, priority(Swift) or regular(local).
-        charge_type:
-          type: string
-          description: The charge type the fee is applicable to.
-        fee_amount:
-          type: string
-          description: The fee amount.
-        fee_currency:
-          type: string
-          description: The fee currency.
-        payment_fee_id:
-          type: string
-          format: uuid
-          description: The ID of payment level rule.
-        payment_fee_name:
-          type: string
-          description: The name of payment level fee table.
-      example:
-        payment_type: priority
-        charge_type: shared
-        fee_amount: '2.00'
-        fee_currency: AED
-        payment_fee_id: 5c3b8754-406d-4e7e-a80e-606fa273ab80
-        payment_fee_name: fee_table_AED
-    PayerRequirements:
-      type: object
-      description: Payer requirements.
-      properties:
-        payer_entity_type:
-          description: Legal entity type - company or individual.
+        online_trading:
+          description: Can the currency be traded online?
+          type: boolean
           enum:
-          - company
-          - individual
-          type: string
-        payment_type:
-          description: Type of payment - regular (local) or priority (Swift).
+          - true
+          - false
+        can_buy:
+          description: Can the currency be bought?
+          type: boolean
           enum:
-          - priority
-          - regular
-          type: string
-        required_fields:
-          description: The required payer fields for the payment.
-          type: array
-          items:
-            type: object
-            properties:
-              name:
-                type: string
-              validation_rule:
-                type: string
+          - true
+          - false
+        can_sell:
+          description: Can the currency be sold?
+          type: boolean
+          enum:
+          - true
+          - false
       example:
-        payer_entity_type: company
-        payment_type: priority
-        required_fields:
-        - name: payer_country
-          validation_rule: ^[A-z]{2}$
-        - name: payer_city
-          validation_rule: ^.{1,255}
-        - name: payer_address
-          validation_rule: ^.{1,255}
-        - name: payer_postcode
-          validation_rule: ^.{1,255}
-        - name: payer_company_name
-          validation_rule: ^.{1,255}
+        code: AED
+        decimal_places: 2
+        name: United Arab Emirates Dirham
+        online_trading: true
+        can_buy: true
+        can_sell: true
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
     SettlementAccount:
       type: object
       description: Settlement accounts.
@@ -2028,199 +2027,6 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    ConversionDates:
-      type: object
-      description: Conversion dates.
-      properties:
-        first_conversion_cutoff_datetime:
-          type: string
-          format: date-time
-          description: The first conversion date and cutoff time by when conversions can be created.
-        first_conversion_date:
-          type: string
-          format: date
-          description: The first available date that a trade can be made on, in the format YYYY-MM-DD.
-        next_day_conversion_date:
-          type: string
-          format: date
-          description: The next available date that a trade can be made on, in the format YYYY-MM-DD.
-        default_conversion_date:
-          type: string
-          format: date
-          description: The default available date that a trade can be made on, in the format YYYY-MM-DD.
-        optimize_liquidity_conversion_date:
-          type: string
-          format: date
-          description: Optimal conversion date for maximizing chances of getting a successful rate.
-        invalid_conversion_dates:
-          type: object
-          additionalProperties:
-            type: string
-            description: Maps dates (eg. "2020-12-27") to string values that explain why trading is not available on the date (eg. "No trading on Sunday").
-        offline_conversion_dates:
-          type: array
-          items:
-            type: string
-            description: The list of available offline conversion dates.
-      example:
-        first_conversion_cutoff_datetime: '2020-11-18T15:50:00+00:00'
-        first_conversion_date: '2020-11-18'
-        next_day_conversion_date: '2020-11-19'
-        default_conversion_date: '2020-11-20'
-        optimize_liquidity_conversion_date: '2020-11-23'
-        invalid_conversion_dates:
-          '2020-11-21': No trading on Saturday
-          '2020-11-22': No trading on Sunday
-          '2020-11-28': No trading on Saturday
-          '2020-11-29': No trading on Sunday
-          '2020-12-05': No trading on Saturday
-          '2020-12-06': No trading on Sunday
-          '2020-12-12': No trading on Saturday
-          '2020-12-13': No trading on Sunday
-          '2020-12-19': No trading on Saturday
-          '2020-12-20': No trading on Sunday
-          '2020-12-25': Christmas Day
-          '2020-12-26': No trading on Saturday
-          '2020-12-27': No trading on Sunday
-          '2020-12-28': Boxing Day OBS
-          '2021-01-01': New Year's Day
-          '2021-01-02': No trading on Saturday
-          '2021-01-03': No trading on Sunday
-        offline_conversion_dates:
-        - '2020-11-23'
-    NotFoundError:
-      type: object
-      description: Resource not found.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetSettlementAccountsError:
-      type: object
-      description: 'Client error information for the Get Settlement Accounts endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentDates:
-      type: object
-      description: Payment dates.
-      properties:
-        invalid_payment_dates:
-          type: object
-          description: Invalid payment dates with reason.
-          additionalProperties:
-            type: string
-            description: Maps dates (eg. "2023-12-31") to string values that explains why payments cannot be made on this date (eg. "No trading on Sunday").
-        first_payment_date:
-          description: Frist possible payment date.
-          type: string
-      example:
-        invalid_payment_dates:
-          '2013-04-18': Good Friday
-          '2013-04-19': No trading on Saturday
-          '2013-04-20': No trading on Sunday
-          '2013-04-21': Easter Monday
-          '2013-04-26': No trading on Saturday
-          '2013-04-27': No trading on Sunday
-          '2013-05-03': No trading on Saturday
-          '2013-05-04': No trading on Sunday
-          '2013-05-05': Early May Bank Holiday
-          '2013-05-10': No trading on Saturday
-          '2013-05-11': No trading on Sunday
-          '2013-05-17': No trading on Saturday
-          '2013-05-18': No trading on Sunday
-          '2013-05-24': No trading on Saturday
-          '2013-05-25': No trading on Sunday
-          '2013-05-26': Spring Bank Holiday
-          '2013-05-31': No trading on Saturday
-          '2013-06-01': No trading on Sunday
-          '2013-06-07': No trading on Saturday
-          '2013-06-08': No trading on Sunday
-          '2013-06-14': No trading on Saturday
-        first_payment_date: '2013-04-15T00:00:00.000Z'
-    PaymentPurposeCodes:
-      type: object
-      description: Payment purpose codes.
-      properties:
-        currency:
-          type: string
-          description: Payment currency
-        entity_type:
-          type: string
-          description: Legal entity type - 'company' or 'individual'.
-        purpose_code:
-          type: string
-          description: Purpose code
-        purpose_description:
-          type: string
-          description: A description of the purpose code.
-        bank_account_country:
-          type: string
-          description: Two-letter country code for the country of the bank account.
-      example:
-        currency: INR
-        entity_type: Company
-        purpose_code: delivery
-        purpose_description: Delivery fees for goods
-        bank_account_country: IN
     RateLimitError:
       type: object
       description: Too many requests.
@@ -2256,44 +2062,238 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    AvailableCurrencies:
+    GetBankDetailsError:
       type: object
-      description: Available currencies
+      description: 'Client error information for the Get Bank Details endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
       properties:
-        code:
-          description: Three-letter ISO currency code.
+        error_code:
           type: string
-        decimal_places:
-          description: The number of decimal places used by the currency.
-          type: integer
-        name:
-          description: The name of the currency.
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetConversionDatesError:
+      type: object
+      description: 'Client error information for the Get Conversion Dates endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
           type: string
-        online_trading:
-          description: Can the currency be traded online?
-          type: boolean
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetBeneficiaryRequirementsError:
+      type: object
+      description: 'Client error information for the Get Beneficiary Requirements endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PayerRequirements:
+      type: object
+      description: Payer requirements.
+      properties:
+        payer_entity_type:
+          description: Legal entity type - company or individual.
           enum:
-          - true
-          - false
-        can_buy:
-          description: Can the currency be bought?
-          type: boolean
+          - company
+          - individual
+          type: string
+        payment_type:
+          description: Type of payment - regular (local) or priority (Swift).
           enum:
-          - true
-          - false
-        can_sell:
-          description: Can the currency be sold?
-          type: boolean
-          enum:
-          - true
-          - false
+          - priority
+          - regular
+          type: string
+        required_fields:
+          description: The required payer fields for the payment.
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+              validation_rule:
+                type: string
       example:
-        code: AED
-        decimal_places: 2
-        name: United Arab Emirates Dirham
-        online_trading: true
-        can_buy: true
-        can_sell: true
+        payer_entity_type: company
+        payment_type: priority
+        required_fields:
+        - name: payer_country
+          validation_rule: ^[A-z]{2}$
+        - name: payer_city
+          validation_rule: ^.{1,255}
+        - name: payer_address
+          validation_rule: ^.{1,255}
+        - name: payer_postcode
+          validation_rule: ^.{1,255}
+        - name: payer_company_name
+          validation_rule: ^.{1,255}
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
+    GetPaymentFeeRulesError:
+      type: object
+      description: 'Client error information for the Get Payment Fee Rules endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

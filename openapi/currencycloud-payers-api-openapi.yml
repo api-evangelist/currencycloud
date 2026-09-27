@@ -159,9 +159,9 @@ paths:
                 type: string
 components:
   schemas:
-    UnauthorizedError:
+    NotFoundError:
       type: object
-      description: Authorization error.
+      description: Resource not found.
       required:
       - error_code
       - error_messages
@@ -169,11 +169,8 @@ components:
         error_code:
           type: string
           description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
         error_messages:
           type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
           additionalProperties:
             type: array
             items:
@@ -196,13 +193,6 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-      example:
-        error_code: auth_failed
-        error_messages:
-          api_key:
-          - code: invalid_supplied_credentials
-            message: Authentication failed with the supplied credentials
-            params: {}
     GetPayerError:
       type: object
       description: 'Client error information for the Get Payer endpoint.
@@ -341,9 +331,9 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    NotFoundError:
+    UnauthorizedError:
       type: object
-      description: Resource not found.
+      description: Authorization error.
       required:
       - error_code
       - error_messages
@@ -351,8 +341,11 @@ components:
         error_code:
           type: string
           description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
         error_messages:
           type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
           additionalProperties:
             type: array
             items:
@@ -375,6 +368,13 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

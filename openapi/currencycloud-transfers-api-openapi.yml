@@ -914,6 +914,77 @@ paths:
                 type: string
 components:
   schemas:
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    ForbiddenError:
+      type: object
+      description: Permission error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents the reasons why the request was not permitted.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
     UnauthorizedError:
       type: object
       description: Authorization error.
@@ -958,41 +1029,6 @@ components:
           - code: invalid_supplied_credentials
             message: Authentication failed with the supplied credentials
             params: {}
-    CreateTransferError:
-      type: object
-      description: Client error information for the Create Transfer endpoint.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
     FindTransfersError:
       type: object
       description: 'Client error information for the Find Transfers endpoint.
@@ -1030,9 +1066,9 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    CancelTransferError:
+    GetTransferError:
       type: object
-      description: 'Client error information for the Cancel Transfer endpoint.
+      description: 'Client error information for the Get Transfer endpoint.
 
         '
       required:
@@ -1041,7 +1077,7 @@ components:
       properties:
         error_code:
           type: string
-          description: A high-level error code for the whole request.
+          description: A high-level error code for the whole request
         error_messages:
           type: object
           description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
@@ -1128,18 +1164,16 @@ components:
         creator_contact_id: 262e3d2a-e152-11e6-a5af-080027a79e8f
         reason: Director's fees for March
         unique_request_id: 1234567890abc
-    GetTransferError:
+    CreateTransferError:
       type: object
-      description: 'Client error information for the Get Transfer endpoint.
-
-        '
+      description: Client error information for the Create Transfer endpoint.
       required:
       - error_code
       - error_messages
       properties:
         error_code:
           type: string
-          description: A high-level error code for the whole request
+          description: A high-level error code for the whole request.
         error_messages:
           type: object
           description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
@@ -1165,9 +1199,11 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    NotFoundError:
+    CancelTransferError:
       type: object
-      description: Resource not found.
+      description: 'Client error information for the Cancel Transfer endpoint.
+
+        '
       required:
       - error_code
       - error_messages
@@ -1177,6 +1213,7 @@ components:
           description: A high-level error code for the whole request.
         error_messages:
           type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
           additionalProperties:
             type: array
             items:
@@ -1260,43 +1297,6 @@ components:
                 code:
                   type: string
                   description: A unique code that identifies this validation/error.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    ForbiddenError:
-      type: object
-      description: Permission error.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
-        error_messages:
-          type: object
-          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents the reasons why the request was not permitted.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
                 message:
                   type: string
                   description: An explanation of the error in English.

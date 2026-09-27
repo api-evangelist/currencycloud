@@ -156,6 +156,77 @@ paths:
                 type: string
 components:
   schemas:
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetSenderError:
+      type: object
+      description: 'Client error information for the Get Sender endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
     UnauthorizedError:
       type: object
       description: Authorization error.
@@ -274,77 +345,6 @@ components:
                 code:
                   type: string
                   description: A unique code that identifies this validation/error.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    NotFoundError:
-      type: object
-      description: Resource not found.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetSenderError:
-      type: object
-      description: 'Client error information for the Get Sender endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
                 message:
                   type: string
                   description: An explanation of the error in English.

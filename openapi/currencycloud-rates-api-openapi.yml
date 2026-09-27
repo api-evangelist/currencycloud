@@ -426,6 +426,26 @@ paths:
                 type: string
 components:
   schemas:
+    RatesBasic:
+      properties:
+        rates:
+          type: object
+          description: Maps currency pairs (eg. "EURUSD", "GBPZAR") to rates. The first number is the bid SPOT rate and the second is the ask SPOT rate. For example, in the EURUSD example response, the first number (1.3803) is the EUR->USD rate and the second number (1.3809) is the USD->EUR rate.
+          additionalProperties:
+            type: array
+            items:
+              type: string
+              description: A pair of rates for the currency pair. The first number is the bid SPOT rate and the second is the ask SPOT rate.
+        unavailable:
+          type: array
+          description: A list of valid currency pairs that are not currently available.
+      example:
+        EURUSD:
+        - '1.3803'
+        - '1.3809'
+        GBPZAR:
+        - '17.5271'
+        - '17.5279'
     UnauthorizedError:
       type: object
       description: Authorization error.
@@ -470,135 +490,6 @@ components:
           - code: invalid_supplied_credentials
             message: Authentication failed with the supplied credentials
             params: {}
-    GetDetailedRatesError:
-      type: object
-      description: 'Client error information for the Get Detailed Rates endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    RatesBasic:
-      properties:
-        rates:
-          type: object
-          description: Maps currency pairs (eg. "EURUSD", "GBPZAR") to rates. The first number is the bid SPOT rate and the second is the ask SPOT rate. For example, in the EURUSD example response, the first number (1.3803) is the EUR->USD rate and the second number (1.3809) is the USD->EUR rate.
-          additionalProperties:
-            type: array
-            items:
-              type: string
-              description: A pair of rates for the currency pair. The first number is the bid SPOT rate and the second is the ask SPOT rate.
-        unavailable:
-          type: array
-          description: A list of valid currency pairs that are not currently available.
-      example:
-        EURUSD:
-        - '1.3803'
-        - '1.3809'
-        GBPZAR:
-        - '17.5271'
-        - '17.5279'
-    RateLimitError:
-      type: object
-      description: Too many requests.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this validation/error.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetBasicRatesError:
-      type: object
-      description: 'Client error information for the Get Basic Rates endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
     RateDetailed:
       type: object
       description: Detailed rate information.
@@ -663,6 +554,115 @@ components:
         deposit_required: 'true'
         deposit_amount: '316.96'
         deposit_currency: USD
+    GetDetailedRatesError:
+      type: object
+      description: 'Client error information for the Get Detailed Rates endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetBasicRatesError:
+      type: object
+      description: 'Client error information for the Get Basic Rates endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

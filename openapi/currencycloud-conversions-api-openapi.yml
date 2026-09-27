@@ -2164,6 +2164,123 @@ paths:
                 type: string
 components:
   schemas:
+    ConversionCancellationQuote:
+      type: object
+      description: Projected cost to cancel a conversion.
+      properties:
+        amount:
+          type: string
+          description: The cost to cancel the conversion.
+        currency:
+          type: string
+          description: The currency of the cost to cancel the conversio - a three-letter ISO currency code.
+        event_date_time:
+          type: string
+          format: date-time
+          description: The date and time of the conversion cancellation quote.
+      example:
+        amount: 100
+        currency: GBP
+        event_date_time: '2023-07-14T17:03:11.000Z'
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    ForbiddenError:
+      type: object
+      description: Permission error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents the reasons why the request was not permitted.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    ConversionDateChange:
+      type: object
+      description: Conversion Date change record
+      properties:
+        conversion_id:
+          type: string
+          description: UUID of the Conversion.
+        amount:
+          type: string
+          description: The cost of changing the date of the conversion.
+        currency:
+          type: string
+          description: The currency of the cost to change the conversion date. A three-letter ISO currency code.
+        new_conversion_date:
+          type: string
+          description: The new date the conversion will be made.
+        new_settlement_date:
+          type: string
+          description: The new date and time by which funds need to be available to settle the trade.
+        old_conversion_date:
+          type: string
+          description: The previous date the conversion was to be made.
+        old_settlement_date:
+          type: string
+          description: The previous date and time by which funds needed to be available to settle the trade.
+        event_date_time:
+          type: string
+          description: The date and time of the date change or date change quote.
     ConversionCancellation:
       type: object
       description: Cancelled Conversion
@@ -2210,43 +2327,6 @@ components:
         notes: Cancel the conversion due to personal issues
         event_type: self_service_cancellation
         event_date_time: '2023-11-10T12:18:56.000Z'
-    CreateConversionError:
-      type: object
-      description: 'Client error information for the Create Conversion endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
     UnauthorizedError:
       type: object
       description: Authorization error.
@@ -2291,9 +2371,34 @@ components:
           - code: invalid_supplied_credentials
             message: Authentication failed with the supplied credentials
             params: {}
-    ForbiddenError:
+    ConversionSplitHistory:
       type: object
-      description: Permission error.
+      properties:
+        origin_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The original conversion (before split).
+        parent_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The parent conversion (after split).
+        child_conversions:
+          type: array
+          items:
+            $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The child conversion (after split).
+    ConversionSplit:
+      type: object
+      properties:
+        parent_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The parent conversion.
+        child_conversion:
+          $ref: '#/components/schemas/ConversionSplitDetails'
+          description: The child conversion.
+    GetConversionError:
+      type: object
+      description: 'Client error information for the Get Conversion endpoint.
+
+        '
       required:
       - error_code
       - error_messages
@@ -2301,16 +2406,14 @@ components:
         error_code:
           type: string
           description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
         error_messages:
           type: object
-          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
           additionalProperties:
             type: array
             items:
               type: object
-              description: An object that represents the reasons why the request was not permitted.
+              description: An object that represents one of the reasons why the input parameter failed.
               required:
               - code
               - message
@@ -2328,101 +2431,116 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    ConversionCancellationQuote:
+    Pagination:
       type: object
-      description: Projected cost to cancel a conversion.
+      description: Pagination.
       properties:
-        amount:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
           type: string
-          description: The cost to cancel the conversion.
-        currency:
+          description: The field name by which the results are sorted.
+        order_asc_desc:
           type: string
-          description: The currency of the cost to cancel the conversio - a three-letter ISO currency code.
-        event_date_time:
-          type: string
-          format: date-time
-          description: The date and time of the conversion cancellation quote.
-      example:
-        amount: 100
-        currency: GBP
-        event_date_time: '2023-07-14T17:03:11.000Z'
-    ConversionDateChange:
-      type: object
-      description: Conversion Date change record
-      properties:
-        conversion_id:
-          type: string
-          description: UUID of the Conversion.
-        amount:
-          type: string
-          description: The cost of changing the date of the conversion.
-        currency:
-          type: string
-          description: The currency of the cost to change the conversion date. A three-letter ISO currency code.
-        new_conversion_date:
-          type: string
-          description: The new date the conversion will be made.
-        new_settlement_date:
-          type: string
-          description: The new date and time by which funds need to be available to settle the trade.
-        old_conversion_date:
-          type: string
-          description: The previous date the conversion was to be made.
-        old_settlement_date:
-          type: string
-          description: The previous date and time by which funds needed to be available to settle the trade.
-        event_date_time:
-          type: string
-          description: The date and time of the date change or date change quote.
-    ConversionSplit:
-      type: object
-      properties:
-        parent_conversion:
-          $ref: '#/components/schemas/ConversionSplitDetails'
-          description: The parent conversion.
-        child_conversion:
-          $ref: '#/components/schemas/ConversionSplitDetails'
-          description: The child conversion.
-    ConversionSplitDetails:
-      properties:
-        id:
-          type: string
-          description: Conversion ID
-        short_reference:
-          type: string
-          description: A human readable unique trade indentifier, in the format YYYYMMDD-XXXXXX.
-        sell_currency:
-          type: string
-          description: Three character ISO code for currency sold.
-        buy_currency:
-          type: string
-          description: Three character ISO code for currency bought.
-        buy_amount:
-          type: string
-          description: The amount of the buy_currency being bought.
-        sell_amount:
-          type: string
-          description: The amount of the sell_currency being sold.
-        settlement_date:
-          type: string
-          format: date-time
-          description: The date and time by which funds need to be available to settle the trade.
-        conversion_date:
-          type: string
-          format: date-time
-          description: The date the conversion will be made.
-        status:
-          type: string
-          description: Status of the related trade.
           enum:
-          - awaiting_authorisation
-          - awaiting_funds
-          - closed
-          - funds_arrived
-          - funds_being_processed
-          - funds_sent
-          - trade_settled
-          - trade_settling
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    FindConversionsError:
+      type: object
+      description: 'Client error information for the Find Conversions endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    CreateConversionError:
+      type: object
+      description: 'Client error information for the Create Conversion endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
     ConversionProfitAndLoss:
       type: object
       description: Recognised profit / loss on a conversion.
@@ -2464,91 +2582,6 @@ components:
           next_page: 2
           order: created_at
           order_asc_desc: asc
-    ConversionSplitHistory:
-      type: object
-      properties:
-        origin_conversion:
-          $ref: '#/components/schemas/ConversionSplitDetails'
-          description: The original conversion (before split).
-        parent_conversion:
-          $ref: '#/components/schemas/ConversionSplitDetails'
-          description: The parent conversion (after split).
-        child_conversions:
-          type: array
-          items:
-            $ref: '#/components/schemas/ConversionSplitDetails'
-          description: The child conversion (after split).
-    Pagination:
-      type: object
-      description: Pagination.
-      properties:
-        total_entries:
-          type: integer
-        total_pages:
-          type: integer
-        current_page:
-          type: integer
-        per_page:
-          type: integer
-          description: Number of results per page.
-        previous_page:
-          type: integer
-        next_page:
-          type: integer
-        order:
-          type: string
-          description: The field name by which the results are sorted.
-        order_asc_desc:
-          type: string
-          enum:
-          - asc
-          - desc
-          default: asc
-          description: Whether results are sorted in ascending or descending order.
-      example:
-        total_entries: 1
-        total_pages: 1
-        current_page: 1
-        per_page: 25
-        previous_page: -1
-        next_page: 2
-        order: created_at
-        order_asc_desc: asc
-    RateLimitError:
-      type: object
-      description: Too many requests.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this validation/error.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
     Conversion:
       type: object
       description: Conversion.
@@ -2692,82 +2725,49 @@ components:
         unique_request_id: 1234567890abc
         created_at: '2023-12-31T23:59:59.000Z'
         updated_at: '2023-12-31T23:59:59.000Z'
-    NotFoundError:
-      type: object
-      description: Resource not found.
-      required:
-      - error_code
-      - error_messages
+    ConversionSplitDetails:
       properties:
-        error_code:
+        id:
           type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    FindConversionsError:
-      type: object
-      description: 'Client error information for the Find Conversions endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
+          description: Conversion ID
+        short_reference:
           type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetConversionError:
+          description: A human readable unique trade indentifier, in the format YYYYMMDD-XXXXXX.
+        sell_currency:
+          type: string
+          description: Three character ISO code for currency sold.
+        buy_currency:
+          type: string
+          description: Three character ISO code for currency bought.
+        buy_amount:
+          type: string
+          description: The amount of the buy_currency being bought.
+        sell_amount:
+          type: string
+          description: The amount of the sell_currency being sold.
+        settlement_date:
+          type: string
+          format: date-time
+          description: The date and time by which funds need to be available to settle the trade.
+        conversion_date:
+          type: string
+          format: date-time
+          description: The date the conversion will be made.
+        status:
+          type: string
+          description: Status of the related trade.
+          enum:
+          - awaiting_authorisation
+          - awaiting_funds
+          - closed
+          - funds_arrived
+          - funds_being_processed
+          - funds_sent
+          - trade_settled
+          - trade_settling
+    RateLimitError:
       type: object
-      description: 'Client error information for the Get Conversion endpoint.
-
-        '
+      description: Too many requests.
       required:
       - error_code
       - error_messages
@@ -2789,7 +2789,7 @@ components:
               properties:
                 code:
                   type: string
-                  description: A unique code that identifies this error. It can be used for translations.
+                  description: A unique code that identifies this validation/error.
                 message:
                   type: string
                   description: An explanation of the error in English.
