@@ -1041,40 +1041,6 @@ components:
       required:
       - collections_account
       - primary_purpose
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type:
-          - object
-          - 'null'
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     account_usage:
       type:
       - object
@@ -1159,6 +1125,40 @@ components:
       required:
       - collections_account
       - one_off_transaction
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
   securitySchemes:
     AuthToken:
       type: apiKey

@@ -237,134 +237,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    person:
-      type: object
-      properties:
-        id:
-          type: string
-        form_id:
-          type: string
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        roles:
-          type: array
-          items:
-            type: string
-        first_name:
-          type: string
-        middle_name:
-          type:
-          - string
-          - 'null'
-        last_name:
-          type: string
-        dob:
-          type:
-          - string
-          - 'null'
-          format: date
-        phone_number:
-          type:
-          - string
-          - 'null'
-        email:
-          type:
-          - string
-          - 'null'
-        ownership_percentage:
-          type: number
-          minimum: 0
-          maximum: 100
-        id_number:
-          type:
-          - string
-          - 'null'
-        home_country:
-          type: string
-        passport_number:
-          type:
-          - string
-          - 'null'
-        passport_country_of_issue:
-          type:
-          - string
-          - 'null'
-        personal_address:
-          type: object
-          properties:
-            city:
-              type: string
-            street:
-              type: string
-            country:
-              type: string
-            postal_code:
-              type: string
-            apartment_number:
-              type:
-              - string
-              - 'null'
-            building_name:
-              type:
-              - string
-              - 'null'
-            building_number:
-              type:
-              - string
-              - 'null'
-            state_or_province:
-              type:
-              - string
-              - 'null'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      required:
-      - id
-      - roles
-      - first_name
-      - last_name
-      - home_country
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type:
-          - object
-          - 'null'
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     create_person_request:
       type: object
       properties:
@@ -966,6 +838,134 @@ components:
           - country
           - postal_code
       required:
+      - roles
+      - first_name
+      - last_name
+      - home_country
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    person:
+      type: object
+      properties:
+        id:
+          type: string
+        form_id:
+          type: string
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        roles:
+          type: array
+          items:
+            type: string
+        first_name:
+          type: string
+        middle_name:
+          type:
+          - string
+          - 'null'
+        last_name:
+          type: string
+        dob:
+          type:
+          - string
+          - 'null'
+          format: date
+        phone_number:
+          type:
+          - string
+          - 'null'
+        email:
+          type:
+          - string
+          - 'null'
+        ownership_percentage:
+          type: number
+          minimum: 0
+          maximum: 100
+        id_number:
+          type:
+          - string
+          - 'null'
+        home_country:
+          type: string
+        passport_number:
+          type:
+          - string
+          - 'null'
+        passport_country_of_issue:
+          type:
+          - string
+          - 'null'
+        personal_address:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type:
+              - string
+              - 'null'
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            state_or_province:
+              type:
+              - string
+              - 'null'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - id
       - roles
       - first_name
       - last_name

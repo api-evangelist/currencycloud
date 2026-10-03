@@ -952,9 +952,9 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    UnauthorizedError:
+    RateLimitError:
       type: object
-      description: Authorization error.
+      description: Too many requests.
       required:
       - error_code
       - error_messages
@@ -962,8 +962,79 @@ components:
         error_code:
           type: string
           description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
           enum:
-          - auth_failed
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    GenerateReportError:
+      type: object
+      description: 'Client error information for the Generate Report endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
         error_messages:
           type: object
           description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
@@ -989,13 +1060,6 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-      example:
-        error_code: auth_failed
-        error_messages:
-          api_key:
-          - code: invalid_supplied_credentials
-            message: Authentication failed with the supplied credentials
-            params: {}
     ReportRequest:
       type: object
       description: Report record
@@ -1071,11 +1135,9 @@ components:
         contact_id: 543477161-91de-012f-e284-1e0030c7f352
         created_at: '2023-03-16T23:59:59.000Z'
         updated_at: '2023-03-16T23:59:59.000Z'
-    GenerateReportError:
+    UnauthorizedError:
       type: object
-      description: 'Client error information for the Generate Report endpoint.
-
-        '
+      description: Authorization error.
       required:
       - error_code
       - error_messages
@@ -1083,6 +1145,8 @@ components:
         error_code:
           type: string
           description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
         error_messages:
           type: object
           description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
@@ -1108,77 +1172,13 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    Pagination:
-      type: object
-      description: Pagination.
-      properties:
-        total_entries:
-          type: integer
-        total_pages:
-          type: integer
-        current_page:
-          type: integer
-        per_page:
-          type: integer
-          description: Number of results per page.
-        previous_page:
-          type: integer
-        next_page:
-          type: integer
-        order:
-          type: string
-          description: The field name by which the results are sorted.
-        order_asc_desc:
-          type: string
-          enum:
-          - asc
-          - desc
-          default: asc
-          description: Whether results are sorted in ascending or descending order.
       example:
-        total_entries: 1
-        total_pages: 1
-        current_page: 1
-        per_page: 25
-        previous_page: -1
-        next_page: 2
-        order: created_at
-        order_asc_desc: asc
-    RateLimitError:
-      type: object
-      description: Too many requests.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
+        error_code: auth_failed
         error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this validation/error.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

@@ -245,6 +245,15 @@ paths:
                 type: string
 components:
   schemas:
+    AuthenticationToken:
+      type: object
+      description: Authentication token
+      properties:
+        auth_token:
+          type: string
+          description: Currently a randomly-generated 32-digit authentication token. Clients must store this securely and destroy it when it is no longer needed.
+      example:
+        auth_token: 043cc6069f5e32757647641460d1d5ed
     LoginError:
       type: object
       description: 'Login error.
@@ -369,15 +378,6 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    AuthenticationToken:
-      type: object
-      description: Authentication token
-      properties:
-        auth_token:
-          type: string
-          description: Currently a randomly-generated 32-digit authentication token. Clients must store this securely and destroy it when it is no longer needed.
-      example:
-        auth_token: 043cc6069f5e32757647641460d1d5ed
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

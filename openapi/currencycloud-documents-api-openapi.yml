@@ -153,54 +153,40 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    document_with_image_ids:
+    validation_error_response:
       type: object
       properties:
-        id:
+        status:
           type: string
-        document_type:
+        error_code:
           type: string
-        category:
+        reason:
           type: string
-        document_image_ids:
-          type: array
-          items:
-            type: string
-        form_section_type:
-          type:
-          - string
-          - 'null'
-        form_section_id:
-          type:
-          - string
-          - 'null'
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+        error_messages:
+          type: object
       required:
-      - document_type
-      - category
-    document:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    not_found_response:
       type: object
       properties:
-        id:
+        status:
           type: string
-        document_type:
+        error_code:
           type: string
-        category:
+        reason:
           type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
+        error_messages:
+          type:
+          - object
+          - 'null'
       required:
-      - document_type
-      - category
+      - status
+      - error_code
+      - reason
+      - error_messages
     create_document_request:
       type: object
       properties:
@@ -239,40 +225,54 @@ components:
       required:
       - document_type
       - category
-    validation_error_response:
+    document:
       type: object
       properties:
-        status:
+        id:
           type: string
-        error_code:
+        document_type:
           type: string
-        reason:
+        category:
           type: string
-        error_messages:
-          type: object
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
       required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    not_found_response:
+      - document_type
+      - category
+    document_with_image_ids:
       type: object
       properties:
-        status:
+        id:
           type: string
-        error_code:
+        document_type:
           type: string
-        reason:
+        category:
           type: string
-        error_messages:
+        document_image_ids:
+          type: array
+          items:
+            type: string
+        form_section_type:
           type:
-          - object
+          - string
           - 'null'
+        form_section_id:
+          type:
+          - string
+          - 'null'
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
       required:
-      - status
-      - error_code
-      - reason
-      - error_messages
+      - document_type
+      - category
   securitySchemes:
     AuthToken:
       type: apiKey

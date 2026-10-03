@@ -162,24 +162,6 @@ components:
       - error_code
       - reason
       - error_messages
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type:
-          - object
-          - 'null'
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     create_business_information_request:
       type: object
       properties:
@@ -1030,6 +1012,24 @@ components:
       - incorporation_date
       - business_activity_description
       - registered_address
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
   securitySchemes:
     AuthToken:
       type: apiKey

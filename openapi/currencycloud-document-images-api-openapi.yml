@@ -169,22 +169,23 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    validation_error_response:
+    create_document_image_request:
       type: object
       properties:
-        status:
+        image:
+          description: Image encoder used e.g. base64.
           type: string
-        error_code:
+          format: byte
+        side:
+          description: Image of which document side.
           type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
+          enum:
+          - front
+          - back
+          - face
       required:
-      - status
-      - error_code
-      - reason
-      - error_messages
+      - image
+      - side
     document_image:
       type: object
       properties:
@@ -202,6 +203,22 @@ components:
           description: Date the document image entity was last updated.
           type: string
           format: date-time
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
     not_found_response:
       type: object
       properties:
@@ -220,23 +237,6 @@ components:
       - error_code
       - reason
       - error_messages
-    create_document_image_request:
-      type: object
-      properties:
-        image:
-          description: Image encoder used e.g. base64.
-          type: string
-          format: byte
-        side:
-          description: Image of which document side.
-          type: string
-          enum:
-          - front
-          - back
-          - face
-      required:
-      - image
-      - side
   securitySchemes:
     AuthToken:
       type: apiKey

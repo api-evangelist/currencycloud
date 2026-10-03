@@ -545,6 +545,78 @@ paths:
               - amount
 components:
   schemas:
+    TopUpMarginBalanceError:
+      type: object
+      description: 'Client error information for the Top Up Margin Balance endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
     GetBalanceError:
       type: object
       description: 'Client error information for the Get Balance endpoint.
@@ -619,6 +691,75 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
+    Balance:
+      type: object
+      description: Balance.
+      properties:
+        id:
+          type: string
+          description: Balance UUID
+          format: UUID
+        account_id:
+          type: string
+          description: Account UUID
+          format: UUID
+        currency:
+          type: string
+          description: Three-letter ISO currency code for the currency the amount is shown in.
+        amount:
+          type: string
+          description: The balance amount.
+        created_at:
+          type: string
+          format: date-time
+          description: Date/time the record was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date/time the record was last updated.
+      example:
+        id: 18230F1D-648A-406A-AD1F-A09CBC02E9E9
+        account_id: TcC
+        currency: USD
+        amount: '1000.00'
+        created_at: '2023-12-31T23:59:59.000Z'
+        updated_at: '2023-12-31T23:59:59.000Z'
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
     NotFoundError:
       type: object
       description: Resource not found.
@@ -653,6 +794,28 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
+    TopUpMarginBalance:
+      type: object
+      description: Bank Details.
+      required:
+      - account_id
+      - currency
+      - transferred_amount
+      additionalProperties: false
+      properties:
+        account_id:
+          type: string
+          description: Account identifier
+        currency:
+          type: string
+          description: Currency code for currency transferred.
+        transferred_amount:
+          type: string
+          description: Amount of transfer.
+      example:
+        account_id: 6c046c51-2387-4004-8e87-4bf97102e36d
+        currency: EUR
+        transferred_amount: 100.0
     UnauthorizedError:
       type: object
       description: Authorization error.
@@ -697,169 +860,6 @@ components:
           - code: invalid_supplied_credentials
             message: Authentication failed with the supplied credentials
             params: {}
-    TopUpMarginBalanceError:
-      type: object
-      description: 'Client error information for the Top Up Margin Balance endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    Pagination:
-      type: object
-      description: Pagination.
-      properties:
-        total_entries:
-          type: integer
-        total_pages:
-          type: integer
-        current_page:
-          type: integer
-        per_page:
-          type: integer
-          description: Number of results per page.
-        previous_page:
-          type: integer
-        next_page:
-          type: integer
-        order:
-          type: string
-          description: The field name by which the results are sorted.
-        order_asc_desc:
-          type: string
-          enum:
-          - asc
-          - desc
-          default: asc
-          description: Whether results are sorted in ascending or descending order.
-      example:
-        total_entries: 1
-        total_pages: 1
-        current_page: 1
-        per_page: 25
-        previous_page: -1
-        next_page: 2
-        order: created_at
-        order_asc_desc: asc
-    TopUpMarginBalance:
-      type: object
-      description: Bank Details.
-      required:
-      - account_id
-      - currency
-      - transferred_amount
-      additionalProperties: false
-      properties:
-        account_id:
-          type: string
-          description: Account identifier
-        currency:
-          type: string
-          description: Currency code for currency transferred.
-        transferred_amount:
-          type: string
-          description: Amount of transfer.
-      example:
-        account_id: 6c046c51-2387-4004-8e87-4bf97102e36d
-        currency: EUR
-        transferred_amount: 100.0
-    Balance:
-      type: object
-      description: Balance.
-      properties:
-        id:
-          type: string
-          description: Balance UUID
-          format: UUID
-        account_id:
-          type: string
-          description: Account UUID
-          format: UUID
-        currency:
-          type: string
-          description: Three-letter ISO currency code for the currency the amount is shown in.
-        amount:
-          type: string
-          description: The balance amount.
-        created_at:
-          type: string
-          format: date-time
-          description: Date/time the record was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: Date/time the record was last updated.
-      example:
-        id: 18230F1D-648A-406A-AD1F-A09CBC02E9E9
-        account_id: TcC
-        currency: USD
-        amount: '1000.00'
-        created_at: '2023-12-31T23:59:59.000Z'
-        updated_at: '2023-12-31T23:59:59.000Z'
-    RateLimitError:
-      type: object
-      description: Too many requests.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this validation/error.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

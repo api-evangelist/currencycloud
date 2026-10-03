@@ -1753,8 +1753,8 @@ paths:
                 bank_account_verified:
                   type: string
                   enum:
-                  - true
-                  - false
+                  - 'yes'
+                  - 'no'
                   - not required
                   description: Has the bank account been verified?
                 page:
@@ -2247,9 +2247,11 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    NotFoundError:
+    GetAccountPaymentChargesSettingsError:
       type: object
-      description: Resource not found.
+      description: 'Client error information for the Get Account Payment Charges Settings endpoint.
+
+        '
       required:
       - error_code
       - error_messages
@@ -2259,6 +2261,155 @@ components:
           description: A high-level error code for the whole request.
         error_messages:
           type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    AccountPaymentChargesSetting:
+      type: object
+      description: Account Payment Charges Setting.
+      properties:
+        charge_settings_id:
+          description: Unique ID
+          type: string
+        account_id:
+          description: Account ID
+          type: string
+        charge_type:
+          description: The charge type - shared or ours.
+          enum:
+          - ours
+          - shared
+          type: string
+        enabled:
+          description: Is this charge type enabled for this account?
+          type: boolean
+        default:
+          description: Is this the default charge type for this account?
+          type: boolean
+      example:
+        charge_settings_id: 2b7db581-a810-0132-a8c2-10b11cb33cfc
+        account_id: 2b6db571-a810-0144-a9b2-10a22cb33cf9
+        charge_type: shared
+        enabled: true
+        default: true
+    ManageAccountPaymentChargesSettingsError:
+      type: object
+      description: 'Client error information for the Manage Account Payment Charges Settings endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    AcceptTermsResponse:
+      type: object
+      description: Accept Terms of Use response.
+      properties:
+        acceptance_id:
+          type: string
+          description: The ID of the acceptance.
+        accepted_at:
+          type: string
+          format: date-time
+          description: The date and time that the Terms of Use were accepted.
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetAccountError:
+      type: object
+      description: 'Client error information for the Get Account endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
           additionalProperties:
             type: array
             items:
@@ -2408,8 +2559,8 @@ components:
           description: Has the bank account been verified?
           type: string
           enum:
-          - true
-          - false
+          - 'yes'
+          - 'no'
           - not required
       example:
         id: B7DE235A-FF5D-4252-83C2-06A605267FEA
@@ -2439,10 +2590,46 @@ components:
         settlement_type: bulk
         terms_and_conditions_accepted: true
         agent_or_reliance: true
-        bank_account_verified: false
-    ManageAccountPaymentChargesSettingsError:
+        bank_account_verified: 'no'
+    Pagination:
       type: object
-      description: 'Client error information for the Manage Account Payment Charges Settings endpoint.
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    GetAccountComplianceSettingsError:
+      type: object
+      description: 'Client error information for the Get Compliance Settings endpoint.
 
         '
       required:
@@ -2477,61 +2664,6 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    AcceptTermsResponse:
-      type: object
-      description: Accept Terms of Use response.
-      properties:
-        acceptance_id:
-          type: string
-          description: The ID of the acceptance.
-        accepted_at:
-          type: string
-          format: date-time
-          description: The date and time that the Terms of Use were accepted.
-    UnauthorizedError:
-      type: object
-      description: Authorization error.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-      example:
-        error_code: auth_failed
-        error_messages:
-          api_key:
-          - code: invalid_supplied_credentials
-            message: Authentication failed with the supplied credentials
-            params: {}
     AccountComplianceSettings:
       type: object
       description: Account compliance settings.
@@ -2621,43 +2753,6 @@ components:
         trading_address_postalcode: 90210
         trading_address_country: US
         customer_risk: LOW
-    GetAccountPaymentChargesSettingsError:
-      type: object
-      description: 'Client error information for the Get Account Payment Charges Settings endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
     UpdateAccountComplianceSettingsError:
       type: object
       description: 'Client error information for the Get Compliance Settings endpoint.
@@ -2695,184 +2790,80 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    FindAccountsError:
-      type: object
-      description: 'Client error information for the Find Accounts endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    GetAccountError:
-      type: object
-      description: 'Client error information for the Get Account endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    AccountPaymentChargesSetting:
-      type: object
-      description: Account Payment Charges Setting.
-      properties:
-        charge_settings_id:
-          description: Unique ID
-          type: string
-        account_id:
-          description: Account ID
-          type: string
-        charge_type:
-          description: The charge type - shared or ours.
-          enum:
-          - ours
-          - shared
-          type: string
-        enabled:
-          description: Is this charge type enabled for this account?
-          type: boolean
-        default:
-          description: Is this the default charge type for this account?
-          type: boolean
-      example:
-        charge_settings_id: 2b7db581-a810-0132-a8c2-10b11cb33cfc
-        account_id: 2b6db571-a810-0144-a9b2-10a22cb33cf9
-        charge_type: shared
-        enabled: true
-        default: true
-    GetAccountComplianceSettingsError:
-      type: object
-      description: 'Client error information for the Get Compliance Settings endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    Pagination:
-      type: object
-      description: Pagination.
-      properties:
-        total_entries:
-          type: integer
-        total_pages:
-          type: integer
-        current_page:
-          type: integer
-        per_page:
-          type: integer
-          description: Number of results per page.
-        previous_page:
-          type: integer
-        next_page:
-          type: integer
-        order:
-          type: string
-          description: The field name by which the results are sorted.
-        order_asc_desc:
-          type: string
-          enum:
-          - asc
-          - desc
-          default: asc
-          description: Whether results are sorted in ascending or descending order.
-      example:
-        total_entries: 1
-        total_pages: 1
-        current_page: 1
-        per_page: 25
-        previous_page: -1
-        next_page: 2
-        order: created_at
-        order_asc_desc: asc
     CreateAccountError:
       type: object
       description: 'Client error information for the Create Account endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    FindAccountsError:
+      type: object
+      description: 'Client error information for the Find Accounts endpoint.
 
         '
       required:
@@ -2944,9 +2935,9 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    RateLimitError:
+    UnauthorizedError:
       type: object
-      description: Too many requests.
+      description: Authorization error.
       required:
       - error_code
       - error_messages
@@ -2954,6 +2945,8 @@ components:
         error_code:
           type: string
           description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
         error_messages:
           type: object
           description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
@@ -2968,7 +2961,7 @@ components:
               properties:
                 code:
                   type: string
-                  description: A unique code that identifies this validation/error.
+                  description: A unique code that identifies this error. It can be used for translations.
                 message:
                   type: string
                   description: An explanation of the error in English.
@@ -2979,6 +2972,13 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/
