@@ -836,197 +836,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    form:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The form's UUID.
-        detached_document_ids:
-          description: List of IDs for any uploaded supporting documents.
-          type: array
-          items:
-            type: string
-        affiliate_code:
-          description: Client's own use, e.g. to track lead source.
-          type:
-          - string
-          - 'null'
-        agreed_to_marketing_emails:
-          description: Agreed to marketing emails.
-          type: boolean
-        agreed_to_terms_and_conditions:
-          description: Agreed to terms and conditions.
-          type: boolean
-        agreed_to_corporate_authority:
-          description: Confirmed authority to act on behalf of company.
-          type: boolean
-        country:
-          description: Home country for individual applicant or country of registered address for corporate applicant.
-          type: string
-        email:
-          description: The applicant's email address.
-          type: string
-        entity_type:
-          description: Type of applicant - individual or corporate.
-          type: string
-        brand_name:
-          type: string
-        brand_key:
-          type: string
-        referred_by:
-          description: How did the applicant hear about us.
-          type:
-          - string
-          - 'null'
-        products_required:
-          type: array
-          items:
-            type: string
-        state:
-          type: string
-        phone_number:
-          description: The applicant's phone number.
-          type: string
-        contact_name:
-          type: string
-          description: The applicant's name.
-        created_at:
-          type: string
-          format: date-time
-          description: Date and time the form was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: Date and time the form was last updated.
-      required:
-      - id
-      - agreed_to_marketing_emails
-      - agreed_to_terms_and_conditions
-      - brand_name
-      - country
-      - entity_type
-      - products_required
-      - created_at
-      - updated_at
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type:
-          - object
-          - 'null'
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    form_with_associations:
-      type: object
-      properties:
-        id:
-          type: string
-          description: The form's UUID.
-        detached_document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        affiliate_code:
-          type:
-          - string
-          - 'null'
-          description: Client's own use, e.g. to track lead source.
-        agreed_to_marketing_emails:
-          type: boolean
-          description: Agreed to marketing emails.
-        agreed_to_terms_and_conditions:
-          type: boolean
-          description: Agreed to terms and conditions.
-        agreed_to_corporate_authority:
-          type: boolean
-          description: Confirmed authority to act on behalf of company.
-        country:
-          description: Home country for individual applicants or country of registered address for corporate applicants. Two or three character ISO country code.
-          type: string
-        email:
-          description: The applicant's email address.
-          type: string
-        entity_type:
-          type: string
-          description: Type of applicant - individual or corporate.
-        brand_name:
-          type: string
-        brand_key:
-          type: string
-        referred_by:
-          description: How did the applicant hear about us.
-          type:
-          - string
-          - 'null'
-        products_required:
-          type: array
-          items:
-            type: string
-        state:
-          type: string
-        phone_number:
-          description: The applicant's phone number.
-          type: string
-        contact_name:
-          description: The applicant's name.
-          type: string
-        created_at:
-          type: string
-          format: date-time
-          description: Date and time the form was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: Date and time the form was last updated.
-        business_information:
-          description: Further information about corporate applicants.
-          $ref: '#/components/schemas/business_information'
-        account_usage:
-          description: Information about the intended use of the account.
-          $ref: '#/components/schemas/account_usage'
-        people:
-          description: Information about people associated with the application.
-          type: array
-          items:
-            $ref: '#/components/schemas/person'
-      required:
-      - id
-      - agreed_to_marketing_emails
-      - agreed_to_terms_and_conditions
-      - country
-      - entity_type
-      - brand_name
-      - products_required
-      - created_at
-      - updated_at
     business_information:
       type:
       - object
@@ -1163,90 +972,6 @@ components:
       - incorporation_date
       - business_activity_description
       - registered_address
-    account_usage:
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type: string
-          description: UUID for the Account Usage entity.
-        form_id:
-          type: string
-          description: Form UUID
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        collections_account:
-          description: Does the account receive funds from third parties.
-          type: boolean
-        collection_currencies:
-          description: List of currencies to fund the account with.
-          type: array
-          items:
-            type:
-            - string
-            - 'null'
-        payment_currencies:
-          type: array
-          description: List of payout currencies.
-          items:
-            type:
-            - string
-            - 'null'
-        transaction_countries:
-          type: array
-          description: List of countries that corporate accounts want to send/receive money to/from.
-          items:
-            type:
-            - string
-            - 'null'
-        one_off_transaction:
-          type: boolean
-          description: Will it be a single one-off transaction.
-        estimated_monthly_transaction_currency:
-          description: Currency of the estimated monthly transaction value.
-          type:
-          - string
-          - 'null'
-        estimated_monthly_transaction_value:
-          description: Estimated monthly value of what a corporate account is going to transact on the platform.
-          type:
-          - integer
-          - 'null'
-        estimated_monthly_transaction_volume:
-          description: How often do corporates expect to send or receive funds.
-          type:
-          - integer
-          - 'null'
-        source_of_funds:
-          description: The source of money that will be sent through the platform.
-          type:
-          - string
-          - 'null'
-        primary_purpose:
-          description: The reason for opening an account with Currencycloud.
-          type:
-          - string
-          - 'null'
-        purpose_details:
-          description: Additional details if primary_purpose is 'other'.
-          type:
-          - string
-          - 'null'
-        created_at:
-          description: Date the Account Usage record created.
-          type: string
-          format: date-time
-        updated_at:
-          description: Date the Account Usage record was last updated.
-          type: string
-          format: date-time
-      required:
-      - collections_account
-      - one_off_transaction
     person:
       type: object
       properties:
@@ -1341,6 +1066,281 @@ components:
       - first_name
       - last_name
       - home_country
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    form:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The form's UUID.
+        detached_document_ids:
+          description: List of IDs for any uploaded supporting documents.
+          type: array
+          items:
+            type: string
+        affiliate_code:
+          description: Client's own use, e.g. to track lead source.
+          type:
+          - string
+          - 'null'
+        agreed_to_marketing_emails:
+          description: Agreed to marketing emails.
+          type: boolean
+        agreed_to_terms_and_conditions:
+          description: Agreed to terms and conditions.
+          type: boolean
+        agreed_to_corporate_authority:
+          description: Confirmed authority to act on behalf of company.
+          type: boolean
+        country:
+          description: Home country for individual applicant or country of registered address for corporate applicant.
+          type: string
+        email:
+          description: The applicant's email address.
+          type: string
+        entity_type:
+          description: Type of applicant - individual or corporate.
+          type: string
+        brand_name:
+          type: string
+        brand_key:
+          type: string
+        referred_by:
+          description: How did the applicant hear about us.
+          type:
+          - string
+          - 'null'
+        products_required:
+          type: array
+          items:
+            type: string
+        state:
+          type: string
+        phone_number:
+          description: The applicant's phone number.
+          type: string
+        contact_name:
+          type: string
+          description: The applicant's name.
+        created_at:
+          type: string
+          format: date-time
+          description: Date and time the form was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date and time the form was last updated.
+      required:
+      - id
+      - agreed_to_marketing_emails
+      - agreed_to_terms_and_conditions
+      - brand_name
+      - country
+      - entity_type
+      - products_required
+      - created_at
+      - updated_at
+    account_usage:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: UUID for the Account Usage entity.
+        form_id:
+          type: string
+          description: Form UUID
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        collections_account:
+          description: Does the account receive funds from third parties.
+          type: boolean
+        collection_currencies:
+          description: List of currencies to fund the account with.
+          type: array
+          items:
+            type:
+            - string
+            - 'null'
+        payment_currencies:
+          type: array
+          description: List of payout currencies.
+          items:
+            type:
+            - string
+            - 'null'
+        transaction_countries:
+          type: array
+          description: List of countries that corporate accounts want to send/receive money to/from.
+          items:
+            type:
+            - string
+            - 'null'
+        one_off_transaction:
+          type: boolean
+          description: Will it be a single one-off transaction.
+        estimated_monthly_transaction_currency:
+          description: Currency of the estimated monthly transaction value.
+          type:
+          - string
+          - 'null'
+        estimated_monthly_transaction_value:
+          description: Estimated monthly value of what a corporate account is going to transact on the platform.
+          type:
+          - integer
+          - 'null'
+        estimated_monthly_transaction_volume:
+          description: How often do corporates expect to send or receive funds.
+          type:
+          - integer
+          - 'null'
+        source_of_funds:
+          description: The source of money that will be sent through the platform.
+          type:
+          - string
+          - 'null'
+        primary_purpose:
+          description: The reason for opening an account with Currencycloud.
+          type:
+          - string
+          - 'null'
+        purpose_details:
+          description: Additional details if primary_purpose is 'other'.
+          type:
+          - string
+          - 'null'
+        created_at:
+          description: Date the Account Usage record created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Date the Account Usage record was last updated.
+          type: string
+          format: date-time
+      required:
+      - collections_account
+      - one_off_transaction
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    form_with_associations:
+      type: object
+      properties:
+        id:
+          type: string
+          description: The form's UUID.
+        detached_document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        affiliate_code:
+          type:
+          - string
+          - 'null'
+          description: Client's own use, e.g. to track lead source.
+        agreed_to_marketing_emails:
+          type: boolean
+          description: Agreed to marketing emails.
+        agreed_to_terms_and_conditions:
+          type: boolean
+          description: Agreed to terms and conditions.
+        agreed_to_corporate_authority:
+          type: boolean
+          description: Confirmed authority to act on behalf of company.
+        country:
+          description: Home country for individual applicants or country of registered address for corporate applicants. Two or three character ISO country code.
+          type: string
+        email:
+          description: The applicant's email address.
+          type: string
+        entity_type:
+          type: string
+          description: Type of applicant - individual or corporate.
+        brand_name:
+          type: string
+        brand_key:
+          type: string
+        referred_by:
+          description: How did the applicant hear about us.
+          type:
+          - string
+          - 'null'
+        products_required:
+          type: array
+          items:
+            type: string
+        state:
+          type: string
+        phone_number:
+          description: The applicant's phone number.
+          type: string
+        contact_name:
+          description: The applicant's name.
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          description: Date and time the form was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date and time the form was last updated.
+        business_information:
+          description: Further information about corporate applicants.
+          $ref: '#/components/schemas/business_information'
+        account_usage:
+          description: Information about the intended use of the account.
+          $ref: '#/components/schemas/account_usage'
+        people:
+          description: Information about people associated with the application.
+          type: array
+          items:
+            $ref: '#/components/schemas/person'
+      required:
+      - id
+      - agreed_to_marketing_emails
+      - agreed_to_terms_and_conditions
+      - country
+      - entity_type
+      - brand_name
+      - products_required
+      - created_at
+      - updated_at
     create_form_request:
       type: object
       properties:

@@ -245,15 +245,50 @@ paths:
                 type: string
 components:
   schemas:
-    AuthenticationToken:
+    UnauthorizedError:
       type: object
-      description: Authentication token
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
       properties:
-        auth_token:
+        error_code:
           type: string
-          description: Currently a randomly-generated 32-digit authentication token. Clients must store this securely and destroy it when it is no longer needed.
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
       example:
-        auth_token: 043cc6069f5e32757647641460d1d5ed
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
     LoginError:
       type: object
       description: 'Login error.
@@ -299,50 +334,15 @@ components:
             message: api_key should be 64 character(s) long
             params:
               length: 64
-    UnauthorizedError:
+    AuthenticationToken:
       type: object
-      description: Authorization error.
-      required:
-      - error_code
-      - error_messages
+      description: Authentication token
       properties:
-        error_code:
+        auth_token:
           type: string
-          description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
+          description: Currently a randomly-generated 32-digit authentication token. Clients must store this securely and destroy it when it is no longer needed.
       example:
-        error_code: auth_failed
-        error_messages:
-          api_key:
-          - code: invalid_supplied_credentials
-            message: Authentication failed with the supplied credentials
-            params: {}
+        auth_token: 043cc6069f5e32757647641460d1d5ed
     RateLimitError:
       type: object
       description: Too many requests.

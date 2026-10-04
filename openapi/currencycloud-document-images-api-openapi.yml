@@ -169,56 +169,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    create_document_image_request:
-      type: object
-      properties:
-        image:
-          description: Image encoder used e.g. base64.
-          type: string
-          format: byte
-        side:
-          description: Image of which document side.
-          type: string
-          enum:
-          - front
-          - back
-          - face
-      required:
-      - image
-      - side
-    document_image:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Document image UUID.
-        side:
-          type: string
-          description: Image of which document side.
-        created_at:
-          description: Date the document image entity was created.
-          type: string
-          format: date-time
-        updated_at:
-          description: Date the document image entity was last updated.
-          type: string
-          format: date-time
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     not_found_response:
       type: object
       properties:
@@ -237,6 +187,56 @@ components:
       - error_code
       - reason
       - error_messages
+    create_document_image_request:
+      type: object
+      properties:
+        image:
+          description: Image encoder used e.g. base64.
+          type: string
+          format: byte
+        side:
+          description: Image of which document side.
+          type: string
+          enum:
+          - front
+          - back
+          - face
+      required:
+      - image
+      - side
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    document_image:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Document image UUID.
+        side:
+          type: string
+          description: Image of which document side.
+        created_at:
+          description: Date the document image entity was created.
+          type: string
+          format: date-time
+        updated_at:
+          description: Date the document image entity was last updated.
+          type: string
+          format: date-time
   securitySchemes:
     AuthToken:
       type: apiKey

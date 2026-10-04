@@ -146,7 +146,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    validation_error_response:
+    not_found_response:
       type: object
       properties:
         status:
@@ -156,7 +156,9 @@ components:
         reason:
           type: string
         error_messages:
-          type: object
+          type:
+          - object
+          - 'null'
       required:
       - status
       - error_code
@@ -876,6 +878,22 @@ components:
       - sector
       - incorporation_date
       - registered_address_attributes
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
     business_information:
       type:
       - object
@@ -1012,24 +1030,6 @@ components:
       - incorporation_date
       - business_activity_description
       - registered_address
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type:
-          - object
-          - 'null'
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
   securitySchemes:
     AuthToken:
       type: apiKey

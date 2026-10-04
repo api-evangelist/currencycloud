@@ -3770,191 +3770,6 @@ paths:
                 type: string
 components:
   schemas:
-    GetPaymentTrackingInfoError:
-      type: object
-      description: 'Client error information for the Get Payment Tracking Info endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    Pagination:
-      type: object
-      description: Pagination.
-      properties:
-        total_entries:
-          type: integer
-        total_pages:
-          type: integer
-        current_page:
-          type: integer
-        per_page:
-          type: integer
-          description: Number of results per page.
-        previous_page:
-          type: integer
-        next_page:
-          type: integer
-        order:
-          type: string
-          description: The field name by which the results are sorted.
-        order_asc_desc:
-          type: string
-          enum:
-          - asc
-          - desc
-          default: asc
-          description: Whether results are sorted in ascending or descending order.
-      example:
-        total_entries: 1
-        total_pages: 1
-        current_page: 1
-        per_page: 25
-        previous_page: -1
-        next_page: 2
-        order: created_at
-        order_asc_desc: asc
-    FindPaymentsError:
-      type: object
-      description: 'Client error information for the Get Payments endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentAuthorisations:
-      type: object
-      description: Payment Authorisations.
-      properties:
-        authorisations:
-          type: array
-          items:
-            $ref: '#/components/schemas/PaymentAuthorisation'
-    PaymentSubmissionInformation:
-      type: object
-      description: Payment submission.
-      properties:
-        status:
-          type: string
-          description: The status of the submission.
-          enum:
-          - canceled
-          - closed
-          - completed_manually
-          - duplicated
-          - failed
-          - pending
-          - processing
-          - success
-          - waiting_to_process
-        submission_ref:
-          type: string
-        format:
-          type: string
-          description: MT103 or PACS008
-        message:
-          type: string
-          description: The Swift message
-      example:
-        status: pending
-        submission_ref: MXGGYAGJULIIQKDV
-        format: PACS008
-        message: <AppHdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.02"> ...
-    PaymentDeliveryDate:
-      type: object
-      description: Payment Delivery Date
-      required:
-      - payment_date
-      - payment_delivery_date
-      - payment_cutoff_time
-      - payment_type
-      - currency
-      - bank_country
-      additionalProperties: false
-      properties:
-        payment_date:
-          type: string
-          description: The date when the payment will be released.
-        payment_delivery_date:
-          type: string
-          description: Date that we expect the payment to be delivered and available in the beneficiary bank account.
-        payment_cutoff_time:
-          type: string
-          description: Calculated cut-off date and time.
-        payment_type:
-          type: string
-          description: Type of payment - priority (Swift) or regular (local).
-        currency:
-          type: string
-          description: The 3-letter ISO code for the currency of the payment.
-        bank_country:
-          type: string
-          description: Country in which the beneficiary's bank account is held. Two-letter ISO country code.
-      example:
-        payment_date: '2019-02-11'
-        payment_delivery_date: '2019-02-11T00:00:00+00:00'
-        payment_cutoff_time: '2019-02-11T19:00:00+00:00'
-        payment_type: priority
-        currency: MXN
-        bank_country: MX
     PaymentTrackingInfo:
       type: object
       description: PaymentTrackingInfo
@@ -4056,9 +3871,169 @@ components:
           charge_amount: null
           foreign_exchange_details: null
           last_update_time: '2019-07-09T13:20:50.633Z'
-    GetPaymentError:
+    CreatePaymentAuthorisationError:
       type: object
-      description: 'Client error information for the Get Payment endpoint.
+      description: 'Client error information for the Create Payment Authorise endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GetPaymentDeliveryDateError:
+      type: object
+      description: 'Client error information for the Get Payment Delivery Date endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PaymentSubmissionInformation:
+      type: object
+      description: Payment submission.
+      properties:
+        status:
+          type: string
+          description: The status of the submission.
+          enum:
+          - canceled
+          - closed
+          - completed_manually
+          - duplicated
+          - failed
+          - pending
+          - processing
+          - success
+          - waiting_to_process
+        submission_ref:
+          type: string
+        format:
+          type: string
+          description: MT103 or PACS008
+        message:
+          type: string
+          description: The Swift message
+      example:
+        status: pending
+        submission_ref: MXGGYAGJULIIQKDV
+        format: PACS008
+        message: <AppHdr xmlns="urn:iso:std:iso:20022:tech:xsd:head.001.001.02"> ...
+    GetPaymentTrackingInfoError:
+      type: object
+      description: 'Client error information for the Get Payment Tracking Info endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PaymentFeeAssignment:
+      type: object
+      description: Payment Fee Assignment.
+      required:
+      - id
+      - account_id
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the payment fee.
+        account_id:
+          type: string
+          format: uuid
+          description: ID of the sub-account the rule is assigned to.
+      example:
+        id: a6c4a482-1a56-49ea-be55-b9b0bb92a9b2
+        account_id: 0178a7ba-9a77-4c74-af71-a5f650f00e09
+    ValidatePaymentError:
+      type: object
+      description: 'Client error information for the Validate Payment endpoint.
 
         '
       required:
@@ -4130,370 +4105,6 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    UpdatePaymentError:
-      type: object
-      description: 'Client error information for the Update Payment endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentAuthorisation:
-      type: object
-      description: Payment Authorisation.
-      properties:
-        payment_id:
-          type: string
-        payment_status:
-          type: string
-        updated:
-          type: string
-        error:
-          type: string
-        auth_steps_taken:
-          type: string
-        auth_steps_required:
-          type: string
-        short_reference:
-          type: string
-      example:
-        payment_id: 27966e22-5bdc-4675-923d-041c6be5b239
-        payment_status: ready_to_send
-        updated: true
-        error: null
-        auth_steps_taken: 3
-        auth_steps_required: 0
-        short_reference: 180628-FGVXPX001
-    GetPaymentDeliveryDateError:
-      type: object
-      description: 'Client error information for the Get Payment Delivery Date endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentConfirmation:
-      type: object
-      description: Payment confirmation.
-      properties:
-        id:
-          type: string
-          description: Unique ID of the Payment Confirmation.
-        payment_id:
-          type: string
-          description: Unique ID for the payment the confirmation relates to.
-        account_id:
-          type: string
-          description: Account ID
-        short_reference:
-          type: string
-          description: Short reference for the Payment Confirmation.
-        status:
-          type: string
-          description: Status of the Payment Confirmation processing.
-        confirmation_url:
-          type: string
-          description: URL to download Payment Confirmation file.
-        created_at:
-          type: string
-          format: date-time
-          description: Date and time of when the Payment Confirmation was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: Date and time of when the Payment Confirmation was last updated.
-        expires_at:
-          type: string
-          format: date-time
-          description: Date and time of when the Payment Confirmation will expire.
-      example:
-        id: 123123121-91de-012f-e284-1e0030c7f3111
-        payment_id: 543477161-91de-012f-e284-1e0030c7f3123
-        account_id: 543477161-91de-012f-e284-1e0030c7f352
-        short_reference: 140416-GGJBNQ001
-        status: completed
-        confirmation_url: https://s3.com/140416-GGJBNQ001.pdf
-        created_at: '2014-01-12T00:00:00+00:00'
-        updated_at: '2014-01-12T00:00:00+00:00'
-        expires_at: '2014-02-12T00:00:00+00:00'
-    RetryNotificationError:
-      type: object
-      description: Client error information for the retry payment notification endpoint.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for  input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentFeeAssignmentError:
-      type: object
-      description: 'Client error information for the Payment Fee Assignment endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentFeeAssignment:
-      type: object
-      description: Payment Fee Assignment.
-      required:
-      - id
-      - account_id
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: ID of the payment fee.
-        account_id:
-          type: string
-          format: uuid
-          description: ID of the sub-account the rule is assigned to.
-      example:
-        id: a6c4a482-1a56-49ea-be55-b9b0bb92a9b2
-        account_id: 0178a7ba-9a77-4c74-af71-a5f650f00e09
-    PaymentFeeUnassignment:
-      type: object
-      description: Payment fee unassignment.
-      required:
-      - account_id
-      additionalProperties: false
-      properties:
-        account_id:
-          type: string
-          format: uuid
-          description: ID of the sub-account the rule is assigned to.
-      example:
-        account_id: 0178a7ba-9a77-4c74-af71-a5f650f00e09
-    ValidatePaymentError:
-      type: object
-      description: 'Client error information for the Validate Payment endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentFeeUnassignmentError:
-      type: object
-      description: 'Client error information for the Payment Fee Unassignment endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    PaymentFee:
-      type: object
-      description: Payment fee.
-      required:
-      - id
-      - name
-      - currency
-      - regular_amount
-      - priority_shared_amount
-      - priority_ours_amount
-      - owner_account_id
-      additionalProperties: false
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: ID of the payment fee.
-        name:
-          type: string
-          description: Name of the payment fee.
-        currency:
-          type: string
-          description: The fee currency.
-        regular_amount:
-          type: string
-          description: The fee regular amount.
-        priority_shared_amount:
-          type: string
-          description: The fee priority shared amount.
-        priority_ours_amount:
-          type: string
-          description: The fee priority our amount.
-        owner_account_id:
-          type: string
-          format: uuid
-          description: The ID of the owner account.
-      example:
-        id: 49521d55-5dd8-4362-8c2d-03b02b1a714b
-        name: 1updfee_table_AUD4
-        currency: DKK
-        regular_amount: '50.00'
-        priority_shared_amount: '40.00'
-        priority_ours_amount: '30.00'
-        owner_account_id: null
     CreatePaymentError:
       type: object
       description: 'Client error information for the Create Payment endpoint.
@@ -4566,9 +4177,431 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
+    GetPaymentError:
+      type: object
+      description: 'Client error information for the Get Payment endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
     GetQuotePaymentFeeError:
       type: object
       description: 'Client error information for the Get Quote Payment Fee endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PaymentFeeAssignmentError:
+      type: object
+      description: 'Client error information for the Payment Fee Assignment endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PaymentDeliveryDate:
+      type: object
+      description: Payment Delivery Date
+      required:
+      - payment_date
+      - payment_delivery_date
+      - payment_cutoff_time
+      - payment_type
+      - currency
+      - bank_country
+      additionalProperties: false
+      properties:
+        payment_date:
+          type: string
+          description: The date when the payment will be released.
+        payment_delivery_date:
+          type: string
+          description: Date that we expect the payment to be delivered and available in the beneficiary bank account.
+        payment_cutoff_time:
+          type: string
+          description: Calculated cut-off date and time.
+        payment_type:
+          type: string
+          description: Type of payment - priority (Swift) or regular (local).
+        currency:
+          type: string
+          description: The 3-letter ISO code for the currency of the payment.
+        bank_country:
+          type: string
+          description: Country in which the beneficiary's bank account is held. Two-letter ISO country code.
+      example:
+        payment_date: '2019-02-11'
+        payment_delivery_date: '2019-02-11T00:00:00+00:00'
+        payment_cutoff_time: '2019-02-11T19:00:00+00:00'
+        payment_type: priority
+        currency: MXN
+        bank_country: MX
+    PaymentConfirmation:
+      type: object
+      description: Payment confirmation.
+      properties:
+        id:
+          type: string
+          description: Unique ID of the Payment Confirmation.
+        payment_id:
+          type: string
+          description: Unique ID for the payment the confirmation relates to.
+        account_id:
+          type: string
+          description: Account ID
+        short_reference:
+          type: string
+          description: Short reference for the Payment Confirmation.
+        status:
+          type: string
+          description: Status of the Payment Confirmation processing.
+        confirmation_url:
+          type: string
+          description: URL to download Payment Confirmation file.
+        created_at:
+          type: string
+          format: date-time
+          description: Date and time of when the Payment Confirmation was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date and time of when the Payment Confirmation was last updated.
+        expires_at:
+          type: string
+          format: date-time
+          description: Date and time of when the Payment Confirmation will expire.
+      example:
+        id: 123123121-91de-012f-e284-1e0030c7f3111
+        payment_id: 543477161-91de-012f-e284-1e0030c7f3123
+        account_id: 543477161-91de-012f-e284-1e0030c7f352
+        short_reference: 140416-GGJBNQ001
+        status: completed
+        confirmation_url: https://s3.com/140416-GGJBNQ001.pdf
+        created_at: '2014-01-12T00:00:00+00:00'
+        updated_at: '2014-01-12T00:00:00+00:00'
+        expires_at: '2014-02-12T00:00:00+00:00'
+    UpdatePaymentError:
+      type: object
+      description: 'Client error information for the Update Payment endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    RetryNotificationError:
+      type: object
+      description: Client error information for the retry payment notification endpoint.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for  input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PaymentFeeUnassignmentError:
+      type: object
+      description: 'Client error information for the Payment Fee Unassignment endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    QuotePaymentFee:
+      type: object
+      description: Quote payment fee.
+      required:
+      - account_id
+      - payment_currency
+      - payment_destination_country
+      - payment_type
+      - charge_type
+      - fee_amount
+      - fee_currency
+      additionalProperties: false
+      properties:
+        account_id:
+          type: string
+          description: Tha account Id.
+        payment_currency:
+          type: string
+          description: Three letter ISO code for the currency of the payment.
+        payment_destination_country:
+          type: string
+          description: Two-letter ISO country code for the payment's destination country.
+        payment_type:
+          type: string
+          description: The payment type the fee is applicable to, priority(Swift) or regular(local).
+        charge_type:
+          type: string
+          description: The charge type the fee is applicable.
+        fee_amount:
+          type: string
+          description: The fee amount.
+        fee_currency:
+          type: string
+          description: Three-letter ISO currency code for the fee's currency.
+      example:
+        account_id: 0534aaf2-2egg-0134-2f36-10b11cd33cfb
+        payment_currency: USD
+        payment_destination_country: US
+        payment_type: regular
+        charge_type: null
+        fee_amount: '10.00'
+        fee_currency: EUR
+    ForbiddenError:
+      type: object
+      description: Permission error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents the reasons why the request was not permitted.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    FindPaymentsError:
+      type: object
+      description: 'Client error information for the Get Payments endpoint.
 
         '
       required:
@@ -4735,6 +4768,84 @@ components:
         review_status: in_review
         invoice_number: INV01
         invoice_date: '2023-07-03'
+    NotFoundError:
+      type: object
+      description: Resource not found.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    PaymentFee:
+      type: object
+      description: Payment fee.
+      required:
+      - id
+      - name
+      - currency
+      - regular_amount
+      - priority_shared_amount
+      - priority_ours_amount
+      - owner_account_id
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: ID of the payment fee.
+        name:
+          type: string
+          description: Name of the payment fee.
+        currency:
+          type: string
+          description: The fee currency.
+        regular_amount:
+          type: string
+          description: The fee regular amount.
+        priority_shared_amount:
+          type: string
+          description: The fee priority shared amount.
+        priority_ours_amount:
+          type: string
+          description: The fee priority our amount.
+        owner_account_id:
+          type: string
+          format: uuid
+          description: The ID of the owner account.
+      example:
+        id: 49521d55-5dd8-4362-8c2d-03b02b1a714b
+        name: 1updfee_table_AUD4
+        currency: DKK
+        regular_amount: '50.00'
+        priority_shared_amount: '40.00'
+        priority_ours_amount: '30.00'
+        owner_account_id: null
     DeletePaymentError:
       type: object
       description: 'Client error information for the Delete Payment endpoint.
@@ -4772,200 +4883,89 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    CreatePaymentAuthorisationError:
+    Pagination:
       type: object
-      description: 'Client error information for the Create Payment Authorise endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
+      description: Pagination.
       properties:
-        error_code:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
           type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    NotFoundError:
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    PaymentAuthorisation:
       type: object
-      description: Resource not found.
-      required:
-      - error_code
-      - error_messages
+      description: Payment Authorisation.
       properties:
-        error_code:
+        payment_id:
           type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    QuotePaymentFee:
+        payment_status:
+          type: string
+        updated:
+          type: string
+        error:
+          type: string
+        auth_steps_taken:
+          type: string
+        auth_steps_required:
+          type: string
+        short_reference:
+          type: string
+      example:
+        payment_id: 27966e22-5bdc-4675-923d-041c6be5b239
+        payment_status: ready_to_send
+        updated: true
+        error: null
+        auth_steps_taken: 3
+        auth_steps_required: 0
+        short_reference: 180628-FGVXPX001
+    PaymentFeeUnassignment:
       type: object
-      description: Quote payment fee.
+      description: Payment fee unassignment.
       required:
       - account_id
-      - payment_currency
-      - payment_destination_country
-      - payment_type
-      - charge_type
-      - fee_amount
-      - fee_currency
       additionalProperties: false
       properties:
         account_id:
           type: string
-          description: Tha account Id.
-        payment_currency:
-          type: string
-          description: Three letter ISO code for the currency of the payment.
-        payment_destination_country:
-          type: string
-          description: Two-letter ISO country code for the payment's destination country.
-        payment_type:
-          type: string
-          description: The payment type the fee is applicable to, priority(Swift) or regular(local).
-        charge_type:
-          type: string
-          description: The charge type the fee is applicable.
-        fee_amount:
-          type: string
-          description: The fee amount.
-        fee_currency:
-          type: string
-          description: Three-letter ISO currency code for the fee's currency.
+          format: uuid
+          description: ID of the sub-account the rule is assigned to.
       example:
-        account_id: 0534aaf2-2egg-0134-2f36-10b11cd33cfb
-        payment_currency: USD
-        payment_destination_country: US
-        payment_type: regular
-        charge_type: null
-        fee_amount: '10.00'
-        fee_currency: EUR
-    ForbiddenError:
+        account_id: 0178a7ba-9a77-4c74-af71-a5f650f00e09
+    PaymentAuthorisations:
       type: object
-      description: Permission error.
-      required:
-      - error_code
-      - error_messages
+      description: Payment Authorisations.
       properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
-        error_messages:
-          type: object
-          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents the reasons why the request was not permitted.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    UnauthorizedError:
-      type: object
-      description: Authorization error.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-      example:
-        error_code: auth_failed
-        error_messages:
-          api_key:
-          - code: invalid_supplied_credentials
-            message: Authentication failed with the supplied credentials
-            params: {}
+        authorisations:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaymentAuthorisation'
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

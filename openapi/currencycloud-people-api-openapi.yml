@@ -237,6 +237,24 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
     create_person_request:
       type: object
       properties:
@@ -842,24 +860,6 @@ components:
       - first_name
       - last_name
       - home_country
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type:
-          - object
-          - 'null'
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     validation_error_response:
       type: object
       properties:
