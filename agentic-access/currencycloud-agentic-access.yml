@@ -1,22 +1,36 @@
-generated: '2026-07-18'
+generated: '2026-09-23'
 method: generated
-source: openapi/currencycloud-onboarding-openapi-original.yml, openapi/currencycloud-openapi-original.yml
+source: openapi/currencycloud-account-usage-api-openapi.yml, openapi/currencycloud-accounts-api-openapi.yml,
+  openapi/currencycloud-authenticate-api-openapi.yml, openapi/currencycloud-balances-api-openapi.yml,
+  openapi/currencycloud-beneficiaries-api-openapi.yml, openapi/currencycloud-business-information-api-openapi.yml,
+  openapi/currencycloud-contacts-api-openapi.yml, openapi/currencycloud-conversions-api-openapi.yml,
+  openapi/currencycloud-country-api-openapi.yml, openapi/currencycloud-currency-api-openapi.yml,
+  openapi/currencycloud-demo-api-openapi.yml, openapi/currencycloud-document-images-api-openapi.yml,
+  openapi/currencycloud-documents-api-openapi.yml, openapi/currencycloud-form-api-openapi.yml,
+  openapi/currencycloud-funding-api-openapi.yml, openapi/currencycloud-payers-api-openapi.yml,
+  openapi/currencycloud-payments-api-openapi.yml, openapi/currencycloud-people-api-openapi.yml,
+  openapi/currencycloud-quotes-api-openapi.yml, openapi/currencycloud-rates-api-openapi.yml,
+  openapi/currencycloud-reference-api-openapi.yml, openapi/currencycloud-reporting-api-openapi.yml,
+  openapi/currencycloud-sender-api-openapi.yml, openapi/currencycloud-transaction-approval-api-openapi.yml,
+  openapi/currencycloud-transactions-api-openapi.yml, openapi/currencycloud-transfers-api-openapi.yml,
+  openapi/currencycloud-withdrawal-accounts-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 111
   by_action_class:
-    connected: 56
-    acting: 55
+    connected: 60
+    acting: 51
   by_consequence:
-    read: 56
-    write: 42
+    read: 60
+    write: 38
     physical: 13
   human_in_the_loop_required: 0
 operations:
 - path: /v1/forms/{form_id}/account_usage
   method: get
+  operationId: getV1FormsByFormIdAccountUsage
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -26,6 +40,7 @@ operations:
     audit: none
 - path: /v1/forms/{form_id}/account_usage
   method: put
+  operationId: putV1FormsByFormIdAccountUsage
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -41,323 +56,7 @@ operations:
     audit: required
 - path: /v1/forms/{form_id}/account_usage
   method: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/business_information
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms/{form_id}/business_information
-  method: put
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/business_information
-  method: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/countries
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/countries/{country_code}/document_types
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/currencies/supported
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms/{form_id}/documents/{document_id}/document_images
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/documents/{document_id}/document_images
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms/{form_id}/documents/{document_id}/document_images/{document_image_id}
-  method: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/documents
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/documents
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms/{form_id}/documents/{document_id}
-  method: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/submit
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms/{form_id}
-  method: put
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}
-  method: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/people
-  method: post
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/people
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms/{form_id}/{person_id}
-  method: get
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /v1/forms/{form_id}/{person_id}
-  method: put
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /v1/forms/{form_id}/{person_id}
-  method: delete
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /authenticate/api
-  method: post
-  operationId: Login
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /authenticate/close_session
-  method: post
-  operationId: Logout
+  operationId: deleteV1FormsByFormIdAccountUsage
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -453,18 +152,12 @@ operations:
   method: post
   operationId: FindAccountsPost
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /accounts/{account_id}/payment_charges_settings
   method: get
   operationId: GetAccountPaymentChargesSettings
@@ -495,6 +188,39 @@ operations:
     audit: required
 - path: /terms_and_conditions/accept
   method: post
+  operationId: postTermsAndConditionsAccept
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /authenticate/api
+  method: post
+  operationId: Login
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /authenticate/close_session
+  method: post
+  operationId: Logout
   x-agentic-access:
     action-class: acting
     consequence: write
@@ -548,18 +274,12 @@ operations:
   method: post
   operationId: FindBeneficiariesPost
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /beneficiaries/{id}
   method: get
   operationId: GetBeneficiary
@@ -650,6 +370,48 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /v1/forms/{form_id}/business_information
+  method: get
+  operationId: getV1FormsByFormIdBusinessInformation
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/forms/{form_id}/business_information
+  method: put
+  operationId: putV1FormsByFormIdBusinessInformation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/business_information
+  method: delete
+  operationId: deleteV1FormsByFormIdBusinessInformation
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /contacts/current
   method: get
   operationId: GetAuthenticatingContact
@@ -664,18 +426,12 @@ operations:
   method: post
   operationId: FindContactsPost
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /contacts/{id}
   method: get
   operationId: GetContact
@@ -868,6 +624,220 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /v1/countries
+  method: get
+  operationId: getV1Countries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/countries/{country_code}/document_types
+  method: get
+  operationId: getV1CountriesByCountryCodeDocumentTypes
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/currencies/supported
+  method: get
+  operationId: getV1CurrenciesSupported
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /demo/funding/create
+  method: post
+  operationId: SimulateFunding
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/documents/{document_id}/document_images
+  method: post
+  operationId: postV1FormsByFormIdDocumentsByDocumentIdDocumentImages
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/documents/{document_id}/document_images
+  method: get
+  operationId: getV1FormsByFormIdDocumentsByDocumentIdDocumentImages
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/forms/{form_id}/documents/{document_id}/document_images/{document_image_id}
+  method: delete
+  operationId: deleteV1FormsByFormIdDocumentsByDocumentIdDocumentImagesByDocumentImageId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/documents
+  method: post
+  operationId: postV1FormsByFormIdDocuments
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/documents
+  method: get
+  operationId: getV1FormsByFormIdDocuments
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/forms/{form_id}/documents/{document_id}
+  method: delete
+  operationId: deleteV1FormsByFormIdDocumentsByDocumentId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/submit
+  method: post
+  operationId: postV1FormsByFormIdSubmit
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms
+  method: get
+  operationId: getV1Forms
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/forms
+  method: post
+  operationId: postV1Forms
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}
+  method: get
+  operationId: getV1FormsByFormId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/forms/{form_id}
+  method: put
+  operationId: putV1FormsByFormId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}
+  method: delete
+  operationId: deleteV1FormsByFormId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /funding_accounts/find
   method: get
   operationId: FindFundingAccounts
@@ -881,6 +851,16 @@ operations:
 - path: /funding_transactions/{id}
   method: get
   operationId: GetFundingTransaction
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /payers/{id}
+  method: get
+  operationId: GetPayer
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1112,9 +1092,25 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /payers/{id}
+- path: /v1/forms/{form_id}/people
+  method: post
+  operationId: postV1FormsByFormIdPeople
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/people
   method: get
-  operationId: GetPayer
+  operationId: getV1FormsByFormIdPeople
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1122,9 +1118,9 @@ operations:
     token:
       max-ttl: 3600
     audit: none
-- path: /rates/find
+- path: /v1/forms/{form_id}/{person_id}
   method: get
-  operationId: GetBasicRates
+  operationId: getV1FormsByFormIdByPersonId
   x-agentic-access:
     action-class: connected
     consequence: read
@@ -1132,6 +1128,38 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /v1/forms/{form_id}/{person_id}
+  method: put
+  operationId: putV1FormsByFormIdByPersonId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/forms/{form_id}/{person_id}
+  method: delete
+  operationId: deleteV1FormsByFormIdByPersonId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /quotes/create
   method: post
   operationId: CreateQuoteConversion
@@ -1148,6 +1176,16 @@ operations:
       - abnormal
       - high-value
     audit: required
+- path: /rates/find
+  method: get
+  operationId: GetBasicRates
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /rates/detailed
   method: get
   operationId: GetDetailedRates
@@ -1162,18 +1200,12 @@ operations:
   method: post
   operationId: FinfBankDetailsPost
   x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
+    action-class: connected
+    consequence: read
+    subject: optional
     token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
+      max-ttl: 3600
+    audit: none
 - path: /reference/beneficiary_required_details
   method: get
   operationId: GetBeneficiaryRequirements
@@ -1318,6 +1350,22 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /collections_screening/{transactionId}/complete
+  method: put
+  operationId: CompleteCollectionsScreening
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /transactions/find
   method: get
   operationId: FindTransactions
@@ -1416,38 +1464,6 @@ operations:
       max-ttl: 300
       exchange: true
       purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /demo/funding/create
-  method: post
-  operationId: SimulateFunding
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /collections_screening/{transactionId}/complete
-  method: put
-  operationId: CompleteCollectionsScreening
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
     escalation:
       human-in-the-loop: conditional
       triggers:
