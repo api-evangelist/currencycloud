@@ -1,5 +1,5 @@
 ---
-name: Convert currency and pay a beneficiary
+name: currencycloud-convert-and-pay
 description: Authenticate, check a rate, convert funds, create a beneficiary, and send a cross-border payment with Currencycloud.
 api: openapi/currencycloud-openapi-original.yml
 operations: [Login, GetDetailedRates, CreateConversion, CreateBeneficiary, CreatePayment, GetPaymentTrackingInfo]

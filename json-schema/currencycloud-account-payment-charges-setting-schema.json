@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-account-payment-charges-setting-schema.json",
+  "title": "AccountPaymentChargesSetting",
+  "description": "Account Payment Charges Setting.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/AccountPaymentChargesSetting",
+  "type": "object",
+  "properties": {
+    "charge_settings_id": {
+      "description": "Unique ID",
+      "type": "string"
+    },
+    "account_id": {
+      "description": "Account ID",
+      "type": "string"
+    },
+    "charge_type": {
+      "description": "The charge type - shared or ours.",
+      "enum": [
+        "ours",
+        "shared"
+      ],
+      "type": "string"
+    },
+    "enabled": {
+      "description": "Is this charge type enabled for this account?",
+      "type": "boolean"
+    },
+    "default": {
+      "description": "Is this the default charge type for this account?",
+      "type": "boolean"
+    }
+  }
+}

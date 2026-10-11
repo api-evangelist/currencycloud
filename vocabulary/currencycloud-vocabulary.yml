@@ -1,0 +1,429 @@
+generated: '2026-10-12'
+method: derived
+generator: derive-vocabulary.py
+source:
+- openapi/currencycloud-account-usage-api-openapi.yml
+- openapi/currencycloud-accounts-api-openapi.yml
+- openapi/currencycloud-authenticate-api-openapi.yml
+- openapi/currencycloud-balances-api-openapi.yml
+- openapi/currencycloud-beneficiaries-api-openapi.yml
+vocabulary:
+  name: Currencycloud Domain Vocabulary
+  description: 'Terms declared by Currencycloud''s own API contract: its resource groups, objects and enumerations, with the contract''s definitions.
+    Derived, not authored.'
+  version: '2026-10-12'
+  terms:
+  - term: Accounts
+    definition: Create, search and update your Currencycloud account and any associated sub-accounts. Also provides you with the ability to use
+      your own reference IDs for easy reconciliation with your internal systems.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-accounts-api-openapi.yml
+  - term: Authenticate
+    definition: Authenticate to gain access to the API. Log in to your Currencycloud account using your API Key and log out to terminate your
+      session.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-authenticate-api-openapi.yml
+  - term: Balances
+    definition: Provides access to view balance information. View the balances that you currently hold in different currencies on your Currencycloud
+      account.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-balances-api-openapi.yml
+  - term: Beneficiaries
+    definition: Create, search and manage the list of individuals or companies that you send payments to.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml
+  - term: Contacts
+    definition: Create, search and manage the list of users that have access in your Currencycloud account or associated sub-accounts.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-contacts-api-openapi.yml
+  - term: Conversions
+    definition: Find, retrieve and create a live currency conversion. You can also create and manage the live conversion of funds between two
+      currencies.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-conversions-api-openapi.yml
+  - term: Demo
+    definition: Requests that are only available in the Demo environment.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-demo-api-openapi.yml
+  - term: Funding
+    definition: Find funding accounts that can be used to settle and collect funds in each available currency.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-funding-api-openapi.yml
+  - term: Payers
+    definition: View information relating to the 'payer' for a payment that has been initiated through the platform.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-payers-api-openapi.yml
+  - term: Payments
+    definition: Create, search, manage and action all of your domestic and international payments through this API.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-payments-api-openapi.yml
+  - term: Quotes
+    definition: Create new quotes to use for held rates conversions.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-quotes-api-openapi.yml
+  - term: Rates
+    definition: Super fast real-time access to live foreign exchange rates through the Currencycloud platform.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-rates-api-openapi.yml
+  - term: Reference
+    definition: Easy access to view important data relevant to your Currencycloud account including beneficiary details, conversion dates, available
+      currencies, payer required details, payment dates and settlement details.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-reference-api-openapi.yml
+  - term: Reporting
+    definition: Ability to create and retrieve reports.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-reporting-api-openapi.yml
+  - term: Sender
+    definition: Sender of funds.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-sender-api-openapi.yml
+  - term: Transactions
+    definition: View balances and all pending and completed transactions in your Currencycloud account, as well as associated sub-account balances
+      and transactions.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-transactions-api-openapi.yml
+  - term: Transfers
+    definition: Search, retrieve and create a transfer of funds between your Currencycloud account and associated sub-accounts.
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-transfers-api-openapi.yml
+  - term: Withdrawal Accounts
+    definition: Manage withdrawal accounts
+    tags:
+    - Resource Group
+    source: openapi/currencycloud-withdrawal-accounts-api-openapi.yml
+  - term: validation_error_response
+    definition: 'Object declared by the contract with fields: status, error_code, reason, error_messages.'
+    tags:
+    - Object
+    source: openapi/currencycloud-account-usage-api-openapi.yml#/components/schemas/validation_error_response
+  - term: account_usage
+    definition: 'Object declared by the contract with fields: id, form_id, document_ids, collections_account, collection_currencies, payment_currencies,
+      transaction_countries, one_off_transaction, estimated_monthly_transaction_currency, estimated_monthly_transaction_value, estimated_monthly_transaction_volume,
+      source_of_funds. (4 more)'
+    tags:
+    - Object
+    source: openapi/currencycloud-account-usage-api-openapi.yml#/components/schemas/account_usage
+  - term: create_account_usage_request
+    definition: 'Object declared by the contract with fields: document_ids, collections_account, collection_currencies, payment_currencies, transaction_countries,
+      one_off_transaction, estimated_monthly_transaction_currency, estimated_monthly_transaction_value, estimated_monthly_transaction_volume,
+      source_of_funds, primary_purpose, purpose_details.'
+    tags:
+    - Object
+    source: openapi/currencycloud-account-usage-api-openapi.yml#/components/schemas/create_account_usage_request
+  - term: not_found_response
+    definition: 'Object declared by the contract with fields: status, error_code, reason, error_messages.'
+    tags:
+    - Object
+    source: openapi/currencycloud-account-usage-api-openapi.yml#/components/schemas/not_found_response
+  - term: GetAccountError
+    definition: Client error information for the Get Account endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/GetAccountError
+  - term: ManageAccountPaymentChargesSettingsError
+    definition: Client error information for the Manage Account Payment Charges Settings endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/ManageAccountPaymentChargesSettingsError
+  - term: AcceptTermsResponse
+    definition: Accept Terms of Use response.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/AcceptTermsResponse
+  - term: UpdateAccountComplianceSettingsError
+    definition: Client error information for the Get Compliance Settings endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/UpdateAccountComplianceSettingsError
+  - term: RateLimitError
+    definition: Too many requests.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/RateLimitError
+  - term: NotFoundError
+    definition: Resource not found.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/NotFoundError
+  - term: GetAccountPaymentChargesSettingsError
+    definition: Client error information for the Get Account Payment Charges Settings endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/GetAccountPaymentChargesSettingsError
+  - term: AccountPaymentChargesSetting
+    definition: Account Payment Charges Setting.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/AccountPaymentChargesSetting
+  - term: AccountComplianceSettings
+    definition: Account compliance settings.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/AccountComplianceSettings
+  - term: GetAccountComplianceSettingsError
+    definition: Client error information for the Get Compliance Settings endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/GetAccountComplianceSettingsError
+  - term: UnauthorizedError
+    definition: Authorization error.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/UnauthorizedError
+  - term: UpdateAccountError
+    definition: Client error information for the Update Account endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/UpdateAccountError
+  - term: Account
+    definition: Account.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/Account
+  - term: Pagination
+    definition: Pagination.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/Pagination
+  - term: FindAccountsError
+    definition: Client error information for the Find Accounts endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/FindAccountsError
+  - term: CreateAccountError
+    definition: Client error information for the Create Account endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/CreateAccountError
+  - term: LoginError
+    definition: Login error.
+    tags:
+    - Object
+    source: openapi/currencycloud-authenticate-api-openapi.yml#/components/schemas/LoginError
+  - term: AuthenticationToken
+    definition: Authentication token
+    tags:
+    - Object
+    source: openapi/currencycloud-authenticate-api-openapi.yml#/components/schemas/AuthenticationToken
+  - term: TopUpMarginBalanceError
+    definition: Client error information for the Top Up Margin Balance endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-balances-api-openapi.yml#/components/schemas/TopUpMarginBalanceError
+  - term: Balance
+    definition: Balance.
+    tags:
+    - Object
+    source: openapi/currencycloud-balances-api-openapi.yml#/components/schemas/Balance
+  - term: FindBalancesError
+    definition: Client error information for the Find Balances endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-balances-api-openapi.yml#/components/schemas/FindBalancesError
+  - term: TopUpMarginBalance
+    definition: Bank Details.
+    tags:
+    - Object
+    source: openapi/currencycloud-balances-api-openapi.yml#/components/schemas/TopUpMarginBalance
+  - term: GetBalanceError
+    definition: Client error information for the Get Balance endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-balances-api-openapi.yml#/components/schemas/GetBalanceError
+  - term: BeneficiaryAccountVerificationError
+    definition: Client error information for the Beneficiary Account Verification (CoP) endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/BeneficiaryAccountVerificationError
+  - term: GetBeneficiaryError
+    definition: Client error information for the Get Beneficiary endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/GetBeneficiaryError
+  - term: UpdateBeneficiaryError
+    definition: Client error information for the Update Beneficiary endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/UpdateBeneficiaryError
+  - term: ValidateBeneficiaryError
+    definition: Client error information for the Validate Beneficiary endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/ValidateBeneficiaryError
+  - term: BeneficiaryAccountVerificationResult
+    definition: Beneficiary account verification result.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/BeneficiaryAccountVerificationResult
+  - term: FindBeneficiariesError
+    definition: Client error information for the Find Beneficiaries endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/FindBeneficiariesError
+  - term: Beneficiary
+    definition: Beneficiary
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/Beneficiary
+  - term: DeleteBeneficiaryError
+    definition: Client error information for the Delete Beneficiary endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/DeleteBeneficiaryError
+  - term: CreateBeneficiaryError
+    definition: Client error information for the Create Beneficiary endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-beneficiaries-api-openapi.yml#/components/schemas/CreateBeneficiaryError
+  - term: create_business_information_request
+    definition: 'Object declared by the contract with fields: document_ids, business_country, company_name, trading_name, legal_entity_type, sector,
+      company_registration_number, vat_number, incorporation_date, business_website, business_activity_description, registered_address_attributes.
+      (1 more)'
+    tags:
+    - Object
+    source: openapi/currencycloud-business-information-api-openapi.yml#/components/schemas/create_business_information_request
+  - term: business_information
+    definition: 'Object declared by the contract with fields: id, form_id, document_ids, business_country, company_name, trading_name, legal_entity_type,
+      sector, company_registration_number, vat_number, incorporation_date, business_website. (5 more)'
+    tags:
+    - Object
+    source: openapi/currencycloud-business-information-api-openapi.yml#/components/schemas/business_information
+  - term: CreateContactError
+    definition: Client error information for the Create Contact endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/CreateContactError
+  - term: GetContactError
+    definition: Client error information for the Get Contact endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/GetContactError
+  - term: Contact
+    definition: Contact.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/Contact
+  - term: GenrateHMACKeyError
+    definition: Client error information for the Contacts Generate HMAC Key endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/GenrateHMACKeyError
+  - term: UpdateContactError
+    definition: Client error information for the Update Contact endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/UpdateContactError
+  - term: ForbiddenError
+    definition: Permission error.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/ForbiddenError
+  - term: FindContactsError
+    definition: Client error information for the Find Contacts endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/FindContactsError
+  - term: HMACKey
+    definition: HMAC Key.
+    tags:
+    - Object
+    source: openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/HMACKey
+  - term: ConversionSplitHistory
+    definition: 'Object declared by the contract with fields: origin_conversion, parent_conversion, child_conversions.'
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionSplitHistory
+  - term: ConversionProfitAndLoss
+    definition: Recognised profit / loss on a conversion.
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionProfitAndLoss
+  - term: ConversionDateChange
+    definition: Conversion Date change record
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionDateChange
+  - term: FindConversionsError
+    definition: Client error information for the Find Conversions endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/FindConversionsError
+  - term: Conversion
+    definition: Conversion.
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/Conversion
+  - term: ConversionSplitDetails
+    definition: 'Object declared by the contract with fields: id, short_reference, sell_currency, buy_currency, buy_amount, sell_amount, settlement_date,
+      conversion_date, status.'
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionSplitDetails
+  - term: CreateConversionError
+    definition: Client error information for the Create Conversion endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/CreateConversionError
+  - term: ConversionCancellationQuote
+    definition: Projected cost to cancel a conversion.
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionCancellationQuote
+  - term: ConversionSplit
+    definition: 'Object declared by the contract with fields: parent_conversion, child_conversion.'
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionSplit
+  - term: GetConversionError
+    definition: Client error information for the Get Conversion endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/GetConversionError
+  - term: ConversionCancellation
+    definition: Cancelled Conversion
+    tags:
+    - Object
+    source: openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionCancellation
+  - term: CreateSimulateFundingError
+    definition: Client error information for the Create Simulated Funding endpoint.
+    tags:
+    - Object
+    source: openapi/currencycloud-demo-api-openapi.yml#/components/schemas/CreateSimulateFundingError
+  - term: SimulateFunding
+    definition: SimulateFunding
+    tags:
+    - Object
+    source: openapi/currencycloud-demo-api-openapi.yml#/components/schemas/SimulateFunding
+  - term: create_document_image_request
+    definition: 'Object declared by the contract with fields: image, side.'
+    tags:
+    - Object
+    source: openapi/currencycloud-document-images-api-openapi.yml#/components/schemas/create_document_image_request
+  - term: document_image
+    definition: 'Object declared by the contract with fields: id, side, created_at, updated_at.'
+    tags:
+    - Object
+    source: openapi/currencycloud-document-images-api-openapi.yml#/components/schemas/document_image
+  - term: create_document_request
+    definition: 'Object declared by the contract with fields: document_type, category.'
+    tags:
+    - Object
+    source: openapi/currencycloud-documents-api-openapi.yml#/components/schemas/create_document_request

@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-form-schema.json",
+  "title": "form",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-form-api-openapi.yml#/components/schemas/form",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The form's UUID."
+    },
+    "detached_document_ids": {
+      "description": "List of IDs for any uploaded supporting documents.",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affiliate_code": {
+      "description": "Client's own use, e.g. to track lead source.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "agreed_to_marketing_emails": {
+      "description": "Agreed to marketing emails.",
+      "type": "boolean"
+    },
+    "agreed_to_terms_and_conditions": {
+      "description": "Agreed to terms and conditions.",
+      "type": "boolean"
+    },
+    "agreed_to_corporate_authority": {
+      "description": "Confirmed authority to act on behalf of company.",
+      "type": "boolean"
+    },
+    "country": {
+      "description": "Home country for individual applicant or country of registered address for corporate applicant.",
+      "type": "string"
+    },
+    "email": {
+      "description": "The applicant's email address.",
+      "type": "string"
+    },
+    "entity_type": {
+      "description": "Type of applicant - individual or corporate.",
+      "type": "string"
+    },
+    "brand_name": {
+      "type": "string"
+    },
+    "brand_key": {
+      "type": "string"
+    },
+    "referred_by": {
+      "description": "How did the applicant hear about us.",
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "products_required": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state": {
+      "type": "string"
+    },
+    "phone_number": {
+      "description": "The applicant's phone number.",
+      "type": "string"
+    },
+    "contact_name": {
+      "type": "string",
+      "description": "The applicant's name."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the form was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time the form was last updated."
+    }
+  },
+  "required": [
+    "id",
+    "agreed_to_marketing_emails",
+    "agreed_to_terms_and_conditions",
+    "brand_name",
+    "country",
+    "entity_type",
+    "products_required",
+    "created_at",
+    "updated_at"
+  ]
+}

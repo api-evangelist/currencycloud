@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-authentication-token-schema.json",
+  "title": "AuthenticationToken",
+  "description": "Authentication token",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-authenticate-api-openapi.yml#/components/schemas/AuthenticationToken",
+  "type": "object",
+  "properties": {
+    "auth_token": {
+      "type": "string",
+      "description": "Currently a randomly-generated 32-digit authentication token. Clients must store this securely and destroy it when it is no longer needed."
+    }
+  }
+}

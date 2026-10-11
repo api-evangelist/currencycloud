@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-create-document-image-request-schema.json",
+  "title": "create_document_image_request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-document-images-api-openapi.yml#/components/schemas/create_document_image_request",
+  "type": "object",
+  "properties": {
+    "image": {
+      "description": "Image encoder used e.g. base64.",
+      "type": "string",
+      "format": "byte"
+    },
+    "side": {
+      "description": "Image of which document side.",
+      "type": "string",
+      "enum": [
+        "front",
+        "back",
+        "face"
+      ]
+    }
+  },
+  "required": [
+    "image",
+    "side"
+  ]
+}

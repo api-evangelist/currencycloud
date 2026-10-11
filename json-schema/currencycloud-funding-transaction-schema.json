@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-funding-transaction-schema.json",
+  "title": "FundingTransaction",
+  "description": "The transaction information.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-funding-api-openapi.yml#/components/schemas/FundingTransaction",
+  "properties": {
+    "id": {
+      "description": "The Related Entity UUID (related_entity_id) for the transaction.",
+      "type": "string"
+    },
+    "amount": {
+      "description": "The transaction amount.",
+      "type": "string"
+    },
+    "currency": {
+      "description": "The three-letter currency code.",
+      "type": "string"
+    },
+    "rail": {
+      "description": "The transaction rail.",
+      "type": "string"
+    },
+    "additional_information": {
+      "description": "Any additional information.",
+      "type": "string"
+    },
+    "receiving_account_routing_code": {
+      "description": "The routing code.",
+      "type": "string"
+    },
+    "value_date": {
+      "description": "The value date in ISO-8601 format.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "receiving_account_number": {
+      "description": "The transaction receiving account number.",
+      "type": "string"
+    },
+    "receiving_account_iban": {
+      "description": "The transaction receiving account IBAN.",
+      "type": "string"
+    },
+    "created_at": {
+      "description": "The created at date in ISO-8601 format.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "updated_at": {
+      "description": "The last time the transaction was updated in ISO-8601 format.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "completed_at": {
+      "description": "The completed date in ISO-8601 format.",
+      "format": "date-time",
+      "type": "string"
+    },
+    "sender": {
+      "$ref": "#/$defs/SenderInformation"
+    }
+  },
+  "type": "object",
+  "$defs": {
+    "SenderInformation": {
+      "description": "The sender information",
+      "properties": {
+        "sender_account_number": {
+          "description": "The sender account number",
+          "type": "string"
+        },
+        "sender_address": {
+          "description": "The unstructured sender address",
+          "type": "string"
+        },
+        "sender_bic": {
+          "description": "The sender bic",
+          "type": "string"
+        },
+        "sender_country": {
+          "description": "The two letter sender country",
+          "type": "string"
+        },
+        "sender_iban": {
+          "description": "The sender iban",
+          "type": "string"
+        },
+        "sender_id": {
+          "description": "The sender id",
+          "type": "string"
+        },
+        "sender_name": {
+          "description": "The sender name",
+          "type": "string"
+        },
+        "sender_routing_code": {
+          "description": "The sender routing code",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

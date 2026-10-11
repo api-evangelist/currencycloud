@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-bank-details-schema.json",
+  "title": "BankDetails",
+  "description": "Bank Details",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-reference-api-openapi.yml#/components/schemas/BankDetails",
+  "type": "object",
+  "required": [
+    "identifier_type",
+    "identifier_value"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "identifier_type": {
+      "type": "string",
+      "description": "The type of identifier used to identify the account (e.g. IBAN)."
+    },
+    "identifier_value": {
+      "type": "string",
+      "description": "The value of the identifier of the account in the format of the identifier_type (e.g. IBAN code)."
+    },
+    "account_number": {
+      "type": "string",
+      "description": "Account number"
+    },
+    "bic_swift": {
+      "type": "string",
+      "description": "BIC/Swift code."
+    },
+    "bank_name": {
+      "type": "string",
+      "description": "Bank name"
+    },
+    "bank_branch": {
+      "type": "string",
+      "description": "Bank branch"
+    },
+    "bank_address": {
+      "type": "string",
+      "description": "Bank address"
+    },
+    "bank_city": {
+      "type": "string",
+      "description": "City of the bank."
+    },
+    "bank_state": {
+      "type": "string",
+      "description": "State the bank is situated in. Available in all countries using states."
+    },
+    "bank_post_code": {
+      "type": "string",
+      "description": "The bank's post code or the zip code for USA banks."
+    },
+    "bank_country": {
+      "type": "string",
+      "description": "Full country name."
+    },
+    "bank_country_ISO": {
+      "type": "string",
+      "description": "Two-letter ISO country code."
+    },
+    "currency": {
+      "type": "string",
+      "description": "Three-letter ISO currency code."
+    }
+  }
+}

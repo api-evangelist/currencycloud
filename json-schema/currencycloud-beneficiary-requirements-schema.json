@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-beneficiary-requirements-schema.json",
+  "title": "BeneficiaryRequirements",
+  "description": "Beneficiary requirements.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-reference-api-openapi.yml#/components/schemas/BeneficiaryRequirements",
+  "type": "object",
+  "properties": {
+    "payment_type": {
+      "description": "The type of payment - 'priority' (Swift) or 'regular' (local).",
+      "type": "string",
+      "enum": [
+        "priority",
+        "regular"
+      ]
+    },
+    "acct_number": {
+      "type": "string",
+      "description": "An account number is required."
+    },
+    "bic_swift": {
+      "type": "string",
+      "description": "BIC / Swift code is required."
+    },
+    "beneficiary_address": {
+      "type": "string",
+      "description": "Beneficiary's address"
+    },
+    "beneficiary_city": {
+      "type": "string",
+      "description": "Beneficiary's city"
+    },
+    "beneficiary_country": {
+      "type": "string",
+      "description": "Beneficiary's country"
+    },
+    "beneficiary_postcode": {
+      "type": "string",
+      "description": "Beneficiary's postcode"
+    },
+    "beneficiary_state_or_province": {
+      "type": "string",
+      "description": "Beneficiary's state or province"
+    },
+    "beneficiary_first_name": {
+      "type": "string",
+      "description": "Beneficiary's first name"
+    },
+    "beneficiary_last_name": {
+      "type": "string",
+      "description": "Beneficiary's last name"
+    },
+    "beneficiary_entity_type": {
+      "type": "string",
+      "description": "Type of entity",
+      "enum": [
+        "company",
+        "individual"
+      ]
+    },
+    "sort_code": {
+      "type": "string",
+      "description": "A sort code is required."
+    },
+    "aba": {
+      "type": "string",
+      "description": "An ABA (American Bankers Association) routing number is required."
+    },
+    "bsb_code": {
+      "type": "string",
+      "description": "A BSB (Bank State Branch) number is required."
+    },
+    "institution_no": {
+      "type": "string",
+      "description": "An institution number is required."
+    },
+    "bank_code": {
+      "type": "string",
+      "description": "A bank code is required."
+    },
+    "branch_code": {
+      "type": "string",
+      "description": "A branch code is required."
+    },
+    "clabe": {
+      "type": "string",
+      "description": "A CLABE (Clave Bancaria Estandarizada) code is required."
+    },
+    "cnaps": {
+      "type": "string",
+      "description": "A CNAPS (China National Advanced Payment System) code is required."
+    }
+  }
+}

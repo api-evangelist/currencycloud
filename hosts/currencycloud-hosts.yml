@@ -1,0 +1,117 @@
+generated: '2026-10-12'
+method: derived
+source: the pre-flight dossier, apis.yml pointers, spec servers, well-known, vendors -- nothing fetched here
+generator: derive-hosts.py
+summary:
+  hosts: 9
+  own: 6
+  other_domain: 1
+  platform: 2
+  roles:
+  - api
+  - collections
+  - legal
+  - marketing
+  - other
+  - portal
+  - status
+  - support
+  - website
+hosts:
+- host: api.currencycloud.com
+  found_by:
+  - apis[]
+  types: []
+  serves:
+  - api
+  registrable_domain: currencycloud.com
+  role: api
+  relation: own
+- host: blog.currencycloud.com
+  found_by:
+  - pointer
+  types:
+  - Blog
+  serves: []
+  registrable_domain: currencycloud.com
+  role: marketing
+  relation: own
+- host: developer.currencycloud.com
+  found_by:
+  - pointer
+  - apis[]
+  - vendor-detect
+  types:
+  - DeveloperPortal
+  - Documentation
+  - APIReference
+  - GettingStarted
+  - SignUp
+  - Deprecation
+  serves:
+  - docs
+  - cdn
+  vendor: cloudflare
+  registrable_domain: currencycloud.com
+  role: portal
+  relation: own
+- host: github.com
+  found_by:
+  - pointer
+  types:
+  - GitHubOrganization
+  - Postman
+  serves: []
+  registrable_domain: github.com
+  role: collections
+  relation: platform
+- host: status.currencycloud.com
+  found_by:
+  - pointer
+  types:
+  - StatusPage
+  serves: []
+  registrable_domain: currencycloud.com
+  role: status
+  relation: own
+- host: support.currencycloud.com
+  found_by:
+  - pointer
+  - vendor-detect
+  types:
+  - Support
+  serves:
+  - support
+  vendor: zendesk
+  registrable_domain: currencycloud.com
+  role: support
+  relation: own
+- host: www.currencycloud.com
+  found_by:
+  - pointer
+  types:
+  - Security
+  - TermsOfService
+  - Website
+  serves: []
+  registrable_domain: currencycloud.com
+  role: website
+  relation: own
+- host: www.postman.com
+  found_by:
+  - pointer
+  types:
+  - PostmanWorkspace
+  serves: []
+  registrable_domain: postman.com
+  role: other
+  relation: platform
+- host: www.visa.co.uk
+  found_by:
+  - pointer
+  types:
+  - PrivacyPolicy
+  serves: []
+  registrable_domain: visa.co.uk
+  role: legal
+  relation: other-domain

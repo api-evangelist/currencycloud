@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-conversion-profit-and-loss-schema.json",
+  "title": "ConversionProfitAndLoss",
+  "description": "Recognised profit / loss on a conversion.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionProfitAndLoss",
+  "type": "object",
+  "properties": {
+    "conversion_profit_and_losses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConversionCancellation"
+      }
+    },
+    "pagination": {
+      "$ref": "#/$defs/Pagination"
+    }
+  },
+  "$defs": {
+    "ConversionCancellation": {
+      "type": "object",
+      "description": "Cancelled Conversion",
+      "properties": {
+        "account_id": {
+          "type": "string",
+          "description": "UUID of the Account that the Conversion belongs to."
+        },
+        "contact_id": {
+          "type": "string",
+          "description": "UUID of the Contact that performed the action that generated profit or loss."
+        },
+        "event_account_id": {
+          "type": "string",
+          "description": "The account_id of the trade's account."
+        },
+        "event_contact_id": {
+          "type": "string",
+          "description": "The contact_id of the trade's contact."
+        },
+        "conversion_id": {
+          "type": "string",
+          "description": "UUID of the Conversion."
+        },
+        "amount": {
+          "type": "string",
+          "description": "The amount of the profit or loss."
+        },
+        "currency": {
+          "type": "string",
+          "description": "Three-letter ISO currency code for the currency the amount is shown in."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Additional information regarding the event."
+        },
+        "event_type": {
+          "type": "string",
+          "description": "The type of event (e.g. cancellation)."
+        },
+        "event_date_time": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time of the quote."
+        }
+      }
+    },
+    "Pagination": {
+      "type": "object",
+      "description": "Pagination.",
+      "properties": {
+        "total_entries": {
+          "type": "integer"
+        },
+        "total_pages": {
+          "type": "integer"
+        },
+        "current_page": {
+          "type": "integer"
+        },
+        "per_page": {
+          "type": "integer",
+          "description": "Number of results per page."
+        },
+        "previous_page": {
+          "type": "integer"
+        },
+        "next_page": {
+          "type": "integer"
+        },
+        "order": {
+          "type": "string",
+          "description": "The field name by which the results are sorted."
+        },
+        "order_asc_desc": {
+          "type": "string",
+          "enum": [
+            "asc",
+            "desc"
+          ],
+          "default": "asc",
+          "description": "Whether results are sorted in ascending or descending order."
+        }
+      }
+    }
+  }
+}

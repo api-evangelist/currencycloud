@@ -1,0 +1,1385 @@
+{
+  "@context": {
+    "@vocab": "https://currencycloud.com/schema#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "currencycloud": "https://currencycloud.com/schema#",
+    "validation_error_response": "currencycloud:validation_error_response",
+    "status": {
+      "@id": "currencycloud:status",
+      "@type": "xsd:string"
+    },
+    "error_code": {
+      "@id": "currencycloud:error_code",
+      "@type": "xsd:string"
+    },
+    "reason": {
+      "@id": "currencycloud:reason",
+      "@type": "xsd:string"
+    },
+    "error_messages": {
+      "@id": "currencycloud:error_messages"
+    },
+    "account_usage": "currencycloud:account_usage",
+    "id": {
+      "@id": "currencycloud:id",
+      "@type": "xsd:string"
+    },
+    "form_id": {
+      "@id": "currencycloud:form_id",
+      "@type": "xsd:string"
+    },
+    "document_ids": {
+      "@id": "currencycloud:document_ids",
+      "@container": "@list"
+    },
+    "collections_account": {
+      "@id": "currencycloud:collections_account",
+      "@type": "xsd:boolean"
+    },
+    "collection_currencies": {
+      "@id": "currencycloud:collection_currencies",
+      "@container": "@list"
+    },
+    "payment_currencies": {
+      "@id": "currencycloud:payment_currencies",
+      "@container": "@list"
+    },
+    "transaction_countries": {
+      "@id": "currencycloud:transaction_countries",
+      "@container": "@list"
+    },
+    "one_off_transaction": {
+      "@id": "currencycloud:one_off_transaction",
+      "@type": "xsd:boolean"
+    },
+    "estimated_monthly_transaction_currency": {
+      "@id": "currencycloud:estimated_monthly_transaction_currency",
+      "@type": "xsd:string"
+    },
+    "estimated_monthly_transaction_value": {
+      "@id": "currencycloud:estimated_monthly_transaction_value",
+      "@type": "xsd:integer"
+    },
+    "estimated_monthly_transaction_volume": {
+      "@id": "currencycloud:estimated_monthly_transaction_volume",
+      "@type": "xsd:integer"
+    },
+    "source_of_funds": {
+      "@id": "currencycloud:source_of_funds",
+      "@type": "xsd:string"
+    },
+    "primary_purpose": {
+      "@id": "currencycloud:primary_purpose",
+      "@type": "xsd:string"
+    },
+    "purpose_details": {
+      "@id": "currencycloud:purpose_details",
+      "@type": "xsd:string"
+    },
+    "created_at": {
+      "@id": "currencycloud:created_at",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "currencycloud:updated_at",
+      "@type": "xsd:dateTime"
+    },
+    "create_account_usage_request": "currencycloud:create_account_usage_request",
+    "not_found_response": "currencycloud:not_found_response",
+    "GetAccountError": "currencycloud:GetAccountError",
+    "ManageAccountPaymentChargesSettingsError": "currencycloud:ManageAccountPaymentChargesSettingsError",
+    "AcceptTermsResponse": "currencycloud:AcceptTermsResponse",
+    "acceptance_id": {
+      "@id": "currencycloud:acceptance_id",
+      "@type": "xsd:string"
+    },
+    "accepted_at": {
+      "@id": "currencycloud:accepted_at",
+      "@type": "xsd:dateTime"
+    },
+    "UpdateAccountComplianceSettingsError": "currencycloud:UpdateAccountComplianceSettingsError",
+    "RateLimitError": "currencycloud:RateLimitError",
+    "NotFoundError": "currencycloud:NotFoundError",
+    "GetAccountPaymentChargesSettingsError": "currencycloud:GetAccountPaymentChargesSettingsError",
+    "AccountPaymentChargesSetting": "currencycloud:AccountPaymentChargesSetting",
+    "charge_settings_id": {
+      "@id": "currencycloud:charge_settings_id",
+      "@type": "xsd:string"
+    },
+    "account_id": {
+      "@id": "currencycloud:account_id",
+      "@type": "xsd:string"
+    },
+    "charge_type": {
+      "@id": "currencycloud:charge_type",
+      "@type": "xsd:string"
+    },
+    "enabled": {
+      "@id": "currencycloud:enabled",
+      "@type": "xsd:boolean"
+    },
+    "default": {
+      "@id": "currencycloud:default",
+      "@type": "xsd:boolean"
+    },
+    "AccountComplianceSettings": "currencycloud:AccountComplianceSettings",
+    "industry_type": {
+      "@id": "currencycloud:industry_type",
+      "@type": "xsd:string"
+    },
+    "country_of_incorporation": {
+      "@id": "currencycloud:country_of_incorporation",
+      "@type": "xsd:string"
+    },
+    "date_of_incorporation": {
+      "@id": "currencycloud:date_of_incorporation",
+      "@type": "xsd:date"
+    },
+    "business_website_url": {
+      "@id": "currencycloud:business_website_url",
+      "@type": "xsd:string"
+    },
+    "expected_transaction_countries": {
+      "@id": "currencycloud:expected_transaction_countries",
+      "@container": "@list"
+    },
+    "expected_transaction_currencies": {
+      "@id": "currencycloud:expected_transaction_currencies",
+      "@container": "@list"
+    },
+    "expected_monthly_activity_volume": {
+      "@id": "currencycloud:expected_monthly_activity_volume",
+      "@type": "xsd:integer"
+    },
+    "expected_monthly_activity_value": {
+      "@id": "currencycloud:expected_monthly_activity_value",
+      "@type": "xsd:decimal"
+    },
+    "tax_identification": {
+      "@id": "currencycloud:tax_identification",
+      "@type": "xsd:string"
+    },
+    "national_identification": {
+      "@id": "currencycloud:national_identification",
+      "@type": "xsd:string"
+    },
+    "country_of_citizenship": {
+      "@id": "currencycloud:country_of_citizenship",
+      "@type": "xsd:string"
+    },
+    "trading_address_street": {
+      "@id": "currencycloud:trading_address_street",
+      "@type": "xsd:string"
+    },
+    "trading_address_city": {
+      "@id": "currencycloud:trading_address_city",
+      "@type": "xsd:string"
+    },
+    "trading_address_state": {
+      "@id": "currencycloud:trading_address_state",
+      "@type": "xsd:string"
+    },
+    "trading_address_postalcode": {
+      "@id": "currencycloud:trading_address_postalcode",
+      "@type": "xsd:string"
+    },
+    "trading_address_country": {
+      "@id": "currencycloud:trading_address_country",
+      "@type": "xsd:string"
+    },
+    "customer_risk": {
+      "@id": "currencycloud:customer_risk",
+      "@type": "xsd:string"
+    },
+    "GetAccountComplianceSettingsError": "currencycloud:GetAccountComplianceSettingsError",
+    "UnauthorizedError": "currencycloud:UnauthorizedError",
+    "UpdateAccountError": "currencycloud:UpdateAccountError",
+    "Account": "currencycloud:Account",
+    "account_name": {
+      "@id": "currencycloud:account_name",
+      "@type": "xsd:string"
+    },
+    "brand": {
+      "@id": "currencycloud:brand",
+      "@type": "xsd:string"
+    },
+    "your_reference": {
+      "@id": "currencycloud:your_reference",
+      "@type": "xsd:string"
+    },
+    "street": {
+      "@id": "currencycloud:street",
+      "@type": "xsd:string"
+    },
+    "city": {
+      "@id": "currencycloud:city",
+      "@type": "xsd:string"
+    },
+    "state_or_province": {
+      "@id": "currencycloud:state_or_province",
+      "@type": "xsd:string"
+    },
+    "country": {
+      "@id": "currencycloud:country",
+      "@type": "xsd:string"
+    },
+    "postal_code": {
+      "@id": "currencycloud:postal_code",
+      "@type": "xsd:string"
+    },
+    "spread_table": {
+      "@id": "currencycloud:spread_table",
+      "@type": "xsd:string"
+    },
+    "legal_entity_type": {
+      "@id": "currencycloud:legal_entity_type",
+      "@type": "xsd:string"
+    },
+    "legal_entity_sub_type": {
+      "@id": "currencycloud:legal_entity_sub_type",
+      "@type": "xsd:string"
+    },
+    "identification_type": {
+      "@id": "currencycloud:identification_type",
+      "@type": "xsd:string"
+    },
+    "identification_value": {
+      "@id": "currencycloud:identification_value",
+      "@type": "xsd:string"
+    },
+    "identification_issuer": {
+      "@id": "currencycloud:identification_issuer",
+      "@type": "xsd:string"
+    },
+    "identification_expiration": {
+      "@id": "currencycloud:identification_expiration",
+      "@type": "xsd:date"
+    },
+    "short_reference": {
+      "@id": "currencycloud:short_reference",
+      "@type": "xsd:string"
+    },
+    "api_trading": {
+      "@id": "currencycloud:api_trading",
+      "@type": "xsd:boolean"
+    },
+    "online_trading": {
+      "@id": "currencycloud:online_trading",
+      "@type": "xsd:boolean"
+    },
+    "phone_trading": {
+      "@id": "currencycloud:phone_trading",
+      "@type": "xsd:boolean"
+    },
+    "process_third_party_funds": {
+      "@id": "currencycloud:process_third_party_funds",
+      "@type": "xsd:boolean"
+    },
+    "settlement_type": {
+      "@id": "currencycloud:settlement_type",
+      "@type": "xsd:string"
+    },
+    "terms_and_conditions_accepted": {
+      "@id": "currencycloud:terms_and_conditions_accepted",
+      "@type": "xsd:boolean"
+    },
+    "agent_or_reliance": {
+      "@id": "currencycloud:agent_or_reliance",
+      "@type": "xsd:boolean"
+    },
+    "bank_account_verified": {
+      "@id": "currencycloud:bank_account_verified",
+      "@type": "xsd:string"
+    },
+    "Pagination": "currencycloud:Pagination",
+    "total_entries": {
+      "@id": "currencycloud:total_entries",
+      "@type": "xsd:integer"
+    },
+    "total_pages": {
+      "@id": "currencycloud:total_pages",
+      "@type": "xsd:integer"
+    },
+    "current_page": {
+      "@id": "currencycloud:current_page",
+      "@type": "xsd:integer"
+    },
+    "per_page": {
+      "@id": "currencycloud:per_page",
+      "@type": "xsd:integer"
+    },
+    "previous_page": {
+      "@id": "currencycloud:previous_page",
+      "@type": "xsd:integer"
+    },
+    "next_page": {
+      "@id": "currencycloud:next_page",
+      "@type": "xsd:integer"
+    },
+    "order": {
+      "@id": "currencycloud:order",
+      "@type": "xsd:string"
+    },
+    "order_asc_desc": {
+      "@id": "currencycloud:order_asc_desc",
+      "@type": "xsd:string"
+    },
+    "FindAccountsError": "currencycloud:FindAccountsError",
+    "CreateAccountError": "currencycloud:CreateAccountError",
+    "LoginError": "currencycloud:LoginError",
+    "AuthenticationToken": "currencycloud:AuthenticationToken",
+    "auth_token": {
+      "@id": "currencycloud:auth_token",
+      "@type": "xsd:string"
+    },
+    "TopUpMarginBalanceError": "currencycloud:TopUpMarginBalanceError",
+    "Balance": "currencycloud:Balance",
+    "currency": {
+      "@id": "currencycloud:currency",
+      "@type": "xsd:string"
+    },
+    "amount": {
+      "@id": "currencycloud:amount",
+      "@type": "xsd:string"
+    },
+    "FindBalancesError": "currencycloud:FindBalancesError",
+    "TopUpMarginBalance": "currencycloud:TopUpMarginBalance",
+    "transferred_amount": {
+      "@id": "currencycloud:transferred_amount",
+      "@type": "xsd:string"
+    },
+    "GetBalanceError": "currencycloud:GetBalanceError",
+    "BeneficiaryAccountVerificationError": "currencycloud:BeneficiaryAccountVerificationError",
+    "GetBeneficiaryError": "currencycloud:GetBeneficiaryError",
+    "UpdateBeneficiaryError": "currencycloud:UpdateBeneficiaryError",
+    "ValidateBeneficiaryError": "currencycloud:ValidateBeneficiaryError",
+    "BeneficiaryAccountVerificationResult": "currencycloud:BeneficiaryAccountVerificationResult",
+    "answer": {
+      "@id": "currencycloud:answer",
+      "@type": "xsd:string"
+    },
+    "actual_name": {
+      "@id": "currencycloud:actual_name",
+      "@type": "xsd:string"
+    },
+    "reason_code": {
+      "@id": "currencycloud:reason_code",
+      "@type": "xsd:string"
+    },
+    "reason_type": {
+      "@id": "currencycloud:reason_type",
+      "@type": "xsd:string"
+    },
+    "FindBeneficiariesError": "currencycloud:FindBeneficiariesError",
+    "Beneficiary": "currencycloud:Beneficiary",
+    "bank_account_holder_name": {
+      "@id": "currencycloud:bank_account_holder_name",
+      "@type": "xsd:string"
+    },
+    "name": {
+      "@id": "currencycloud:name",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "currencycloud:email",
+      "@type": "xsd:string"
+    },
+    "payment_types": {
+      "@id": "currencycloud:payment_types",
+      "@container": "@list"
+    },
+    "beneficiary_address": {
+      "@id": "currencycloud:beneficiary_address",
+      "@container": "@list"
+    },
+    "beneficiary_country": {
+      "@id": "currencycloud:beneficiary_country",
+      "@type": "xsd:string"
+    },
+    "beneficiary_entity_type": {
+      "@id": "currencycloud:beneficiary_entity_type",
+      "@type": "xsd:string"
+    },
+    "beneficiary_company_name": {
+      "@id": "currencycloud:beneficiary_company_name",
+      "@type": "xsd:string"
+    },
+    "beneficiary_first_name": {
+      "@id": "currencycloud:beneficiary_first_name",
+      "@type": "xsd:string"
+    },
+    "beneficiary_last_name": {
+      "@id": "currencycloud:beneficiary_last_name",
+      "@type": "xsd:string"
+    },
+    "beneficiary_city": {
+      "@id": "currencycloud:beneficiary_city",
+      "@type": "xsd:string"
+    },
+    "beneficiary_postcode": {
+      "@id": "currencycloud:beneficiary_postcode",
+      "@type": "xsd:string"
+    },
+    "beneficiary_state_or_province": {
+      "@id": "currencycloud:beneficiary_state_or_province",
+      "@type": "xsd:string"
+    },
+    "beneficiary_date_of_birth": {
+      "@id": "currencycloud:beneficiary_date_of_birth",
+      "@type": "xsd:string"
+    },
+    "beneficiary_identification_type": {
+      "@id": "currencycloud:beneficiary_identification_type",
+      "@type": "xsd:string"
+    },
+    "beneficiary_identification_value": {
+      "@id": "currencycloud:beneficiary_identification_value",
+      "@type": "xsd:string"
+    },
+    "bank_country": {
+      "@id": "currencycloud:bank_country",
+      "@type": "xsd:string"
+    },
+    "bank_name": {
+      "@id": "currencycloud:bank_name",
+      "@type": "xsd:string"
+    },
+    "bank_account_type": {
+      "@id": "currencycloud:bank_account_type",
+      "@type": "xsd:string"
+    },
+    "account_number": {
+      "@id": "currencycloud:account_number",
+      "@type": "xsd:string"
+    },
+    "routing_code_type_1": {
+      "@id": "currencycloud:routing_code_type_1",
+      "@type": "xsd:string"
+    },
+    "routing_code_value_1": {
+      "@id": "currencycloud:routing_code_value_1",
+      "@type": "xsd:string"
+    },
+    "routing_code_type_2": {
+      "@id": "currencycloud:routing_code_type_2",
+      "@type": "xsd:string"
+    },
+    "routing_code_value_2": {
+      "@id": "currencycloud:routing_code_value_2",
+      "@type": "xsd:string"
+    },
+    "bic_swift": {
+      "@id": "currencycloud:bic_swift",
+      "@type": "xsd:string"
+    },
+    "iban": {
+      "@id": "currencycloud:iban",
+      "@type": "xsd:string"
+    },
+    "default_beneficiary": {
+      "@id": "currencycloud:default_beneficiary",
+      "@type": "xsd:string"
+    },
+    "creator_contact_id": {
+      "@id": "currencycloud:creator_contact_id",
+      "@type": "xsd:string"
+    },
+    "bank_address": {
+      "@id": "currencycloud:bank_address",
+      "@container": "@list"
+    },
+    "beneficiary_external_reference": {
+      "@id": "currencycloud:beneficiary_external_reference",
+      "@type": "xsd:string"
+    },
+    "business_nature": {
+      "@id": "currencycloud:business_nature",
+      "@type": "xsd:string"
+    },
+    "company_website": {
+      "@id": "currencycloud:company_website",
+      "@type": "xsd:string"
+    },
+    "DeleteBeneficiaryError": "currencycloud:DeleteBeneficiaryError",
+    "CreateBeneficiaryError": "currencycloud:CreateBeneficiaryError",
+    "create_business_information_request": "currencycloud:create_business_information_request",
+    "business_country": {
+      "@id": "currencycloud:business_country",
+      "@type": "xsd:string"
+    },
+    "company_name": {
+      "@id": "currencycloud:company_name",
+      "@type": "xsd:string"
+    },
+    "trading_name": {
+      "@id": "currencycloud:trading_name",
+      "@type": "xsd:string"
+    },
+    "sector": {
+      "@id": "currencycloud:sector",
+      "@type": "xsd:string"
+    },
+    "company_registration_number": {
+      "@id": "currencycloud:company_registration_number",
+      "@type": "xsd:string"
+    },
+    "vat_number": {
+      "@id": "currencycloud:vat_number",
+      "@type": "xsd:string"
+    },
+    "incorporation_date": {
+      "@id": "currencycloud:incorporation_date",
+      "@type": "xsd:date"
+    },
+    "business_website": {
+      "@id": "currencycloud:business_website",
+      "@type": "xsd:string"
+    },
+    "business_activity_description": {
+      "@id": "currencycloud:business_activity_description",
+      "@type": "xsd:string"
+    },
+    "registered_address_attributes": {
+      "@id": "currencycloud:registered_address_attributes"
+    },
+    "trading_address_attributes": {
+      "@id": "currencycloud:trading_address_attributes"
+    },
+    "business_information": "currencycloud:business_information",
+    "registered_address": {
+      "@id": "currencycloud:registered_address"
+    },
+    "trading_address": {
+      "@id": "currencycloud:trading_address"
+    },
+    "CreateContactError": "currencycloud:CreateContactError",
+    "GetContactError": "currencycloud:GetContactError",
+    "Contact": "currencycloud:Contact",
+    "login_id": {
+      "@id": "currencycloud:login_id",
+      "@type": "xsd:string"
+    },
+    "first_name": {
+      "@id": "currencycloud:first_name",
+      "@type": "xsd:string"
+    },
+    "last_name": {
+      "@id": "currencycloud:last_name",
+      "@type": "xsd:string"
+    },
+    "phone_number": {
+      "@id": "currencycloud:phone_number",
+      "@type": "xsd:string"
+    },
+    "mobile_phone_number": {
+      "@id": "currencycloud:mobile_phone_number",
+      "@type": "xsd:string"
+    },
+    "locale": {
+      "@id": "currencycloud:locale",
+      "@type": "xsd:string"
+    },
+    "timezone": {
+      "@id": "currencycloud:timezone",
+      "@type": "xsd:string"
+    },
+    "email_address": {
+      "@id": "currencycloud:email_address",
+      "@type": "xsd:string"
+    },
+    "date_of_birth": {
+      "@id": "currencycloud:date_of_birth",
+      "@type": "xsd:string"
+    },
+    "GenrateHMACKeyError": "currencycloud:GenrateHMACKeyError",
+    "UpdateContactError": "currencycloud:UpdateContactError",
+    "ForbiddenError": "currencycloud:ForbiddenError",
+    "FindContactsError": "currencycloud:FindContactsError",
+    "HMACKey": "currencycloud:HMACKey",
+    "hmac_key": {
+      "@id": "currencycloud:hmac_key",
+      "@type": "xsd:string"
+    },
+    "ConversionSplitHistory": "currencycloud:ConversionSplitHistory",
+    "origin_conversion": {
+      "@id": "currencycloud:origin_conversion",
+      "@type": "@id"
+    },
+    "parent_conversion": {
+      "@id": "currencycloud:parent_conversion",
+      "@type": "@id"
+    },
+    "child_conversions": {
+      "@id": "currencycloud:child_conversions",
+      "@container": "@list"
+    },
+    "ConversionProfitAndLoss": "currencycloud:ConversionProfitAndLoss",
+    "conversion_profit_and_losses": {
+      "@id": "currencycloud:conversion_profit_and_losses",
+      "@container": "@list"
+    },
+    "pagination": {
+      "@id": "currencycloud:pagination",
+      "@type": "@id"
+    },
+    "ConversionDateChange": "currencycloud:ConversionDateChange",
+    "conversion_id": {
+      "@id": "currencycloud:conversion_id",
+      "@type": "xsd:string"
+    },
+    "new_conversion_date": {
+      "@id": "currencycloud:new_conversion_date",
+      "@type": "xsd:string"
+    },
+    "new_settlement_date": {
+      "@id": "currencycloud:new_settlement_date",
+      "@type": "xsd:string"
+    },
+    "old_conversion_date": {
+      "@id": "currencycloud:old_conversion_date",
+      "@type": "xsd:string"
+    },
+    "old_settlement_date": {
+      "@id": "currencycloud:old_settlement_date",
+      "@type": "xsd:string"
+    },
+    "event_date_time": {
+      "@id": "currencycloud:event_date_time",
+      "@type": "xsd:string"
+    },
+    "FindConversionsError": "currencycloud:FindConversionsError",
+    "Conversion": "currencycloud:Conversion",
+    "settlement_date": {
+      "@id": "currencycloud:settlement_date",
+      "@type": "xsd:string"
+    },
+    "conversion_date": {
+      "@id": "currencycloud:conversion_date",
+      "@type": "xsd:string"
+    },
+    "currency_pair": {
+      "@id": "currencycloud:currency_pair",
+      "@type": "xsd:string"
+    },
+    "buy_currency": {
+      "@id": "currencycloud:buy_currency",
+      "@type": "xsd:string"
+    },
+    "sell_currency": {
+      "@id": "currencycloud:sell_currency",
+      "@type": "xsd:string"
+    },
+    "fixed_side": {
+      "@id": "currencycloud:fixed_side",
+      "@type": "xsd:string"
+    },
+    "partner_buy_amount": {
+      "@id": "currencycloud:partner_buy_amount",
+      "@type": "xsd:string"
+    },
+    "partner_sell_amount": {
+      "@id": "currencycloud:partner_sell_amount",
+      "@type": "xsd:string"
+    },
+    "client_buy_amount": {
+      "@id": "currencycloud:client_buy_amount",
+      "@type": "xsd:string"
+    },
+    "client_sell_amount": {
+      "@id": "currencycloud:client_sell_amount",
+      "@type": "xsd:string"
+    },
+    "mid_market_rate": {
+      "@id": "currencycloud:mid_market_rate",
+      "@type": "xsd:string"
+    },
+    "core_rate": {
+      "@id": "currencycloud:core_rate",
+      "@type": "xsd:string"
+    },
+    "partner_rate": {
+      "@id": "currencycloud:partner_rate",
+      "@type": "xsd:string"
+    },
+    "client_rate": {
+      "@id": "currencycloud:client_rate",
+      "@type": "xsd:string"
+    },
+    "deposit_required": {
+      "@id": "currencycloud:deposit_required",
+      "@type": "xsd:boolean"
+    },
+    "deposit_amount": {
+      "@id": "currencycloud:deposit_amount",
+      "@type": "xsd:string"
+    },
+    "deposit_currency": {
+      "@id": "currencycloud:deposit_currency",
+      "@type": "xsd:string"
+    },
+    "deposit_status": {
+      "@id": "currencycloud:deposit_status",
+      "@type": "xsd:string"
+    },
+    "deposit_required_at": {
+      "@id": "currencycloud:deposit_required_at",
+      "@type": "xsd:string"
+    },
+    "unallocated_funds": {
+      "@id": "currencycloud:unallocated_funds",
+      "@type": "xsd:string"
+    },
+    "payment_ids": {
+      "@id": "currencycloud:payment_ids",
+      "@container": "@list"
+    },
+    "unique_request_id": {
+      "@id": "currencycloud:unique_request_id",
+      "@type": "xsd:string"
+    },
+    "ConversionSplitDetails": "currencycloud:ConversionSplitDetails",
+    "buy_amount": {
+      "@id": "currencycloud:buy_amount",
+      "@type": "xsd:string"
+    },
+    "sell_amount": {
+      "@id": "currencycloud:sell_amount",
+      "@type": "xsd:string"
+    },
+    "CreateConversionError": "currencycloud:CreateConversionError",
+    "ConversionCancellationQuote": "currencycloud:ConversionCancellationQuote",
+    "ConversionSplit": "currencycloud:ConversionSplit",
+    "child_conversion": {
+      "@id": "currencycloud:child_conversion",
+      "@type": "@id"
+    },
+    "GetConversionError": "currencycloud:GetConversionError",
+    "ConversionCancellation": "currencycloud:ConversionCancellation",
+    "contact_id": {
+      "@id": "currencycloud:contact_id",
+      "@type": "xsd:string"
+    },
+    "event_account_id": {
+      "@id": "currencycloud:event_account_id",
+      "@type": "xsd:string"
+    },
+    "event_contact_id": {
+      "@id": "currencycloud:event_contact_id",
+      "@type": "xsd:string"
+    },
+    "notes": {
+      "@id": "currencycloud:notes",
+      "@type": "xsd:string"
+    },
+    "event_type": {
+      "@id": "currencycloud:event_type",
+      "@type": "xsd:string"
+    },
+    "CreateSimulateFundingError": "currencycloud:CreateSimulateFundingError",
+    "SimulateFunding": "currencycloud:SimulateFunding",
+    "state": {
+      "@id": "currencycloud:state",
+      "@type": "xsd:string"
+    },
+    "sender_name": {
+      "@id": "currencycloud:sender_name",
+      "@type": "xsd:string"
+    },
+    "sender_address": {
+      "@id": "currencycloud:sender_address",
+      "@type": "xsd:string"
+    },
+    "sender_country": {
+      "@id": "currencycloud:sender_country",
+      "@type": "xsd:string"
+    },
+    "sender_reference": {
+      "@id": "currencycloud:sender_reference",
+      "@type": "xsd:string"
+    },
+    "sender_account_number": {
+      "@id": "currencycloud:sender_account_number",
+      "@type": "xsd:string"
+    },
+    "sender_routing_code": {
+      "@id": "currencycloud:sender_routing_code",
+      "@type": "xsd:string"
+    },
+    "receiver_account_number": {
+      "@id": "currencycloud:receiver_account_number",
+      "@type": "xsd:string"
+    },
+    "receiver_routing_code": {
+      "@id": "currencycloud:receiver_routing_code",
+      "@type": "xsd:string"
+    },
+    "action": {
+      "@id": "currencycloud:action",
+      "@type": "xsd:string"
+    },
+    "create_document_image_request": "currencycloud:create_document_image_request",
+    "image": {
+      "@id": "currencycloud:image",
+      "@type": "xsd:string"
+    },
+    "side": {
+      "@id": "currencycloud:side",
+      "@type": "xsd:string"
+    },
+    "document_image": "currencycloud:document_image",
+    "create_document_request": "currencycloud:create_document_request",
+    "document_type": {
+      "@id": "currencycloud:document_type",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "currencycloud:category",
+      "@type": "xsd:string"
+    },
+    "document": "currencycloud:document",
+    "document_with_image_ids": "currencycloud:document_with_image_ids",
+    "document_image_ids": {
+      "@id": "currencycloud:document_image_ids",
+      "@container": "@list"
+    },
+    "form_section_type": {
+      "@id": "currencycloud:form_section_type",
+      "@type": "xsd:string"
+    },
+    "form_section_id": {
+      "@id": "currencycloud:form_section_id",
+      "@type": "xsd:string"
+    },
+    "person": "currencycloud:person",
+    "roles": {
+      "@id": "currencycloud:roles",
+      "@container": "@list"
+    },
+    "middle_name": {
+      "@id": "currencycloud:middle_name",
+      "@type": "xsd:string"
+    },
+    "dob": {
+      "@id": "currencycloud:dob",
+      "@type": "xsd:date"
+    },
+    "ownership_percentage": {
+      "@id": "currencycloud:ownership_percentage",
+      "@type": "xsd:decimal"
+    },
+    "id_number": {
+      "@id": "currencycloud:id_number",
+      "@type": "xsd:string"
+    },
+    "home_country": {
+      "@id": "currencycloud:home_country",
+      "@type": "xsd:string"
+    },
+    "passport_number": {
+      "@id": "currencycloud:passport_number",
+      "@type": "xsd:string"
+    },
+    "passport_country_of_issue": {
+      "@id": "currencycloud:passport_country_of_issue",
+      "@type": "xsd:string"
+    },
+    "personal_address": {
+      "@id": "currencycloud:personal_address"
+    },
+    "form": "currencycloud:form",
+    "detached_document_ids": {
+      "@id": "currencycloud:detached_document_ids",
+      "@container": "@list"
+    },
+    "affiliate_code": {
+      "@id": "currencycloud:affiliate_code",
+      "@type": "xsd:string"
+    },
+    "agreed_to_marketing_emails": {
+      "@id": "currencycloud:agreed_to_marketing_emails",
+      "@type": "xsd:boolean"
+    },
+    "agreed_to_terms_and_conditions": {
+      "@id": "currencycloud:agreed_to_terms_and_conditions",
+      "@type": "xsd:boolean"
+    },
+    "agreed_to_corporate_authority": {
+      "@id": "currencycloud:agreed_to_corporate_authority",
+      "@type": "xsd:boolean"
+    },
+    "entity_type": {
+      "@id": "currencycloud:entity_type",
+      "@type": "xsd:string"
+    },
+    "brand_name": {
+      "@id": "currencycloud:brand_name",
+      "@type": "xsd:string"
+    },
+    "brand_key": {
+      "@id": "currencycloud:brand_key",
+      "@type": "xsd:string"
+    },
+    "referred_by": {
+      "@id": "currencycloud:referred_by",
+      "@type": "xsd:string"
+    },
+    "products_required": {
+      "@id": "currencycloud:products_required",
+      "@container": "@list"
+    },
+    "contact_name": {
+      "@id": "currencycloud:contact_name",
+      "@type": "xsd:string"
+    },
+    "form_with_associations": "currencycloud:form_with_associations",
+    "people": {
+      "@id": "currencycloud:people",
+      "@container": "@list"
+    },
+    "create_form_request": "currencycloud:create_form_request",
+    "SenderInformation": "currencycloud:SenderInformation",
+    "sender_bic": {
+      "@id": "currencycloud:sender_bic",
+      "@type": "xsd:string"
+    },
+    "sender_iban": {
+      "@id": "currencycloud:sender_iban",
+      "@type": "xsd:string"
+    },
+    "sender_id": {
+      "@id": "currencycloud:sender_id",
+      "@type": "xsd:string"
+    },
+    "GetFundingTransactionError": "currencycloud:GetFundingTransactionError",
+    "FindFundingAccountsError": "currencycloud:FindFundingAccountsError",
+    "FundingAccount": "currencycloud:FundingAccount",
+    "account_number_type": {
+      "@id": "currencycloud:account_number_type",
+      "@type": "xsd:string"
+    },
+    "account_holder_name": {
+      "@id": "currencycloud:account_holder_name",
+      "@type": "xsd:string"
+    },
+    "payment_type": {
+      "@id": "currencycloud:payment_type",
+      "@type": "xsd:string"
+    },
+    "routing_code": {
+      "@id": "currencycloud:routing_code",
+      "@type": "xsd:string"
+    },
+    "routing_code_type": {
+      "@id": "currencycloud:routing_code_type",
+      "@type": "xsd:string"
+    },
+    "FundingTransaction": "currencycloud:FundingTransaction",
+    "rail": {
+      "@id": "currencycloud:rail",
+      "@type": "xsd:string"
+    },
+    "additional_information": {
+      "@id": "currencycloud:additional_information",
+      "@type": "xsd:string"
+    },
+    "receiving_account_routing_code": {
+      "@id": "currencycloud:receiving_account_routing_code",
+      "@type": "xsd:string"
+    },
+    "value_date": {
+      "@id": "currencycloud:value_date",
+      "@type": "xsd:dateTime"
+    },
+    "receiving_account_number": {
+      "@id": "currencycloud:receiving_account_number",
+      "@type": "xsd:string"
+    },
+    "receiving_account_iban": {
+      "@id": "currencycloud:receiving_account_iban",
+      "@type": "xsd:string"
+    },
+    "completed_at": {
+      "@id": "currencycloud:completed_at",
+      "@type": "xsd:dateTime"
+    },
+    "sender": {
+      "@id": "currencycloud:sender",
+      "@type": "@id"
+    },
+    "GetPayerError": "currencycloud:GetPayerError",
+    "Payer": "currencycloud:Payer",
+    "address": {
+      "@id": "currencycloud:address",
+      "@container": "@list"
+    },
+    "postcode": {
+      "@id": "currencycloud:postcode",
+      "@type": "xsd:string"
+    },
+    "PaymentTrackingInfo": "currencycloud:PaymentTrackingInfo",
+    "uetr": {
+      "@id": "currencycloud:uetr",
+      "@type": "xsd:string"
+    },
+    "transaction_status": {
+      "@id": "currencycloud:transaction_status"
+    },
+    "initiation_time": {
+      "@id": "currencycloud:initiation_time",
+      "@type": "xsd:dateTime"
+    },
+    "completion_time": {
+      "@id": "currencycloud:completion_time",
+      "@type": "xsd:dateTime"
+    },
+    "last_update_time": {
+      "@id": "currencycloud:last_update_time",
+      "@type": "xsd:dateTime"
+    },
+    "payment_events": {
+      "@id": "currencycloud:payment_events",
+      "@container": "@list"
+    },
+    "CreatePaymentAuthorisationError": "currencycloud:CreatePaymentAuthorisationError",
+    "GetPaymentDeliveryDateError": "currencycloud:GetPaymentDeliveryDateError",
+    "PaymentSubmissionInformation": "currencycloud:PaymentSubmissionInformation",
+    "submission_ref": {
+      "@id": "currencycloud:submission_ref",
+      "@type": "xsd:string"
+    },
+    "format": {
+      "@id": "currencycloud:format",
+      "@type": "xsd:string"
+    },
+    "message": {
+      "@id": "currencycloud:message",
+      "@type": "xsd:string"
+    },
+    "GetPaymentTrackingInfoError": "currencycloud:GetPaymentTrackingInfoError",
+    "PaymentFeeAssignment": "currencycloud:PaymentFeeAssignment",
+    "ValidatePaymentError": "currencycloud:ValidatePaymentError",
+    "GetPaymentSubmissionError": "currencycloud:GetPaymentSubmissionError",
+    "CreatePaymentError": "currencycloud:CreatePaymentError",
+    "GetPaymentError": "currencycloud:GetPaymentError",
+    "GetQuotePaymentFeeError": "currencycloud:GetQuotePaymentFeeError",
+    "PaymentFeeAssignmentError": "currencycloud:PaymentFeeAssignmentError",
+    "PaymentDeliveryDate": "currencycloud:PaymentDeliveryDate",
+    "payment_date": {
+      "@id": "currencycloud:payment_date",
+      "@type": "xsd:string"
+    },
+    "payment_delivery_date": {
+      "@id": "currencycloud:payment_delivery_date",
+      "@type": "xsd:string"
+    },
+    "payment_cutoff_time": {
+      "@id": "currencycloud:payment_cutoff_time",
+      "@type": "xsd:string"
+    },
+    "PaymentConfirmation": "currencycloud:PaymentConfirmation",
+    "payment_id": {
+      "@id": "currencycloud:payment_id",
+      "@type": "xsd:string"
+    },
+    "confirmation_url": {
+      "@id": "currencycloud:confirmation_url",
+      "@type": "xsd:string"
+    },
+    "expires_at": {
+      "@id": "currencycloud:expires_at",
+      "@type": "xsd:dateTime"
+    },
+    "UpdatePaymentError": "currencycloud:UpdatePaymentError",
+    "RetryNotificationError": "currencycloud:RetryNotificationError",
+    "PaymentFeeUnassignmentError": "currencycloud:PaymentFeeUnassignmentError",
+    "QuotePaymentFee": "currencycloud:QuotePaymentFee",
+    "payment_currency": {
+      "@id": "currencycloud:payment_currency",
+      "@type": "xsd:string"
+    },
+    "payment_destination_country": {
+      "@id": "currencycloud:payment_destination_country",
+      "@type": "xsd:string"
+    },
+    "fee_amount": {
+      "@id": "currencycloud:fee_amount",
+      "@type": "xsd:string"
+    },
+    "fee_currency": {
+      "@id": "currencycloud:fee_currency",
+      "@type": "xsd:string"
+    },
+    "FindPaymentsError": "currencycloud:FindPaymentsError",
+    "Payment": "currencycloud:Payment",
+    "beneficiary_id": {
+      "@id": "currencycloud:beneficiary_id",
+      "@type": "xsd:string"
+    },
+    "reference": {
+      "@id": "currencycloud:reference",
+      "@type": "xsd:string"
+    },
+    "transferred_at": {
+      "@id": "currencycloud:transferred_at",
+      "@type": "xsd:string"
+    },
+    "authorisation_steps_required": {
+      "@id": "currencycloud:authorisation_steps_required",
+      "@type": "xsd:string"
+    },
+    "estimated_arrival": {
+      "@id": "currencycloud:estimated_arrival",
+      "@type": "xsd:string"
+    },
+    "last_updater_contact_id": {
+      "@id": "currencycloud:last_updater_contact_id",
+      "@type": "xsd:string"
+    },
+    "failure_reason": {
+      "@id": "currencycloud:failure_reason",
+      "@type": "xsd:string"
+    },
+    "payer_id": {
+      "@id": "currencycloud:payer_id",
+      "@type": "xsd:string"
+    },
+    "payer_details_source": {
+      "@id": "currencycloud:payer_details_source",
+      "@type": "xsd:string"
+    },
+    "payment_group_id": {
+      "@id": "currencycloud:payment_group_id",
+      "@type": "xsd:string"
+    },
+    "failure_returned_amount": {
+      "@id": "currencycloud:failure_returned_amount",
+      "@type": "xsd:string"
+    },
+    "ultimate_beneficiary_name": {
+      "@id": "currencycloud:ultimate_beneficiary_name",
+      "@type": "xsd:string"
+    },
+    "purpose_code": {
+      "@id": "currencycloud:purpose_code",
+      "@type": "xsd:string"
+    },
+    "review_status": {
+      "@id": "currencycloud:review_status",
+      "@type": "xsd:string"
+    },
+    "invoice_number": {
+      "@id": "currencycloud:invoice_number",
+      "@type": "xsd:string"
+    },
+    "invoice_date": {
+      "@id": "currencycloud:invoice_date",
+      "@type": "xsd:string"
+    },
+    "PaymentFee": "currencycloud:PaymentFee",
+    "regular_amount": {
+      "@id": "currencycloud:regular_amount",
+      "@type": "xsd:string"
+    },
+    "priority_shared_amount": {
+      "@id": "currencycloud:priority_shared_amount",
+      "@type": "xsd:string"
+    },
+    "priority_ours_amount": {
+      "@id": "currencycloud:priority_ours_amount",
+      "@type": "xsd:string"
+    },
+    "owner_account_id": {
+      "@id": "currencycloud:owner_account_id",
+      "@type": "xsd:string"
+    },
+    "DeletePaymentError": "currencycloud:DeletePaymentError",
+    "PaymentAuthorisation": "currencycloud:PaymentAuthorisation",
+    "payment_status": {
+      "@id": "currencycloud:payment_status",
+      "@type": "xsd:string"
+    },
+    "updated": {
+      "@id": "currencycloud:updated",
+      "@type": "xsd:string"
+    },
+    "error": {
+      "@id": "currencycloud:error",
+      "@type": "xsd:string"
+    },
+    "auth_steps_taken": {
+      "@id": "currencycloud:auth_steps_taken",
+      "@type": "xsd:string"
+    },
+    "auth_steps_required": {
+      "@id": "currencycloud:auth_steps_required",
+      "@type": "xsd:string"
+    },
+    "PaymentFeeUnassignment": "currencycloud:PaymentFeeUnassignment",
+    "PaymentAuthorisations": "currencycloud:PaymentAuthorisations",
+    "authorisations": {
+      "@id": "currencycloud:authorisations",
+      "@container": "@list"
+    },
+    "create_person_request": "currencycloud:create_person_request",
+    "personal_address_attributes": {
+      "@id": "currencycloud:personal_address_attributes"
+    },
+    "HeldRateQuoteError": "currencycloud:HeldRateQuoteError",
+    "HeldRateQuote": "currencycloud:HeldRateQuote",
+    "quote_id": {
+      "@id": "currencycloud:quote_id",
+      "@type": "xsd:string"
+    },
+    "settlement_cut_off_time": {
+      "@id": "currencycloud:settlement_cut_off_time",
+      "@type": "xsd:string"
+    },
+    "RateDetailed": "currencycloud:RateDetailed",
+    "client_buy_currency": {
+      "@id": "currencycloud:client_buy_currency",
+      "@type": "xsd:string"
+    },
+    "client_sell_currency": {
+      "@id": "currencycloud:client_sell_currency",
+      "@type": "xsd:string"
+    },
+    "GetBasicRatesError": "currencycloud:GetBasicRatesError",
+    "GetDetailedRatesError": "currencycloud:GetDetailedRatesError",
+    "RatesBasic": "currencycloud:RatesBasic",
+    "rates": {
+      "@id": "currencycloud:rates"
+    },
+    "unavailable": {
+      "@id": "currencycloud:unavailable",
+      "@container": "@list"
+    },
+    "PaymentPurposeCodes": "currencycloud:PaymentPurposeCodes",
+    "purpose_description": {
+      "@id": "currencycloud:purpose_description",
+      "@type": "xsd:string"
+    },
+    "bank_account_country": {
+      "@id": "currencycloud:bank_account_country",
+      "@type": "xsd:string"
+    },
+    "AvailableCurrencies": "currencycloud:AvailableCurrencies",
+    "code": {
+      "@id": "currencycloud:code",
+      "@type": "xsd:string"
+    },
+    "decimal_places": {
+      "@id": "currencycloud:decimal_places",
+      "@type": "xsd:integer"
+    },
+    "can_buy": {
+      "@id": "currencycloud:can_buy",
+      "@type": "xsd:boolean"
+    },
+    "can_sell": {
+      "@id": "currencycloud:can_sell",
+      "@type": "xsd:boolean"
+    },
+    "GetBeneficiaryRequirementsError": "currencycloud:GetBeneficiaryRequirementsError",
+    "GetBankDetailsError": "currencycloud:GetBankDetailsError",
+    "GetPaymentFeeRulesError": "currencycloud:GetPaymentFeeRulesError",
+    "GetPaymentDatesError": "currencycloud:GetPaymentDatesError",
+    "BeneficiaryRequirements": "currencycloud:BeneficiaryRequirements",
+    "acct_number": {
+      "@id": "currencycloud:acct_number",
+      "@type": "xsd:string"
+    },
+    "sort_code": {
+      "@id": "currencycloud:sort_code",
+      "@type": "xsd:string"
+    },
+    "aba": {
+      "@id": "currencycloud:aba",
+      "@type": "xsd:string"
+    },
+    "bsb_code": {
+      "@id": "currencycloud:bsb_code",
+      "@type": "xsd:string"
+    },
+    "institution_no": {
+      "@id": "currencycloud:institution_no",
+      "@type": "xsd:string"
+    },
+    "bank_code": {
+      "@id": "currencycloud:bank_code",
+      "@type": "xsd:string"
+    },
+    "branch_code": {
+      "@id": "currencycloud:branch_code",
+      "@type": "xsd:string"
+    },
+    "clabe": {
+      "@id": "currencycloud:clabe",
+      "@type": "xsd:string"
+    },
+    "cnaps": {
+      "@id": "currencycloud:cnaps",
+      "@type": "xsd:string"
+    },
+    "PaymentDates": "currencycloud:PaymentDates",
+    "invalid_payment_dates": {
+      "@id": "currencycloud:invalid_payment_dates"
+    },
+    "first_payment_date": {
+      "@id": "currencycloud:first_payment_date",
+      "@type": "xsd:string"
+    },
+    "GetAvailableCurrenciesError": "currencycloud:GetAvailableCurrenciesError",
+    "PayerRequirements": "currencycloud:PayerRequirements",
+    "payer_entity_type": {
+      "@id": "currencycloud:payer_entity_type",
+      "@type": "xsd:string"
+    },
+    "required_fields": {
+      "@id": "currencycloud:required_fields",
+      "@container": "@list"
+    },
+    "ConversionDates": "currencycloud:ConversionDates",
+    "first_conversion_cutoff_datetime": {
+      "@id": "currencycloud:first_conversion_cutoff_datetime",
+      "@type": "xsd:dateTime"
+    },
+    "first_conversion_date": {
+      "@id": "currencycloud:first_conversion_date",
+      "@type": "xsd:date"
+    },
+    "next_day_conversion_date": {
+      "@id": "currencycloud:next_day_conversion_date",
+      "@type": "xsd:date"
+    },
+    "default_conversion_date": {
+      "@id": "currencycloud:default_conversion_date",
+      "@type": "xsd:date"
+    },
+    "optimize_liquidity_conversion_date": {
+      "@id": "currencycloud:optimize_liquidity_conversion_date",
+      "@type": "xsd:date"
+    },
+    "invalid_conversion_dates": {
+      "@id": "currencycloud:invalid_conversion_dates"
+    },
+    "offline_conversion_dates": {
+      "@id": "currencycloud:offline_conversion_dates",
+      "@container": "@list"
+    },
+    "SettlementAccount": "currencycloud:SettlementAccount",
+    "GetPayerRequirementsError": "currencycloud:GetPayerRequirementsError"
+  },
+  "@type": "schema:Dataset",
+  "schema:name": "Currencycloud API JSON-LD context",
+  "schema:description": "A JSON-LD @context for the objects Currencycloud's own API contract declares: one class per component schema, one property per declared field, typed from the contract. Derived by script (derive-json-ld.py, 2026-10-12) from openapi/currencycloud-account-usage-api-openapi.yml, openapi/currencycloud-accounts-api-openapi.yml, openapi/currencycloud-authenticate-api-openapi.yml.",
+  "dcterms:created": "2026-10-12",
+  "dcterms:source": [
+    "openapi/currencycloud-account-usage-api-openapi.yml",
+    "openapi/currencycloud-accounts-api-openapi.yml",
+    "openapi/currencycloud-authenticate-api-openapi.yml",
+    "openapi/currencycloud-balances-api-openapi.yml",
+    "openapi/currencycloud-beneficiaries-api-openapi.yml"
+  ]
+}

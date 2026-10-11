@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-document-with-image-ids-schema.json",
+  "title": "document_with_image_ids",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-documents-api-openapi.yml#/components/schemas/document_with_image_ids",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "document_type": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "document_image_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "form_section_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "form_section_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "document_type",
+    "category"
+  ]
+}

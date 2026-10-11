@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-contact-schema.json",
+  "title": "Contact",
+  "description": "Contact.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/Contact",
+  "type": "object",
+  "properties": {
+    "login_id": {
+      "type": "string",
+      "description": "The contact's Currencycloud login ID."
+    },
+    "id": {
+      "type": "string",
+      "description": "The contact's ID."
+    },
+    "your_reference": {
+      "type": "string",
+      "description": "The user-generated reference code given to the contact."
+    },
+    "first_name": {
+      "type": "string",
+      "description": "The contact's first name."
+    },
+    "last_name": {
+      "type": "string",
+      "description": "The contact's last name."
+    },
+    "account_id": {
+      "type": "string",
+      "description": "The contact's account ID."
+    },
+    "account_name": {
+      "type": "string",
+      "description": "The account name."
+    },
+    "status": {
+      "type": "string",
+      "description": "Contact status - \"enabled\" allows the contact to conduct activity on the sub-account, \"not_enabled\" disables the contact."
+    },
+    "phone_number": {
+      "type": "string",
+      "description": "The contact's phone number."
+    },
+    "mobile_phone_number": {
+      "type": "string",
+      "description": "The contact's mobile phone number."
+    },
+    "locale": {
+      "type": "string",
+      "description": "The contact's locale."
+    },
+    "timezone": {
+      "type": "string",
+      "description": "The contact's timezone."
+    },
+    "email_address": {
+      "type": "string",
+      "description": "The contact's email address."
+    },
+    "date_of_birth": {
+      "type": "string",
+      "description": "The contact's date of birth."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "The date the contact record was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "The date the contact record was last updated."
+    }
+  }
+}

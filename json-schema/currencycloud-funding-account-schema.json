@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-funding-account-schema.json",
+  "title": "FundingAccount",
+  "description": "FundingAccount.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-funding-api-openapi.yml#/components/schemas/FundingAccount",
+  "type": "object",
+  "required": [
+    "id",
+    "account_id",
+    "account_number",
+    "account_number_type",
+    "account_holder_name",
+    "bank_name",
+    "bank_address",
+    "bank_country",
+    "currency",
+    "payment_type",
+    "routing_code",
+    "routing_code_type",
+    "created_at",
+    "updated_at"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "The SSI's unique UUID."
+    },
+    "account_id": {
+      "type": "string",
+      "description": "The account ID the SSI is attached to. If money is paid to the account details, this account will be credited."
+    },
+    "account_number": {
+      "type": "string",
+      "description": "The account number to use when adding funds to the account."
+    },
+    "account_number_type": {
+      "type": "string",
+      "description": "The type of account number provided (e.g. account number of IBAN).",
+      "enum": [
+        "account_number",
+        "iban"
+      ]
+    },
+    "account_holder_name": {
+      "type": "string",
+      "description": "The name of the account used to make a payment."
+    },
+    "bank_name": {
+      "type": "string",
+      "description": "The name of the bank the account is held with."
+    },
+    "bank_address": {
+      "type": "string",
+      "description": "The address of the bank the account is held with."
+    },
+    "bank_country": {
+      "type": "string",
+      "description": "The 2 digit ISO country code where the bank is based."
+    },
+    "currency": {
+      "type": "string",
+      "description": "The currency that should be sent to these account details."
+    },
+    "payment_type": {
+      "type": "string",
+      "description": "The type of payment that can be made into the account details provided. Regular - a local scheme such as Faster Payments in the UK. Priority - a priority payment e.g. FEDwire or Swift.",
+      "enum": [
+        "any",
+        "priority",
+        "regular"
+      ]
+    },
+    "routing_code": {
+      "type": "string",
+      "description": "The particular routing code for this account number."
+    },
+    "routing_code_type": {
+      "type": "string",
+      "description": "The type of routing number.",
+      "enum": [
+        "routing_code",
+        "giro_routing_code",
+        "ach_routing_number",
+        "fast_routing_code",
+        "sort_code",
+        "wire_routing_number",
+        "bic_swift",
+        "meps_routing_code"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "description": "The date-time the SSI was added to the account.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "The date-time the SSI was last updated on the account.",
+      "format": "date-time"
+    }
+  }
+}

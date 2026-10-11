@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-held-rate-quote-schema.json",
+  "title": "HeldRateQuote",
+  "description": "Detailed held rate quote information.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-quotes-api-openapi.yml#/components/schemas/HeldRateQuote",
+  "type": "object",
+  "properties": {
+    "buy_currency": {
+      "type": "string"
+    },
+    "client_buy_amount": {
+      "type": "string"
+    },
+    "client_rate": {
+      "type": "string"
+    },
+    "client_sell_amount": {
+      "type": "string"
+    },
+    "core_rate": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "currency_pair": {
+      "type": "string"
+    },
+    "deposit_amount": {
+      "type": "string"
+    },
+    "deposit_currency": {
+      "type": "string"
+    },
+    "deposit_required": {
+      "type": "boolean"
+    },
+    "expires_at": {
+      "type": "string"
+    },
+    "fixed_side": {
+      "type": "string"
+    },
+    "mid_market_rate": {
+      "type": "string"
+    },
+    "partner_buy_amount": {
+      "type": "string"
+    },
+    "partner_rate": {
+      "type": "string"
+    },
+    "partner_sell_amount": {
+      "type": "string"
+    },
+    "quote_id": {
+      "type": "string"
+    },
+    "sell_currency": {
+      "type": "string"
+    },
+    "settlement_cut_off_time": {
+      "type": "string"
+    }
+  }
+}

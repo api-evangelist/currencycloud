@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-transfer-schema.json",
+  "title": "Transfer",
+  "description": "Transfer",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-transfers-api-openapi.yml#/components/schemas/Transfer",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Transfer UUID"
+    },
+    "short_reference": {
+      "type": "string",
+      "description": "Short reference code."
+    },
+    "source_account_id": {
+      "type": "string",
+      "description": "Account UUID of the paying account."
+    },
+    "destination_account_id": {
+      "type": "string",
+      "description": "Account UUID of the receiving account."
+    },
+    "currency": {
+      "type": "string",
+      "description": "Three-letter ISO currency code."
+    },
+    "amount": {
+      "type": "string",
+      "description": "Transfer amount"
+    },
+    "status": {
+      "type": "string",
+      "description": "Status of the transfer - completed, pending or cancelled."
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date/time the transfer was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date/time the transfer was last updated."
+    },
+    "completed_at": {
+      "type": "string",
+      "description": "Date/time the transfer was completed."
+    },
+    "creator_account_id": {
+      "type": "string",
+      "description": "Account UUID of transfer instructor."
+    },
+    "creator_contact_id": {
+      "type": "string",
+      "description": "Contact UUID of transfer instructor."
+    },
+    "reason": {
+      "type": "string",
+      "description": "Reason for the transfer."
+    },
+    "unique_request_id": {
+      "type": "string",
+      "description": "The user-generated idempotency key given to the transfer."
+    }
+  }
+}

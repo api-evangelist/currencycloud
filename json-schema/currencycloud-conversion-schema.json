@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-conversion-schema.json",
+  "title": "Conversion",
+  "description": "Conversion.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/Conversion",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Conversion UUID"
+    },
+    "account_id": {
+      "type": "string",
+      "description": "UUID of the Account that the Conversion belongs to."
+    },
+    "creator_contact_id": {
+      "type": "string",
+      "description": "UUID of the Contact that requested the conversion."
+    },
+    "short_reference": {
+      "type": "string",
+      "description": "A human readable unique trade indentifier, in the format YYYYMMDD-XXXXXX."
+    },
+    "settlement_date": {
+      "type": "string",
+      "description": "The date and time by which funds need to be available to settle the trade."
+    },
+    "conversion_date": {
+      "type": "string",
+      "description": "The date the conversion will be made."
+    },
+    "status": {
+      "type": "string",
+      "description": "Current conversion status.",
+      "enum": [
+        "awaiting_authorisation",
+        "awaiting_funds",
+        "closed",
+        "funds_arrived",
+        "funds_being_processed",
+        "funds_sent",
+        "trade_settled",
+        "trade_settling"
+      ]
+    },
+    "currency_pair": {
+      "description": "Concatenated string of the two currencies traded, eg. \"USDEUR\".",
+      "type": "string"
+    },
+    "buy_currency": {
+      "type": "string",
+      "description": "The three-character ISO code of the currency being purchased."
+    },
+    "sell_currency": {
+      "type": "string",
+      "description": "Three character ISO code for the currency being sold."
+    },
+    "fixed_side": {
+      "type": "string",
+      "description": "Which currency side is fixed -  the buy or sell one.",
+      "enum": [
+        "buy",
+        "sell"
+      ]
+    },
+    "partner_buy_amount": {
+      "type": "string",
+      "description": "The amount of buy currency for a partner."
+    },
+    "partner_sell_amount": {
+      "type": "string",
+      "description": "The amount of sell currency for a partner."
+    },
+    "client_buy_amount": {
+      "type": "string",
+      "description": "The amount of buy currency for a client."
+    },
+    "client_sell_amount": {
+      "type": "string",
+      "description": "The amount of sell currency for a client."
+    },
+    "mid_market_rate": {
+      "type": "string",
+      "description": "The midpoint between the buy and sell rates."
+    },
+    "core_rate": {
+      "type": "string",
+      "description": "The market rate."
+    },
+    "partner_rate": {
+      "type": "string",
+      "description": "The market rate + Currencycloud commission (if applicable)."
+    },
+    "client_rate": {
+      "type": "string",
+      "description": "The rate that will be returned to your customer after all spread has been applied."
+    },
+    "deposit_required": {
+      "type": "boolean",
+      "description": "Is a deposit required for the conversion?",
+      "enum": [
+        true,
+        false
+      ]
+    },
+    "deposit_amount": {
+      "type": "string",
+      "description": "The amount of a deposit required."
+    },
+    "deposit_currency": {
+      "type": "string",
+      "description": "Three-letter ISO currency code for the currency the deposit is shown in."
+    },
+    "deposit_status": {
+      "type": "string",
+      "description": "Deposit status",
+      "enum": [
+        "awaiting_deposit",
+        "deposit_received",
+        "not_required"
+      ]
+    },
+    "deposit_required_at": {
+      "type": "string",
+      "description": "Date by which deposit is required, format YYYY-MM-DDThh:mm:ss.SSSZ."
+    },
+    "unallocated_funds": {
+      "type": "string",
+      "description": "The buy amount from the trade, that has not been allocated towards funding a payment."
+    },
+    "payment_ids": {
+      "type": "array",
+      "description": "The id of payments linked with this conversion - these payments won’t be processed until the conversion settles.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "unique_request_id": {
+      "description": "User-generated idempotency key. Beneficial for request tracking / management.",
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date the conversion was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "Date the conversion was last updated."
+    }
+  }
+}

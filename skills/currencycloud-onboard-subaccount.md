@@ -1,5 +1,5 @@
 ---
-name: Onboard a sub-account and contact
+name: currencycloud-onboard-subaccount
 description: Create a white-label sub-account and its primary contact under a Currencycloud house account.
 api: openapi/currencycloud-openapi-original.yml
 operations: [Login, CreateAccount, CreateContact]

@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-rate-detailed-schema.json",
+  "title": "RateDetailed",
+  "description": "Detailed rate information.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-rates-api-openapi.yml#/components/schemas/RateDetailed",
+  "type": "object",
+  "properties": {
+    "settlement_cut_off_time": {
+      "description": "The date and time by which funds need to be available to settle the trade, in the format YYYY-MM-DDThh:mm:ssZ",
+      "type": "string"
+    },
+    "currency_pair": {
+      "description": "Concatenated string of the two currencies traded, e.g. \"USDEUR\".",
+      "type": "string"
+    },
+    "client_buy_currency": {
+      "description": "Three character ISO code for the currency being bought.",
+      "type": "string"
+    },
+    "client_sell_currency": {
+      "description": "Three character ISO code for the currency being sold.",
+      "type": "string"
+    },
+    "client_buy_amount": {
+      "description": "The amount of buy currency for a client.",
+      "type": "string"
+    },
+    "client_sell_amount": {
+      "description": "The amount of sell currency for a client.",
+      "type": "string"
+    },
+    "fixed_side": {
+      "description": "Which currency is fixed -  the buy or sell one.",
+      "type": "string",
+      "enum": [
+        "buy",
+        "sell"
+      ]
+    },
+    "mid_market_rate": {
+      "description": "The mid point between buy and sell rates.",
+      "type": "string"
+    },
+    "core_rate": {
+      "description": "The market rate.",
+      "type": "string"
+    },
+    "partner_rate": {
+      "description": "The market rate + Currencycloud's commission (if applicable).",
+      "type": "string"
+    },
+    "client_rate": {
+      "description": "The rate that will be returned to your customer after all spread has been applied.",
+      "type": "string"
+    },
+    "deposit_required": {
+      "description": "Is a deposit required for the conversion?",
+      "type": "string"
+    },
+    "deposit_amount": {
+      "description": "The amount of a deposit required.",
+      "type": "string"
+    },
+    "deposit_currency": {
+      "description": "Three-letter ISO currency code for the currency the deposit is shown in.",
+      "type": "string"
+    }
+  }
+}

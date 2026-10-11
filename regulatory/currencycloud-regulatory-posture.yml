@@ -1,0 +1,12 @@
+generated: '2026-10-12'
+method: none
+source: https://www.currencycloud.com/
+signals: {}
+checked:
+- url: https://www.currencycloud.com/accessibility/
+  status: 200
+  note: soft-404 shell (no accessibility conformance report)
+- url: https://www.currencycloud.com/legal/
+  status: 200
+  note: legal hub; no subprocessor table, SBOM or data-residency statement found in its links
+note: No horizontal regulatory signal with substance found on currencycloud.com; privacy is delegated to Visa's global privacy notice (PrivacyPolicy pointer).

@@ -1,0 +1,97 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-account-compliance-settings-schema.json",
+  "title": "AccountComplianceSettings",
+  "description": "Account compliance settings.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/AccountComplianceSettings",
+  "type": "object",
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Account UUID."
+    },
+    "industry_type": {
+      "type": "string",
+      "description": "String describing the accounts main industry. See merchant category codes for examples"
+    },
+    "country_of_incorporation": {
+      "type": "string",
+      "description": "Two-letter ISO-3166 Country Code indicating the country the account is incorporated in. Should only be present for 'legal_entity_type: company' accounts"
+    },
+    "date_of_incorporation": {
+      "type": "string",
+      "format": "date",
+      "description": "The date of the accounts incorporation. Should only be present for 'legal_entity_type: company' accounts"
+    },
+    "business_website_url": {
+      "type": "string",
+      "description": "A fully qualified URL (including scheme) indicating a marketplace homepage, a link to a government page concerning the company or the literal string 'no_website_available'."
+    },
+    "expected_transaction_countries": {
+      "type": "array",
+      "description": "Array of ISO-3166 country codes that these accounts will transact to/from.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_transaction_currencies": {
+      "type": "array",
+      "description": "Array of ISO-4217 currency codes that these accounts will transact with. Limited to a single item.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_monthly_activity_volume": {
+      "type": "integer",
+      "description": "The number of transactions this account is expected to conduct."
+    },
+    "expected_monthly_activity_value": {
+      "type": "number",
+      "description": "The value of transactions this account is expected to conduct. The currency for this is the single item in 'expected_transaction_currencies'."
+    },
+    "tax_identification": {
+      "type": "string",
+      "description": "A tax identification value for companies in the United States or Australia; determined by 'accounts.country'. Should only be present for 'legal_entity_type: company' accounts."
+    },
+    "national_identification": {
+      "type": "string",
+      "description": "A National identification value for an individual in the United States; determined by 'accounts.country'. Should only be present for 'legal_entity_type: individual' accounts."
+    },
+    "country_of_citizenship": {
+      "type": "string",
+      "description": "An ISO-3166 country code for an individuals citizenship. Should only be present for 'legal_entity_type: individual' accounts."
+    },
+    "trading_address_street": {
+      "type": "string",
+      "description": "The street address of the companies trading location. Should only be present for 'legal_entity_type: company' accounts."
+    },
+    "trading_address_city": {
+      "type": "string",
+      "description": "The city of the companies trading location. Should only be present for 'legal_entity_type: company' accounts."
+    },
+    "trading_address_state": {
+      "type": "string",
+      "description": "The state of the companies trading location. Should only be present for 'legal_entity_type: company' accounts."
+    },
+    "trading_address_postalcode": {
+      "type": "string",
+      "description": "The postal code of the companies trading location. Should only be present for 'legal_entity_type: company' accounts."
+    },
+    "trading_address_country": {
+      "type": "string",
+      "description": "The ISO-3166 country code of the companies trading location. Should only be present for 'legal_entity_type: company' accounts."
+    },
+    "customer_risk": {
+      "description": "The risk classification for this account's behaviour.",
+      "type": "string",
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH"
+      ]
+    }
+  }
+}

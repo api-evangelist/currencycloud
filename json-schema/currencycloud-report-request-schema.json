@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-report-request-schema.json",
+  "title": "ReportRequest",
+  "description": "Report record",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-reporting-api-openapi.yml#/components/schemas/ReportRequest",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique ID for the report."
+    },
+    "short_reference": {
+      "type": "string",
+      "description": "Human readable unique ID."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description provided when the report was created."
+    },
+    "search_params": {
+      "type": "object",
+      "default": {},
+      "description": "Parameters to select specific range of items that we want to see in the report."
+    },
+    "report_type": {
+      "type": "string",
+      "description": "The type of report - conversion or payment.",
+      "enum": [
+        "conversion",
+        "payment"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the report",
+      "enum": [
+        "completed",
+        "expired",
+        "failed",
+        "processing"
+      ]
+    },
+    "expiration_date": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 Date of report expiration."
+    },
+    "report_url": {
+      "type": "string",
+      "description": "URL used to download the CSV report. This link will expire approximately 15 minutes after it is generated. The report can be fetched again at any time to generate a new download link until the report’s expiration_date, after which it must be created again."
+    },
+    "account_id": {
+      "type": "string",
+      "description": "ID of the account."
+    },
+    "contact_id": {
+      "type": "string",
+      "description": "ID of the contact."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when the report was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date when the report was last updated."
+    }
+  }
+}

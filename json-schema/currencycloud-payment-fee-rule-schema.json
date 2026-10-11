@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-payment-fee-rule-schema.json",
+  "title": "PaymentFeeRule",
+  "description": "Payment fee rule.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-reference-api-openapi.yml#/components/schemas/PaymentFeeRule",
+  "type": "object",
+  "required": [
+    "payment_type",
+    "charge_type",
+    "fee_amount",
+    "fee_currency",
+    "payment_fee_id",
+    "payment_fee_name"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "payment_type": {
+      "type": "string",
+      "description": "The payment type the fee is applicable to, priority(Swift) or regular(local)."
+    },
+    "charge_type": {
+      "type": "string",
+      "description": "The charge type the fee is applicable to."
+    },
+    "fee_amount": {
+      "type": "string",
+      "description": "The fee amount."
+    },
+    "fee_currency": {
+      "type": "string",
+      "description": "The fee currency."
+    },
+    "payment_fee_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "The ID of payment level rule."
+    },
+    "payment_fee_name": {
+      "type": "string",
+      "description": "The name of payment level fee table."
+    }
+  }
+}

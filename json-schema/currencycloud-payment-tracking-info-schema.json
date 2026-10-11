@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-payment-tracking-info-schema.json",
+  "title": "PaymentTrackingInfo",
+  "description": "PaymentTrackingInfo",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-payments-api-openapi.yml#/components/schemas/PaymentTrackingInfo",
+  "type": "object",
+  "required": [
+    "uetr",
+    "transaction_status",
+    "initiation_time",
+    "completion_time",
+    "last_update_time",
+    "payment_events"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "uetr": {
+      "type": "string",
+      "description": "Unique End-to-end Transaction Reference."
+    },
+    "transaction_status": {
+      "type": "object",
+      "description": "Status of the transaction.",
+      "required": [
+        "status",
+        "reason"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Current status"
+        },
+        "reason": {
+          "type": "string",
+          "description": "Reason for current status."
+        }
+      }
+    },
+    "initiation_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time of initiation."
+    },
+    "completion_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time of completion."
+    },
+    "last_update_time": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Time of last update."
+    },
+    "payment_events": {
+      "type": "array",
+      "description": "List of events that have been applied to the payment.",
+      "items": {
+        "type": "object",
+        "description": "An object describing an event that has been applied to the payment."
+      }
+    }
+  }
+}

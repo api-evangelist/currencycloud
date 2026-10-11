@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-hmackey-schema.json",
+  "title": "HMACKey",
+  "description": "HMAC Key.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-contacts-api-openapi.yml#/components/schemas/HMACKey",
+  "type": "object",
+  "required": [
+    "hmac_key"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "hmac_key": {
+      "type": "string",
+      "description": "The generated HMAC Key."
+    }
+  }
+}

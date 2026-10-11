@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-quote-payment-fee-schema.json",
+  "title": "QuotePaymentFee",
+  "description": "Quote payment fee.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-payments-api-openapi.yml#/components/schemas/QuotePaymentFee",
+  "type": "object",
+  "required": [
+    "account_id",
+    "payment_currency",
+    "payment_destination_country",
+    "payment_type",
+    "charge_type",
+    "fee_amount",
+    "fee_currency"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "account_id": {
+      "type": "string",
+      "description": "Tha account Id."
+    },
+    "payment_currency": {
+      "type": "string",
+      "description": "Three letter ISO code for the currency of the payment."
+    },
+    "payment_destination_country": {
+      "type": "string",
+      "description": "Two-letter ISO country code for the payment's destination country."
+    },
+    "payment_type": {
+      "type": "string",
+      "description": "The payment type the fee is applicable to, priority(Swift) or regular(local)."
+    },
+    "charge_type": {
+      "type": "string",
+      "description": "The charge type the fee is applicable."
+    },
+    "fee_amount": {
+      "type": "string",
+      "description": "The fee amount."
+    },
+    "fee_currency": {
+      "type": "string",
+      "description": "Three-letter ISO currency code for the fee's currency."
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-conversion-date-change-schema.json",
+  "title": "ConversionDateChange",
+  "description": "Conversion Date change record",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-conversions-api-openapi.yml#/components/schemas/ConversionDateChange",
+  "type": "object",
+  "properties": {
+    "conversion_id": {
+      "type": "string",
+      "description": "UUID of the Conversion."
+    },
+    "amount": {
+      "type": "string",
+      "description": "The cost of changing the date of the conversion."
+    },
+    "currency": {
+      "type": "string",
+      "description": "The currency of the cost to change the conversion date. A three-letter ISO currency code."
+    },
+    "new_conversion_date": {
+      "type": "string",
+      "description": "The new date the conversion will be made."
+    },
+    "new_settlement_date": {
+      "type": "string",
+      "description": "The new date and time by which funds need to be available to settle the trade."
+    },
+    "old_conversion_date": {
+      "type": "string",
+      "description": "The previous date the conversion was to be made."
+    },
+    "old_settlement_date": {
+      "type": "string",
+      "description": "The previous date and time by which funds needed to be available to settle the trade."
+    },
+    "event_date_time": {
+      "type": "string",
+      "description": "The date and time of the date change or date change quote."
+    }
+  }
+}

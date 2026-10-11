@@ -1,0 +1,172 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-account-schema.json",
+  "title": "Account",
+  "description": "Account.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/Account",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Account ID"
+    },
+    "account_name": {
+      "type": "string",
+      "description": "Account name"
+    },
+    "brand": {
+      "type": "string",
+      "description": "The value of this field is used for white labeling the Currencycloud user interface."
+    },
+    "your_reference": {
+      "type": "string",
+      "description": "User-generated reference code."
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "disabled",
+        "enabled"
+      ],
+      "description": "Account status"
+    },
+    "street": {
+      "type": "string",
+      "description": "First line of address."
+    },
+    "city": {
+      "type": "string",
+      "description": "City"
+    },
+    "state_or_province": {
+      "type": "string",
+      "description": "State or province two-letter ISO 3166 code. Only applicable to some countries."
+    },
+    "country": {
+      "type": "string",
+      "description": "Two-letter ISO country code."
+    },
+    "postal_code": {
+      "type": "string",
+      "description": "Postal code"
+    },
+    "spread_table": {
+      "type": "string",
+      "description": "The name of the spread table assigned to the account."
+    },
+    "legal_entity_type": {
+      "type": "string",
+      "description": "The type of entity - individual or company."
+    },
+    "legal_entity_sub_type": {
+      "type": "string",
+      "enum": [
+        "sole_trader",
+        "limited_liability_company",
+        "public_limited_company",
+        "limited_liability_partnership",
+        "unincorporated_partnership",
+        "unregistered_charity",
+        "registered_charity",
+        "trust",
+        "company_with_nominee_shareholders_or_shares_in_bearer_form",
+        "scottish_limited_partnership",
+        "other"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "description": "The date/time the account was created.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "description": "The date/time the account was last updated.",
+      "format": "date-time"
+    },
+    "identification_type": {
+      "type": "string",
+      "description": "The legal document that verifies the identity of the account owner, e.g. passport.",
+      "enum": [
+        "citizenship_papers",
+        "credential_de_elector",
+        "drivers_license",
+        "drivers_license_canadian",
+        "employer_identification_number",
+        "existing_credit_card_details",
+        "green_card",
+        "incorporation_number",
+        "matricula_consular",
+        "national_id",
+        "none",
+        "others",
+        "passport",
+        "registro_federal_de_contribuyentes",
+        "social_insurance_number",
+        "social_security_number",
+        "visa"
+      ]
+    },
+    "identification_value": {
+      "type": "string",
+      "description": "The unique reference code for the identification document, e.g. passport number."
+    },
+    "identification_issuer": {
+      "type": "string",
+      "description": "ISO-3116 country code for the issuer of the identification document"
+    },
+    "identification_expiration": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of expiration for the identification document"
+    },
+    "short_reference": {
+      "description": "The account's reference number.",
+      "type": "string"
+    },
+    "api_trading": {
+      "description": "Is trading via the Currencycloud API enabled?",
+      "type": "boolean"
+    },
+    "online_trading": {
+      "description": "Is trading via Currencycloud Direct enabled?",
+      "type": "boolean"
+    },
+    "phone_trading": {
+      "description": "Is trading via phone enabled?",
+      "type": "boolean"
+    },
+    "process_third_party_funds": {
+      "description": "Is the account enabled for third party funds?",
+      "type": "boolean"
+    },
+    "settlement_type": {
+      "description": "The settlement type - bulk or net.",
+      "enum": [
+        "bulk",
+        "net"
+      ],
+      "type": "string"
+    },
+    "terms_and_conditions_accepted": {
+      "description": "Have the terms and conditions been accepted?",
+      "type": "boolean"
+    },
+    "agent_or_reliance": {
+      "description": "True for clients using Currencycloud’s regulatory coverage, false otherwise.",
+      "type": "boolean"
+    },
+    "bank_account_verified": {
+      "description": "Has the bank account been verified?",
+      "type": "string",
+      "enum": [
+        "yes",
+        "no",
+        "not required"
+      ]
+    }
+  }
+}

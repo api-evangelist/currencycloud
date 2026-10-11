@@ -1,5 +1,5 @@
 ---
-name: Check balances and transfer between accounts
+name: currencycloud-check-balances-and-transfer
 description: Authenticate, review multi-currency balances, and move funds between Currencycloud accounts.
 api: openapi/currencycloud-openapi-original.yml
 operations: [Login, FindBalances, GetBalance, CreateTransfer]

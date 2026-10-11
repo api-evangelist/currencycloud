@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-payment-dates-schema.json",
+  "title": "PaymentDates",
+  "description": "Payment dates.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-reference-api-openapi.yml#/components/schemas/PaymentDates",
+  "type": "object",
+  "properties": {
+    "invalid_payment_dates": {
+      "type": "object",
+      "description": "Invalid payment dates with reason.",
+      "additionalProperties": {
+        "type": "string",
+        "description": "Maps dates (eg. \"2023-12-31\") to string values that explains why payments cannot be made on this date (eg. \"No trading on Sunday\")."
+      }
+    },
+    "first_payment_date": {
+      "description": "Frist possible payment date.",
+      "type": "string"
+    }
+  }
+}

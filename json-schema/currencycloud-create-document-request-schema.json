@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-create-document-request-schema.json",
+  "title": "create_document_request",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-documents-api-openapi.yml#/components/schemas/create_document_request",
+  "type": "object",
+  "properties": {
+    "document_type": {
+      "description": "The type of document.",
+      "type": "string",
+      "enum": [
+        "bank_statement",
+        "biometric_state_id",
+        "driving_licence",
+        "mortgage",
+        "passport",
+        "proof_of_business_activity",
+        "proof_of_business_identity",
+        "proof_of_directors",
+        "proof_of_owners",
+        "proof_of_source_of_funds",
+        "residence_id",
+        "state_id",
+        "supporting",
+        "unknown",
+        "utility_bill",
+        "visa"
+      ]
+    },
+    "category": {
+      "type": "string",
+      "description": "Category of identification documentation.",
+      "enum": [
+        "proof_of_address",
+        "proof_of_business_activity",
+        "proof_of_business_identity",
+        "proof_of_directors",
+        "proof_of_identity",
+        "proof_of_owners",
+        "proof_of_source_of_funds",
+        "supporting"
+      ]
+    }
+  },
+  "required": [
+    "document_type",
+    "category"
+  ]
+}

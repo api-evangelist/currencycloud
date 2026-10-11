@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-transaction-schema.json",
+  "title": "Transaction",
+  "description": "Transaction.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-transactions-api-openapi.yml#/components/schemas/Transaction",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Transaction ID"
+    },
+    "balance_id": {
+      "type": "string",
+      "description": "Balance ID"
+    },
+    "account_id": {
+      "type": "string",
+      "description": "Account ID"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Three-letter ISO currency code."
+    },
+    "amount": {
+      "type": "string",
+      "description": "Transaction amount"
+    },
+    "balance_amount": {
+      "type": "string",
+      "description": "Balance amount"
+    },
+    "type": {
+      "type": "string",
+      "description": "Type (debit or credit).",
+      "enum": [
+        "credit",
+        "debit"
+      ]
+    },
+    "action": {
+      "type": "string",
+      "description": "The action that triggered the transaction.",
+      "enum": [
+        "conversion",
+        "conversion_deposit",
+        "deposit_refund",
+        "funding",
+        "margin",
+        "manual_transaction",
+        "payment",
+        "payment_failure",
+        "payment_fee",
+        "payment_unrelease",
+        "transfer"
+      ]
+    },
+    "related_entity_type": {
+      "type": "string",
+      "description": "The related entity type.",
+      "enum": [
+        "balance_transfer",
+        "conversion",
+        "deposit",
+        "inbound_funds",
+        "margin_transaction",
+        "payment"
+      ]
+    },
+    "related_entity_id": {
+      "type": "string"
+    },
+    "related_entity_short_reference": {
+      "type": "string",
+      "description": "Releated entity short reference."
+    },
+    "status": {
+      "type": "string",
+      "description": "Transaction status",
+      "enum": [
+        "completed",
+        "deleted",
+        "pending"
+      ]
+    },
+    "reason": {
+      "description": "Reason",
+      "type": "string"
+    },
+    "settles_at": {
+      "description": "Settlement date",
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_at": {
+      "type": "string",
+      "description": "Date the transaction record was created.",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "description": "Date the transaction record was last updated.",
+      "format": "date-time"
+    }
+  }
+}

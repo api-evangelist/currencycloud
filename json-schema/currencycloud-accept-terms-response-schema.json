@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-accept-terms-response-schema.json",
+  "title": "AcceptTermsResponse",
+  "description": "Accept Terms of Use response.",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-accounts-api-openapi.yml#/components/schemas/AcceptTermsResponse",
+  "type": "object",
+  "properties": {
+    "acceptance_id": {
+      "type": "string",
+      "description": "The ID of the acceptance."
+    },
+    "accepted_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "The date and time that the Terms of Use were accepted."
+    }
+  }
+}

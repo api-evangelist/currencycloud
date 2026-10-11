@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/currencycloud/main/json-schema/currencycloud-payment-delivery-date-schema.json",
+  "title": "PaymentDeliveryDate",
+  "description": "Payment Delivery Date",
+  "x-generated": "2026-10-12",
+  "x-method": "derived",
+  "x-generator": "derive-json-schema.py",
+  "x-source": "openapi/currencycloud-payments-api-openapi.yml#/components/schemas/PaymentDeliveryDate",
+  "type": "object",
+  "required": [
+    "payment_date",
+    "payment_delivery_date",
+    "payment_cutoff_time",
+    "payment_type",
+    "currency",
+    "bank_country"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "payment_date": {
+      "type": "string",
+      "description": "The date when the payment will be released."
+    },
+    "payment_delivery_date": {
+      "type": "string",
+      "description": "Date that we expect the payment to be delivered and available in the beneficiary bank account."
+    },
+    "payment_cutoff_time": {
+      "type": "string",
+      "description": "Calculated cut-off date and time."
+    },
+    "payment_type": {
+      "type": "string",
+      "description": "Type of payment - priority (Swift) or regular (local)."
+    },
+    "currency": {
+      "type": "string",
+      "description": "The 3-letter ISO code for the currency of the payment."
+    },
+    "bank_country": {
+      "type": "string",
+      "description": "Country in which the beneficiary's bank account is held. Two-letter ISO country code."
+    }
+  }
+}
