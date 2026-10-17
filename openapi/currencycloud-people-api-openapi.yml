@@ -237,7 +237,7 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    not_found_response:
+    validation_error_response:
       type: object
       properties:
         status:
@@ -247,9 +247,7 @@ components:
         reason:
           type: string
         error_messages:
-          type:
-          - object
-          - 'null'
+          type: object
       required:
       - status
       - error_code
@@ -860,7 +858,7 @@ components:
       - first_name
       - last_name
       - home_country
-    validation_error_response:
+    not_found_response:
       type: object
       properties:
         status:
@@ -870,7 +868,9 @@ components:
         reason:
           type: string
         error_messages:
-          type: object
+          type:
+          - object
+          - 'null'
       required:
       - status
       - error_code

@@ -153,6 +153,58 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
+    document:
+      type: object
+      properties:
+        id:
+          type: string
+        document_type:
+          type: string
+        category:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+      required:
+      - document_type
+      - category
+    not_found_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type:
+          - object
+          - 'null'
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
     create_document_request:
       type: object
       properties:
@@ -191,58 +243,6 @@ components:
       required:
       - document_type
       - category
-    not_found_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type:
-          - object
-          - 'null'
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    document:
-      type: object
-      properties:
-        id:
-          type: string
-        document_type:
-          type: string
-        category:
-          type: string
-        created_at:
-          type: string
-          format: date-time
-        updated_at:
-          type: string
-          format: date-time
-      required:
-      - document_type
-      - category
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
     document_with_image_ids:
       type: object
       properties:

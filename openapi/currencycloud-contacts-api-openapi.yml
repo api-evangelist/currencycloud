@@ -1181,6 +1181,207 @@ paths:
                 type: string
 components:
   schemas:
+    UpdateContactError:
+      type: object
+      description: 'Client error information for the Update Contact endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    Pagination:
+      type: object
+      description: Pagination.
+      properties:
+        total_entries:
+          type: integer
+        total_pages:
+          type: integer
+        current_page:
+          type: integer
+        per_page:
+          type: integer
+          description: Number of results per page.
+        previous_page:
+          type: integer
+        next_page:
+          type: integer
+        order:
+          type: string
+          description: The field name by which the results are sorted.
+        order_asc_desc:
+          type: string
+          enum:
+          - asc
+          - desc
+          default: asc
+          description: Whether results are sorted in ascending or descending order.
+      example:
+        total_entries: 1
+        total_pages: 1
+        current_page: 1
+        per_page: 25
+        previous_page: -1
+        next_page: 2
+        order: created_at
+        order_asc_desc: asc
+    GetContactError:
+      type: object
+      description: 'Client error information for the Get Contact endpoint.
+
+        '
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    UnauthorizedError:
+      type: object
+      description: Authorization error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+      example:
+        error_code: auth_failed
+        error_messages:
+          api_key:
+          - code: invalid_supplied_credentials
+            message: Authentication failed with the supplied credentials
+            params: {}
+    RateLimitError:
+      type: object
+      description: Too many requests.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+        error_messages:
+          type: object
+          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents one of the reasons why the input parameter failed.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this validation/error.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    HMACKey:
+      type: object
+      description: HMAC Key.
+      required:
+      - hmac_key
+      additionalProperties: false
+      properties:
+        hmac_key:
+          type: string
+          description: The generated HMAC Key.
+      example:
+        hmac_key: 9562c7c1094dfe8f46125aa3f3c0d141471fadd443828bb0
     CreateContactError:
       type: object
       description: 'Client error information for the Create Contact endpoint.
@@ -1252,9 +1453,48 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    RateLimitError:
+    ForbiddenError:
       type: object
-      description: Too many requests.
+      description: Permission error.
+      required:
+      - error_code
+      - error_messages
+      properties:
+        error_code:
+          type: string
+          description: A high-level error code for the whole request.
+          enum:
+          - auth_failed
+        error_messages:
+          type: object
+          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
+          additionalProperties:
+            type: array
+            items:
+              type: object
+              description: An object that represents the reasons why the request was not permitted.
+              required:
+              - code
+              - message
+              properties:
+                code:
+                  type: string
+                  description: A unique code that identifies this error. It can be used for translations.
+                message:
+                  type: string
+                  description: An explanation of the error in English.
+                params:
+                  type: object
+                  default: {}
+                  description: Relevant validation rules that failed. This can be used for translations.
+                  example:
+                    minlength: 1
+                    maxlength: 255
+    GenrateHMACKeyError:
+      type: object
+      description: 'Client error information for the Contacts Generate HMAC Key endpoint.
+
+        '
       required:
       - error_code
       - error_messages
@@ -1276,7 +1516,7 @@ components:
               properties:
                 code:
                   type: string
-                  description: A unique code that identifies this validation/error.
+                  description: A unique code that identifies this error. It can be used for translations.
                 message:
                   type: string
                   description: An explanation of the error in English.
@@ -1287,9 +1527,9 @@ components:
                   example:
                     minlength: 1
                     maxlength: 255
-    GetContactError:
+    FindContactsError:
       type: object
-      description: 'Client error information for the Get Contact endpoint.
+      description: 'Client error information for the Find Contacts endpoint.
 
         '
       required:
@@ -1393,246 +1633,6 @@ components:
         date_of_birth: '1980-01-22T00:00:00.000Z'
         created_at: '2023-12-31T23:59:59.000Z'
         updated_at: '2023-12-31T23:59:59.000Z'
-    GenrateHMACKeyError:
-      type: object
-      description: 'Client error information for the Contacts Generate HMAC Key endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    UpdateContactError:
-      type: object
-      description: 'Client error information for the Update Contact endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    ForbiddenError:
-      type: object
-      description: Permission error.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
-        error_messages:
-          type: object
-          description: Detailed error information on what permissions are missing so that the request could not be fulfilled
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents the reasons why the request was not permitted.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    UnauthorizedError:
-      type: object
-      description: Authorization error.
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-          enum:
-          - auth_failed
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-      example:
-        error_code: auth_failed
-        error_messages:
-          api_key:
-          - code: invalid_supplied_credentials
-            message: Authentication failed with the supplied credentials
-            params: {}
-    FindContactsError:
-      type: object
-      description: 'Client error information for the Find Contacts endpoint.
-
-        '
-      required:
-      - error_code
-      - error_messages
-      properties:
-        error_code:
-          type: string
-          description: A high-level error code for the whole request.
-        error_messages:
-          type: object
-          description: Detailed error information for individual input parameters that failed validation. Object keys are the names of the invalid input parameters. Each parameter may have one or more reasons why it failed.
-          additionalProperties:
-            type: array
-            items:
-              type: object
-              description: An object that represents one of the reasons why the input parameter failed.
-              required:
-              - code
-              - message
-              properties:
-                code:
-                  type: string
-                  description: A unique code that identifies this error. It can be used for translations.
-                message:
-                  type: string
-                  description: An explanation of the error in English.
-                params:
-                  type: object
-                  default: {}
-                  description: Relevant validation rules that failed. This can be used for translations.
-                  example:
-                    minlength: 1
-                    maxlength: 255
-    Pagination:
-      type: object
-      description: Pagination.
-      properties:
-        total_entries:
-          type: integer
-        total_pages:
-          type: integer
-        current_page:
-          type: integer
-        per_page:
-          type: integer
-          description: Number of results per page.
-        previous_page:
-          type: integer
-        next_page:
-          type: integer
-        order:
-          type: string
-          description: The field name by which the results are sorted.
-        order_asc_desc:
-          type: string
-          enum:
-          - asc
-          - desc
-          default: asc
-          description: Whether results are sorted in ascending or descending order.
-      example:
-        total_entries: 1
-        total_pages: 1
-        current_page: 1
-        per_page: 25
-        previous_page: -1
-        next_page: 2
-        order: created_at
-        order_asc_desc: asc
-    HMACKey:
-      type: object
-      description: HMAC Key.
-      required:
-      - hmac_key
-      additionalProperties: false
-      properties:
-        hmac_key:
-          type: string
-          description: The generated HMAC Key.
-      example:
-        hmac_key: 9562c7c1094dfe8f46125aa3f3c0d141471fadd443828bb0
 externalDocs:
   description: API overview
   url: https://www.currencycloud.com/developers/

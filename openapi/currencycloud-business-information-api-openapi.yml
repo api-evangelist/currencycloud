@@ -146,6 +146,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    validation_error_response:
+      type: object
+      properties:
+        status:
+          type: string
+        error_code:
+          type: string
+        reason:
+          type: string
+        error_messages:
+          type: object
+      required:
+      - status
+      - error_code
+      - reason
+      - error_messages
     not_found_response:
       type: object
       properties:
@@ -164,6 +180,142 @@ components:
       - error_code
       - reason
       - error_messages
+    business_information:
+      type:
+      - object
+      - 'null'
+      properties:
+        id:
+          type: string
+          description: Unique ID for the Business Information entity.
+        form_id:
+          type: string
+          description: Form UUID
+        document_ids:
+          type: array
+          description: List of IDs for any uploaded supporting documents.
+          items:
+            type: string
+        business_country:
+          description: The country the business is registered in.
+          type: string
+        company_name:
+          description: The company name.
+          type: string
+        trading_name:
+          description: The company's trading name.
+          type:
+          - string
+          - 'null'
+        legal_entity_type:
+          description: Company's legal entity type e.g. "limited_liability_company"
+          type: string
+        sector:
+          description: The primary sector the company operates in.
+          type: string
+        company_registration_number:
+          description: An official number that identifies the company.
+          type:
+          - string
+          - 'null'
+        vat_number:
+          description: The company's VAT number or Tax ID  number.
+          type:
+          - string
+          - 'null'
+        incorporation_date:
+          description: The date the company was incorporated.
+          type: string
+          format: date
+        business_website:
+          description: The company's website URL or other online presence.
+          type:
+          - string
+          - 'null'
+        business_activity_description:
+          description: Description of the company's activities.
+          type: string
+        registered_address:
+          description: The company's registered address.
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type:
+              - string
+              - 'null'
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            state_or_province:
+              type:
+              - string
+              - 'null'
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+        trading_address:
+          type: object
+          properties:
+            city:
+              type: string
+            street:
+              type: string
+            country:
+              type: string
+            postal_code:
+              type: string
+            apartment_number:
+              type:
+              - string
+              - 'null'
+            building_name:
+              type:
+              - string
+              - 'null'
+            building_number:
+              type:
+              - string
+              - 'null'
+            state_or_province:
+              type:
+              - string
+              - 'null'
+          required:
+          - city
+          - street
+          - country
+          - postal_code
+        created_at:
+          type: string
+          format: date-time
+          description: Date the Business Information record was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Date the Business Information record was last updated.
+      required:
+      - business_country
+      - company_name
+      - legal_entity_type
+      - sector
+      - incorporation_date
+      - business_activity_description
+      - registered_address
     create_business_information_request:
       type: object
       properties:
@@ -878,158 +1030,6 @@ components:
       - sector
       - incorporation_date
       - registered_address_attributes
-    validation_error_response:
-      type: object
-      properties:
-        status:
-          type: string
-        error_code:
-          type: string
-        reason:
-          type: string
-        error_messages:
-          type: object
-      required:
-      - status
-      - error_code
-      - reason
-      - error_messages
-    business_information:
-      type:
-      - object
-      - 'null'
-      properties:
-        id:
-          type: string
-          description: Unique ID for the Business Information entity.
-        form_id:
-          type: string
-          description: Form UUID
-        document_ids:
-          type: array
-          description: List of IDs for any uploaded supporting documents.
-          items:
-            type: string
-        business_country:
-          description: The country the business is registered in.
-          type: string
-        company_name:
-          description: The company name.
-          type: string
-        trading_name:
-          description: The company's trading name.
-          type:
-          - string
-          - 'null'
-        legal_entity_type:
-          description: Company's legal entity type e.g. "limited_liability_company"
-          type: string
-        sector:
-          description: The primary sector the company operates in.
-          type: string
-        company_registration_number:
-          description: An official number that identifies the company.
-          type:
-          - string
-          - 'null'
-        vat_number:
-          description: The company's VAT number or Tax ID  number.
-          type:
-          - string
-          - 'null'
-        incorporation_date:
-          description: The date the company was incorporated.
-          type: string
-          format: date
-        business_website:
-          description: The company's website URL or other online presence.
-          type:
-          - string
-          - 'null'
-        business_activity_description:
-          description: Description of the company's activities.
-          type: string
-        registered_address:
-          description: The company's registered address.
-          type: object
-          properties:
-            city:
-              type: string
-            street:
-              type: string
-            country:
-              type: string
-            postal_code:
-              type: string
-            apartment_number:
-              type:
-              - string
-              - 'null'
-            building_name:
-              type:
-              - string
-              - 'null'
-            building_number:
-              type:
-              - string
-              - 'null'
-            state_or_province:
-              type:
-              - string
-              - 'null'
-          required:
-          - city
-          - street
-          - country
-          - postal_code
-        trading_address:
-          type: object
-          properties:
-            city:
-              type: string
-            street:
-              type: string
-            country:
-              type: string
-            postal_code:
-              type: string
-            apartment_number:
-              type:
-              - string
-              - 'null'
-            building_name:
-              type:
-              - string
-              - 'null'
-            building_number:
-              type:
-              - string
-              - 'null'
-            state_or_province:
-              type:
-              - string
-              - 'null'
-          required:
-          - city
-          - street
-          - country
-          - postal_code
-        created_at:
-          type: string
-          format: date-time
-          description: Date the Business Information record was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: Date the Business Information record was last updated.
-      required:
-      - business_country
-      - company_name
-      - legal_entity_type
-      - sector
-      - incorporation_date
-      - business_activity_description
-      - registered_address
   securitySchemes:
     AuthToken:
       type: apiKey
