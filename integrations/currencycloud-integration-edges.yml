@@ -6,14 +6,111 @@ source:
 - https://composio.dev/toolkits/currencycloud
 - https://monid.ai/tools/currencycloud
 checked:
+- https://api.nuget.org/v3
 - https://composio.dev/toolkits/currencycloud
+- https://crates.io/api/v1
 - https://monid.ai/tools/currencycloud
 - https://n8n.io/integrations/currencycloud/
+- https://proxy.golang.org
+- https://pypi.org/pypi
+- https://registry.npmjs.org
+- https://repo1.maven.org/maven2
+- https://rubygems.org/api/v1
 - https://www.currencycloud.com/partners/
 - https://www.currencycloud.com/technology/company-clients
 - https://www.make.com/en/integrations/currencycloud
 - https://zapier.com/apps/currencycloud/integrations
 summary: null
 marketplace_apps: []
-edges: []
+edges:
+- partner_name: Maven Central
+  partner: maven-central
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (Java/JVM)
+  evidence: https://central.sonatype.com/artifact/com.currencycloud.currencycloud-java/currencycloud-java
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: Maven Central (public registry JSON)
+    spec_file: null
+    language: Java/JVM
+    packages:
+    - name: com.currencycloud.currencycloud-java:currencycloud-java
+      version: 8.4.1
+      released: '2026-10-06'
+      released_field: lastUpdated
+      lapsed: false
+      page: https://central.sonatype.com/artifact/com.currencycloud.currencycloud-java/currencycloud-java
+      repo_leg: github-org:currencycloud
+      publisher_leg: groupId:currencycloud.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: npm registry
+  partner: npm
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (JavaScript/TypeScript)
+  evidence: https://www.npmjs.com/package/currency-cloud
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: npm registry (public registry JSON)
+    spec_file: null
+    language: JavaScript/TypeScript
+    packages:
+    - name: currency-cloud
+      version: 9.1.0
+      released: '2026-09-22'
+      released_field: modified
+      lapsed: false
+      page: https://www.npmjs.com/package/currency-cloud
+      repo_leg: domain:currencycloud.com
+      publisher_leg: email:currencycloud.com
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
+- partner_name: NuGet Gallery
+  partner: nuget
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: official SDK (.NET)
+  evidence: https://www.nuget.org/packages/CurrencyCloud
+  channel: package-registry
+  relationship: distribution-channel
+  contract_reference:
+    register: NuGet Gallery (public registry JSON)
+    spec_file: null
+    language: .NET
+    packages:
+    - name: CurrencyCloud
+      version: 10.0.0
+      released: '2026-09-22'
+      released_field: published
+      lapsed: false
+      page: https://www.nuget.org/packages/CurrencyCloud
+      repo_leg: github-org:currencycloud
+      publisher_leg: org:currencycloud
+      matched_by: github-org
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  detected_by: sweep-official-sdks.py
+  first_seen: '2026-10-18'
 templates: []
