@@ -20,6 +20,10 @@ checked:
 - https://www.currencycloud.com/technology/company-clients
 - https://www.make.com/en/integrations/currencycloud
 - https://zapier.com/apps/currencycloud/integrations
+- https://eservices.mas.gov.sg/fid
+- https://www.bi.go.id/id/layanan/informasi-perizinan/sistem-pembayaran/default.aspx
+- https://www.bnm.gov.my/list-of-regulatees
+- https://www.ojk.go.id/id/kanal/iknb/data-dan-statistik/direktori/fintech/Default.aspx
 summary: null
 marketplace_apps: []
 edges:
@@ -113,4 +117,34 @@ edges:
     detected: '2026-10-18'
   detected_by: sweep-official-sdks.py
   first_seen: '2026-10-18'
+- partner_name: MAS Financial Institutions Directory
+  partner: null
+  partner_match: register-name
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://eservices.mas.gov.sg/fid
+  category: open finance (Singapore)
+  contract_reference:
+    register: MAS Financial Institutions Directory
+    spec_file: null
+    standard: MAS licensing (Banking Act / Payment Services Act, Singapore)
+    role: licensed-participant
+    registrations:
+    - registered_name: CURRENCYCLOUD PTE. LTD.
+      licences:
+      - Major Payment Institution
+      matched_domain: null
+      matched_by: register-name
+      evidence: https://eservices.mas.gov.sg/fid/institution/detail/422818-CURRENCYCLOUD-PTE-LTD
+      register_id: 422818-CURRENCYCLOUD-PTE-LTD
+    signal_note: 'participation only: a regulator licence; no API conformance is published by this register'
+    detected_by: sweep-gulf-asean-open-finance.py
+    detected: '2026-10-20'
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  detected_by: sweep-gulf-asean-open-finance.py
+  first_seen: '2026-10-20'
 templates: []
