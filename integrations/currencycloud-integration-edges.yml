@@ -27,6 +27,11 @@ checked:
 - https://euclid.eba.europa.eu/register/api/filemetadata
 - https://euclid.eba.europa.eu/register/cir/search
 - https://euclid.eba.europa.eu/register/pir/search
+- https://www.bankofcanada.ca/core-functions/retail-payments-supervision/psp-registry/
+- https://www.bankofcanada.ca/rps-api/cif2/accounts/list
+- https://www.payments.ca/payment-resources/directories?field_directory_type=10
+- https://www.payments.ca/payment-resources/directories?field_directory_type=13
+- https://www.payments.ca/payment-resources/directories?field_directory_type=14
 summary: null
 marketplace_apps: []
 edges:
@@ -226,4 +231,80 @@ edges:
       P856 not contradicting (Kin 2026-10-20 decision 2)
   detected_by: sweep-eu-psd2-payment-institutions.py
   first_seen: '2026-10-21'
+- partner_name: Bank of Canada RPAA registry of payment service providers
+  partner: null
+  partner_match: register
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.bankofcanada.ca/core-functions/retail-payments-supervision/psp-registry/
+  category: Canadian retail payment activities (RPAA) PSP registration
+  contract_reference:
+    register: Bank of Canada RPAA registry of payment service providers
+    spec_file: null
+    standard: null
+    role: registered-psp
+    registrations:
+    - registered_name: The Currency Cloud Limited
+      register_status: registered
+      register_country: GB
+      register_id: 71abd917-c5a2-ef11-a72d-6045bd5d4e16
+      matched_domain: currencycloud.com
+      matched_by: domain
+      evidence_url: https://www.bankofcanada.ca/core-functions/retail-payments-supervision/psp-registry/psp-registry-details/?account_id=71abd917-c5a2-ef11-a72d-6045bd5d4e16
+      licences:
+      - RPAA registered PSP
+      registration_date: '2026-03-09'
+      head_office_country: United Kingdom of Great Britain and Northern Ireland (the)
+      payment_functions:
+      - Holding of funds on behalf of an end user until they are withdrawn by the end user or transferred to another
+        individual or entity
+      - The provision or maintenance of an account that, in relation to an electronic funds transfer, is held on
+        behalf of one or more end users
+      - The initiation of an electronic funds transfer at the request of an end user
+      - Authorization or Transmission, Reception or Facilitation of an instruction in relation to an electronic
+        funds transfer
+      has_violations: false
+    signal_note: 'participation only: a regulator registration / payment-system membership; no API conformance is
+      published by this register'
+    detected_by: sweep-canada-rpaa-psp-registry.py
+    detected: '2026-10-22'
+  detected_by: sweep-canada-rpaa-psp-registry.py
+  first_seen: '2026-10-22'
+- partner_name: Payments Canada members and payment system participants
+  partner: null
+  partner_match: register-name
+  type: register
+  channel: regulator-register
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://www.payments.ca/payment-resources/directories
+  category: Payments Canada membership / ACSS / Lynx participation
+  contract_reference:
+    register: Payments Canada members and payment system participants
+    spec_file: null
+    standard: null
+    role: payment-system-member
+    registrations:
+    - registered_name: The Currency Cloud Limited
+      register_status: member
+      register_country: CA
+      register_id: '712'
+      matched_domain: null
+      matched_by: register-name
+      licences:
+      - Payments Canada member
+      member_class: Payment service providers
+      register_name_note: register-name 'currencycloud' = currencycloud; no wikidata P856
+    signal_note: 'participation only: a regulator registration / payment-system membership; no API conformance is
+      published by this register'
+    detected_by: sweep-canada-rpaa-psp-registry.py
+    detected: '2026-10-22'
+    matched_by: register-name
+    identity_source: register-name
+    identity_note: register gave only the name; exact normalised match to the repo's apis.yml name, one repo, Wikidata
+      P856 not contradicting (Kin 2026-10-20 decision 2)
+  detected_by: sweep-canada-rpaa-psp-registry.py
+  first_seen: '2026-10-22'
 templates: []
